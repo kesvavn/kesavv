@@ -1,0 +1,375 @@
+.venue-section{
+  padding: 60px 0;
+  background: #f3f3f3;
+}
+
+.venue-box{
+  background: #000;
+  border-radius: 70px;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.venue-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px 10px;
+  grid-auto-flow: row;
+
+
+}
+.slider-box1 {
+    width: 100%;
+    height: 17vh;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.venue-img {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.4s;
+  
+}
+
+.venue-img:hover{
+  transform: scale(1.05);
+}
+
+.venue-content{
+  padding-left: 70px;
+  
+}
+
+.venue-content h2{
+     color: #FFF;
+    font-family: "Montserrat", Sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.3em;
+
+}
+
+.venue-content p{
+  color: #d9d9d9;
+  font-size: 20px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.venue-btn{
+  background: linear-gradient(to right, #d59cff, #8d57c8) !important;
+  border: none !important;
+  padding: 14px 40px !important;
+  border-radius: 50px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.venue-btn:hover{
+  transform: translateY(-2px);
+}
+
+.leaf-design{
+  color: #d9d9d9;
+  font-size: 120px;
+  opacity: 0.8;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE - 320px
+========================= */
+@media (max-width: 320px) {
+
+  /* SECTION */
+  .venue-section {
+    padding: 35px ;
+  }
+
+  /* BOX */
+  .venue-box {
+    padding: 20px;
+
+    border-radius: 25px;
+  }
+
+  /* GRID */
+  .venue-grid {
+    grid-template-columns: 1fr;
+
+  }
+
+  /* SLIDER BOX */
+  .slider-box1 {
+    width: 100%;
+
+    height: 30vh;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  /* IMAGE */
+  .venue-img {
+    width: 100%;
+
+    height: 10px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+  }
+
+  /* CONTENT */
+  .venue-content {
+    padding-left: 0;
+
+    padding-top: 20px;
+
+    text-align: center;
+  }
+
+  .venue-content h2 {
+    font-size: 22px;
+
+    line-height: 1.4;
+
+    margin-bottom: 12px;
+  }
+
+  .venue-content p {
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+  }
+
+  /* BUTTON */
+  .venue-btn {
+    width: 100%;
+
+    padding: 10px 18px !important;
+
+    font-size: 14px !important;
+
+    border-radius: 30px !important;
+  }
+
+  /* LEAF */
+  .leaf-design {
+    font-size: 55px;
+
+    margin-top: 15px;
+  }
+
+  /* OVERFLOW FIX */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  * {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE - 375px
+========================= */
+@media (max-width: 375px) {
+
+  /* SECTION */
+  .venue-section {
+    padding: 35px 10px;
+  }
+
+  /* BOX */
+  .venue-box {
+    padding: 20px;
+
+    border-radius: 25px;
+  }
+
+  /* GRID */
+  .venue-grid {
+    grid-template-columns: 1fr;
+   flex: auto;
+  }
+
+  /* SLIDER BOX */
+  .slider-box1 {
+    width: 100%;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  /* IMAGE */
+  .venue-img {
+    width: 100%;
+
+    height: 140px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+  }
+
+  /* CONTENT */
+  .venue-content {
+    padding-left: 0;
+
+    padding-top: 20px;
+
+    text-align: center;
+  }
+
+  .venue-content h2 {
+    font-size: 22px;
+
+    line-height: 1.4;
+
+    margin-bottom: 12px;
+  }
+
+  .venue-content p {
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+  }
+
+  /* BUTTON */
+  .venue-btn {
+    width: 100%;
+
+    padding: 10px 18px !important;
+
+    font-size: 14px !important;
+
+    border-radius: 30px !important;
+  }
+
+  /* LEAF */
+  .leaf-design {
+    font-size: 55px;
+
+    margin-top: 15px;
+  }
+
+  /* OVERFLOW FIX */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  * {
+    max-width: 100%;
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE - 425px
+========================= */
+@media (max-width: 425px) {
+
+  /* SECTION */
+  .venue-section {
+    padding: 35px 10px;
+  }
+
+  /* BOX */
+  .venue-box {
+    padding: 20px;
+
+    border-radius: 25px;
+  }
+
+  /* GRID */
+  .venue-grid {
+    grid-template-columns: 1fr;
+   flex: auto;
+  }
+
+  /* SLIDER BOX */
+  .slider-box1 {
+    width: 100%;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  /* IMAGE */
+  .venue-img {
+    width: 100%;
+
+    height: 140px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+  }
+
+  /* CONTENT */
+  .venue-content {
+    padding-left: 0;
+
+    padding-top: 20px;
+
+    text-align: center;
+  }
+
+  .venue-content h2 {
+    font-size: 22px;
+
+    line-height: 1.4;
+
+    margin-bottom: 12px;
+  }
+
+  .venue-content p {
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+  }
+
+  /* BUTTON */
+  .venue-btn {
+    width: 100%;
+
+    padding: 10px 18px !important;
+
+    font-size: 14px !important;
+
+    border-radius: 30px !important;
+  }
+
+  /* LEAF */
+  .leaf-design {
+    font-size: 55px;
+
+    margin-top: 15px;
+  }
+
+  /* OVERFLOW FIX */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  * {
+    max-width: 100%;
+  }
+}

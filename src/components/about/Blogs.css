@@ -1,0 +1,100 @@
+.blogs-section {
+  background-image: url("./ECP09582-scaled.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  background-attachment: fixed;
+  min-height: 90vh;
+      
+}
+
+.blogs-content {
+  position: relative;
+  z-index: 2;
+  margin:300px auto;
+  padding: 80px 20px; 
+}
+.blog-title {
+  color: white;
+  font-size: 52px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.blog-text {
+  color:white;
+  max-width: 700px;
+  margin: auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+.test-section {
+
+  height: 90vh;
+  background-image: url("./Haldi-Dhevaki-Adheesh4-03-01_17-40-05-107-scaled.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  bottom: 20px;
+  background-attachment: fixed;
+
+}
+.test-section {
+  position: relative;
+  min-height: 100vh;
+}
+
+.test-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.custom-navbar {
+  position: relative;
+  z-index: 2;
+}
+
+.test-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 120px;
+}
+
+.client-review-section {
+  text-align: center;
+}
+
+.client-review-subtitle {
+  color: #7b3f98;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.client-review-title {
+  font-size: 56px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 25px;
+}
+
+.client-review-text {
+  max-width: 850px;
+  margin: 0 auto;
+  color: #444;
+  font-size: 20px;
+  line-height: 1.8;
+}
+

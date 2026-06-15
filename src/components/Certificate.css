@@ -1,0 +1,111 @@
+.certificate-section {
+  background: #f8f3ec; /* light beige */
+  padding: 80px 20px;
+}
+
+.cert-badge {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+.cert-tag {
+  color: #c9a04e;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  
+}
+
+.cert-title {
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #000;
+  font-family: "Montserrat", Sans-serif;
+  font-size: 35px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.4em;
+
+}
+
+.cert-desc {
+  max-width: 1000px;
+  margin: 0 auto 15px;
+  font-size: 23px;
+  color: #444;
+  line-height: 1.7;
+  text-align: justify;
+  margin-block-end: .9rem;
+  margin-block-start: 0;
+}
+
+
+/* bottom decorative line */
+.cert-divider {
+  width: 120px;
+  height: 2px;
+  background: #b08a3c;
+  margin: 30px auto 0;
+  position: relative;
+}
+
+.cert-divider::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #b08a3c;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* 📱 Tablet */
+@media (max-width: 992px) {
+  .certificate-section {
+    padding: 60px 15px;
+  }
+
+  .cert-title {
+    font-size: 28px;
+  }
+
+  .cert-desc {
+    font-size: 17px;
+  }
+
+  .cert-badge {
+    width: 120px;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 576px) {
+  .certificate-section {
+    padding: 40px 10px;
+    text-align: center;
+  }
+
+  .cert-title {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .cert-tag {
+    font-size: 16px;
+  }
+
+  .cert-desc {
+    font-size: 15px;
+    text-align: left; /* 🔥 better readability */
+  }
+
+  .cert-badge {
+    width: 100px;
+  }
+
+  .cert-divider {
+    width: 80px;
+  }
+}

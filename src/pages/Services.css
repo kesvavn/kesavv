@@ -1,0 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#blogs, #test, #wedding, #party {
+  scroll-margin-top: 80px;
+}

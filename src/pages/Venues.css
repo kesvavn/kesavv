@@ -1,0 +1,200 @@
+.venues-bg {
+  height: 90vh;
+  background-image: url("../components/events/valapad-beach-wedding-Thrissur-kerala.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  bottom: 20px;
+  background-attachment: fixed;
+}
+
+/* ✅ Overlay */
+.venues-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(54, 53, 53, 0.5);
+  z-index: 1;
+}
+
+/* ✅ Make content appear above overlay */
+.venues-bg * {
+  position: relative;
+  z-index: 2;
+}
+
+.venue-head {
+    color: #FFF;
+    font-family: "Montserrat", Sans-serif;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.venue-txt {
+  font-style:  italic;
+  color: white;
+  margin-top: 5px;
+  text-align: left;
+  color: #F2F2F2;
+  font-family: "Jost", Sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+
+}
+.venue-img {
+  width: 80%;
+  height: 50vh;
+  object-fit: cover;
+  margin: auto;
+}
+
+.venue-img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.venue-col p{
+  text-align: justify;
+    font-family: "Jost", Sans-serif;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 1.6em;
+}
+.venue-col {
+  flex: 1;
+  padding: 20px;
+}
+.venue-col h2{
+  text-align: unset;
+    font-family: "Jost", Sans-serif;
+    font-size: 39px;
+    font-weight: 600;
+}
+
+
+.venue-filter-section{
+  padding: 60px 0;
+}
+
+.filter-bar{
+  background: linear-gradient(90deg,#6a3f8f,#c09add);
+  padding: 15px;
+  border-radius: 50px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-bar select {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 18px;
+  min-width: 250px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-bar {
+  position: relative;
+  z-index: 9999;
+  overflow: visible;
+}
+
+.venue-filter-section {
+  overflow: visible;
+}
+.filter-title{
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.filter-bar select,
+.filter-bar input{
+  flex: 1;
+  min-width: 220px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  padding: 0 20px;
+  outline: none;
+}
+
+.venue-card{
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  transition: .3s;
+}
+
+.venue-card:hover{
+  transform: translateY(-5px);
+}
+
+.venue-card img{
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.venue-card-body{
+  padding: 20px;
+}
+
+.rating{
+  color: #f5b301;
+  margin-bottom: 10px;
+}
+
+.venue-card-body h4{
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.location{
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.btn-group-custom{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.price-btn{
+  background: #8a5bb6;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+}
+
+.whatsapp-btn{
+  background: #1db954;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+}
+
+@media(max-width:768px){
+
+  .filter-bar{
+    border-radius: 20px;
+  }
+
+  .filter-title{
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-bar select,
+  .filter-bar input{
+    width: 100%;
+  }
+
+}

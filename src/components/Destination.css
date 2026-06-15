@@ -1,0 +1,263 @@
+.destination-section {
+ width: 80%;
+background-color: rgb(66, 63, 63);
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  border-radius: 20px;
+
+}
+
+/* Title */
+.dest-title {
+
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Text */
+.dest-text {
+  max-width: 500px;
+  margin: auto;
+  font-size: 16px;
+  line-height: 1.7;
+  color: white;
+  text-align: justify;
+  
+}
+
+/* Buttons container */
+.dest-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+
+/* Buttons */
+#call-btn {
+  background:linear-gradient( right, #a855f7, #d1a8f7);
+  border: none;
+  border: 3px solid white;
+  border-radius: 25px;
+  padding: 10px 25px;
+}
+
+#whatsapp-btn {
+  background: #25d366;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+}
+
+/* Hover */
+.call-btn:hover {
+  background: #a8833d;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+}
+.destination {
+      margin: auto;
+      
+}
+
+
+
+/* Default */
+.destination-section{
+  width:100%;
+  max-width:700px;
+  background-color:rgb(66, 63, 63);
+  color:white;
+  padding:80px 30px;
+  text-align:center;
+  border-radius:20px;
+}
+
+.dest-title{
+  font-size:32px;
+  line-height:1.4;
+  margin-bottom:20px;
+}
+
+.dest-text{
+  max-width:500px;
+  margin:auto;
+  font-size:16px;
+  line-height:1.7;
+  text-align:justify;
+}
+
+/* =========================
+   320px
+========================= */
+@media (max-width: 320px) {
+
+  .destination-section {
+    width: 95%;
+    padding: 30px 15px;
+    border-radius: 15px;
+  }
+
+  .dest-title {
+    font-size: 22px;
+  }
+
+  .dest-text {
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .dest-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #call-btn,
+  #whatsapp-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   375px
+========================= */
+@media (min-width: 321px) and (max-width: 375px) {
+
+  .destination-section {
+    width: 95%;
+    padding: 40px 20px;
+  }
+
+  .dest-title {
+    font-size: 24px;
+  }
+
+  .dest-text {
+    font-size: 14px;
+  }
+
+  #call-btn,
+  #whatsapp-btn {
+    width: 100%;
+  }
+}
+
+/* =========================
+   425px
+========================= */
+@media (min-width: 376px) and (max-width: 425px) {
+
+  .destination-section {
+    width: 95%;
+    padding: 50px 20px;
+  }
+
+  .dest-title {
+    font-size: 26px;
+  }
+
+  .dest-text {
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   768px
+========================= */
+@media (min-width: 426px) and (max-width: 768px) {
+
+  .destination-section {
+    width: 90%;
+    padding: 60px 25px;
+  }
+
+  .dest-title {
+    font-size: 28px;
+  }
+
+  .dest-text {
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   1024px
+========================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .destination-section {
+    width: 85%;
+  }
+}
+
+/* =========================
+   1440px
+========================= */
+@media (min-width: 1440px) {
+
+  .destination-section {
+    max-width: 900px;
+  }
+
+  .dest-title {
+    font-size: 40px;
+  }
+
+  .dest-text {
+    font-size: 18px;
+  }
+}
+
+/* =========================
+   2K
+========================= */
+@media (min-width: 2560px) {
+
+  .destination-section {
+    max-width: 1200px;
+    padding: 100px 50px;
+  }
+
+  .dest-title {
+    font-size: 52px;
+  }
+
+  .dest-text {
+    font-size: 24px;
+  }
+}
+
+/* =========================
+   4K
+========================= */
+@media (min-width: 3840px) {
+
+  .destination-section {
+    max-width: 1600px;
+    padding: 120px 70px;
+  }
+
+  .dest-title {
+    font-size: 70px;
+  }
+
+  .dest-text {
+    font-size: 30px;
+  }
+
+  #call-btn,
+  #whatsapp-btn {
+    font-size: 24px;
+    padding: 18px 40px;
+  }
+}

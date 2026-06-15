@@ -1,0 +1,116 @@
+.hero-bg {
+  height: 90vh;
+  background-image: url("/src/images/pexels-krishna-studio-5200435_15_185637-162346933677604.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  bottom: 20px;
+  background-attachment: fixed;
+}
+
+/* overlay for readability */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(94, 92, 92, 0.5);
+}
+
+/* keep content above overlay */
+.hero-bg .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* text */
+.about-heading {
+  font-size: 60px;
+  font-weight: 500;
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.about-text {
+  color: #ddd;
+  font-size: 20px;
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+.about-paragraph {
+    text-align: justify;
+    font-family: "Jost", Sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4em;
+
+}
+.about-image {
+  max-width: 60%;
+  height: 50%;
+  border-radius: 8px;
+}
+.profile-img {
+  width: auto;
+ 
+  height: 90vh;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .hero-bg {
+    height: 80vh;
+  }
+
+  .about-heading {
+    font-size: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .hero-bg {
+    height: 70vh;
+    text-align: center;
+  }
+
+  .about-heading {
+    font-size: 22px;
+  }
+
+  .about-text {
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+.about-section {
+  margin-top: 40px;
+}
+
+.profile-img {
+  width: auto;
+
+  height: 90vh;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* mobile responsive */
+@media (max-width: 768px) {
+  .about-section {
+    text-align: center;
+  }
+
+  .profile-img {
+    margin-top: 20px;
+  }
+}

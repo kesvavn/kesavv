@@ -1,0 +1,111 @@
+/* Section */
+.video-section {
+  padding: 60px 0;
+  background: white;
+}
+
+.video-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  aspect-ratio: 16 / 10;
+  position: relative;
+}
+
+/* Thumbnail */
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Image */
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay */
+.video-thumbnail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* 🔴 Play button */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: 0.3s;
+}
+
+.play-btn i {
+  color: white;
+  font-size: 30px;
+}
+
+/* Hover effect (desktop) */
+.video-thumbnail:hover .play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Video */
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .video-section {
+    padding: 40px 10px;
+  }
+
+  .play-btn {
+    width: 55px;
+    height: 55px;
+  }
+
+  .play-btn i {
+    font-size: 20px;
+  }
+}
+
+/* 💻 Desktop */
+@media (min-width: 1024px) {
+  .video-wrapper {
+    max-width: 1100px;
+  }
+
+  .video-section {
+    padding: 80px 0;
+  }
+
+  .play-btn {
+    width: 90px;
+    height: 90px;
+  }
+
+  .play-btn i {
+    font-size: 34px;
+  }
+}

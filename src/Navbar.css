@@ -1,0 +1,436 @@
+/* =========================
+   HERO
+========================= */
+.hero{
+    position: relative;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.custom-navbar{
+    position: absolute;
+    top: 20px;
+    left: 48%;
+    transform: translateX(-50%);
+    width: 75%;
+    z-index: 9999;
+
+    padding: 12px 25px;
+    border-radius: 100px;
+}
+
+.custom-navbar .dropdown{
+    position: relative;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.custom-navbar .container-fluid{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =========================
+/* Logo closer to menu */
+.logo{
+    margin-right: 15px !important;
+}
+
+.logo-img{
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Menu starts closer to logo */
+.nav-center{
+    justify-content: flex-start;
+    margin-left: 10px;
+}
+
+/* =========================
+   COLLAPSE
+========================= */
+.custom-navbar .navbar-collapse{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+/* =========================
+   CENTER MENU
+========================= */
+.nav-center{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+/* =========================
+   NAV ITEMS
+========================= */
+.custom-navbar .navbar-nav{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* LINKS */
+.custom-navbar .nav-link,
+.custom-navbar .dropdown-toggle{
+    color: #fff !important;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 6px 8px !important;
+    margin: 0;
+    position: relative;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+/* UNDERLINE EFFECT */
+.custom-navbar .nav-link::before,
+.custom-navbar .dropdown-toggle::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.custom-navbar .nav-link:hover::before,
+.custom-navbar .dropdown-toggle:hover::before{
+    width: 100%;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .dropdown-toggle:hover{
+    color: #fff !important;
+}
+
+/* =========================
+   RIGHT SECTION
+========================= */
+.right-section{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+/* PHONE BUTTON */
+#phone-btn {
+    font-size: 16px;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    color: #fff;
+    padding: 8px 24px;
+    background-image: linear-gradient(
+        #f2eaea,
+        #b488cf,
+        #674188
+    );
+    text-decoration: none;
+    white-space: nowrap;
+    margin-left: 25px;
+}
+
+/* MENU BUTTON */
+.menu-login-btn{
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 24px;
+    padding: 0;
+}
+
+
+.custom-navbar .dropdown-menu{
+    position: absolute !important;
+    z-index: 9999999 !important;
+
+    background: rgba(38, 38, 38, 0.85) !important;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0;
+    padding: 8px 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+
+    pointer-events: auto !important;
+}
+
+
+.custom-navbar .dropdown-item{
+    position: relative;
+    z-index: 9999999 !important;
+
+    color: #fff !important;
+    font-size: 14px;
+    padding: 10px 20px;
+    background: transparent;
+}
+
+.hero-content,
+.hero h1,
+.hero h2,
+.hero p,
+.carousel,
+.carousel-item,
+.banner,
+.video-section{
+    position: relative;
+    z-index: 1 !important;
+}
+
+.custom-navbar .dropdown-item:hover,
+.custom-navbar .dropdown-item:focus{
+    background: rgba(255,255,255,0.1);
+    color: #fff !important;
+}
+
+/* =========================
+   TOGGLER
+========================= */
+.navbar-toggler{
+    border: 2px solid #fff !important;
+}
+
+.navbar-toggler:focus{
+    box-shadow: none !important;
+}
+
+.navbar-toggler-icon{
+    filter: invert(1);
+}
+
+/* CLOSE BUTTON */
+.close-menu{
+    display: none;
+}
+
+
+/* =========================
+   MOBILE & TABLET (0px - 768px)
+========================= */
+@media (max-width: 768px) {
+
+  .custom-navbar {
+    width: 95%;
+    padding: 8px 12px;
+    border-radius: 50px;
+  }
+
+  .logo-img {
+    height: 45px;
+  }
+
+  .navbar-toggler {
+    padding: 4px 8px;
+  }
+
+  .custom-navbar .navbar-collapse {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 65vh;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 70px 20px 20px;
+    overflow-y: auto;
+    z-index: 99999;
+
+    display: none !important;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .custom-navbar .navbar-collapse.show {
+    display: flex !important;
+  }
+
+  /* Close Button */
+  .close-menu {
+    display: block !important;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 100000;
+  }
+
+  /* Menu */
+  .nav-center {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin-left: 0;
+  }
+
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-toggle {
+    width: 100%;
+    padding: 6px 0 !important;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  /* Dropdown */
+  .custom-navbar .dropdown {
+    width: 100%;
+  }
+
+  .custom-navbar .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    width: 100%;
+    background: #f8f9fa;
+    margin-top: 5px !important;
+    border-radius: 8px;
+  }
+
+  .custom-navbar .dropdown-item {
+    color: #333;
+    padding: 10px 15px;
+  }
+
+  /* Phone Button Bottom */
+  .right-section {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    order: 999;
+  }
+
+  #phone-btn {
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .menu-login-btn {
+    display: none;
+  }
+}
+
+/* =========================
+   EXTRA SMALL MOBILE (320px)
+========================= */
+@media (max-width: 320px) {
+
+  .logo-img {
+    height: 38px;
+  }
+
+  .custom-navbar {
+    padding: 6px 10px;
+  }
+
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-toggle {
+    font-size: 14px;
+  }
+
+  #phone-btn {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   LAPTOP (769px - 1024px)
+========================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .custom-navbar {
+    width: 95%;
+    padding: 10px 15px;
+  }
+
+  .logo-img {
+    height: 65px;
+  }
+
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-toggle {
+    font-size: 16px;
+  }
+
+  #phone-btn {
+    font-size: 16px;
+    padding: 8px 18px;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP (1440px+)
+========================= */
+@media (min-width: 1440px) {
+
+  .custom-navbar {
+    width: 70%;
+  }
+
+  .logo-img {
+    height: 90px;
+  }
+
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-toggle {
+    font-size: 20px;
+  }
+
+  #phone-btn {
+    font-size: 20px;
+  }
+}
+
+/* =========================
+   2K / QHD (2560px+)
+========================= */
+@media (min-width: 2560px) {
+
+  .custom-navbar {
+    width: 60%;
+    top: 30px;
+    padding: 18px 35px;
+  }
+
+  .logo-img {
+    height: 110px;
+  }
+
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-toggle {
+    font-size: 24px;
+    padding: 8px 12px !important;
+  }
+
+  .right-section {
+    gap: 20px;
+  }
+
+  #phone-btn {
+    font-size: 24px;
+    padding: 12px 30px;
+  }
+
+  .menu-login-btn {
+    font-size: 30px;
+  }
+}

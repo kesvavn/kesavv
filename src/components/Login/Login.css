@@ -1,0 +1,163 @@
+.tick-icon {
+  position: absolute;
+  right: 15px;
+  top: 43px;
+  color: limegreen;
+  font-size: 20px;
+}
+
+.login-btn {
+  background: #a855f7 !important;
+  border: none !important;
+  border-radius: 30px !important;
+  padding: 10px !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  background: white !important;
+  color: #a855f7 !important;
+  border: 2px solid #a855f7 !important;
+}
+
+.signup-text {
+  font-size: 14px;
+  text-align: center;
+  color: #555;
+}
+
+
+.login-sidebar {
+  width: 420px !important;
+}
+
+.login-top h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.login-top p {
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.input-box label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  height: 55px;
+  border-radius: 14px;
+  padding-left: 45px;
+  padding-right: 45px;
+  border: 2px solid #ddd;
+  transition: 0.3s ease;
+}
+
+.input-wrapper input:focus {
+  box-shadow: none;
+  border-color: #a855f7;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  z-index: 10;
+}
+
+.status-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.success {
+  color: limegreen;
+}
+
+.error {
+  color: red;
+}
+
+.valid {
+  border-color: limegreen !important;
+}
+
+.invalid {
+  border-color: red !important;
+}
+
+.login-btn {
+  height: 55px;
+  border: none !important;
+  border-radius: 14px !important;
+  background: linear-gradient(45deg, #a855f7, #9333ea) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.google-btn {
+  height: 55px;
+  border-radius: 14px !important;
+  background: white !important;
+  border: 2px solid #ddd !important;
+  color: #333 !important;
+  font-weight: 600 !important;
+}
+
+.google-btn:hover {
+  border-color: #a855f7 !important;
+  color: #a855f7 !important;
+}
+
+.forgot-box {
+  text-align: right;
+}
+
+.forgot-box a {
+  text-decoration: none;
+  color: #a855f7;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.signup-box {
+  text-align: center;
+}
+
+.signup-box span {
+  color: #a855f7;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 576px) {
+
+  .login-sidebar {
+    width: 100% !important;
+  }
+
+  .login-top h2 {
+    font-size: 26px;
+  }
+}
+

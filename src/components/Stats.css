@@ -1,0 +1,130 @@
+.statistics-section {
+  color: #fff;
+  padding: 60px 0;
+}
+
+.statistics-number {
+  font-size: 69px;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.statistics-label {
+  color: #766d6d;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+/* =========================
+   320px
+========================= */
+@media (max-width: 320px) {
+
+  .statistics-number {
+    font-size: 32px;
+  }
+
+  .statistics-label {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   375px
+========================= */
+@media (min-width: 321px) and (max-width: 375px) {
+
+  .statistics-number {
+    font-size: 38px;
+  }
+
+  .statistics-label {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   425px
+========================= */
+@media (min-width: 376px) and (max-width: 425px) {
+
+  .statistics-number {
+    font-size: 42px;
+  }
+
+  .statistics-label {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   768px
+========================= */
+@media (min-width: 426px) and (max-width: 768px) {
+
+  .statistics-number {
+    font-size: 52px;
+  }
+
+  .statistics-label {
+    font-size: 16px;
+  }
+}
+
+/* =========================
+   1024px
+========================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .statistics-number {
+    font-size: 60px;
+  }
+
+  .statistics-label {
+    font-size: 18px;
+  }
+}
+
+/* =========================
+   1440px+
+========================= */
+@media (min-width: 1440px) {
+
+  .statistics-number {
+    font-size: 80px;
+  }
+
+  .statistics-label {
+    font-size: 22px;
+  }
+}
+
+/* =========================
+   2K
+========================= */
+@media (min-width: 2560px) {
+
+  .statistics-number {
+    font-size: 110px;
+  }
+
+  .statistics-label {
+    font-size: 28px;
+  }
+}
+
+/* =========================
+   4K
+========================= */
+@media (min-width: 3840px) {
+
+  .statistics-number {
+    font-size: 150px;
+  }
+
+  .statistics-label {
+    font-size: 40px;
+  }
+}
