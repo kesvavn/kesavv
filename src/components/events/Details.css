@@ -139,7 +139,7 @@
 ========================= */
 @media (max-width: 320px) {
   .details-bg {
-    height: 40vh;
+    height: 80vh;
   }
 
   .text-white {
