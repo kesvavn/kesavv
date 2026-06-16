@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useEffect } from "react";
-import "./Events.css";
+import "./Details.css";
 import MyNavbar from "../../Navbar";
 import grand from "../events/grand.jpg";
 

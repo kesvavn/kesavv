@@ -1,0 +1,157 @@
+.details-bg {
+  background-image: url("../events/waiting-room-with-monitors.webp");
+  background-size: cover;
+  background-position: center;
+  height: 85vh;
+  position: relative;
+  top: -20px;
+   background-attachment: fixed
+}
+
+/* overlay */
+.details-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* content above overlay */
+.details-bg .container {
+  position: relative;
+  z-index: 1;
+}
+.text-white {
+  font-size: 50px;
+  font-weight: 300;
+  font-family: 'Arial Narrow Bold', sans-serif;
+}
+.text-para{
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  font-family: 'Arial Narrow', sans-serif;
+}
+
+.text-para1{
+  color: black;
+  font-size: 18px;
+  font-weight: 100;
+  font-family: "Jost", Sans-serif;
+  line-height: 1.4em;
+  text-align: justify;
+}
+
+
+
+/* =========================
+   1024px - Laptop
+========================= */
+@media (max-width: 1024px) {
+  .details-bg {
+    height: 70vh;
+    background-attachment: scroll;
+  }
+
+  .text-white {
+    font-size: 42px;
+  }
+
+  .text-para {
+    font-size: 18px;
+  }
+
+  .text-para1 {
+    font-size: 17px;
+  }
+}
+
+/* =========================
+   768px - Tablet
+========================= */
+@media (max-width: 768px) {
+  .details-bg {
+    height: 60vh;
+    background-attachment: scroll;
+    top: 0;
+  }
+
+  .text-white {
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .text-para {
+    font-size: 17px;
+    text-align: center;
+  }
+
+  .text-para1 {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+/* =========================
+   425px - Large Mobile
+========================= */
+@media (max-width: 425px) {
+  .details-bg {
+    height: 50vh;
+  }
+
+  .text-white {
+    font-size: 28px;
+  }
+
+  .text-para {
+    font-size: 15px;
+  }
+
+  .text-para1 {
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   375px - Mobile
+========================= */
+@media (max-width: 375px) {
+  .details-bg {
+    height: 45vh;
+  }
+
+  .text-white {
+    font-size: 24px;
+  }
+
+  .text-para {
+    font-size: 14px;
+  }
+
+  .text-para1 {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   320px - Small Mobile
+========================= */
+@media (max-width: 320px) {
+  .details-bg {
+    height: 40vh;
+  }
+
+  .text-white {
+    font-size: 20px;
+  }
+
+  .text-para {
+    font-size: 13px;
+  }
+
+  .text-para1 {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
