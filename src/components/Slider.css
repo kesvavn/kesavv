@@ -83,17 +83,17 @@ body {
 }
 
 /* =========================
-   320px
+   320px - Small Mobile
 ========================= */
-@media (max-width: 320px) {
+@media screen and (max-width: 320px) {
   .slider {
-    height: 60vh;
-    min-height: 400px;
+    height: 50vh;
+    min-height: 300px;
   }
 
   .slide {
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
   }
 }
