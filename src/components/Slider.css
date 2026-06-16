@@ -82,79 +82,67 @@ body {
   overflow-x: hidden;
 }
 
+
 /* =========================
    320px - Small Mobile
 ========================= */
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
   .slider {
     height: 50vh;
     min-height: 300px;
   }
-
-  .slide {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
 }
 
 /* =========================
-   375px
+   375px - Mobile
 ========================= */
 @media (min-width: 321px) and (max-width: 375px) {
-
   .slider {
-    height: 130vh;
+    height: 60vh;
   }
 }
 
 /* =========================
-   425px
+   425px - Large Mobile
 ========================= */
 @media (min-width: 376px) and (max-width: 425px) {
-
   .slider {
-    height: 140vh;
+    height: 70vh;
   }
 }
 
 /* =========================
-   768px
+   768px - Tablet
 ========================= */
 @media (min-width: 426px) and (max-width: 768px) {
-
   .slider {
-    height: 150vh;
+    height: 80vh;
   }
 }
 
 /* =========================
-   1024px
+   1024px - Laptop
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
-
-  .slider {
-    height: 160vh;
-  }
-}
-
-/* =========================
-   1440px
-========================= */
-@media (min-width: 1440px) {
-
   .slider {
     height: 90vh;
   }
 }
 
 /* =========================
-   2560px (2K)
+   1440px - Desktop
 ========================= */
-@media (min-width: 2560px) {
-
+@media (min-width: 1025px) and (max-width: 1440px) {
   .slider {
-    height: 180vh;
+    height: 90vh;
   }
 }
 
+/* =========================
+   2560px - Large Desktop
+========================= */
+@media (min-width: 1441px) and (max-width: 2560px) {
+  .slider {
+    height: 100vh;
+  }
+}
