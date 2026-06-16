@@ -80,9 +80,7 @@ function Venues() {
             </h2>
 
             <p className="mt-3">
-              Melodia Event Management introduces Kerala’s venues,
-              offering lush greenery, breathtaking beauty,
-              and world-class amenities.
+              Melodia Event Management introduces Kerala’s venues, offering lush greenery, breathtaking beauty, and world-class amenities. These venues provide modern facilities and luxurious settings, making Kerala the perfect location for events
             </p>
           </Col>
 
@@ -96,8 +94,7 @@ function Venues() {
 
           <Col md={12} className="venue-col mt-4">
             <p>
-              Find the best event and wedding venues in Kerala with
-              Melodia Event Management.
+              Find the best event and wedding venues in Kerala with Melodia Event Management. We offer expert event management services for luxurious, traditional, and modern weddings, as well as corporate and private parties. Discover 300+ event venues with stunning locations. Use the smart filters below to explore and book your dream event and wedding venues in Kerala by location and venue type now!
             </p>
           </Col>
 

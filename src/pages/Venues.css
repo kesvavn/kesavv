@@ -44,7 +44,7 @@
 }
 .venue-img {
   width: 80%;
-  height: 50vh;
+  height: 35vh;
   object-fit: cover;
   margin: auto;
 }
@@ -57,9 +57,10 @@
 .venue-col p{
   text-align: justify;
     font-family: "Jost", Sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 200;
     line-height: 1.6em;
+    color: #666;
 }
 .venue-col {
   flex: 1;
