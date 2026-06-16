@@ -148,10 +148,11 @@
 
   .text-para {
     font-size: 13px;
+    display: none;
   }
 
   .text-para1 {
-    font-size: 13px;
+    font-size: 3px;
     line-height: 1.5;
   }
 }

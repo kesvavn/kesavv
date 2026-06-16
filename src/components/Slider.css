@@ -124,7 +124,7 @@ body {
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
   .slider {
-    height: 80vh;
+    height: 140vh;
   }
 }
 
@@ -133,7 +133,7 @@ body {
 ========================= */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .slider {
-    height: 90vh;
+    height: 150vh;
   }
 }
 
