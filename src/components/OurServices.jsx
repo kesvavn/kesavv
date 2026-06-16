@@ -23,13 +23,7 @@ function OurServices() {
       <p className="description">
 Melodia® Event Management is an ISO 9001:2015 certified event management company providing services exclusively throughout the entire state of Kerala, South India. We provide comprehensive event management services, including venue selection, personal event planning, corporate events and conferences, private parties, trade exhibitions, virtual event management, destination Events, and entertaining stage shows across Kerala. Feel free to contact us      </p>
 
-      <div className="divider">
-        <img
-    src="./src/images/58cb37cd-b70a-4c5b-b8f9-4fc4d20bd3a0.svg"
-     alt="divider"
-     className="divider-img"
-     />
-      </div>
+    
 
       <div className="services-grid">
 

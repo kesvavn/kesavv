@@ -82,10 +82,10 @@
 }
 
 .divider-img {
-  width: 250px;      /* desktop */
+  width: 200px;      /* desktop */
   max-width: 100%;
   height: auto;
-  display: block;
+  display: none;
   margin: 30px auto; /* center */
 }
 
@@ -130,10 +130,8 @@
     padding: 20px;
   }
 
-  .divider-img {
-    width: 120px;
   }
-}
+
 
 /* =========================
    375px
@@ -160,7 +158,6 @@
     width: 100%;
   }
   
-
 }
 
 /* =========================
