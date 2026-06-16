@@ -277,6 +277,7 @@ color: white;
 
   .main-heading {
     font-size: 22px;
+    justify-content: left;
   }
 
   .review-img {
@@ -289,12 +290,18 @@ color: white;
   }
 
   #contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 12px;
-    padding: 8px 16px;
+    padding: 8px 10px;
   }
 
   .stats-section h2 {
     font-size: 32px;
+  }
+  .top-text1{
+    display: none;
   }
 }
 

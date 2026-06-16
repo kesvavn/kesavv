@@ -60,57 +60,152 @@
   background-position: center;
 }
 
-/* Tablet */
-@media (max-width: 992px) {
-  .hero-bg {
-    height: 80vh;
-  }
-
+/* =========================
+   2560px - Large Desktop
+========================= */
+@media (max-width: 2560px) {
   .about-heading {
-    font-size: 30px;
+    font-size: 70px;
   }
 }
 
-/* Mobile */
-@media (max-width: 576px) {
+/* =========================
+   1440px - Desktop
+========================= */
+@media (max-width: 1440px) {
+  .about-heading {
+    font-size: 60px;
+  }
+}
+
+/* =========================
+   1024px - Laptop
+========================= */
+@media (max-width: 1024px) {
   .hero-bg {
-    height: 70vh;
-    text-align: center;
+    height: auto;
+    min-height: 70vh;
   }
 
   .about-heading {
-    font-size: 22px;
+    font-size: 50px;
+  }
+
+  .about-text {
+    font-size: 18px;
+  }
+
+  .about-paragraph {
+    font-size: 18px;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* =========================
+   768px - Tablet
+========================= */
+@media (max-width: 768px) {
+  .hero-bg {
+    min-height: 60vh;
+    background-attachment: scroll;
+    padding: 40px 0;
+  }
+
+  .about-heading {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .about-text {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .about-paragraph {
+    font-size: 16px;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+  }
+}
+
+/* =========================
+   425px - Large Mobile
+========================= */
+@media (max-width: 425px) {
+  .hero-bg {
+    min-height: 55vh;
+    padding: 30px 0;
+  }
+
+  .about-heading {
+    font-size: 32px;
+  }
+
+  .about-text {
+    font-size: 15px;
+  }
+
+  .about-paragraph {
+    font-size: 15px;
+  }
+
+  .profile-img {
+    max-height: 320px;
+  }
+}
+
+/* =========================
+   375px - Mobile
+========================= */
+@media (max-width: 375px) {
+  .about-heading {
+    font-size: 28px;
   }
 
   .about-text {
     font-size: 14px;
   }
-}
 
-
-
-
-
-.about-section {
-  margin-top: 40px;
-}
-
-.profile-img {
-  width: auto;
-
-  height: 90vh;
-  border-radius: 20px;
-  background-size: cover;
-  background-position: center;
-}
-
-/* mobile responsive */
-@media (max-width: 768px) {
-  .about-section {
-    text-align: center;
+  .about-paragraph {
+    font-size: 14px;
   }
 
   .profile-img {
-    margin-top: 20px;
+    max-height: 280px;
+  }
+}
+
+/* =========================
+   320px - Small Mobile
+========================= */
+@media (max-width: 320px) {
+  .hero-bg {
+    min-height: 50vh;
+    padding: 20px 0;
+  }
+
+  .about-heading {
+    font-size: 24px;
+  }
+
+  .about-text {
+    font-size: 13px;
+  }
+
+  .about-paragraph {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .profile-img {
+    max-height: 240px;
   }
 }

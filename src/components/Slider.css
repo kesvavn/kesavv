@@ -86,14 +86,15 @@ body {
    320px
 ========================= */
 @media (max-width: 320px) {
-
   .slider {
-    height: 120vh;
+    height: 60vh;
+    min-height: 400px;
   }
 
   .slide {
-    background-position: center center;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
