@@ -17,7 +17,6 @@ function PhotoGallery() {
       "https://images.unsplash.com/photo-1511285560929-80b456fea0bc",
       "https://images.unsplash.com/photo-1469371670807-013ccf25f16a",
       "https://images.unsplash.com/photo-1519225421980-715cb0215aed",
-      "https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21f",
     ],
 
     corporate: [
@@ -50,7 +49,6 @@ function PhotoGallery() {
     other: [
       "https://images.unsplash.com/photo-1503428593586-e225b39bddfe",
       "https://images.unsplash.com/photo-1511988617509-a57c8a288659",
-      "https://images.unsplash.com/photo-1485879136085-498c6f99c1f1",
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
       "https://images.unsplash.com/photo-1493246507139-91e8fad9978e",
       "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7",
@@ -133,9 +131,7 @@ function PhotoGallery() {
                 </div>
               </Col>
             ))}
-
           </Row>
-
         </Container>
       </section>
     </>
