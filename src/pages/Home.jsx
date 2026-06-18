@@ -106,7 +106,7 @@ function Home() {
       </div>
 
       <OurServices />
-      <Testimonials />
+      <Testimonials /><br />
       <ContactSection />
       <FeaturedSection />
       <BlogSection />

@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
     "aos": "^2.3.4",
+    "axios": "^1.18.0",
     "bootstrap": "^5.3.8",
     "firebase": "^12.13.0",
     "react": "^19.2.4",

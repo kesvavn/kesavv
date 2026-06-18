@@ -65,7 +65,7 @@
 @media (min-width: 426px) and (max-width: 768px) {
 
   .statistics-number {
-    font-size: 52px;
+    font-size: 50px;
   }
 
   .statistics-label {
@@ -79,7 +79,7 @@
 @media (min-width: 769px) and (max-width: 1024px) {
 
   .statistics-number {
-    font-size: 60px;
+    font-size: 50px;
   }
 
   .statistics-label {
@@ -93,7 +93,7 @@
 @media (min-width: 1440px) {
 
   .statistics-number {
-    font-size: 80px;
+    font-size: 60px;
   }
 
   .statistics-label {

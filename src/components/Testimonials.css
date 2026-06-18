@@ -64,7 +64,6 @@
   text-align: left;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
   transition: 0.4s ease;
-
   min-height: 240px; /* smaller height */
   width: 100%;
   display: flex;
@@ -181,6 +180,7 @@
   margin: 0;
   font-size: 20px;
   font-weight: 600;
+  
 }
 
 .user span {
@@ -208,170 +208,99 @@
   font-weight: bold;
 }
 
-
 /* =========================
-   320px
+   4K (3840px+)
 ========================= */
-@media (max-width: 320px) {
+@media (min-width: 3840px) {
 
   .testimonials {
-    bottom: 40px;
-    padding: 40px 15px;
+    bottom: 150px;
+    padding: 120px 8%;
   }
 
   .sub {
-    font-size: 14px;
+    font-size: 40px;
+    letter-spacing: 3px;
   }
 
   .main {
-    font-size: 26px;
+    font-size: 120px;
+    line-height: 1.2;
+    margin-bottom: 50px;
   }
 
   .divider-img {
-    width: 120px;
+    width: 500px;
+    margin: 40px auto 80px;
+  }
+
+  .testimonial-swiper {
+    padding: 40px 40px 180px;
   }
 
   .testimonial-card {
-    padding: 15px;
-    min-height: 220px;
+    min-height: 550px;
+    padding: 50px;
+    border-radius: 30px;
   }
 
   .stars {
-    font-size: 16px;
-  }
-
-  .text {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .user {
-    bottom: -50px;
-    left: 10px;
-  }
-
-  .avatar {
-    width: 45px;
-    height: 45px;
-    font-size: 18px;
-  }
-
-  .user-name {
-    font-size: 16px;
-  }
-
-  .user span {
-    font-size: 12px;
-  }
-}
-
-/* =========================
-   375px
-========================= */
-@media (min-width: 321px) and (max-width: 375px) {
-
-  .main {
-    font-size: 30px;
-  }
-
-  .text {
-    font-size: 15px;
-  }
-}
-
-/* =========================
-   425px
-========================= */
-@media (min-width: 376px) and (max-width: 425px) {
-
-  .main {
-    font-size: 34px;
-  }
-
-  .text {
-    font-size: 16px;
-  }
-}
-
-/* =========================
-   768px
-========================= */
-@media (min-width: 426px) and (max-width: 768px) {
-
-  .testimonials {
-    padding: 50px 20px;
-  }
-
-  .main {
     font-size: 40px;
   }
 
-  .testimonial-card {
-    min-height: 260px;
+  .review-tick-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .google {
+    width: 70px;
+    height: 70px;
+  }
+
+  .google img {
+    width: 40px;
+    height: 40px;
   }
 
   .text {
-    font-size: 17px;
-  }
-}
-
-/* =========================
-   1024px
-========================= */
-@media (min-width: 769px) and (max-width: 1024px) {
-
-  .main {
-    font-size: 46px;
-  }
-}
-
-/* =========================
-   1440px
-========================= */
-@media (min-width: 1440px) {
-
-  .main {
-    font-size: 60px;
+    font-size: 36px;
+    line-height: 2;
+    margin: 35px 0;
   }
 
-  .text {
-    font-size: 20px;
-  }
-
-  .user-name {
-    font-size: 22px;
-  }
-}
-
-/* =========================
-   2K
-========================= */
-@media (min-width: 2560px) {
-
-  .main {
-    font-size: 80px;
-  }
-
-  .sub {
+  .read-more {
     font-size: 28px;
   }
 
-  .text {
-    font-size: 28px;
-  }
-
-  .testimonial-card {
-    min-height: 400px;
-    padding: 35px;
+  .user {
+    bottom: -90px;
+    left: 30px;
+    gap: 25px;
   }
 
   .avatar {
-    width: 80px;
-    height: 80px;
-    font-size: 34px;
+    width: 120px;
+    height: 120px;
+    font-size: 48px;
   }
 
   .user-name {
-    font-size: 32px;
+    font-size: 42px;
+  }
+
+  .user span {
+    font-size: 28px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 28px !important;
   }
 }

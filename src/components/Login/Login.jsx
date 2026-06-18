@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import axios from "axios";
 import {
   Offcanvas,
   Button,
@@ -29,28 +29,34 @@ function Login({ showSidebar, setShowSidebar }) {
   const isValidPassword =
     password.length >= 6;
 
-  // ✅ LOGIN FUNCTION
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+  e.preventDefault();
 
-    e.preventDefault();
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/login",
+      {
+        email,
+        password,
+      }
+    );
 
-    if (isValidEmail && isValidPassword) {
+    alert(res.data.message);
 
-      alert("Successfully Logged In ✅");
+    setShowSidebar(false);
+    setEmail("");
+    setPassword("");
 
-      // sidebar close
-      setShowSidebar(false);
+  } catch (err) {
 
-      // clear fields
-      setEmail("");
-      setPassword("");
+    alert(
+      err.response?.data?.message ||
+      "Login Failed"
+    );
 
-    } else {
-
-      alert("Please enter valid details ❌");
-
-    }
-  };
+  }
+};
+  
 
   return (
     <>
