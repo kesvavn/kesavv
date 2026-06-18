@@ -82,11 +82,11 @@ color: white;
 }
 
 .main-heading {
-  color: #FFF;
-  font-family: "Montserrat", Sans-serif;
-  font-size: clamp(22px, 5vw, 60px);
-  font-weight: 400;
-  line-height: 1.2;
+    color: #FFF;
+    font-family: "Montserrat", sans-serif;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1.2em;
 }
 
 .hero-bottom {
@@ -207,133 +207,218 @@ color: white;
 }
 
 
-/* =========================
-   MOBILE (0px - 425px)
-========================= */
-@media (max-width: 425px) {
+@media (max-width: 320px) {
 
-  .hero-content {
-    left: 50%;
-    top: 50%;
-    width: 95%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    .hero-content {
+    width: 100% !important;
+    left: 45% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: left !important;
   }
 
-  .box {
-    width: 95%;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-  }
-
-  .top-text {
-    display: none;
+  .main-heading {
+    font-size: 30px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 15px;
   }
 
   .hero-bottom {
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start !important;
     gap: 12px;
   }
 
   .review-wrapper {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start !important;
   }
+
 
   .review-img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .review-rating h4 {
-    font-size: 16px;
-  }
-
-  #contact {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-
-  .stats-section h2 {
-    font-size: 40px;
-  }
-
-  .stats-section p {
-    font-size: 14px;
-  }
-
-  .left {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =========================
-   320px
-========================= */
-@media (max-width: 320px) {
-
-  .main-heading {
-    font-size: 20px;
-    justify-content: left;
-  }
-
-  .review-img {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
   }
 
   .review-rating h4 {
     font-size: 14px;
   }
 
-  #contact {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .stars {
     font-size: 12px;
-    padding: 8px 10px;
   }
 
-  .stats-section h2 {
-    font-size: 32px;
+  #contact {
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-top: 10px;
   }
-  .top-text1{
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .top-text1 {
     display: none;
   }
+
+  .slider {
+   min-height: 400px;
+  }
 }
 
 /* =========================
-   TABLET (426px - 768px)
+   375px
+========================= */
+@media (min-width: 321px) and (max-width: 375px) {
+.hero-content {
+    width: 100% !important;
+    left: 45% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: left !important;
+  }
+
+  .main-heading {
+    font-size: 30px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 15px;
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+  }
+
+  .review-wrapper {
+    align-items: flex-start !important;
+  }
+
+
+  .review-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .review-rating h4 {
+    font-size: 14px;
+  }
+
+  .stars {
+    font-size: 12px;
+  }
+
+  #contact {
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-top: 10px;
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .top-text1 {
+    display: none;
+  }
+
+  .slider {
+   min-height: 400px;
+  }
+}
+
+/* =========================
+   425px
+========================= */
+@media (min-width: 376px) and (max-width: 425px) {
+
+ .hero-content {
+    width: 100% !important;
+    left: 45% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: left !important;
+  }
+
+  .main-heading {
+    font-size: 30px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 15px;
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+  }
+
+  .review-wrapper {
+    align-items: flex-start !important;
+  }
+
+
+  .review-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .review-rating h4 {
+    font-size: 14px;
+  }
+
+  .stars {
+    font-size: 12px;
+  }
+
+  #contact {
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-top: 10px;
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .top-text1 {
+    display: none;
+  }
+
+  .slider {
+   min-height: 400px;
+  }
+}
+
+/* =========================
+   768px - Tablet
 ========================= */
 @media (min-width: 426px) and (max-width: 768px) {
 
   .hero-content {
-    left: 50%;
     width: 90%;
+    left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
   }
 
-  .box {
-    width: 85%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .main-heading {
+    font-size: 42px;
   }
 
-  .hero-bottom {
+  .home-flex {
     flex-direction: column;
-    align-items: center;
-  }
-
-  .review-rating h4 {
-    font-size: 22px;
-  }
-
-  .stats-section h2 {
-    font-size: 50px;
   }
 
   .left {
@@ -342,106 +427,50 @@ color: white;
 }
 
 /* =========================
-   LAPTOP (769px - 1024px)
+   1024px - Laptop
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
 
-  .box {
+  .hero-content {
     width: 70%;
   }
 
-   .main-heading {
-    font-size: 36px;
-  }
-  .review-rating h4 {
-    font-size: 24px;
-  }
-
-  .stats-section h2 {
-    font-size: 65px;
+  .main-heading {
+    font-size: 50px;
   }
 }
 
 /* =========================
-   LARGE DESKTOP (1440px+)
+   1440px - Desktop
 ========================= */
-@media (min-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 
-  .box {
-    width: 45%;
-    
+  .hero-content {
+    width: 60%;
   }
-
-  .review-rating h4 {
-    font-size: 20px;
-  }
-
-  .stats-section h2 {
-    font-size: 10px;
-  }
-
-  .stats-section p {
-    font-size: 24px;
-  }
-   .main-heading {
-    font-size: 40px;
-  }
-}
-
-/* =========================
-   2K (2560px+)
-========================= */
-@media (min-width: 2560px) {
 
   .main-heading {
-    font-size: 96px;
-  }
-
-  .review-rating h4 {
-    font-size: 42px;
-  }
-
-  .stats-section h2 {
-    font-size: 130px;
-  }
-
-  .stats-section p {
-    font-size: 30px;
-  }
-
-  #contact {
-    font-size: 28px;
-    padding: 16px 36px;
+    font-size: 60px;
   }
 }
 
 /* =========================
-   4K (3840px+)
+   2560px - Large Desktop
 ========================= */
-@media (min-width: 3840px) {
+@media (min-width: 1441px) {
+
+  .hero-content {
+    width: 50%;
+  }
 
   .main-heading {
-    font-size: 140px;
+    font-size: 80px;
   }
 
-  .review-rating h4 {
-    font-size: 56px;
-  }
-
-  .stats-section h2 {
-    font-size: 180px;
-  }
-
-  .stats-section p {
-    font-size: 40px;
-  }
-
-  #contact {
-    font-size: 36px;
-    padding: 20px 50px;
+  .top-text1 {
+    font-size: 22px;
   }
 }
-
 
 /* =========================
    DEFAULT (Desktop)
@@ -518,7 +547,9 @@ color: white;
     flex-direction: column;
     gap: 25px;
     padding: 30px 15px;
-  }
+       
+    }
+  
 
   .left,
   .right {

@@ -12,7 +12,7 @@
 .blogs-content {
   position: relative;
   z-index: 2;
-  margin:300px auto;
+  margin:250px ;
   padding: 80px 20px; 
 }
 .blog-title {
@@ -97,6 +97,7 @@
   font-size: 20px;
   line-height: 1.8;
 }
+
 
 /* =========================
    Mobile S (320px)

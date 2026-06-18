@@ -1,18 +1,15 @@
-
-
 /* =========================
    BASE SLIDER
 ========================= */
-
 .slider {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 90vh;
   overflow: hidden;
 }
+
 .slide {
   position: absolute;
-
   top: 0;
   left: 0;
 
@@ -20,75 +17,52 @@
   height: 100%;
 
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
 
   opacity: 0;
-
   transform: scale(1);
-
   transition: opacity 1s ease;
 }
 
-/* ACTIVE */
 .slide.active {
   opacity: 1;
-
   animation: zoomIn 3s linear forwards;
 }
 
-/* OVERLAY */
 .slider-overlay {
   position: absolute;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
+  inset: 0;
   z-index: 10;
 }
 
 .slider-overlay::before {
   content: "";
-
   position: absolute;
-
   inset: 0;
-
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
 }
 
-/* ZOOM EFFECT */
 @keyframes zoomIn {
-
   from {
     transform: scale(1);
   }
-
   to {
     transform: scale(1.1);
   }
 }
 
-
-
-/* =========================
-   OVERFLOW FIX
-========================= */
 html,
 body {
   overflow-x: hidden;
 }
-
 
 /* =========================
    320px - Small Mobile
 ========================= */
 @media (max-width: 320px) {
   .slider {
-    height: 70vh;
+    height: 90vh;
   }
 }
 
@@ -97,7 +71,7 @@ body {
 ========================= */
 @media (min-width: 321px) and (max-width: 375px) {
   .slider {
-    height: 55vh;
+    height: 75vh;
   }
 }
 
@@ -106,7 +80,7 @@ body {
 ========================= */
 @media (min-width: 376px) and (max-width: 425px) {
   .slider {
-    height: 60vh;
+    height: 80vh;
   }
 }
 
@@ -115,7 +89,7 @@ body {
 ========================= */
 @media (min-width: 426px) and (max-width: 768px) {
   .slider {
-    height: 70vh;
+    height: 85vh;
   }
 }
 
@@ -124,7 +98,7 @@ body {
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
   .slider {
-    height: 140vh;
+    height: 90vh;
   }
 }
 
@@ -140,8 +114,8 @@ body {
 /* =========================
    2560px - Large Desktop
 ========================= */
-@media (min-width: 1441px) and (max-width: 2560px) {
+@media (min-width: 1441px) {
   .slider {
-    height: 90vh;
+    height: 100vh;
   }
 }
