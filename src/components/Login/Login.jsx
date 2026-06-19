@@ -32,6 +32,9 @@ function Login({ showSidebar, setShowSidebar }) {
   const handleLogin = async (e) => {
   e.preventDefault();
 
+  console.log("Email:", email);
+  console.log("Password:", password);
+
   try {
     const res = await axios.post(
       "http://localhost:5000/login",
@@ -48,15 +51,14 @@ function Login({ showSidebar, setShowSidebar }) {
     setPassword("");
 
   } catch (err) {
+    console.log(err);
 
     alert(
       err.response?.data?.message ||
       "Login Failed"
     );
-
   }
 };
-  
 
   return (
     <>

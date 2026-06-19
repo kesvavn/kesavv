@@ -1,4 +1,5 @@
 import "./Testimonials.css";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,6 +10,7 @@ import GoogleLogo from "./events/icon.svg";
 import DividerImg from "../images/58cb37cd-b70a-4c5b-b8f9-4fc4d20bd3a0.svg";
 
 function Testimonials() {
+  const [expanded, setExpanded] = useState({});
 
   const data = [
     {
@@ -43,150 +45,110 @@ function Testimonials() {
     },
   ];
 
+  const toggleReadMore = (index) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   return (
     <section className="testimonials">
-
       <Container>
-
-        {/* HEADING */}
-
         <Row>
-
           <Col lg={12}>
-
-            <p className="sub">
-              CLIENT TESTIMONIALS
-            </p>
+            <p className="sub">CLIENT TESTIMONIALS</p>
 
             <h2 className="main">
               See What our Clients has to Say
             </h2>
 
             <div className="divider">
-
               <img
                 src={DividerImg}
                 alt="divider"
                 className="divider-img"
               />
-
             </div>
-
           </Col>
-
         </Row>
 
-        {/* SWIPER */}
-
         <Row>
-
           <Col lg={12}>
-
             <Swiper
               modules={[Navigation, Autoplay]}
               spaceBetween={25}
               slidesPerView={3}
-              navigation={true}
-              loop={true}
-              centeredSlides={true}
+              navigation
+              loop
+              centeredSlides
               autoplay={{
                 delay: 3000,
-                disableOnInteraction: false,}}
+                disableOnInteraction: false,
+              }}
               breakpoints={{
-                0: {
-                  slidesPerView: 1,
-                },
-                768: {
-                  slidesPerView: 2,
-                },
-                1024: {
-                  slidesPerView: 3,
-                },
+                0: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
               }}
               className="testimonial-swiper"
             >
-
               {data.map((item, index) => (
-
                 <SwiperSlide key={index}>
-
                   <div className="testimonial-card">
-
-                    {/* TOP */}
-
                     <div className="top">
-
                       <div className="stars">
-
                         ★★★★★
-
                         <img
                           src={VerifiedTick}
                           alt="Verified"
                           className="review-tick-img"
                         />
-
                       </div>
 
                       <div className="google">
-
                         <img
                           src={GoogleLogo}
                           alt="Google"
                         />
-
                       </div>
-
                     </div>
 
-                    {/* TEXT */}
-
                     <p className="text">
-                      {item.text}
+                      {expanded[index]
+                        ? item.text
+                        : `${item.text.slice(0, 100)}...`}
                     </p>
 
-                    {/* BUTTON */}
-
-                    <button className="read-more">
-                     
+                    <button
+                      className="read-more"
+                      onClick={() => toggleReadMore(index)}
+                    >
+                      {expanded[index]
+                        ? "Read Less"
+                        : "Read More"}
                     </button>
 
-                    {/* USER */}
-
                     <div className="user">
-
                       <div className="avatar">
                         {item.initial}
                       </div>
 
                       <div>
-
                         <h4 className="user-name">
                           {item.name}
                         </h4>
 
-                        <span>
-                          {item.time}
-                        </span>
-
+                        <span>{item.time}</span>
                       </div>
-
                     </div>
-
                   </div>
-
                 </SwiperSlide>
-
               ))}
-
             </Swiper>
-
           </Col>
-
         </Row>
-
       </Container>
-
     </section>
   );
 }
