@@ -187,7 +187,8 @@ function MyNavbar() {
               <Nav.Link as={Link} to="/contact" onClick={closeMenu}>
                 CONTACT
               </Nav.Link>
-
+              
+              
             </Nav>
 
             <div className="right-section">

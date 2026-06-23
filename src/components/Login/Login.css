@@ -150,6 +150,14 @@
   cursor: pointer;
 }
 
+.loginlogo {
+  width: 50%;
+ height: 20px;
+}
+.para-logo {
+ 
+  font-size: 15px;
+}
 @media (max-width: 576px) {
 
   .login-sidebar {

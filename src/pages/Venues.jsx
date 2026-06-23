@@ -6,6 +6,8 @@ import Img from "../src/../images/1.webp";
 import Img1 from "../components/venues/unnamed-1-1-1-rj8b7w1vo1m42q21rl8j4u8gwl8fmj9lewoijxy9iq.webp";
 import Img2 from "../components/venues/2257_img3-rhvyl7p0694tnf39sawygjq9dlla96s83gdib4iz02.webp";
 import Img3 from "../components/venues/2023-05-09-2-rez9yswvqakifvxjp0sa1i4n4bry1unp59ojb8eape.webp";
+import Footer from "./Footer"
+
 
 
 function Venues() {
@@ -207,7 +209,7 @@ function Venues() {
         </Row>
 
       </Container>
-
+      <Footer/>
     </div>
   );
 }

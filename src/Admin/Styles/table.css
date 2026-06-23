@@ -1,0 +1,70 @@
+.table-box{
+  background:#fff;
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+}
+
+.table thead{
+  background:#f6f2ff;
+}
+
+.table th{
+  color:#5a32a3;
+  font-size:14px;
+}
+
+.status{
+  padding:6px 15px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.pending{
+  background:#fff5da;
+  color:#d89b00;
+}
+
+.responded{
+  background:#e7ffe7;
+  color:#1ca51c;
+}
+
+.closed{
+  background:#efefef;
+  color:#555;
+}
+
+.view-btn{
+  border:none;
+  background:#f3f0ff;
+  padding:8px 12px;
+  margin-right:8px;
+  border-radius:8px;
+}
+
+.delete-btn{
+  border:none;
+  background:#ffeaea;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.filter-box{
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  margin-bottom:20px;
+}
+
+.filter-btn{
+  width:100%;
+  background:#6d45b8;
+  border:none;
+}
+
+.pagination-box{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:20px;
+}

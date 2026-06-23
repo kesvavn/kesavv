@@ -4,6 +4,8 @@ import Image from "../images/WhatsApp-Image-2022-08-26-at-7.41.01-PM.webp";
 import MyNavbar from "../Navbar";
 import "./Contact.css";
 import BranchOffice from "../components/Contact/BranchOffice"
+import Footer from "./Footer"
+
 
 function Contact() {
   return (
@@ -165,7 +167,9 @@ function Contact() {
 
 </section>
    <BranchOffice />
+   <Footer/>
     </>
+
   );
 }
 

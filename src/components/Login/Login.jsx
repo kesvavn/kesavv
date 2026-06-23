@@ -1,20 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  Offcanvas,
-  Button,
-  Form,
-} from "react-bootstrap";
-
-import {
-  FaCheckCircle,
-  FaTimesCircle,
-  FaEnvelope,
-  FaLock,
-  FaGoogle,
-} from "react-icons/fa";
-
+import { Offcanvas, Button, Form,Image} from "react-bootstrap";
+import { FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock, FaGoogle,} from "react-icons/fa";
 import "./Login.css";
+import Img from "../Login/MELODIA-LOGO-03-1.webp";
+ 
 
 function Login({ showSidebar, setShowSidebar }) {
 
@@ -73,16 +63,16 @@ function Login({ showSidebar, setShowSidebar }) {
         <Offcanvas.Header closeButton>
 
           <Offcanvas.Title>
-            Welcome Back 
+           <Image
+        src={Img} alt="Wedding" className="loginlogo" fluid/> <br />
+        
           </Offcanvas.Title>
-
         </Offcanvas.Header>
 
         {/* BODY */}
         <Offcanvas.Body>
-
           <div className="login-top">
-
+          <p className="para-logo">Melodia® Event Management is an ISO 9001 2015 Certified Company based in Kochi, Thrissur Kerala. We offer premium event management services including weddings, corporate events, and private parties. Contact us to know more.</p>
             <h2>
               Login Account
             </h2>
@@ -220,15 +210,6 @@ function Login({ showSidebar, setShowSidebar }) {
               className="login-btn w-100 mb-3"
             >
               Login
-            </Button>
-
-            {/* GOOGLE BUTTON */}
-            <Button className="google-btn w-100">
-
-              <FaGoogle className="me-2" />
-
-              Continue with Google
-
             </Button>
 
           </Form>

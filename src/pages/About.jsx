@@ -1,6 +1,7 @@
 import "../pages/About.css";
 import MyNavbar from "../Navbar";
 import { Container, Row, Col } from "react-bootstrap";
+import Footer from "./Footer"
 
 function About() {
   return (
@@ -75,6 +76,7 @@ Today, Melodia Event Management has a strong presence across Kerala, with front 
   </Row>  
              </ Container>             
                </div>
+               <Footer/>
     </div>
   );
 }

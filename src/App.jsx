@@ -28,9 +28,20 @@ import ShortsGallery from "./components/gallery/ShortsGallery";
 import WeddingAlbums from "./components/gallery/WeddingAlbums";
 import Blogs from "./components/about/Blogs";
 import Test from "./components/about/Test";
-
-
 import Footer from "./pages/Footer";
+
+import Dashboard from "./Admin/pages/Dashboard";
+import PricingRequests from "./Admin/pages/PricingRequests";
+import Users from "./Admin/pages/Users";
+import Bookings from "./Admin/pages/Bookings";
+import Settings from "./Admin/pages/Settings";
+import VenueTypes from "./Admin/pages/VenueTypes";
+import Locations from "./Admin/pages/Locations";
+import Enquiries from "./Admin/pages/Enquiries";
+import Subscribers from "./Admin/pages/Subscribers";
+import Admin from "./Admin/Layout/AdminLayout";
+
+import Layout from "./Layout";
 
 function App() {
   return (
@@ -123,9 +134,56 @@ function App() {
           path="/kadavu-villas"
           element={<KadavuVillas />}
         />
+         
       </Routes>
+      
+  
 
-      <Footer />
+      <Routes>
+          
+           {/* Admin panel ROUTES */}
+        <Route path="/admin" element={<Dashboard />} />
+
+        <Route
+          path="/admin/venue-types"
+          element={<VenueTypes />}
+        />
+
+        <Route
+          path="/admin/locations"
+          element={<Locations />}
+        />
+
+        <Route
+          path="/admin/bookings"
+          element={<Bookings />}
+        />
+
+        <Route
+          path="/admin/pricing"
+          element={<PricingRequests />}
+        />
+
+        <Route
+          path="/admin/enquiries"
+          element={<Enquiries />}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<Users />}
+        />
+
+        <Route
+          path="/admin/subscribers"
+          element={<Subscribers />}
+        />
+
+        <Route
+          path="/admin/settings"
+          element={<Settings />}
+        />
+      </Routes>
     </>
   );
 }
