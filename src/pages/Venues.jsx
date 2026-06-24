@@ -7,12 +7,12 @@ import Img1 from "../components/venues/unnamed-1-1-1-rj8b7w1vo1m42q21rl8j4u8gwl8
 import Img2 from "../components/venues/2257_img3-rhvyl7p0694tnf39sawygjq9dlla96s83gdib4iz02.webp";
 import Img3 from "../components/venues/2023-05-09-2-rez9yswvqakifvxjp0sa1i4n4bry1unp59ojb8eape.webp";
 import Footer from "./Footer"
-
-
+import Form from "../Form/Form";
 
 function Venues() {
 
   const [selectedLocation, setSelectedLocation] = useState("");
+const [showForm, setShowForm] = useState(false);
 
   const venues = [
     {
@@ -189,9 +189,7 @@ function Venues() {
 
                   <div className="btn-group-custom">
 
-                    <button className="price-btn">
-                      Request Pricing
-                    </button>
+                  <button className="price-btn" onClick={() => setShowForm(true)}> Request Pricing</button>
 
                     <button className="whatsapp-btn">
                       Whatsapp Enquiry
@@ -209,7 +207,25 @@ function Venues() {
         </Row>
 
       </Container>
-      <Footer/>
+
+       {showForm && (
+       <div className="form-overlay">
+       <div className="form-modal">
+
+      <button
+        className="close-form"
+        onClick={() => setShowForm(false)}  >
+        ×
+      </button>
+
+      <Form />
+
+    </div>
+  </div>
+)}
+
+<Footer />
+      
     </div>
   );
 }

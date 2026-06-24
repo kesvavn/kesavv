@@ -42,6 +42,8 @@ import Subscribers from "./Admin/pages/Subscribers";
 import Admin from "./Admin/Layout/AdminLayout";
 
 import Layout from "./Layout";
+import Form from "./Form/Form";
+
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
       <ScrollToTop />
 
       <Routes>
+        
         <Route path="/" element={<Home />} />
 
         <Route path="/about" element={<About />} />
