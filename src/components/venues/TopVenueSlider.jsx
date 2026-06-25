@@ -3,6 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,54 +12,28 @@ import "swiper/css/pagination";
 
 function TopVenueSlider() {
   const navigate = useNavigate();
+  const [venues, setVenues] = useState([]);
 
-  const venues = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
-      title: "Kakkattu Mana",
-      location: "Chathanur, Pattambi, Palakkad",
-      rating: "★★★★☆",
-      path: "/kakkattu-mana",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1200&auto=format&fit=crop",
-      title: "Kakkakuni Heritage",
-      location: "Thalakkathur, Kozhikode",
-      rating: "★★★★★",
-      path: "/kakkakuni-heritage",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop",
-      title: "Kalappura Farm House",
-      location: "Mulavukad, Kochi",
-      rating: "★★★★☆",
-      path: "/kalappura-farm-house",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop",
-      title: "Kampify Kochi",
-      location: "Kumbalangi, Kochi",
-      rating: "★★★★★",
-      path: "/kampify-kochi",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop",
-      title: "Kadavu Villas",
-      location: "Thrissur, Kerala",
-      rating: "★★★★☆",
-      path: "/kadavu-villas",
-    },
-  ];
+  useEffect(() => {
+    fetchVenues();
+  }, []);
+
+  const fetchVenues = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/venues"
+      );
+
+      setVenues(response.data);
+    } catch (error) {
+      console.log("Error fetching venues:", error);
+    }
+  };
 
   return (
     <section className="venue-section">
       <div className="venue-heading">
-        <h2>Explore Top Venue’s in Kerala</h2>
+        <h2>Explore Top Venue's in Kerala</h2>
 
         <div className="gold-line">
           <span></span>
@@ -90,16 +66,21 @@ function TopVenueSlider() {
           },
         }}
       >
-        {venues.map((venue, index) => (
-          <SwiperSlide key={index}>
+        {venues.map((venue) => (
+          <SwiperSlide key={venue._id}>
             <div
               className="venue-card"
               onClick={() => navigate(venue.path)}
             >
-              <img src={venue.image} alt={venue.title} />
+              <img
+                src={venue.image}
+                alt={venue.title}
+              />
 
               <div className="venue-content">
-                <div className="rating">{venue.rating}</div>
+                <div className="rating">
+                  {venue.rating}
+                </div>
 
                 <h3>{venue.title}</h3>
 

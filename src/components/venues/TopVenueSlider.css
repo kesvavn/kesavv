@@ -64,7 +64,7 @@
   border: 1px solid #e5e5e5;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 80%;
   width: 100%;
 }
 
@@ -89,6 +89,7 @@
   justify-content: space-between;
 }
 
+
 .rating {
   color: #d8a431;
   font-size: 18px;
@@ -96,7 +97,7 @@
 }
 
 .venue-content h3 {
-  font-size: 24px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 12px;
   color: #222;
@@ -129,7 +130,7 @@
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 18px !important;
+  font-size: 10px !important;
   font-weight: bold;
 }
 

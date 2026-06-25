@@ -1,6 +1,10 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+
+const venueRoutes = require("./routes/venueRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
 const app = express();
 
@@ -8,28 +12,19 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/k7/event")
+  .connect("mongodb://localhost:27017/event")
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-  app.post("/venues", async (req, res) => {
-  try {
-    const venue = await Venue.create(req.body);
-    res.status(201).json(venue);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-app.get("/venues", async (req, res) => {
-  try {
-    const venues = await Venue.find();
-    res.json(venues);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+app.use("/api/upload", uploadRoutes);
+app.use("/api/venues", venueRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Backend Running");
+});
 
 app.listen(5000, () => {
-  console.log("Server Running on Port 5000");
+  console.log("Server Running On Port 5000");
 });

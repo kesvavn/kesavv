@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const VenueSchema = new mongoose.Schema({
+const venueSchema = new mongoose.Schema({
   title: String,
-  image: String,
   location: String,
   rating: String,
+  image: String,
   path: String,
 });
 
-module.exports = mongoose.model("Venue", VenueSchema);
+module.exports = mongoose.model("Venue", venueSchema);
