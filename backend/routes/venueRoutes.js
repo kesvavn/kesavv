@@ -70,7 +70,6 @@ router.delete("/:id", async (req, res) => {
 try {
 await Venue.findByIdAndDelete(req.params.id);
 
-
 res.json({
   message: "Venue Deleted Successfully",
 });
