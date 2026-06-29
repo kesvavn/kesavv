@@ -14,36 +14,37 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(54, 53, 53, 0.5);
-  z-index: 1;
+  background: rgba(0,0,0,0.45);
 }
 
 /* ✅ Make content appear above overlay */
-.venues-bg * {
-  position: relative;
-  z-index: 2;
+.venue-img{
+    width:100%;
+    max-width:700px;
+    height:auto;
+    aspect-ratio:16/9;
+    object-fit:cover;
 }
 
 .venue-head {
-    color: #FFF;
+    color: white;
     font-family: "Montserrat", Sans-serif;
     font-size: 45px;
     font-weight: 700;
 }
 
-.venue-txt {
-  font-style:  italic;
+.venue-txt{
+    font-style:  italic;
   color: white;
   margin-top: 5px;
   text-align: left;
-  color: #F2F2F2;
   font-family: "Jost", Sans-serif;
   font-size: 15px;
   font-weight: 400;
 
 }
 .venue-img {
-  width: 80%;
+  width: 50%;
   height: 35vh;
   object-fit: cover;
   margin: auto;
@@ -73,9 +74,19 @@
     font-weight: 600;
 }
 
+.venue-link {
+  color: #6a3f8f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.venue-link:hover {
+  color: #9b5dd4;
+}
 
 .venue-filter-section{
   padding: 60px 0;
+  width: 60%;
 }
 
 .filter-bar{
@@ -124,20 +135,14 @@
 }
 
 .venue-card{
-  background: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
-  transition: .3s;
+    min-height: 380px;
+    height: auto;
 }
 
-.venue-card:hover{
-  transform: translateY(-5px);
-}
 
 .venue-card img{
   width: 100%;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
 }
 
@@ -217,3 +222,239 @@
   z-index: 10000;
 }
 
+
+
+
+/* ===========================
+   Large Screens (4K)
+=========================== */
+@media (min-width: 1800px) {
+
+  .venues-bg {
+    height: 85vh;
+  }
+
+  .venue-head {
+    font-size: 70px;
+  }
+
+  .venue-txt {
+    font-size: 24px;
+    width: 65%;
+  }
+
+  .venue-col h2 {
+    font-size: 55px;
+  }
+
+  .venue-col {
+    font-size: 24px;
+  }
+
+  .venue-card {
+    height: auto;
+  }
+
+  .venue-card img {
+    height: 320px;
+  }
+
+  .venue-card-body h4 {
+    font-size: 30px;
+  }
+
+  .filter-bar {
+    padding: 20px 30px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    height: 60px;
+    font-size: 20px;
+  }
+}
+
+/* ===========================
+   Laptop (1200px - 1799px)
+=========================== */
+
+@media (max-width: 1799px) {
+
+  .venue-head {
+    font-size: 50px;
+  }
+
+  .venue-col h2 {
+    font-size: 40px;
+  }
+
+  .venue-card {
+    height: auto;
+  }
+
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width: 992px) {
+
+  .venues-bg {
+    height: 65vh;
+    background-attachment: scroll;
+  }
+
+  .venues-bg * {
+    width: 90%;
+  }
+
+  .venue-head {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .venue-txt {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .venue-img {
+    width: 100%;
+    height: 280px;
+  }
+
+  .venue-col {
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  .venue-col h2 {
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    width: 100%;
+  }
+
+  .venue-card {
+    height: auto;
+  }
+
+  .form-modal {
+    width: 90%;
+  }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width: 768px) {
+
+  .venues-bg {
+    height: 55vh;
+  }
+
+  .venue-head {
+    font-size: 30px;
+  }
+
+  .venue-txt {
+    font-size: 15px;
+  }
+
+  .venue-img {
+    height: 220px;
+  }
+
+  .venue-col h2 {
+    font-size: 28px;
+  }
+
+  .venue-col {
+    font-size: 16px;
+  }
+
+  .venue-card img {
+    height: 220px;
+  }
+
+  .venue-card-body h4 {
+    font-size: 20px;
+  }
+
+  .btn-group-custom {
+    flex-direction: column;
+  }
+
+  .price-btn,
+  .whatsapp-btn {
+    width: 100%;
+  }
+
+  .filter-title {
+    width: 100%;
+    text-align: center;
+  }
+
+}
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width: 480px) {
+
+  .venues-bg {
+    height: 50vh;
+  }
+
+  .venue-head {
+    font-size: 24px;
+  }
+
+  .venue-txt {
+    font-size: 14px;
+  }
+
+  .venue-img {
+    height: 180px;
+  }
+
+  .venue-col h2 {
+    font-size: 24px;
+  }
+
+  .venue-col {
+    font-size: 15px;
+  }
+
+  .venue-card img {
+    height: 180px;
+  }
+
+  .filter-bar {
+    padding: 15px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    min-width: 100%;
+    font-size: 16px;
+  }
+
+  .form-modal {
+    width: 95%;
+    padding: 15px;
+  }
+
+}

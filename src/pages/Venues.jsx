@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../pages/Venues.css";
 import MyNavbar from "../Navbar";
 import { Container, Row, Col } from "react-bootstrap";
@@ -14,29 +15,32 @@ function Venues() {
   const [selectedLocation, setSelectedLocation] = useState("");
 const [showForm, setShowForm] = useState(false);
 
-  const venues = [
-    {
-      id: 1,
-      name: "Kakkatu Mana",
-      location: "palakkad",
-      type: "Heritage property venues",
-      image: Img1,
-    },
-    {
-      id: 2,
-      name: "Kadavu Villas",
-      location: "thrissur",
-      type: "Beach wedding",
-      image: Img2,
-    },
-    {
-      id: 3,
-      name: "Kalappura Farm House",
-      location: "kochi",
-      type: "Outdoor wedding",
-      image: Img3,
-    },
-  ];
+ const venues = [
+  {
+    id: 1,
+    name: "Kakkatu Mana",
+    location: "Palakkad",
+    type: "Heritage property venues",
+    image: Img1,
+    link: "/kakkattu-mana",
+  },
+  {
+    id: 2,
+    name: "Kadavu Villas",
+    location: "Thrissur",
+    type: "Beach wedding",
+    image: Img2,
+    link: "/kadavu-villas",
+  },
+  {
+    id: 3,
+    name: "Kalappura Farm House",
+    location: "Kochi",
+    type: "Outdoor wedding",
+    image: Img3,
+    link: "/kalappura-farm-house",
+  },
+];
 
   const filteredVenues = selectedLocation
     ? venues.filter(
@@ -54,7 +58,7 @@ const [showForm, setShowForm] = useState(false);
         <MyNavbar />
 
         <Container className="h-100">
-          <Row className="h-100 align-items-center">
+          <Row className=" h-100 align-items-center">
             <Col md={6}>
               <h1 className="venue-head">
                 Best Event & Wedding <br />
@@ -143,7 +147,7 @@ const [showForm, setShowForm] = useState(false);
             </option>
 
             <option value="heritage">
-              Heritage Property Venues
+              AC Marriage Halls
             </option>
 
             <option value="beach">
@@ -181,7 +185,11 @@ const [showForm, setShowForm] = useState(false);
                     ★★★★★
                   </div>
 
-                  <h4>{venue.name}</h4>
+                  <h4>
+  <Link to={venue.link} className="venue-link">
+    {venue.name}
+  </Link>
+</h4>
 
                   <p className="location">
                     📍 {venue.location}
