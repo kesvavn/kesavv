@@ -118,7 +118,7 @@ const [showForm, setShowForm] = useState(false);
 
           {/* LOCATION FILTER */}
           <select
-            value={selectedLocation}
+            value={selectedLocation}zz
             onChange={(e) =>
               setSelectedLocation(e.target.value)
             }
