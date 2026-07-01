@@ -1,0 +1,186 @@
+.kakkattu-section {
+  height: 80vh;
+  background-image: url("../unnamed-1-1-1-rj8b7w1vo1m42q21rl8j4u8gwl8fmj9lewoijxy9iq.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.kakkattu-container {
+  height: 100%;
+}
+
+.kakkattu-row {
+  height: 100%;
+}
+
+.kakkattu-title {
+  font-size: 4rem;
+  color: #fff;
+}
+
+.kakkattu-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #fff;
+}
+
+.kakkattu-img {
+width: 100%;
+height: 30vh;
+ background-image: url("../ChatGPT-Image-Feb-24-2026-08_55_42-AM-e1771903620815-1.webp");
+background-size: cover;
+  
+}
+.kakkattu-img-text{
+   font-family: "Playfair Display",Sans-serif;
+  font-size: 25px;
+  color:black;
+  text-align: center;
+ padding-top: 5%;
+  align-items: justify;
+}
+
+.about-title{
+    font-size:42px;
+    font-weight:700;
+    color:#3f234f;
+}
+
+.about-text{
+    font-size:20px;
+    line-height:1.8;
+    color:#555;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.facility-card{
+    border:1px solid #efd8ef;
+    border-radius:12px;
+}
+.facility-row{
+   font-style:italic;
+}
+.section-title{
+    font-weight:700;
+    color:#3f234f;
+    border-bottom:3px solid #7d4ba0;
+    width:max-content;
+    padding-bottom:8px;
+    margin-bottom:20px;
+}
+
+.facility-card .col-md-4{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.facility-card svg{
+    color:#7d4ba0;
+    margin-right:8px;
+}
+
+.enquiry-card{
+    border-radius:15px;
+    border:1px solid #efd8ef;
+}
+
+.enquiry-card .form-control{
+    height:55px;
+}
+
+.enquiry-card .btn{
+    background:#6d4a8f;
+    border:none;
+}
+
+.enquiry-card .btn:hover{
+    background:#563673;
+}
+
+
+.contact-whatsapp-btn {
+  background: linear-gradient(90deg, #25d366, #128c7e) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 15px 40px !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s ease;
+ 
+}
+
+.contact-whatsapp-btn:hover {
+  background: linear-gradient(90deg, #20c75a, #0f7d70) !important;
+  transform: translateY(-3px);
+  color: #fff !important;
+}
+
+.promo-card {
+  background-color: #f9f9f9;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+ 
+  min-height: 700px;
+}
+
+.overlay{
+  padding:30px;
+}
+
+.logo{
+  width:180px;
+}
+
+.promo-text{
+  font-size:18px;
+  line-height:1.8;
+}
+
+.social-icons{
+  display:flex;
+  gap:15px;
+}
+
+.social-icons a{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  font-size:22px;
+  text-decoration:none;
+}
+
+.social-icons a:nth-child(1){
+  background:#E1306C;
+}
+
+.social-icons a:nth-child(2){
+  background:#FF0000;
+}
+
+.social-icons a:nth-child(3){
+  background:#1877F2;
+}
+
+.enquiry-title{
+  font-size:38px;
+  font-weight:700;
+  margin-top:25px;
+}
+
+.talk-btn{
+  padding:12px 30px;
+  border-radius:0;
+  color:#6b3fa0;
+  font-weight:600;
+}
