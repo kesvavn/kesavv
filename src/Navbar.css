@@ -396,11 +396,12 @@
 
   .custom-navbar .nav-link,
   .custom-navbar .dropdown-toggle {
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   #phone-btn {
-    font-size: 20px;
+    font-size: 15px;
   }
 }
 

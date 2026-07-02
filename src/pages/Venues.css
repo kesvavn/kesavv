@@ -9,13 +9,13 @@
   background-attachment: fixed;
 }
 
-/* ✅ Overlay */
 .venues-bg::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.45);
 }
+
 
 /* ✅ Make content appear above overlay */
 .venue-img{

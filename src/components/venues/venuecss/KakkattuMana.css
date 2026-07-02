@@ -4,7 +4,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+
+  
 }
 
 .kakkattu-container {
@@ -126,7 +127,6 @@ background-size: cover;
   background-size: cover;
   background-position: center;
   border-radius: 15px;
- 
   min-height: 700px;
 }
 

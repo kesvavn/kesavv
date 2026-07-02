@@ -172,10 +172,10 @@ function KakkattuMana() {
   <Card.Body className="overlay">
 
     <img
-      src="../../assets/images/melodia-logo.webp"
-      alt="Melodia"
-      className="logo mb-4"
-    />
+  src={melodiaLogo}
+  alt="Melodia"
+  className="logo mb-4"
+/>
 
     <p className="promo-text">
       Melodia Event Management is a professional wedding and event

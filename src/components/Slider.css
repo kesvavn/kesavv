@@ -98,7 +98,7 @@ body {
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
   .slider {
-    height: 90vh;
+    height: 160vh;
   }
 }
 
