@@ -458,3 +458,51 @@
   }
 
 }
+
+
+@media (max-width: 320px) {
+
+  .venues-bg {
+    height: 100vh;
+  }
+
+  .venue-head {
+    font-size: 24px;
+  }
+
+  .venue-txt {
+    font-size: 14px;
+  }
+
+  .venue-img {
+    height: 180px;
+  }
+
+  .venue-col h2 {
+    font-size: 24px;
+  }
+
+  .venue-col {
+    font-size: 15px;
+  }
+
+  .venue-card img {
+    height: 180px;
+  }
+
+  .filter-bar {
+    padding: 15px;
+  }
+
+  .filter-bar select,
+  .filter-bar input {
+    min-width: 100%;
+    font-size: 16px;
+  }
+
+  .form-modal {
+    width: 95%;
+    padding: 15px;
+  }
+
+}
