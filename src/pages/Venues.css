@@ -9,13 +9,18 @@
   background-attachment: fixed;
 }
 
+
 .venues-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(94, 92, 92, 0.5);
 }
 
+.venues-bg .container {
+  position: relative;
+  z-index: 2;
+}
 
 /* ✅ Make content appear above overlay */
 .venue-img{

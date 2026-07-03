@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import "./Events.css";
+import "./Wedding.css";
 import MyNavbar from "../../Navbar";
 import { useEffect } from "react";
 import Image from "../../images/pexels-krishna-studio-5200435_15_185637-162346933677604.webp";
