@@ -366,16 +366,20 @@
   }
 
   .logo-img {
-    height: 65px;
+    height: 55px;
+    padding-left: 10px;
   }
 
   .custom-navbar .nav-link,
   .custom-navbar .dropdown-toggle {
-    font-size: 16px;
+     font-family: "Montserrat", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
   }
 
   #phone-btn {
-    font-size: 16px;
+    font-size: 13px;
     padding: 8px 18px;
   }
 }
@@ -386,18 +390,27 @@
 @media (min-width: 1440px) {
 
   .custom-navbar {
+   position: relative;
     width: 80%;
+    flex-wrap: wrap;
+    align-content: flex-start;
     
   }
 
   .logo-img {
-    height: 90px;
+        width: auto;
+    max-width: auto;
+    text-align: left;
+
   }
 
   .custom-navbar .nav-link,
   .custom-navbar .dropdown-toggle {
+    
+        font-family: "Montserrat", Sans-serif;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
+    text-transform: uppercase;
   }
 
   #phone-btn {
@@ -411,7 +424,7 @@
 @media (min-width: 2560px) {
 
   .custom-navbar {
-    width: 60%;
+    width: 70%;
     top: 30px;
     padding: 18px 35px;
   }
@@ -422,8 +435,10 @@
 
   .custom-navbar .nav-link,
   .custom-navbar .dropdown-toggle {
-    font-size: 24px;
-    padding: 8px 12px !important;
+    font-family: "Montserrat", Sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
   }
 
   .right-section {

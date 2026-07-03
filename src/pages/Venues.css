@@ -223,286 +223,353 @@
 }
 
 
+/* =========================
+   320px - Small Mobile
+========================= */
+@media (max-width:320px){
 
-
-/* ===========================
-   Large Screens (4K)
-=========================== */
-@media (min-width: 1800px) {
-
-  .venues-bg {
-    height: 85vh;
-  }
-
-  .venue-head {
-    font-size: 70px;
-  }
-
-  .venue-txt {
-    font-size: 24px;
-    width: 65%;
-  }
-
-  .venue-col h2 {
-    font-size: 55px;
-  }
-
-  .venue-col {
-    font-size: 24px;
-  }
-
-  .venue-card {
-    height: auto;
-  }
-
-  .venue-card img {
-    height: 320px;
-  }
-
-  .venue-card-body h4 {
-    font-size: 30px;
-  }
-
-  .filter-bar {
-    padding: 20px 30px;
-  }
-
-  .filter-bar select,
-  .filter-bar input {
-    height: 60px;
-    font-size: 20px;
-  }
+.venues-bg{
+    height:60vh;
+    background-attachment:scroll;
 }
 
-/* ===========================
-   Laptop (1200px - 1799px)
-=========================== */
-
-@media (max-width: 1799px) {
-
-  .venue-head {
-    font-size: 50px;
-  }
-
-  .venue-col h2 {
-    font-size: 40px;
-  }
-
-  .venue-card {
-    height: auto;
-  }
-
+.venue-head{
+    font-size:24px;
+    text-align:center;
 }
 
-/* ===========================
-   Tablet
-=========================== */
+.venue-txt{
+    font-size:13px;
+    text-align:center;
+}
 
-@media (max-width: 992px) {
+.venue-img{
+    width:100%;
+    height:180px;
+}
 
-  .venues-bg {
-    height: 65vh;
-    background-attachment: scroll;
-  }
+.venue-col{
+    font-size:14px;
+    padding:10px;
+}
 
-  .venues-bg * {
-    width: 90%;
-  }
+.venue-col h2{
+    font-size:22px;
+    text-align:center;
+}
 
-  .venue-head {
-    font-size: 38px;
-    text-align: center;
-  }
+.venue-filter-section{
+    width:100%;
+    padding:30px 15px;
+}
 
-  .venue-txt {
-    font-size: 16px;
-    text-align: center;
-  }
+.filter-bar{
+    flex-direction:column;
+    border-radius:20px;
+    gap:12px;
+}
 
-  .venue-img {
-    width: 100%;
-    height: 280px;
-  }
+.filter-title{
+    font-size:18px;
+    text-align:center;
+}
 
-  .venue-col {
-    padding: 10px;
-    font-size: 18px;
-  }
+.filter-bar select,
+.filter-bar input{
+    width:100%;
+    min-width:100%;
+    height:45px;
+}
 
-  .venue-col h2 {
-    font-size: 34px;
-    text-align: center;
-  }
+.venue-card img{
+    height:180px;
+}
 
-  .filter-bar {
-    flex-direction: column;
-    border-radius: 20px;
-  }
+.venue-card-body h4{
+    font-size:18px;
+}
 
-  .filter-bar select,
-  .filter-bar input {
-    width: 100%;
-  }
+.btn-group-custom{
+    flex-direction:column;
+}
 
-  .venue-card {
-    height: auto;
-  }
+.price-btn,
+.whatsapp-btn{
+    width:100%;
+}
 
-  .form-modal {
-    width: 90%;
-  }
+.form-modal{
+    width:95%;
+}
 
 }
 
-/* ===========================
-   Mobile
-=========================== */
+/* =========================
+   321px - 375px
+========================= */
 
-@media (max-width: 768px) {
+@media (min-width:321px) and (max-width:375px){
 
-  .venues-bg {
-    height: 55vh;
-  }
+.venue-head{
+    font-size:28px;
+}
 
-  .venue-head {
-    font-size: 30px;
-  }
+.venue-img{
+    height:220px;
+}
 
-  .venue-txt {
-    font-size: 15px;
-  }
-
-  .venue-img {
-    height: 220px;
-  }
-
-  .venue-col h2 {
-    font-size: 28px;
-  }
-
-  .venue-col {
-    font-size: 16px;
-  }
-
-  .venue-card img {
-    height: 220px;
-  }
-
-  .venue-card-body h4 {
-    font-size: 20px;
-  }
-
-  .btn-group-custom {
-    flex-direction: column;
-  }
-
-  .price-btn,
-  .whatsapp-btn {
-    width: 100%;
-  }
-
-  .filter-title {
-    width: 100%;
-    text-align: center;
-  }
+.venue-col{
+    font-size:15px;
+}
 
 }
 
-/* ===========================
-   Small Mobile
-=========================== */
+/* =========================
+   376px - 425px
+========================= */
 
-@media (max-width: 480px) {
+@media (min-width:376px) and (max-width:425px){
 
-  .venues-bg {
-    height: 50vh;
-  }
+.venue-head{
+    font-size:32px;
+}
 
-  .venue-head {
-    font-size: 24px;
-  }
+.venue-img{
+    height:240px;
+}
 
-  .venue-txt {
-    font-size: 14px;
-  }
-
-  .venue-img {
-    height: 180px;
-  }
-
-  .venue-col h2 {
-    font-size: 24px;
-  }
-
-  .venue-col {
-    font-size: 15px;
-  }
-
-  .venue-card img {
-    height: 180px;
-  }
-
-  .filter-bar {
-    padding: 15px;
-  }
-
-  .filter-bar select,
-  .filter-bar input {
-    min-width: 100%;
-    font-size: 16px;
-  }
-
-  .form-modal {
-    width: 95%;
-    padding: 15px;
-  }
+.venue-col h2{
+    font-size:26px;
+}
 
 }
 
+/* =========================
+   426px - 768px
+========================= */
 
-@media (max-width: 320px) {
+@media (min-width:426px) and (max-width:768px){
 
-  .venues-bg {
-    height: 100vh;
-  }
+.venues-bg{
+    height:75vh;
+    background-attachment:scroll;
+}
 
-  .venue-head {
-    font-size: 24px;
-  }
+.venue-head{
+    font-size:36px;
+}
 
-  .venue-txt {
-    font-size: 14px;
-  }
+.venue-txt{
+    font-size:16px;
+}
 
-  .venue-img {
-    height: 180px;
-  }
+.venue-img{
+    width:90%;
+    height:320px;
+}
 
-  .venue-col h2 {
-    font-size: 24px;
-  }
+.venue-filter-section{
+    width:90%;
+}
 
-  .venue-col {
-    font-size: 15px;
-  }
+.filter-bar{
+    gap:15px;
+}
 
-  .venue-card img {
-    height: 180px;
-  }
+.filter-bar select,
+.filter-bar input{
+    min-width:100%;
+}
 
-  .filter-bar {
-    padding: 15px;
-  }
+.form-modal{
+    width:90%;
+}
 
-  .filter-bar select,
-  .filter-bar input {
-    min-width: 100%;
-    font-size: 16px;
-  }
+}
 
-  .form-modal {
-    width: 95%;
-    padding: 15px;
-  }
+/* =========================
+   769px - 1024px
+========================= */
+
+@media (min-width:769px) and (max-width:1024px){
+
+.venues-bg{
+    height:85vh;
+}
+
+.venue-head{
+    font-size:40px;
+}
+
+.venue-img{
+    width:80%;
+    height:350px;
+}
+
+.venue-filter-section{
+    width:80%;
+}
+
+.form-modal{
+    width:80%;
+}
+
+}
+
+/* =========================
+   1025px - 1440px
+========================= */
+
+@media (min-width:1025px) and (max-width:1440px){
+
+.venue-head{
+    font-size:45px;
+}
+
+.venue-img{
+    width:60%;
+    height:380px;
+}
+
+.venue-filter-section{
+    width:70%;
+}
+
+}
+
+/* =========================
+   1441px - 2559px (2K)
+========================= */
+
+@media (min-width:1441px) and (max-width:2559px){
+
+.venues-bg{
+    height:95vh;
+}
+
+.venue-head{
+    font-size:60px;
+}
+
+.venue-txt{
+    font-size:20px;
+}
+
+.venue-col{
+    font-size:24px;
+}
+
+.venue-col h2{
+    font-size:50px;
+}
+
+.venue-img{
+    width:60%;
+    height:500px;
+}
+
+.venue-filter-section{
+    width:65%;
+}
+
+.filter-title{
+    font-size:28px;
+}
+
+.filter-bar select,
+.filter-bar input{
+    height:60px;
+    font-size:20px;
+}
+
+.venue-card img{
+    height:280px;
+}
+
+.venue-card-body h4{
+    font-size:30px;
+}
+
+.form-modal{
+    width:60%;
+}
+
+}
+
+/* =========================
+   2560px+ (4K)
+========================= */
+
+@media (min-width:2560px){
+
+.venues-bg{
+    height:100vh;
+}
+
+.venue-head{
+    font-size:75px;
+}
+
+.venue-txt{
+    font-size:28px;
+}
+
+.venue-col{
+    font-size:30px;
+}
+
+.venue-col h2{
+    font-size:65px;
+}
+
+.venue-img{
+    width:60%;
+    height:650px;
+}
+
+.venue-filter-section{
+    width:60%;
+}
+
+.filter-title{
+    font-size:34px;
+}
+
+.filter-bar{
+    padding:25px;
+}
+
+.filter-bar select,
+.filter-bar input{
+    height:70px;
+    font-size:24px;
+}
+
+.venue-card img{
+    height:350px;
+}
+
+.venue-card-body{
+    padding:30px;
+}
+
+.venue-card-body h4{
+    font-size:36px;
+}
+
+.price-btn,
+.whatsapp-btn{
+    font-size:22px;
+    padding:15px 30px;
+}
+
+.form-modal{
+    width:55%;
+    padding:35px;
+}
+
+.close-form{
+    font-size:45px;
+}
 
 }

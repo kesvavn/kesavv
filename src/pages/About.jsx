@@ -9,14 +9,14 @@ function About() {
       <div className="hero-bg">
         <MyNavbar />
 
-        <Container className="h-100">
+        <Container className="about-cont h-150 ">
           <Row className="h-100 align-items-center">
-            <Col md={6}>
+            <Col md={10}>
               <h1 className="about-heading">
                 About Melodia Event <br /> Management
               </h1>
 
-              <p className="about-text">
+              <p className="about-text2">
                 From concept to execution, Kerala’s premier event management company delivers <br />
                 flawless experiences tailored to your unique vision.
               </p>

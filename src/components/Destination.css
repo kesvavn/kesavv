@@ -1,31 +1,27 @@
-.destination-section {
- width: 80%;
-background-color: rgb(66, 63, 63);
-  color: white;
-  padding: 80px 0;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  border-radius: 20px;
 
+
+/* Default */
+.destination-section{
+  max-width:400px;
+  background-color:rgb(66, 63, 63);
+  color:white;
+  padding:80px 30px;
+  text-align:center;
+  border-radius:20px;
 }
 
-/* Title */
-.dest-title {
-
-  font-size: 32px;
-  font-weight: 500;
-  margin-bottom: 20px;
+.dest-title{
+  font-size:32px;
+  line-height:1.4;
+  margin-bottom:20px;
 }
 
-/* Text */
-.dest-text {
-  max-width: 500px;
-  margin: auto;
-  font-size: 16px;
-  line-height: 1.7;
-  color: white;
-  text-align: justify;
-  
+.dest-text{
+  max-width:500px;
+  margin:auto;
+  font-size:16px;
+  line-height:1.7;
+  text-align:justify;
 }
 
 /* Buttons container */
@@ -68,31 +64,6 @@ background-color: rgb(66, 63, 63);
 }
 
 
-
-/* Default */
-.destination-section{
-  width:100%;
-  max-width:700px;
-  background-color:rgb(66, 63, 63);
-  color:white;
-  padding:80px 30px;
-  text-align:center;
-  border-radius:20px;
-}
-
-.dest-title{
-  font-size:32px;
-  line-height:1.4;
-  margin-bottom:20px;
-}
-
-.dest-text{
-  max-width:500px;
-  margin:auto;
-  font-size:16px;
-  line-height:1.7;
-  text-align:justify;
-}
 
 /* =========================
    320px

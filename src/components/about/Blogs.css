@@ -105,7 +105,7 @@
 @media (max-width: 320px) {
 
   .blogs-content {
-    margin: 120px auto;
+    margin: 20px auto;
     padding: 30px 15px;
   }
 
@@ -142,7 +142,7 @@
 @media (min-width: 321px) and (max-width: 375px) {
 
   .blogs-content {
-    margin: 140px auto;
+    margin: 1px ;
     padding: 40px 20px;
   }
 
@@ -174,7 +174,7 @@
 @media (min-width: 376px) and (max-width: 425px) {
 
   .blogs-content {
-    margin: 160px auto;
+    margin: 0px auto;
     padding: 40px 20px;
   }
 
@@ -202,7 +202,7 @@
 @media (min-width: 426px) and (max-width: 768px) {
 
   .blogs-content {
-    margin: 200px auto;
+    margin: 0px auto;
     padding: 50px 25px;
   }
 
@@ -229,7 +229,7 @@
 @media (min-width: 769px) and (max-width: 1024px) {
 
   .blogs-content {
-    margin: 250px auto;
+    margin: 0px auto;
   }
 
   .blog-title {
@@ -245,6 +245,9 @@
    Laptop L (1025px - 1440px)
 ========================= */
 @media (min-width: 1025px) and (max-width: 1440px) {
+    .blogs-content {
+    margin: 0px auto;
+  } 
 
   .blog-title {
     font-size: 52px;
@@ -261,7 +264,7 @@
 @media (min-width: 1441px) and (max-width: 2560px) {
 
   .blogs-content {
-    margin: 400px auto;
+    margin: 0px auto;
   }
 
   .blog-title {
