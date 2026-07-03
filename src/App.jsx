@@ -30,6 +30,7 @@ import Blogs from "./components/about/Blogs";
 import Test from "./components/about/Test";
 import Footer from "./pages/Footer";
 
+import WhatsAppButton from "./components/WhatsAppButton";
 
 
 import Layout from "./Layout";
@@ -130,7 +131,8 @@ function App() {
         />
          
       </Routes>
-      
+            <WhatsAppButton />
+
     </>
   );
 }

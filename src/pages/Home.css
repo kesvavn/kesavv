@@ -513,15 +513,10 @@ color: white;
 
   }
 
-  .main-heading {
-        color: #FFF;
-    font-family: "Montserrat", Sans-serif;
+ .main-heading {
     font-size: 60px;
-    font-weight: 400;
-    line-height: 1.2em;
-
+   
   }
-
     .hero-bottom{
     display: flex;
     flex-direction: row;

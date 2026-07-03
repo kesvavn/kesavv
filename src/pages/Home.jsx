@@ -27,6 +27,9 @@ import Location from "../components/Location";
 import Review from "../images/1.webp";
 import Review1 from "../images/2.webp";
 import Review2 from "../images/3.webp";
+
+import WhatsAppButton from "../components/WhatsAppButton";
+
  
 import Footer from "./Footer"
 
@@ -118,6 +121,7 @@ function Home() {
       <TopVenueSlider />
       <Location />
        <Footer  /> 
+        <WhatsAppButton />
     </div>
   );
 }
