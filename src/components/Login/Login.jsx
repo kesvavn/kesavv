@@ -1,55 +1,53 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Offcanvas, Button, Form,Image} from "react-bootstrap";
-import { FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock, FaGoogle,} from "react-icons/fa";
+import { Offcanvas, Button, Form, Image } from "react-bootstrap";
+import {FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock,} from "react-icons/fa";
 import "./Login.css";
 import Img from "../Login/MELODIA-LOGO-03-1.webp";
- 
 
-function Login({ showSidebar, setShowSidebar }) {
-
+function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  // ✅ EMAIL VALIDATION
+  // Email Validation
   const isValidEmail =
     /^[a-zA-Z0-9._%+-]{5,}@gmail\.com$/.test(email);
 
-  // ✅ PASSWORD VALIDATION
-  const isValidPassword =
-    password.length >= 6;
+  // Password Validation
+  const isValidPassword = password.length >= 6;
 
   const handleLogin = async (e) => {
   e.preventDefault();
 
-  console.log("Email:", email);
-  console.log("Password:", password);
-
   try {
     const res = await axios.post(
-      "http://localhost:5000/login",
-      {
-        email,
-        password,
-      }
-    );
+    "http://localhost:5000/login",
+   {
+    email,
+    password,
+  }
+);
 
-    alert(res.data.message);
+localStorage.setItem("token", res.data.token);
+localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    setShowSidebar(false);
-    setEmail("");
-    setPassword("");
+onLogin();
+
+setShowSidebar(false);
+
+if (redirectAfterLogin) {
+  navigate(redirectAfterLogin);
+}
 
   } catch (err) {
-    console.log(err);
-
     alert(
-      err.response?.data?.message ||
-      "Login Failed"
+      err.response?.data?.message || "Login Failed"
     );
   }
 };
-
+      
   return (
     <>
       <Offcanvas
@@ -58,42 +56,37 @@ function Login({ showSidebar, setShowSidebar }) {
         placement="start"
         className="login-sidebar"
       >
-
-        {/* HEADER */}
         <Offcanvas.Header closeButton>
+  <Offcanvas.Title>
+    <Image
+      src={Img}
+      alt="Melodia Logo"
+      className="loginlogo"
+      fluid
+    />
+  </Offcanvas.Title>
+</Offcanvas.Header>
 
-          <Offcanvas.Title>
-           <Image
-        src={Img} alt="Wedding" className="loginlogo" fluid/> <br />
-        
-          </Offcanvas.Title>
-        </Offcanvas.Header>
-
-        {/* BODY */}
         <Offcanvas.Body>
           <div className="login-top">
-          <p className="para-logo">Melodia® Event Management is an ISO 9001 2015 Certified Company based in Kochi, Thrissur Kerala. We offer premium event management services including weddings, corporate events, and private parties. Contact us to know more.</p>
-            <h2>
-              Login Account
-            </h2>
-
-            <p>
-              Access your wedding & event dashboard.
+            <p className="para-logo">
+              Melodia® Event Management is an ISO 9001:2015
+              Certified Company based in Kochi, Thrissur,
+              Kerala.
             </p>
 
+            <h2>Login Account</h2>
+
+            <p>Access your wedding & event dashboard.</p>
           </div>
 
           <Form onSubmit={handleLogin}>
-
             {/* EMAIL */}
-            <div className="input-box position-relative mb-4">
 
-              <label>
-                Email Address
-              </label>
+            <div className="input-box mb-4">
+              <label>Email Address</label>
 
               <div className="input-wrapper">
-
                 <FaEnvelope className="input-icon" />
 
                 <Form.Control
@@ -112,18 +105,14 @@ function Login({ showSidebar, setShowSidebar }) {
                   }
                 />
 
-                {/* STATUS ICON */}
-                {email && (
-                  isValidEmail ? (
+                {email &&
+                  (isValidEmail ? (
                     <FaCheckCircle className="status-icon success" />
                   ) : (
                     <FaTimesCircle className="status-icon error" />
-                  )
-                )}
-
+                  ))}
               </div>
 
-              {/* MESSAGE */}
               {email && (
                 <small
                   className={
@@ -134,21 +123,17 @@ function Login({ showSidebar, setShowSidebar }) {
                 >
                   {isValidEmail
                     ? "Correct Gmail Address"
-                    : "Enter minimum 5 letters + @gmail.com"}
+                    : "Enter valid Gmail Address"}
                 </small>
               )}
-
             </div>
 
             {/* PASSWORD */}
-            <div className="input-box position-relative mb-3">
 
-              <label>
-                Password
-              </label>
+            <div className="input-box mb-4">
+              <label>Password</label>
 
               <div className="input-wrapper">
-
                 <FaLock className="input-icon" />
 
                 <Form.Control
@@ -167,18 +152,14 @@ function Login({ showSidebar, setShowSidebar }) {
                   }
                 />
 
-                {/* STATUS ICON */}
-                {password && (
-                  isValidPassword ? (
+                {password &&
+                  (isValidPassword ? (
                     <FaCheckCircle className="status-icon success" />
                   ) : (
                     <FaTimesCircle className="status-icon error" />
-                  )
-                )}
-
+                  ))}
               </div>
 
-              {/* MESSAGE */}
               {password && (
                 <small
                   className={
@@ -192,43 +173,29 @@ function Login({ showSidebar, setShowSidebar }) {
                     : "Minimum 6 characters required"}
                 </small>
               )}
-
             </div>
 
-            {/* FORGOT PASSWORD */}
             <div className="forgot-box mb-4">
-
-              <a href="#">
-                Forgot Password?
-              </a>
-
+              <a href="#">Forgot Password?</a>
             </div>
 
-            {/* LOGIN BUTTON */}
             <Button
               type="submit"
-              className="login-btn w-100 mb-3"
+              className="login-btn w-100"
+              disabled={
+                !isValidEmail || !isValidPassword
+              }
             >
               Login
             </Button>
-
           </Form>
 
-          {/* SIGNUP */}
           <div className="signup-box mt-4">
-
             <p>
-
               New User?
-
-              <span>
-                {" "}Create Account
-              </span>
-
+              <span> Create Account</span>
             </p>
-
           </div>
-
         </Offcanvas.Body>
       </Offcanvas>
     </>

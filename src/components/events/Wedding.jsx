@@ -16,7 +16,7 @@ function Wedding() {
       <Container>
         <Row className=" align-items-center justify-content-center min-vh-100">
           <Col>
-            <h1 className="text-white">Wedding Planners in Kerala</h1>
+            <h1 className="wedding-title">Wedding Planners in Kerala</h1>
             <p className="text-para ">This is where a professional wedding planner in Kerala comes in! Melodia Event Management makes <br/>
                 your dream wedding ceremony, whether a regional or destination wedding in Kerala, stress-free and 
                 <br/>magical..</p>
@@ -29,7 +29,7 @@ function Wedding() {
       <Container>
         <Row>
           <Col>
-            <h1 className="text-black">Enchanting Weddings with Melodia: Your Premier Traditional and Destination Wedding Planners in Kerala</h1>
+            <h1 className="wedding-heading">Enchanting Weddings with Melodia: Your Premier Traditional and Destination Wedding Planners in Kerala</h1>
             <p className="text-para1">
               Melodia Event Management is a leading wedding planning company in Kochi, dedicated to creating unforgettable wedding experiences. Our team of experts will handle every detail, from the initial planning stages to the final execution, ensuring your special day is perfect.
             </p><br />

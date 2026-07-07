@@ -9,7 +9,6 @@
   background-attachment: fixed;
 }
 
-
 .venues-bg::before {
   content: "";
   position: absolute;
@@ -244,7 +243,7 @@
 }
 
 .venue-txt{
-    font-size:13px;
+    font-size:10px;
     text-align:center;
 }
 

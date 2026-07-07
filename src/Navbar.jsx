@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {Navbar as BsNavbar, Nav, Container, Button,NavDropdown,} from "react-bootstrap";
 
@@ -7,6 +7,8 @@ import "./Navbar.css";
 import Login from "./components/Login/Login";
 
 function MyNavbar() {
+  const [redirectAfterLogin, setRedirectAfterLogin] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -15,6 +17,27 @@ function MyNavbar() {
   const closeMenu = () => {
     setExpanded(false);
   };
+  
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    setIsLoggedIn(true);
+  } else {
+    setIsLoggedIn(false);
+  }
+}, []);
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  setIsLoggedIn(false);
+
+  setShowSidebar(false);
+
+  alert("Logout Successful");
+};
 
   return (
     <>
@@ -143,9 +166,21 @@ function MyNavbar() {
 
               </NavDropdown>
 
-              <Nav.Link as={Link} to="/venues" onClick={closeMenu}>
-                VENUES
-              </Nav.Link>
+              <Nav.Link
+  onClick={() => {
+    closeMenu();
+
+    if (localStorage.getItem("token")) {
+      navigate("/venues");
+    } else {
+      alert("Please login first");
+      setRedirectAfterLogin("/venues");
+      setShowSidebar(true);
+    }
+  }}
+>
+  VENUES
+</Nav.Link>
 
               <NavDropdown title="GALLERY">
                 <NavDropdown.Item
@@ -190,32 +225,42 @@ function MyNavbar() {
               
               
             </Nav>
+<div className="right-section">
 
-            <div className="right-section">
+  <Button id="phone-btn">
+    <FaPhoneAlt className="me-2" />
+    +91 859 001 0011
+  </Button>
 
-              <Button id="phone-btn">
-                <FaPhoneAlt className="me-2" />
-                +91 859 001 0011
-              </Button>
+  {isLoggedIn ? (
+    <Button
+      variant="danger"
+      className="menu-login-btn"
+      onClick={handleLogout}
+    >
+      Logout
+    </Button>
+  ) : (
+    <Button
+      className="menu-login-btn"
+      onClick={() => setShowSidebar(true)}
+    >
+      <FaBars />
+    </Button>
+  )}
 
-              <Button
-                className="menu-login-btn"
-                onClick={() => setShowSidebar(true)}
-              >
-                <FaBars />
-              </Button>
-
-            </div>
+</div>
 
           </BsNavbar.Collapse>
 
         </Container>
       </BsNavbar>
-
-      <Login
-        showSidebar={showSidebar}
-        setShowSidebar={setShowSidebar}
-      />
+     <Login
+  showSidebar={showSidebar}
+  setShowSidebar={setShowSidebar}
+  redirectAfterLogin={redirectAfterLogin}
+  onLogin={() => setIsLoggedIn(true)}
+/>
     </>
   );
 }
