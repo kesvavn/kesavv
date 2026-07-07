@@ -113,11 +113,11 @@ function Footer() {
   </li>
 
   <li>
-    <Link to="/photo-gallery">Photo Gallery</Link>
+    <Link to="/PhotoGallery">Photo Gallery</Link>
   </li>
 
   <li>
-    <Link to="/video-gallery">Video Gallery</Link>
+    <Link to="/VideoGallery">Video Gallery</Link>
   </li>
 
   <li>
