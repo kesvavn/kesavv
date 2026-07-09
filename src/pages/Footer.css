@@ -196,7 +196,7 @@
 
   /* GRID → STACK */
   .footer-grid {
-    grid-template-columns: 1fr;   /* 🔥 single column */
+    grid-template-columns: 1fr; 
     gap: 25px;
     margin-top: 30px;
   }
@@ -273,7 +273,7 @@
 
   /* GRID → STACK */
   .footer-grid {
-    grid-template-columns: 1fr;   /* 🔥 single column */
+    grid-template-columns: 1fr;  
     gap: 25px;
     margin-top: 30px;
   }
