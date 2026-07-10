@@ -48,14 +48,12 @@ function KakkattuMana() {
     </Row>
   </Container>
 </div>
-<div className="kakkattu-img " >
       <h1 className="kakkattu-img-text">
         Planning a wedding or special event at Kakkattu Mana in
         <br /> Chathanur, Pattambi, Palakkad? Melodia Event Management 
         <br /> provides professional event planning support to help 
         <br /> organize a smooth and memorable celebration at this venue.
       </h1>
-    </div>
     
    
    <div className="d-flex justify-content-center my-4">

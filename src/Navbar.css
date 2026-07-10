@@ -8,7 +8,7 @@
 /* =========================
    NAVBAR
 ========================= */
-.custom-navbar{
+.my-navbar{
     position: absolute;
     top: 20px;
     left: 48%;
@@ -20,14 +20,14 @@
     border-radius: 100px;
 }
 
-.custom-navbar .dropdown{
+.my-navbar .dropdown{
     position: relative;
 }
 
 /* =========================
    CONTAINER
 ========================= */
-.custom-navbar .container-fluid{
+.my-navbar .container-fluid{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -54,7 +54,7 @@
 /* =========================
    COLLAPSE
 ========================= */
-.custom-navbar .navbar-collapse{
+.my-navbar .navbar-collapse{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -75,15 +75,15 @@
 /* =========================
    NAV ITEMS
 ========================= */
-.custom-navbar .navbar-nav{
+.my-navbar .navbar-nav{
     display: flex;
     align-items: center;
     gap: 2px;
 }
 
 /* LINKS */
-.custom-navbar .nav-link,
-.custom-navbar .dropdown-toggle{
+.my-navbar .nav-link,
+.my-navbar .dropdown-toggle{
     color: #fff !important;
     font-family: "Montserrat", sans-serif;
     font-size: 18px;
@@ -96,8 +96,8 @@
 }
 
 /* UNDERLINE EFFECT */
-.custom-navbar .nav-link::before,
-.custom-navbar .dropdown-toggle::before{
+.my-navbar .nav-link::before,
+.my-navbar .dropdown-toggle::before{
     content: "";
     position: absolute;
     left: 0;
@@ -108,13 +108,13 @@
     transition: 0.3s;
 }
 
-.custom-navbar .nav-link:hover::before,
-.custom-navbar .dropdown-toggle:hover::before{
+.my-navbar .nav-link:hover::before,
+.my-navbar .dropdown-toggle:hover::before{
     width: 100%;
 }
 
-.custom-navbar .nav-link:hover,
-.custom-navbar .dropdown-toggle:hover{
+.my-navbar .nav-link:hover,
+.my-navbar .dropdown-toggle:hover{
     color: #fff !important;
 }
 
@@ -155,7 +155,7 @@
 }
 
 
-.custom-navbar .dropdown-menu{
+.my-navbar .dropdown-menu{
     position: absolute !important;
     z-index: 9999999 !important;
 
@@ -169,7 +169,7 @@
 }
 
 
-.custom-navbar .dropdown-item{
+.my-navbar .dropdown-item{
     position: relative;
     z-index: 9999999 !important;
 
@@ -191,8 +191,8 @@
     z-index: 1 !important;
 }
 
-.custom-navbar .dropdown-item:hover,
-.custom-navbar .dropdown-item:focus{
+.my-navbar .dropdown-item:hover,
+.my-navbar .dropdown-item:focus{
     background: rgba(255,255,255,0.1);
     color: #fff !important;
 }
@@ -338,12 +338,12 @@
     height: 38px;
   }
 
-  .custom-navbar {
+  .my-navbar {
     padding: 6px 10px;
   }
 
-  .custom-navbar .nav-link,
-  .custom-navbar .dropdown-toggle {
+  .my-navbar .nav-link,
+  .my-navbar .dropdown-toggle {
     font-size: 14px;
     
   }
@@ -360,7 +360,7 @@
 ========================= */
 @media (min-width: 769px) and (max-width: 1024px) {
 
-  .custom-navbar {
+  .my-navbar {
     width: 95%;
     padding: 10px 15px;
   }
@@ -370,8 +370,8 @@
     padding-left: 10px;
   }
 
-  .custom-navbar .nav-link,
-  .custom-navbar .dropdown-toggle {
+  .my-navbar .nav-link,
+  .my-navbar .dropdown-toggle {
      font-family: "Montserrat", Sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -389,7 +389,7 @@
 ========================= */
 @media (min-width: 1440px) {
 
-  .custom-navbar {
+  .my-navbar {
    position: relative;
     width: 80%;
     flex-wrap: wrap;
@@ -404,8 +404,8 @@
 
   }
 
-  .custom-navbar .nav-link,
-  .custom-navbar .dropdown-toggle {
+  .my-navbar .nav-link,
+  .my-navbar .dropdown-toggle {
     
         font-family: "Montserrat", Sans-serif;
     font-size: 15px;
@@ -423,7 +423,7 @@
 ========================= */
 @media (min-width: 2560px) {
 
-  .custom-navbar {
+  .my-navbar {
     width: 70%;
     top: 30px;
     padding: 18px 35px;
@@ -433,8 +433,8 @@
     height: 110px;
   }
 
-  .custom-navbar .nav-link,
-  .custom-navbar .dropdown-toggle {
+  .my-navbar .nav-link,
+  .my-navbar .dropdown-toggle {
     font-family: "Montserrat", Sans-serif;
     font-size: 25px;
     font-weight: 400;

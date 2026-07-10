@@ -6,6 +6,7 @@ import Footer from "./Footer"
 function About() {
   return (
     <div>
+      
       <div className="hero-bg">
         <MyNavbar />
 

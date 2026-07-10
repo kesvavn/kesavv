@@ -4,8 +4,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  
+  background-attachment: fixed;
 }
 
 .kakkattu-container {
@@ -99,7 +98,6 @@ background-size: cover;
 .enquiry-card .btn:hover{
     background:#563673;
 }
-
 
 .contact-whatsapp-btn {
   background: linear-gradient(90deg, #25d366, #128c7e) !important;

@@ -41,11 +41,12 @@ const handleLogout = () => {
 
   return (
     <>
-      <BsNavbar
-        expand="lg"
-        expanded={expanded}
-        className="custom-navbar"
-      >
+
+       <BsNavbar
+    expand="lg"
+    expanded={expanded}
+    className="my-navbar">
+
         <Container fluid>
 
           <BsNavbar.Brand as={Link} to="/" className="logo">
@@ -79,7 +80,7 @@ const handleLogout = () => {
              <NavDropdown title={<span onDoubleClick={() => navigate("/About")}> ABOUT </span>}>
   <NavDropdown.Item
     as={Link}
-    to="/Blogs"
+    to="/blogs"
     onClick={closeMenu}
   >
     BLOGS MY MELODIA
@@ -87,7 +88,7 @@ const handleLogout = () => {
 
   <NavDropdown.Item
     as={Link}
-    to="/Test"
+    to="/test"
     onClick={closeMenu}
   >
     TESTIMONIALS
