@@ -9,6 +9,7 @@ const venueRoutes = require("./routes/venueRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const authRoutes = require("./routes/authRoutes");
 const auth = require("./middleware/auth");
+const contactRoutes = require("./routes/ContactRoutes");
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Existing Routes
 app.use("/api/upload", uploadRoutes);
 app.use("/api/venues", venueRoutes);
+app.use("/api/contact", contactRoutes); 
+app.use("/", authRoutes);
 
 // JWT Routes
 app.use("/", authRoutes);

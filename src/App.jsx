@@ -120,10 +120,10 @@ function App() {
           element={<KalappuraFarmHouse />}
         />
 
-        <Route
-          path="/kampify-kochi"
-          element={<KampifyKochi />}
-        />
+       <Route
+  path="/KampifyKochi"
+  element={<KampifyKochi />}
+/>
 
         <Route
           path="/kadavu-villas"

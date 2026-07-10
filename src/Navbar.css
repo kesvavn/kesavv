@@ -223,7 +223,7 @@
 ========================= */
 @media (max-width: 768px) {
 
-  .custom-navbar {
+  .my-navbar {
     width: 95%;
     padding: 8px 12px;
     border-radius: 50px;
@@ -237,7 +237,7 @@
     padding: 4px 8px;
   }
 
-  .custom-navbar .navbar-collapse {
+  .my-navbar .navbar-collapse {
     position: fixed;
     top: 0;
     right: 0;
@@ -253,7 +253,7 @@
     align-items: flex-start;
   }
 
-  .custom-navbar .navbar-collapse.show {
+  .my-navbar .navbar-collapse.show {
     display: flex !important;
   }
 
@@ -280,8 +280,8 @@
     margin-left: 0;
   }
 
-  .custom-navbar .nav-link,
-  .custom-navbar .dropdown-toggle {
+  .my-navbar .nav-link,
+  .my-navbar .dropdown-toggle {
     width: 100%;
     padding: 6px 0 !important;
     font-size: 15px;
@@ -289,11 +289,11 @@
   }
 
   /* Dropdown */
-  .custom-navbar .dropdown {
+  .my-navbar .dropdown {
     width: 100%;
   }
 
-  .custom-navbar .dropdown-menu {
+  .my-navbar .dropdown-menu {
     position: static !important;
     transform: none !important;
     width: 100%;
@@ -302,7 +302,7 @@
     border-radius: 8px;
   }
 
-  .custom-navbar .dropdown-item {
+  .my-navbar .dropdown-item {
     color: #333;
     padding: 10px 15px;
   }
