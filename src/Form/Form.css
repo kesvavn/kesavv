@@ -1,119 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-.event-pricing-form {
-  max-width: 700px;
-  margin: 15px auto;
-  padding: 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.1);
-  font-family: "Montserrat", sans-serif;
-}
 
-.event-form-header h6 {
-  color: #7a3db8;
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-
-.event-form-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 12px;
-}
-
-.event-form-header p {
-  color: #666;
-  font-size: 13px;
-  line-height: 1.6;
-  margin-bottom: 25px;
-}
-
-.event-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px 25px;
-}
-
-.event-form-grid label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: #222;
-  margin-bottom: 8px;
-}
-
-.event-form-grid input,
-.event-form-grid select {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #dcdcdc;
-  padding: 8px 0;
-  font-size: 13px;
-  font-family: "Montserrat", sans-serif;
-  background: transparent;
-  outline: none;
-}
-
-.event-radio-group {
-  display: flex;
-  gap: 15px;
-  margin-top: 5px;
-}
-
-.event-radio-group label {
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.event-radio-group input[type="radio"] {
-  width: 14px;
-  height: 14px;
-}
-
-.event-cancel-box {
-  margin-top: 20px;
-  border: 2px solid #9d4edd;
-  background: #f8f2ff;
-  border-radius: 10px;
-  padding: 15px;
-}
-
-.event-cancel-box label {
-  color: #7a3db8;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.event-cancel-box select {
-  width: 250px;
-  height: 40px;
-  border: 1px solid #9d4edd;
-  border-radius: 6px;
-  padding: 0 10px;
-  font-size: 13px;
-}
-
-.event-cancel-box p {
-  color: #666;
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-.event-price-btn {
-  width: 100%;
-  height: 52px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(90deg,#6f2dbd,#9d4edd);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
@@ -134,7 +19,7 @@
 
 /* Header */
 
-.event-form-header h6{
+.event-header h2{
     color:#7a3db8;
     font-size:13px;
     font-weight:600;
@@ -142,16 +27,16 @@
     margin-bottom:8px;
 }
 
-.event-form-header h1{
-    font-size:32px;
+.event-header h1{
+    font-size:22px;
     font-weight:700;
     color:#111;
     margin-bottom:15px;
 }
 
-.event-form-header p{
+.event-header p{
     color:#666;
-    font-size:15px;
+    font-size:12px;
     line-height:1.7;
     margin-bottom:30px;
 }
@@ -246,26 +131,81 @@
     font-size:13px;
     line-height:1.6;
 }
+/* Button Container */
+.event-btn-group{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
 
-/* Button */
-
+/* Price Button */
 .event-price-btn{
-    width:100%;
-    height:55px;
-    margin-top:30px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(90deg,#6f2dbd,#9d4edd);
-    color:#fff;
-    font-size:17px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+    flex: 1;
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg,#6f2dbd,#9d4edd);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
 }
 
 .event-price-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 20px rgba(111,45,189,.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(111,45,189,.3);
+}
+
+/* Submit Button */
+.event-submit-btn{
+    flex: 1;
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    background: #28a745;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.event-submit-btn:hover{
+    background: #218838;
+}
+
+.event-payment-box {
+  margin-top: 25px;
+}
+
+.event-payment-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.event-payment-box select {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 15px;
+  outline: none;
+}
+
+.payment-info {
+  margin-top: 12px;
+  padding: 12px 15px;
+  background: #f4f0ff;
+  border-left: 4px solid #6f2dbd;
+  border-radius: 8px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 /* ===========================

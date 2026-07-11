@@ -11,6 +11,9 @@
   overflow: hidden;
   margin-bottom: 20px;
 }
+.txt-center{
+  padding-top: 20%;
+}
 
 .wedding-bg::before {
   content: "";

@@ -7,7 +7,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import MyNavbar from "./Navbar";
 
-import Details from "./components/events/Details";
+import Corprate from "./components/events/Corprate";
 import Wedding from "./components/events/Wedding";
 import Destinationwedding from "./components/events/Destinationwedding";
 import BeachWedding from "./components/events/BeachWedding";
@@ -68,7 +68,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
 
         {/* EVENT ROUTES */}
-        <Route path="/details" element={<Details />} />
+        <Route path="/Corprate" element={<Corprate />} />
         <Route path="/Wedding" element={<Wedding />} />
         <Route
           path="/Destinationwedding"

@@ -139,7 +139,7 @@
 }
 
 .venue-card{
-    min-height: 200px;
+    min-height: 150px;
     height: auto;
 }
 
@@ -176,6 +176,8 @@
 }
 
 .price-btn{
+        font-size: 12px;
+
   background: #8a5bb6;
   color: white;
   border: none;
@@ -184,6 +186,7 @@
 }
 
 .whatsapp-btn{
+    font-size: 12px;
   background: #1db954;
   color: white;
   border: none;
@@ -411,12 +414,14 @@
 }
 
 .venue-filter-section{
-    width:80%;
+    width:60%;
 }
 
 .form-modal{
     width:80%;
 }
+
+
 
 }
 
@@ -436,7 +441,10 @@
 }
 
 .venue-filter-section{
-    width:70%;
+    width:60%;
+}
+.venue-card{
+    min-height: 100px;
 }
 
 }

@@ -4,7 +4,9 @@ import Image from "../images/WhatsApp-Image-2022-08-26-at-7.41.01-PM.webp";
 import MyNavbar from "../Navbar";
 import "./Contact.css";
 import BranchOffice from "../components/Contact/BranchOffice"
-import Footer from "./Footer"
+import Footer from "./Footer" 
+import ContactForm from "../Form/ContactForm";
+
 
 
 function Contact() {
@@ -121,42 +123,7 @@ function Contact() {
 
         <div className="reach-form-wrapper">
 
-          <Form>
-
-            <Form.Group className="mb-4">
-              <Form.Control
-                type="text"
-                placeholder="Enter your Full Name"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-              <Form.Control
-                type="text"
-                placeholder="Enter your Phone Number"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-              <Form.Control
-                type="email"
-                placeholder="Enter your Email ID"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-              <Form.Control
-                as="textarea"
-                rows={5}
-                placeholder="Message"
-              />
-            </Form.Group>
-
-            <Button className="reach-submit-btn">
-              SUBMIT
-            </Button>
-
-          </Form>
+          <ContactForm />
 
         </div>
 

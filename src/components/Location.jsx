@@ -1,6 +1,8 @@
 import "./Location.css";
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import ContactForm from "../Form/ContactForm";
+
 
 function Location() {
 
@@ -71,34 +73,9 @@ function Location() {
           <Col lg={6}>
 
             <div className="location-right">
+           
+             <ContactForm />
 
-              <form className="location-form">
-
-                <input
-                  type="text"
-                  placeholder="Enter your Full Name"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Enter your Phone Number"
-                />
-
-                <input
-                  type="email"
-                  placeholder="Enter your Email ID"
-                />
-
-                <textarea
-                  rows="5"
-                  placeholder="Message"
-                ></textarea>
-
-                <button type="submit">
-                  SUBMIT
-                </button>
-
-              </form>
 
             </div>
 

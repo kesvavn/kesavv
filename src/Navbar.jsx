@@ -114,7 +114,7 @@ const handleLogout = () => {
 
                 <NavDropdown.Item
                   as={Link}
-                  to="/Details"
+                  to="/Corprate"
                   onClick={closeMenu}
                 >
                   CORPORATE EVENTS MANAGEMENT

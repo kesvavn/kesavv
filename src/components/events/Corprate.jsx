@@ -4,7 +4,7 @@ import "./Details.css";
 import MyNavbar from "../../Navbar";
 import grand from "../events/grand.jpg";
 
-function Details() {
+function Corprate() {
 
    useEffect(() => {
     window.scrollTo(0, 0);   // 🔥 always top
@@ -82,4 +82,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default Corprate;

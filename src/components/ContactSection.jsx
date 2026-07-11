@@ -3,6 +3,8 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import awardImage1 from "./events/award2.webp";
 import awardImage2 from "./events/award1.webp";
 import awardImage3 from "./events/Screenshot-2025-12-27-at-1.23.02 PM-2048x1101.webp";
+import ContactForm from "../Form/ContactForm";
+
 
 function ContactSection() {
   return (
@@ -32,42 +34,10 @@ function ContactSection() {
 
           {/* RIGHT FORM */}
           <Col lg={5} className="contact-right">
-            <Form>
-
-              <Form.Group className="mb-2">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your Full Name"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-2">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your Phone Number"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-2">
-                <Form.Control
-                  type="email"
-                  placeholder="Enter your Email ID"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Control
-                  as="textarea"
-                  rows={5}
-                  placeholder="Message"
-                />
-              </Form.Group>
-
-              <Button className="submit-btn" style={{  border: "2px solid white" }}>
-                SUBMIT
-              </Button>
-
-            </Form>
+           
+         <ContactForm />
+           
+          
           </Col>
 
         </Row>

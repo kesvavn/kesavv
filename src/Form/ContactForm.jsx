@@ -18,17 +18,6 @@ function ContactForm() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  await axios.post(
-    "http://localhost:5000/api/contact",
-    formData
-  );
-
-  alert("Message Sent Successfully");
-};
-
-  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -61,6 +50,7 @@ function ContactForm() {
           placeholder="Enter your Full Name"
           value={formData.name}
           onChange={handleChange}
+          required
         />
       </Form.Group>
 
@@ -71,6 +61,7 @@ function ContactForm() {
           placeholder="Enter your Phone Number"
           value={formData.phone}
           onChange={handleChange}
+          required
         />
       </Form.Group>
 
@@ -81,6 +72,7 @@ function ContactForm() {
           placeholder="Enter your Email ID"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </Form.Group>
 
@@ -92,6 +84,7 @@ function ContactForm() {
           placeholder="Message"
           value={formData.message}
           onChange={handleChange}
+          required
         />
       </Form.Group>
 

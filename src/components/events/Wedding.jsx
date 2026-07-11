@@ -6,7 +6,7 @@ import Image from "../../images/pexels-krishna-studio-5200435_15_185637-16234693
 import Image1 from "../events/wedding-dance-111-1536x1023.webp";
 function Wedding() {
    useEffect(() => {
-    window.scrollTo(0, 0);   // 🔥 always top
+    window.scrollTo(0, 0);   
   }, []);
 
   return (
@@ -14,8 +14,8 @@ function Wedding() {
     <div className="wedding-bg">
       <MyNavbar/>
       <Container>
-        <Row className=" align-items-center justify-content-center min-vh-100">
-          <Col>
+        <Row className="align-items-center justify-content-center md-6" style={{ minHeight: "70vh" }}>
+          <Col md={12} className="txt-center">
             <h1 className="wedding-title">Wedding Planners in Kerala</h1>
             <p className="text-para ">This is where a professional wedding planner in Kerala comes in! Melodia Event Management makes <br/>
                 your dream wedding ceremony, whether a regional or destination wedding in Kerala, stress-free and 
