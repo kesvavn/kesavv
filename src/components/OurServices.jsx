@@ -31,7 +31,7 @@ Melodia® Event Management is an ISO 9001:2015 certified event management compan
         
         <div
           className="cardd"
-          onClick={() => navigate("/details")}>
+          onClick={() => navigate("/Corprate")}>
           <img src={waitingRoom} alt="waiting room" /> 
           <div className="overlay">
             <h3>CORPORATE EVENT</h3>

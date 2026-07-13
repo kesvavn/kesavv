@@ -34,6 +34,7 @@ function ContactForm() {
         email: "",
         message: "",
       });
+      
     } catch (err) {
       console.log(err);
       alert("Something went wrong");
@@ -41,58 +42,58 @@ function ContactForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
 
-      <Form.Group className="mb-4">
-        <Form.Control
-          type="text"
-          name="name"
-          placeholder="Enter your Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
+  <Form onSubmit={handleSubmit}>
+    <Form.Group className="mb-4">
+      <Form.Control
+        type="text"
+        name="name"
+        placeholder="Enter your Full Name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+      />
+    </Form.Group>
 
-      <Form.Group className="mb-4">
-        <Form.Control
-          type="text"
-          name="phone"
-          placeholder="Enter your Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
+    <Form.Group className="mb-4">
+      <Form.Control
+        type="text"
+        name="phone"
+        placeholder="Enter your Phone Number"
+        value={formData.phone}
+        onChange={handleChange}
+        required
+      />
+    </Form.Group>
 
-      <Form.Group className="mb-4">
-        <Form.Control
-          type="email"
-          name="email"
-          placeholder="Enter your Email ID"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
+    <Form.Group className="mb-4">
+      <Form.Control
+        type="email"
+        name="email"
+        placeholder="Enter your Email ID"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+    </Form.Group>
 
-      <Form.Group className="mb-4">
-        <Form.Control
-          as="textarea"
-          rows={5}
-          name="message"
-          placeholder="Message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
+    <Form.Group className="mb-4">
+      <Form.Control
+        as="textarea"
+        rows={5}
+        name="message"
+        placeholder="Message"
+        value={formData.message}
+        onChange={handleChange}
+        required
+      />
+    </Form.Group>
 
-      <Button type="submit" className="reach-submit-btn">
-        SUBMIT
-      </Button>
+    <Button type="submit" className="reach-submit-btn">
+      SUBMIT
+    </Button>
+  </Form>
 
-    </Form>
   );
 }
 

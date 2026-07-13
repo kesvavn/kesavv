@@ -1,34 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import Img from "../Login/MELODIA-LOGO-03-1.webp";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Offcanvas, Button, Form, Image } from "react-bootstrap";
 import {FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock,} from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./Login.css";
-import Img from "../Login/MELODIA-LOGO-03-1.webp";
+import axios from "axios";
+
 
 function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   // Email Validation
-  const isValidEmail =
-    /^[a-zA-Z0-9._%+-]{5,}@gmail\.com$/.test(email);
-
+   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   // Password Validation
   const isValidPassword = password.length >= 6;
-
   const handleLogin = async (e) => {
   e.preventDefault();
 
   try {
-    const res = await axios.post(
-    "http://localhost:5000/login",
-   {
-    email,
-    password,
-  }
-);
+    const res = await axios.post("http://localhost:5000/login", {
+  email,
+  password,
+});
 
 localStorage.setItem("token", res.data.token);
 localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -130,54 +128,49 @@ if (redirectAfterLogin) {
 
             {/* PASSWORD */}
 
-            <div className="input-box mb-4">
-              <label>Password</label>
+          <div className="input-box mb-4">
+  <label>Password</label>
 
-              <div className="input-wrapper">
-                <FaLock className="input-icon" />
+  <div className="input-wrapper">
+    <FaLock className="input-icon" />
 
-                <Form.Control
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) =>
-                    setPassword(e.target.value)
-                  }
-                  className={
-                    password
-                      ? isValidPassword
-                        ? "valid"
-                        : "invalid"
-                      : ""
-                  }
-                />
+    <Form.Control
+      type={showPassword ? "text" : "password"}
+      placeholder="Enter password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className={
+        password
+          ? isValidPassword
+            ? "valid"
+            : "invalid"
+          : ""
+      }
+    />
 
-                {password &&
-                  (isValidPassword ? (
-                    <FaCheckCircle className="status-icon success" />
-                  ) : (
-                    <FaTimesCircle className="status-icon error" />
-                  ))}
-              </div>
+    {/* Eye Icon */}
+    <span
+      className="eye-icon"
+      onClick={() => setShowPassword(!showPassword)}
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </span>
+  </div>
 
-              {password && (
-                <small
-                  className={
-                    isValidPassword
-                      ? "text-success"
-                      : "text-danger"
-                  }
-                >
-                  {isValidPassword
-                    ? "Strong Password"
-                    : "Minimum 6 characters required"}
-                </small>
-              )}
-            </div>
+  {password && (
+    <small
+      className={
+        isValidPassword
+          ? "text-success"
+          : "text-danger"
+      }
+    >
+      {isValidPassword
+        ? "Strong Password"
+        : "Minimum 6 characters required"}
+    </small>
+  )}</div>
 
-            <div className="forgot-box mb-4">
-              <a href="#">Forgot Password?</a>
-            </div>
 
             <Button
               type="submit"
@@ -189,13 +182,6 @@ if (redirectAfterLogin) {
               Login
             </Button>
           </Form>
-
-          <div className="signup-box mt-4">
-            <p>
-              New User?
-              <span> Create Account</span>
-            </p>
-          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </>

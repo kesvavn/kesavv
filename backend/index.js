@@ -29,8 +29,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/upload", uploadRoutes);
 app.use("/api/venues", venueRoutes);
 app.use("/api/contact", contactRoutes); 
-app.use("/", authRoutes);
-
+app.use("/api", authRoutes);
 // JWT Routes
 app.use("/", authRoutes);
 

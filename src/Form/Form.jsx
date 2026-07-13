@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Form.css";
 
-const Form = () => {
- const [formData, setFormData] = useState({
+const Form = () => { 
+ const [formData, setFormData] = useState({ 
 
   fullName: "",
   phone: "",
@@ -679,7 +679,6 @@ Luxury - ₹100000
 
 
 )}
-
 
 </>
 

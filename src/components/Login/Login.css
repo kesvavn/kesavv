@@ -6,28 +6,6 @@
   font-size: 20px;
 }
 
-.login-btn {
-  background: #a855f7 !important;
-  border: none !important;
-  border-radius: 30px !important;
-  padding: 10px !important;
-  font-weight: 600;
-  transition: 0.3s ease;
-}
-
-.login-btn:hover {
-  background: white !important;
-  color: #a855f7 !important;
-  border: 2px solid #a855f7 !important;
-}
-
-.signup-text {
-  font-size: 14px;
-  text-align: center;
-  color: #555;
-}
-
-
 .login-sidebar {
   width: 420px !important;
 }
@@ -44,9 +22,9 @@
 }
 
 .input-box label {
-  font-weight: 600;
-  margin-bottom: 8px;
   display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .input-wrapper {
@@ -55,16 +33,16 @@
 
 .input-wrapper input {
   height: 55px;
-  border-radius: 14px;
   padding-left: 45px;
   padding-right: 45px;
   border: 2px solid #ddd;
+  border-radius: 14px;
   transition: 0.3s ease;
 }
 
 .input-wrapper input:focus {
-  box-shadow: none;
   border-color: #a855f7;
+  box-shadow: none;
 }
 
 .input-icon {
@@ -74,6 +52,21 @@
   transform: translateY(-50%);
   color: #999;
   z-index: 10;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+  z-index: 10;
+}
+
+.eye-icon:hover {
+  color: #000;
 }
 
 .status-icon {
@@ -105,9 +98,10 @@
   border: none !important;
   border-radius: 14px !important;
   background: linear-gradient(45deg, #a855f7, #9333ea) !important;
+  color: #fff !important;
   font-size: 18px !important;
   font-weight: 600 !important;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .login-btn:hover {
@@ -117,9 +111,9 @@
 
 .google-btn {
   height: 55px;
-  border-radius: 14px !important;
-  background: white !important;
   border: 2px solid #ddd !important;
+  border-radius: 14px !important;
+  background: #fff !important;
   color: #333 !important;
   font-weight: 600 !important;
 }
@@ -134,10 +128,10 @@
 }
 
 .forgot-box a {
-  text-decoration: none;
   color: #a855f7;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .signup-box {
@@ -150,278 +144,17 @@
   cursor: pointer;
 }
 
+.signup-text {
+  font-size: 14px;
+  text-align: center;
+  color: #555;
+}
+
 .loginlogo {
   width: 50%;
- height: 20px;
+  height: auto;
 }
+
 .para-logo {
- 
   font-size: 15px;
 }
-
-
-/* =========================
-   320px
-========================= */
-@media (max-width:320px){
-
-.login-sidebar{
-    width:100% !important;
-}
-
-.login-top h2{
-    font-size:22px;
-}
-
-.login-top p{
-    font-size:13px;
-    margin-bottom:20px;
-}
-
-.input-wrapper input{
-    height:45px;
-    font-size:13px;
-    padding-left:40px;
-    padding-right:40px;
-}
-
-.input-icon,
-.status-icon{
-    font-size:14px;
-}
-
-.login-btn,
-.google-btn{
-    height:45px;
-    font-size:14px !important;
-}
-
-.signup-text,
-.forgot-box a{
-    font-size:12px;
-}
-
-.loginlogo{
-    width:70%;
-    height:auto;
-}
-
-.para-logo{
-    font-size:13px;
-}
-
-}
-
-/* =========================
-   321px - 375px
-========================= */
-@media (min-width:321px) and (max-width:375px){
-
-.login-sidebar{
-    width:100% !important;
-}
-
-.login-top h2{
-    font-size:24px;
-}
-
-.loginlogo{
-    width:65%;
-}
-
-}
-
-/* =========================
-   376px - 425px
-========================= */
-@media (min-width:376px) and (max-width:425px){
-
-.login-sidebar{
-    width:100% !important;
-}
-
-.login-top h2{
-    font-size:26px;
-}
-
-.loginlogo{
-    width:60%;
-}
-
-}
-
-/* =========================
-   426px - 768px
-========================= */
-@media (min-width:426px) and (max-width:768px){
-
-.login-sidebar{
-    width:90% !important;
-    margin:auto;
-}
-
-.login-top h2{
-    font-size:28px;
-}
-
-.input-wrapper input{
-    height:50px;
-}
-
-.login-btn,
-.google-btn{
-    height:50px;
-}
-
-.loginlogo{
-    width:50%;
-}
-
-}
-
-/* =========================
-   769px - 1024px
-========================= */
-@media (min-width:769px) and (max-width:1024px){
-
-.login-sidebar{
-    width:420px !important;
-}
-
-.login-top h2{
-    font-size:30px;
-}
-
-.loginlogo{
-    width:45%;
-}
-
-}
-
-/* =========================
-   1025px - 1440px
-========================= */
-@media (min-width:1025px) and (max-width:1440px){
-
-.login-sidebar{
-    width:420px !important;
-}
-
-.login-top h2{
-    font-size:32px;
-}
-
-.loginlogo{
-    width:50%;
-}
-
-}
-
-/* =========================
-   1441px - 2559px (2K)
-========================= */
-@media (min-width:1441px) and (max-width:2559px){
-
-.login-sidebar{
-    width:550px !important;
-}
-
-.login-top h2{
-    font-size:42px;
-}
-
-.login-top p{
-    font-size:20px;
-}
-
-.input-box label{
-    font-size:20px;
-}
-
-.input-wrapper input{
-    height:70px;
-    font-size:20px;
-}
-
-.input-icon,
-.status-icon{
-    font-size:22px;
-}
-
-.login-btn,
-.google-btn{
-    height:70px;
-    font-size:22px !important;
-}
-
-.signup-text,
-.forgot-box a,
-.signup-box{
-    font-size:18px;
-}
-
-.loginlogo{
-    width:55%;
-}
-
-.para-logo{
-    font-size:20px;
-}
-
-}
-
-/* =========================
-   2560px+ (4K)
-========================= */
-@media (min-width:2560px){
-
-.login-sidebar{
-    width:700px !important;
-}
-
-.login-top h2{
-    font-size:55px;
-}
-
-.login-top p{
-    font-size:26px;
-}
-
-.input-box label{
-    font-size:24px;
-}
-
-.input-wrapper input{
-    height:85px;
-    font-size:24px;
-    border-radius:18px;
-}
-
-.input-icon,
-.status-icon{
-    font-size:28px;
-}
-
-.login-btn,
-.google-btn{
-    height:85px;
-    font-size:26px !important;
-    border-radius:18px !important;
-}
-
-.signup-text,
-.forgot-box a,
-.signup-box{
-    font-size:22px;
-}
-
-.loginlogo{
-    width:60%;
-}
-
-.para-logo{
-    font-size:24px;
-}
-
-}
-
