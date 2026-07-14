@@ -167,21 +167,13 @@ const handleLogout = () => {
 
               </NavDropdown>
 
-              <Nav.Link
-  onClick={() => {
-    closeMenu();
-
-    if (localStorage.getItem("token")) {
-      navigate("/venues");
-    } else {
-      alert("Please login first");
-      setRedirectAfterLogin("/venues");
-      setShowSidebar(true);
-    }
-  }}
+             <Link 
+  to="/venues" 
+  className="nav-link"
 >
-  VENUES
-</Nav.Link>
+  Venues
+</Link>
+
 
               <NavDropdown title="GALLERY">
                 <NavDropdown.Item

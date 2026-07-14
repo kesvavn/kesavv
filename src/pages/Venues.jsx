@@ -9,11 +9,27 @@ import Img2 from "../components/venues/2257_img3-rhvyl7p0694tnf39sawygjq9dlla96s
 import Img3 from "../components/venues/2023-05-09-2-rez9yswvqakifvxjp0sa1i4n4bry1unp59ojb8eape.webp";
 import Footer from "./Footer"
 import Form from "../Form/Form";
+import Login from "../components/Login/Login";
+import Register from "../Form/Register/Register";
 
 function Venues() {
-
-  const [selectedLocation, setSelectedLocation] = useState("");
+const [showLogin, setShowLogin] = useState(false);
+const [showSidebar, setShowSidebar] = useState(false);
+const [showRegister, setShowRegister] = useState(false);
 const [showForm, setShowForm] = useState(false);
+const [selectedLocation, setSelectedLocation] = useState("");
+const handleRequestPricing = () => {
+
+  const token = localStorage.getItem("token");
+
+  if(token){
+    setShowForm(true);
+  }
+  else{
+    setShowSidebar(true);
+  }
+
+};
 
  const venues = [
   {
@@ -51,7 +67,16 @@ const [showForm, setShowForm] = useState(false);
     : venues;
 
   return (
+    
     <div>
+        <Login
+      showSidebar={showSidebar}
+      setShowSidebar={setShowSidebar}
+      onLogin={() => {
+        setShowSidebar(false);
+        setShowForm(true);
+      }}
+    />
 
       {/* HERO SECTION */}
       <div className="venues-bg">
@@ -118,7 +143,7 @@ const [showForm, setShowForm] = useState(false);
 
           {/* LOCATION FILTER */}
           <select
-            value={selectedLocation}zz
+            value={selectedLocation}
             onChange={(e) =>
               setSelectedLocation(e.target.value)
             }
@@ -181,27 +206,39 @@ const [showForm, setShowForm] = useState(false);
 
                 <div className="venue-card-body">
 
-                  <div className="rating">
-                    ★★★★★
-                  </div>
+                  <div className="rating">★★★★★</div>
+                  <h4> 
 
-                  <h4>
   <Link to={venue.link} className="venue-link">
     {venue.name}
-  </Link>
-</h4>
+  </Link></h4>
+
 
                   <p className="location">
                     📍 {venue.location}
                   </p>
 
                   <div className="btn-group-custom">
+          
+         
+<button
+  className="price-btn"
+  onClick={() => {
+    const token = localStorage.getItem("token");
 
-                  <button className="price-btn" onClick={() => setShowForm(true)}> Request Pricing</button>
+    if (token) {
+      setShowForm(true);
+    } else {
+      setShowSidebar(true);
+    }
+  }}
+>
+  Request Pricing
+</button>
 
-                    <button className="whatsapp-btn">
-                      Whatsapp Enquiry
-                    </button>
+<button className="whatsapp-btn">
+  Whatsapp Enquiry
+</button>
 
                   </div>
 
@@ -215,23 +252,31 @@ const [showForm, setShowForm] = useState(false);
         </Row>
 
       </Container>
+      
 
-       {showForm && (
-       <div className="form-overlay">
-       <div className="form-modal">
-
+{showForm && (
+  <div className="form-overlay">
+    <div className="form-modal">
       <button
         className="close-form"
-        onClick={() => setShowForm(false)}  >
+        onClick={() => setShowForm(false)}
+      >
         ×
       </button>
 
       <Form />
-
     </div>
   </div>
 )}
 
+      
+
+
+<Login
+  showSidebar={showSidebar}
+  setShowSidebar={setShowSidebar}
+  redirectAfterLogin="/venues"
+/>
 <Footer />
       
     </div>

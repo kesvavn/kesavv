@@ -20,30 +20,54 @@ function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
   // Password Validation
   const isValidPassword = password.length >= 6;
   const handleLogin = async (e) => {
-  e.preventDefault();
 
-  try {
-    const res = await axios.post("http://localhost:5000/login", {
-  email,
-  password,
-});
+e.preventDefault();
 
-localStorage.setItem("token", res.data.token);
-localStorage.setItem("user", JSON.stringify(res.data.user));
+try {
 
-onLogin();
+const res = await axios.post(
+"http://localhost:5000/api/auth/login",
+{
+ email,
+ password
+}
+);
+
+
+localStorage.setItem(
+"token",
+res.data.token
+);
+
+
+localStorage.setItem(
+"user",
+JSON.stringify(res.data.user)
+);
+
+
+if(onLogin){
+    onLogin();
+}
+
 
 setShowSidebar(false);
 
-if (redirectAfterLogin) {
-  navigate(redirectAfterLogin);
+
+if(redirectAfterLogin){
+    navigate(redirectAfterLogin);
 }
 
-  } catch (err) {
-    alert(
-      err.response?.data?.message || "Login Failed"
-    );
-  }
+
+}
+catch(err){
+
+alert(
+err.response?.data?.message || "Login Failed"
+);
+
+}
+
 };
       
   return (
