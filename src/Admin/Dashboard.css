@@ -1,0 +1,179 @@
+.card-box,
+.dashboard-card,
+.chart-box,
+.table-box,
+.quick-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+
+/* Card Text */
+
+.card-box h4,
+.dashboard-card h5 {
+  color: #777;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.card-box h2 {
+  color: #7A3E00;
+  font-size: 22px;
+  margin: 0;
+}
+
+/* Page Title */
+
+.page-title {
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+/* Table */
+
+.table-box {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Sections */
+
+.chart-box,
+.table-box,
+.quick-box {
+  margin-top: 20px;
+}
+
+/* Buttons */
+
+.quick-box button {
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #7A3E00;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Dashboard Card */
+
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon */
+
+.card-icon {
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 50%;
+  background: #f1f5f9;
+}
+
+/* Grid */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+/* Tablet */
+
+@media (max-width: 992px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-box,
+  .dashboard-card,
+  .chart-box,
+  .table-box,
+  .quick-box {
+    padding: 14px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .card-box h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-card h5 {
+    font-size: 13px;
+  }
+
+  .card-icon {
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  .chart-box,
+  .table-box,
+  .quick-box {
+    padding: 12px;
+    margin-top: 15px;
+  }
+
+  .quick-box button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}
+
+/* Small Mobile */
+
+@media (max-width: 400px) {
+  .card-box,
+  .dashboard-card {
+    padding: 10px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+
+  .card-box h2 {
+    font-size: 18px;
+  }
+
+  .card-icon {
+    font-size: 18px;
+    padding: 6px;
+  }
+}

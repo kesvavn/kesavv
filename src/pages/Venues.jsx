@@ -271,7 +271,6 @@ const handleRequestPricing = () => {
 
       
 
-
 <Login
   showSidebar={showSidebar}
   setShowSidebar={setShowSidebar}

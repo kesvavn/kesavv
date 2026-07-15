@@ -131,6 +131,10 @@ function Footer() {
   <li>
     <Link to="/contact">Contact</Link>
   </li>
+    
+  <li>
+    <Link to="admin">Admin Panel</Link>
+  </li>
 
 
 </ul>

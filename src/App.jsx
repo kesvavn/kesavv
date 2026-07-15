@@ -36,6 +36,16 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import Layout from "./Layout";
 import Form from "./Form/Form";
 
+//admin panel
+import AdminRoutes from "./Admin/AdminRoutes";
+
+import MainLayout from "./Admin/Layouts/MainLayout";
+import Dashboard from "./Admin/page/Dashboard";
+import Requests from "./Admin/page/Requests";
+import Bookings from "./Admin/page/Bookings";
+import Customers from "./Admin/page/Customers";
+
+
 
 function App() {
   return (
@@ -51,15 +61,7 @@ function App() {
           <Route path="/Blogs" element={<Blogs />} />
           <Route path="/Test" element={<Test />} />
           
-        <Route
-          path="/services"
-          element={
-            <>
-              <MyNavbar />
-              <Services />
-            </>
-          }
-        />
+        <Route path="/services" element={<> <MyNavbar /> <Services /></> }/>
 
         <Route path="/venues" element={<Venues />} />
 
@@ -120,7 +122,7 @@ function App() {
           element={<KalappuraFarmHouse />}
         />
 
-       <Route
+      <Route
   path="/KampifyKochi"
   element={<KampifyKochi />}
 />
@@ -129,8 +131,19 @@ function App() {
           path="/kadavu-villas"
           element={<KadavuVillas />}
         />
+
+        {/* admin  panel */}
+
+    <Route path="/admin" element={<MainLayout />}>
+    <Route index element={<Dashboard />} />
+    <Route path="requests" element={<Requests />} />
+    <Route path="bookings" element={<Bookings />} />
+    <Route path="customers" element={<Customers />} />
+  </Route>
+   <Route path="/admin/*" element={<AdminRoutes />} />
          
       </Routes>
+      
             <WhatsAppButton />
 
     </>
