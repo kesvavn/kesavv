@@ -6,6 +6,119 @@
 }
 
 
+/* =====================
+   Professional Action Buttons
+===================== */
+
+.request-table button{
+
+border:none;
+
+padding:7px 14px;
+
+border-radius:8px;
+
+font-size:13px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:all .3s ease;
+
+margin-right:8px;
+
+}
+
+
+/* View Button */
+
+.view-btn{
+
+background:#2563eb;
+
+color:white;
+
+box-shadow:0 4px 10px rgba(37,99,235,.25);
+
+}
+
+
+.view-btn:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-2px);
+
+}
+
+
+
+/* Approve Button */
+
+.approve-btn{
+
+background:#16a34a;
+
+color:white;
+
+box-shadow:0 4px 10px rgba(22,163,74,.25);
+
+}
+
+
+.approve-btn:hover{
+
+background:#15803d;
+
+transform:translateY(-2px);
+
+}
+
+
+
+/* Reject Button */
+
+.reject-btn{
+
+background:#dc2626;
+
+color:white;
+
+box-shadow:0 4px 10px rgba(220,38,38,.25);
+
+}
+
+
+.reject-btn:hover{
+
+background:#b91c1c;
+
+transform:translateY(-2px);
+
+}
+
+
+
+/* Button Active */
+
+.request-table button:active{
+
+transform:scale(.95);
+
+}
+
+
+
+/* Icon style */
+
+.request-table button svg{
+
+margin-right:5px;
+
+vertical-align:middle;
+
+}
 /* Header */
 
 .request-header{

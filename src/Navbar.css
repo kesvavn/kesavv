@@ -45,12 +45,20 @@
     object-fit: contain;
 }
 
-/* Menu starts closer to logo */
 .nav-center{
-    justify-content: flex-start;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
     margin-left: 10px;
 }
 
+.my-navbar .nav-link,
+.my-navbar .dropdown-toggle{
+    font-family:"Montserrat",sans-serif;
+    text-transform:uppercase;
+}
 /* =========================
    COLLAPSE
 ========================= */
@@ -61,16 +69,6 @@
     flex: 1;
 }
 
-/* =========================
-   CENTER MENU
-========================= */
-.nav-center{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2px;
-}
 
 /* =========================
    NAV ITEMS
@@ -217,78 +215,74 @@
     display: none;
 }
 
-
 /* =========================
-   MOBILE & TABLET (0px - 768px)
+MOBILE & TABLET
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 991px) {
 
   .my-navbar {
-    width: 95%;
-    padding: 8px 12px;
-    border-radius: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 0;
+    z-index: 10000;
   }
 
   .logo-img {
     height: 45px;
   }
 
-  .navbar-toggler {
-    padding: 4px 8px;
-  }
-
   .my-navbar .navbar-collapse {
     position: fixed;
     top: 0;
-    right: 0;
-    width: 100%;
-    height: 65vh;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 70px 20px 20px;
+    right: -100%;
+    width: 320px;
+    max-width: 85%;
+    height: 100vh;
+    background: #111;
+    padding: 80px 25px 30px;
     overflow-y: auto;
+    transition: .4s ease;
+    display: block !important;
     z-index: 99999;
-
-    display: none !important;
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .my-navbar .navbar-collapse.show {
-    display: flex !important;
+    right: 0;
   }
 
-  /* Close Button */
   .close-menu {
     display: block !important;
-    position: fixed;
-    top: 15px;
-    right: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     background: transparent;
-    border: none;
+    border: 0;
     color: #fff;
-    font-size: 32px;
+    font-size: 34px;
     cursor: pointer;
-    z-index: 100000;
   }
 
-  /* Menu */
   .nav-center {
     width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    margin-left: 0;
+    margin: 0;
   }
 
   .my-navbar .nav-link,
   .my-navbar .dropdown-toggle {
     width: 100%;
-    padding: 6px 0 !important;
-    font-size: 15px;
+    color: #fff !important;
+    padding: 14px 0 !important;
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
 
-  /* Dropdown */
   .my-navbar .dropdown {
     width: 100%;
   }
@@ -296,39 +290,20 @@
   .my-navbar .dropdown-menu {
     position: static !important;
     transform: none !important;
-    width: 100%;
-    background: #f8f9fa;
-    margin-top: 5px !important;
-    border-radius: 8px;
+    background: #222;
+    border: none;
+    margin-top: 5px;
   }
 
   .my-navbar .dropdown-item {
-    color: #333;
-    padding: 10px 15px;
+    color: #fff !important;
   }
 
-  /* Phone Button Bottom */
-  .right-section {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    order: 999;
-  }
-
-  #phone-btn {
-    width: 100%;
-    font-size: 13px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
+  .right-section,
   .menu-login-btn {
     display: none;
   }
 }
-
 /* =========================
    EXTRA SMALL MOBILE (320px)
 ========================= */

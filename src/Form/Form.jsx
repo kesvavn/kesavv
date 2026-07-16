@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Form.css";
 
 const Form = () => { 
@@ -198,19 +199,41 @@ price += 50000;
   }));
 
 };
-   
-const handleSubmit = (e)=>{
+
+ const handleSubmit = async(e)=>{
 
 e.preventDefault();
 
 calculatePrice();
 
-console.log(formData);
+try{
 
-alert("Pricing Request Submitted Successfully!");
+const response =
+await axios.post(
 
+"http://localhost:5000/api/requests",
+
+formData
+
+);
+
+alert(
+"Pricing Request Submitted Successfully!"
+);
+
+console.log(response.data);
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert(
+"Something went wrong"
+);
+}
 };
-
   return (
     <div className="event-form-container">
       <div className="event-header">

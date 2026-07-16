@@ -81,6 +81,7 @@ message:"Server Error"
 
 router.post("/login", async (req,res)=>{
 
+
 try {
 
 
@@ -91,6 +92,7 @@ const {email,password}=req.body;
 const user = await Login.findOne({
 email
 });
+
 
 
 if(!user){
@@ -127,6 +129,19 @@ message:"Invalid Password"
 
 
 
+// Update Login Details
+
+user.lastLogin = new Date();
+
+user.loginCount = (user.loginCount || 0) + 1;
+
+
+await user.save();
+
+
+
+// JWT Token
+
 const token = jwt.sign(
 
 {
@@ -152,8 +167,79 @@ user
 });
 
 
+}
+
+
+catch(err){
+
+
+console.log(err);
+
+
+res.status(500).json({
+
+message:"Server Error"
+
+});
+
 
 }
+
+
+});
+// ================= USER STATISTICS =================
+
+router.get("/users-count", async(req,res)=>{
+
+try{
+
+
+const totalUsers = await Login.countDocuments();
+
+
+// Today Login
+
+const today = new Date();
+
+today.setHours(0,0,0,0);
+
+
+const todayLogin = await Login.countDocuments({
+
+lastLogin:{
+$gte: today
+}
+
+});
+
+
+
+// New Users Today
+
+const newUsers = await Login.countDocuments({
+
+createdAt:{
+$gte: today
+}
+
+});
+
+
+
+res.json({
+
+totalUsers,
+
+todayLogin,
+
+newUsers
+
+});
+
+
+}
+
+
 catch(err){
 
 console.log(err);
@@ -168,6 +254,5 @@ message:"Server Error"
 
 
 });
-
 
 module.exports = router;

@@ -1,139 +1,273 @@
-import { useState } from "react";
-import { Button } from "react-bootstrap";
-import "../pagecss/Request.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import RequestModal from "../Component/RequestModal";
 
-function Requests() {
-const [search, setSearch] = useState("");
-  //view button
-const [show, setShow] = useState(false);
-const [selectedRequest, setSelectedRequest] = useState(null);
+import "../Dashboard.css";
 
-const openModal = (item) => {
-  setSelectedRequest(item);
-  setShow(true);
-};
 
-const closeModal = () => {
-  setShow(false);
-};
+function Requests(){
 
-//upadte function
-const updateStatus = (id, status) => {
-  const updated = requests.map((item) =>
-    item.id === id ? { ...item, status } : item
-  );
+const [requests,setRequests]=useState([]);
 
-  setRequests(updated);
+const [selectedRequest,setSelectedRequest]=useState(null);
 
-  if (selectedRequest && selectedRequest.id === id) {
-    setSelectedRequest({ ...selectedRequest, status });
-  }
-};  
+const [showModal,setShowModal]=useState(false);
 
- const [requests, setRequests] = useState([
-  {
-    id: 1,
-    customer: "Rahul",
-    phone: "9876543210",
-    event: "Wedding",
-    guests: 300,
-    price: "₹2,00,000",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    customer: "Priya",
-    phone: "9876543211",
-    event: "Birthday",
-    guests: 150,
-    price: "₹80,000",
-    status: "Confirmed",
-  },
-  {
-    id: 3,
-    customer: "Arun",
-    phone: "9876543212",
-    event: "Reception",
-    guests: 500,
-    price: "₹5,00,000",
-    status: "Cancelled",
-  },
-]);
 
-  const filteredRequests = requests.filter((item) =>
-  item.customer.toLowerCase().includes(search.toLowerCase())
+
+const getRequests = async()=>{
+
+try{
+
+const res = await axios.get(
+"http://localhost:5000/api/requests"
 );
 
-  return (
-    <div className="requests-page">
 
-      <h2>Pricing Requests</h2>
+setRequests(res.data);
 
-      <div className="request-header">
-        <input
-          type="text"
-          placeholder="Search Customer..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
 
-        <button>+ Add Request</button>
-      </div>
-     <div className="table-wrapper">
-      <table className="request-table">
-
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Customer</th>
-            <th>Phone</th>
-            <th>Event</th>
-            <th>Guests</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          
-  {filteredRequests.map((item) => (
-    <tr key={item.id}>
-      <td>{item.id}</td>
-      <td>{item.customer}</td>
-      <td>{item.phone}</td>
-      <td>{item.event}</td>
-      <td>{item.guests}</td>
-      <td>{item.price}</td>
-      <td>{item.status}</td>
-      <td>
-      
-  <span className={item.status.toLowerCase()}>
-    {item.status}
-  </span>
-</td>
-              <td>
-                <Button variant="primary" size="sm" onClick={() => openModal(item)}> View</Button>
-                <button>✏</button>
-                <button>✔</button>
-                <button>❌</button>
-                <button>🗑</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-
-      </table>
-      </div>
-      <RequestModal
-  show={show}
-  handleClose={closeModal}
-  request={selectedRequest}
-  updateStatus={updateStatus}
-/>
-    </div>
-  );
 }
+catch(error){
+
+console.log(error);
+
+}
+
+};
+
+
+
+// Load Data
+
+useEffect(()=>{
+
+getRequests();
+
+},[]);
+
+
+
+
+
+// Status Update
+
+const updateStatus = async(id,status)=>{
+
+
+try{
+
+
+await axios.put(
+
+`http://localhost:5000/api/requests/${id}`,
+
+{
+status:status
+}
+
+);
+
+
+getRequests();
+
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+
+};
+
+
+
+
+return(
+
+<div>
+
+
+<h2 className="page-title">
+Pricing Requests
+</h2>
+
+
+
+<div className="table-box">
+
+
+<table className="table table-bordered">
+
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Phone</th>
+
+<th>Event</th>
+
+<th>Date</th>
+
+<th>Price</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+{
+requests.map((item)=>(
+
+
+<tr key={item._id}>
+
+
+<td>
+{item.fullName}
+</td>
+
+
+<td>
+{item.phone}
+</td>
+
+
+<td>
+{item.functionType}
+</td>
+
+
+<td>
+{item.functionDate}
+</td>
+
+
+<td>
+₹ {item.totalPrice?.toLocaleString()}
+</td>
+
+
+<td>
+
+<span className="status">
+
+{item.status}
+
+</span>
+
+</td>
+
+
+
+<td>
+
+
+<button
+className="btn btn-primary btn-sm"
+
+onClick={()=>{
+
+setSelectedRequest(item);
+
+setShowModal(true);
+
+}}
+
+>
+
+View
+
+</button>
+
+
+
+<button
+
+className="btn btn-success btn-sm ms-2"
+
+onClick={()=>updateStatus(item._id,"Confirmed")}
+
+>
+
+Approve
+
+</button>
+
+
+
+<button
+
+className="btn btn-danger btn-sm ms-2"
+
+onClick={()=>updateStatus(item._id,"Cancelled")}
+
+>
+
+Reject
+
+</button>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+))
+
+}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+<RequestModal
+
+show={showModal}
+
+handleClose={()=>setShowModal(false)}
+
+request={selectedRequest}
+
+updateStatus={updateStatus}
+
+/>
+
+
+
+</div>
+
+)
+
+
+}
+
 
 export default Requests;

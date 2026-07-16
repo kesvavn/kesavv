@@ -9,6 +9,7 @@ const venueRoutes = require("./routes/venueRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/ContactRoutes");
+const requestRoutes = require("./routes/requestRoutes");
 
 const auth = require("./middleware/auth");
 
@@ -65,6 +66,11 @@ app.use(
   contactRoutes
 );
 
+// Pricing Requests
+app.use(
+"/api/requests",
+requestRoutes
+);
 
 // Register + Login
 app.use(

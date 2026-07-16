@@ -1,109 +1,148 @@
+import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import "../pagecss/Request.css";
-
-function RequestModal({ show, handleClose, request, updateStatus }) {
-
-  if (!request) return null;
-
-  return (
-    <Modal show={show} onHide={handleClose} centered>
-
-      <Modal.Header closeButton>
-        <Modal.Title>
-          Customer Request Details
-        </Modal.Title>
-      </Modal.Header>
 
 
-      <Modal.Body>
-
-        <table className="table table-bordered">
-
-          <tbody>
-
-            <tr>
-              <th>Customer</th>
-              <td>{request.customer}</td>
-            </tr>
+function RequestModal({
+show,
+handleClose,
+request
+}){
 
 
-            <tr>
-              <th>Phone</th>
-              <td>{request.phone}</td>
-            </tr>
+if(!request)
+return null;
 
 
-            <tr>
-              <th>Event</th>
-              <td>{request.event}</td>
-            </tr>
+
+return(
+
+<Modal
+show={show}
+onHide={handleClose}
+size="lg"
+>
 
 
-            <tr>
-              <th>Guests</th>
-              <td>{request.guests}</td>
-            </tr>
+<Modal.Header closeButton>
+
+<Modal.Title>
+Customer Request Details
+</Modal.Title>
 
 
-            <tr>
-              <th>Estimated Price</th>
-              <td>{request.price}</td>
-            </tr>
+</Modal.Header>
 
 
-            <tr>
-              <th>Status</th>
-              <td>
-                <span className={request.status.toLowerCase()}>
-                  {request.status}
-                </span>
-              </td>
-            </tr>
+
+<Modal.Body>
 
 
-          </tbody>
-
-        </table>
-
-      </Modal.Body>
+<table className="table table-bordered">
 
 
-      <Modal.Footer>
+<tbody>
 
 
-        <Button
-          variant="success"
-          onClick={() =>
-            updateStatus(request.id, "Confirmed")
-          }
-        >
-          Approve
-        </Button>
+<tr>
+<td>Name</td>
+<td>{request.fullName}</td>
+</tr>
 
 
-        <Button
-          variant="danger"
-          onClick={() =>
-            updateStatus(request.id, "Cancelled")
-          }
-        >
-          Reject
-        </Button>
+<tr>
+<td>Phone</td>
+<td>{request.phone}</td>
+</tr>
 
 
-        <Button
-          variant="secondary"
-          onClick={handleClose}
-        >
-          Close
-        </Button>
+<tr>
+<td>Email</td>
+<td>{request.email}</td>
+</tr>
 
 
-      </Modal.Footer>
+<tr>
+<td>Function</td>
+<td>{request.functionType}</td>
+</tr>
 
 
-    </Modal>
-  );
+<tr>
+<td>Date</td>
+<td>{request.functionDate}</td>
+</tr>
+
+
+<tr>
+<td>Guests</td>
+<td>{request.guests}</td>
+</tr>
+
+
+<tr>
+<td>Rooms</td>
+<td>{request.rooms}</td>
+</tr>
+
+
+<tr>
+<td>Total Price</td>
+<td>
+₹ {request.totalPrice?.toLocaleString()}
+</td>
+</tr>
+
+
+<tr>
+<td>Payment</td>
+<td>
+{request.paymentMethod}
+</td>
+</tr>
+
+
+<tr>
+<td>Status</td>
+<td>
+{request.status}
+</td>
+</tr>
+
+
+
+</tbody>
+
+
+</table>
+
+
+</Modal.Body>
+
+
+
+<Modal.Footer>
+
+
+<Button
+variant="secondary"
+onClick={handleClose}
+>
+
+Close
+
+</Button>
+
+
+</Modal.Footer>
+
+
+
+</Modal>
+
+
+)
+
+
 }
 
 
