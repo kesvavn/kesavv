@@ -10,12 +10,9 @@ import Img3 from "../components/venues/2023-05-09-2-rez9yswvqakifvxjp0sa1i4n4bry
 import Footer from "./Footer"
 import Form from "../Form/Form";
 import Login from "../components/Login/Login";
-import Register from "../Form/Register/Register";
 
 function Venues() {
-const [showLogin, setShowLogin] = useState(false);
 const [showSidebar, setShowSidebar] = useState(false);
-const [showRegister, setShowRegister] = useState(false);
 const [showForm, setShowForm] = useState(false);
 const [selectedLocation, setSelectedLocation] = useState("");
 const handleRequestPricing = () => {

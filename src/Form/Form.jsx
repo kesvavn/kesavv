@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Form.css";
 
 const Form = () => { 
- const [formData, setFormData] = useState({ 
+const [formData, setFormData] = useState({
 
   fullName: "",
   phone: "",

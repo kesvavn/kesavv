@@ -9,10 +9,7 @@ import "../Dashboard.css";
 
 
 function Dashboard(){
-
-
 const [revenueData,setRevenueData]=useState([]);
-
 const [bookingData,setBookingData]=useState([]);
 const [userStats,setUserStats] = useState({
 
@@ -35,9 +32,6 @@ revenue:0
 
 });
 
-
-
-
 const getDashboardData = async()=>{
 
 
@@ -51,12 +45,9 @@ const res = await axios.get(
 
 const requests = res.data;
 
-
-
 // Total Requests
 
 const total = requests.length;
-
 
 
 
@@ -69,8 +60,6 @@ const confirmed = requests.filter(
 item.status==="Confirmed"
 
 ).length;
-
-
 
 
 // Revenue
@@ -92,7 +81,6 @@ item.status==="Confirmed"
 sum + Number(item.totalPrice || 0),
 
 0
-
 );
 
 
@@ -107,9 +95,6 @@ confirmedEvents:confirmed,
 revenue:revenue
 
 });
-
-
-
 
 
 // Monthly Revenue Chart

@@ -8,6 +8,13 @@ const venueSchema = new mongoose.Schema(
       trim: true,
     },
 
+    link: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
     location: {
       type: String,
       required: true,
@@ -33,10 +40,12 @@ const venueSchema = new mongoose.Schema(
 
     isTop: {
       type: Boolean,
-      default: false,   // 👈 for homepage top venues
+      default: false,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Venue", venueSchema);

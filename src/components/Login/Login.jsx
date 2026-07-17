@@ -7,9 +7,11 @@ import {FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock,} from "react-icons/fa"
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
+import Register from "../../Form/Register/Register";
 
 
 function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
+  const [showRegister, setShowRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -213,3 +215,7 @@ err.response?.data?.message || "Login Failed"
 }
 
 export default Login;
+
+
+
+
