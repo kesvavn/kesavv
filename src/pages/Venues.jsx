@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import "../pages/Venues.css";
 import MyNavbar from "../Navbar";
@@ -15,53 +16,66 @@ function Venues() {
 const [showSidebar, setShowSidebar] = useState(false);
 const [showForm, setShowForm] = useState(false);
 const [selectedLocation, setSelectedLocation] = useState("");
-const handleRequestPricing = () => {
+const [selectedType, setSelectedType] = useState("");
+const [search, setSearch] = useState("");
+const [selectedVenue, setSelectedVenue] = useState(null);
 
-  const token = localStorage.getItem("token");
+const handleRequest = (venue) => {
+  setSelectedVenue(venue);
+  setShowForm(true);
+};
 
-  if(token){
-    setShowForm(true);
-  }
-  else{
-    setShowSidebar(true);
+const [venues, setVenues] = useState([]);
+useEffect(() => {
+  fetchVenues();
+}, []);
+
+
+const fetchVenues = async () => {
+
+  try {
+
+    const res = await axios.get(
+      "http://localhost:5000/api/venues"
+    );
+
+    setVenues(res.data);
+
+  } catch(error) {
+
+    console.log(error);
+
   }
 
 };
 
- const venues = [
-  {
-    id: 1,
-    name: "Kakkatu Mana",
-    location: "Palakkad",
-    type: "Heritage property venues",
-    image: Img1,
-    link: "/kakkattu-mana",
-  },
-  {
-    id: 2,
-    name: "Kadavu Villas",
-    location: "Thrissur",
-    type: "Beach wedding",
-    image: Img2,
-    link: "/kadavu-villas",
-  },
-  {
-    id: 3,
-    name: "Kalappura Farm House",
-    location: "Kochi",
-    type: "Outdoor wedding",
-    image: Img3,
-    link: "/kalappura-farm-house",
-  },
-];
 
-  const filteredVenues = selectedLocation
-    ? venues.filter(
-        (venue) =>
-          venue.location.toLowerCase() ===
-          selectedLocation.toLowerCase()
-      )
-    : venues;
+
+const filteredVenues = venues.filter((venue)=>{
+
+return (
+
+(selectedLocation === "" ||
+venue.location === selectedLocation)
+
+&&
+
+(selectedType === "" ||
+venue.type === selectedType)
+
+&&
+
+(search === "" ||
+venue.title.toLowerCase()
+.includes(search.toLowerCase())
+||
+venue.location.toLowerCase()
+.includes(search.toLowerCase())
+)
+
+);
+
+});
 
   return (
     
@@ -189,64 +203,85 @@ const handleRequestPricing = () => {
         </div>
 
         {/* VENUE CARDS */}
-        <Row className="g-4 mt-4">
+<Row className="g-4 mt-4">
 
-          {filteredVenues.map((venue) => (
-            <Col lg={4} md={6} key={venue.id}>
+  {filteredVenues.map((venue) => (
 
-              <div className="venue-card">
+    <Col lg={4} md={6} key={venue._id}>
 
-                <img
-                  src={venue.image}
-                  alt={venue.name}
-                />
+    <div className="venue-card">
 
-                <div className="venue-card-body">
+  <img
+    src={`http://localhost:5000/uploads/${venue.image}`}
+    alt={venue.title}
+  />
 
-                  <div className="rating">★★★★★</div>
-                  <h4> 
+  <div className="venue-card-body">
 
-  <Link to={venue.link} className="venue-link">
-    {venue.name}
-  </Link></h4>
+    <div className="rating">
+      {venue.rating || "★★★★★"}
+    </div>
 
+    <h4>
+      <Link 
+        to={venue.link}
+        className="venue-name-link"
+      >
+        {venue.title}
+      </Link>
+    </h4>
 
-                  <p className="location">
-                    📍 {venue.location}
-                  </p>
+    <p className="location">
+      📍 {venue.location}
+    </p>
 
-                  <div className="btn-group-custom">
-          
-         
-<button
-  className="price-btn"
-  onClick={() => {
-    const token = localStorage.getItem("token");
+    <p>
+      {venue.type}
+    </p>
 
-    if (token) {
-      setShowForm(true);
-    } else {
-      setShowSidebar(true);
-    }
-  }}
+    <div className="btn-group-custom">
+
+      <a
+        href={`https://wa.me/919876543210?text=Hi, I need enquiry for ${venue.title}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-btn"
+      >
+        WhatsApp Enquiry
+      </a>
+
+     <button
+className="price-btn"
+onClick={(e)=>{
+  e.stopPropagation();
+
+  const token = localStorage.getItem("token");
+
+  if(token){
+
+    setSelectedVenue(venue);   // 👈 selected card save pannum
+    setShowForm(true);
+
+  }
+  else{
+    setShowSidebar(true);
+  }
+}}
 >
   Request Pricing
 </button>
 
-<button className="whatsapp-btn">
-  Whatsapp Enquiry
-</button>
+    </div>
 
-                  </div>
+  </div>
 
-                </div>
+</div>
 
-              </div>
+    </Col>
 
-            </Col>
-          ))}
+  ))}
 
-        </Row>
+</Row>
 
       </Container>
       
@@ -260,8 +295,8 @@ const handleRequestPricing = () => {
       >
         ×
       </button>
-
-      <Form />
+ <Form venue={selectedVenue} />
+      
     </div>
   </div>
 )}

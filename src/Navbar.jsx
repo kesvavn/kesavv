@@ -241,6 +241,11 @@ const handleLogout = () => {
       <FaBars />
     </Button>
   )}
+  {isLoggedIn && (
+  <Nav.Link as={Link} to="/cart" onClick={closeMenu}>
+    🛒 CART
+  </Nav.Link>
+)}
 
 </div>
 
@@ -254,6 +259,7 @@ const handleLogout = () => {
   redirectAfterLogin={redirectAfterLogin}
   onLogin={() => setIsLoggedIn(true)}
 />
+
     </>
   );
 }

@@ -32,7 +32,7 @@ import Footer from "./pages/Footer";
 
 import WhatsAppButton from "./components/WhatsAppButton";
 
-
+import Cart from "./pages/Cart";
 import Layout from "./Layout";
 import Form from "./Form/Form";
 
@@ -141,7 +141,14 @@ function App() {
     <Route path="customers" element={<Customers />} />
   </Route>
    <Route path="/admin/*" element={<AdminRoutes />} />
-         
+<Route
+  path="/cart"
+  element={
+    localStorage.getItem("token")
+      ? <Cart />
+      : <Navigate to="/" replace />
+  }
+/>
       </Routes>
       
             <WhatsAppButton />

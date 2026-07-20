@@ -4,98 +4,60 @@ const mongoose = require("mongoose");
 const requestSchema = new mongoose.Schema({
 
 fullName:{
-    type:String,
-    required:true
+ type:String,
+ required:true
 },
 
 phone:{
-    type:String,
-    required:true
+ type:String,
+ required:true
 },
 
 email:{
-    type:String,
+ type:String
 },
+
+
+venueName:{
+ type:String,
+ required:true
+},
+
 
 functionDate:{
-    type:String
+ type:String
 },
+
 
 guests:{
-    type:Number
+ type:Number
 },
+
 
 rooms:{
-    type:Number
+ type:Number
 },
+
 
 functionType:{
-    type:String
+ type:String
 },
+
 
 functionTime:{
-    type:String
+ type:String
 },
-
-
-// Additional Package
-
-additionalPackage:{
-    type:String,
-    default:"No"
-},
-
-
-// Wedding
-
-makeupLevel:String,
-
-decorationLevel:String,
-
-photographyPackage:String,
-
-videoPackage:String,
-
-
-
-// Corporate
-
-stageSetup:String,
-
-soundSystem:String,
-
-ledScreen:String,
-
-
-
-// Birthday
-
-cakePackage:String,
-
-birthdayDecoration:String,
-
-
-privatePartyType:String,
-
-musicEntertainment:String,
-
-
-// Payment
-
-paymentMethod:String,
-
-cancellationPolicy:String,
 
 
 totalPrice:{
-    type:Number,
-    default:0
+ type:Number,
+ default:0
 },
 
 
 status:{
-    type:String,
-    default:"Pending"
+ type:String,
+ default:"Pending"
 }
 
 

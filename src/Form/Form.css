@@ -139,42 +139,42 @@
     align-items: center;
     margin-top: 30px;
 }
-
-/* Price Button */
-.event-price-btn{
-    flex: 1;
-    height: 55px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(90deg,#6f2dbd,#9d4edd);
-    color: #fff;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
+.event-btn-group{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
-.event-price-btn:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(111,45,189,.3);
-}
-
-/* Submit Button */
+.check-btn,
 .event-submit-btn{
-    flex: 1;
-    height: 55px;
-    border: none;
-    border-radius: 10px;
-    background: #28a745;
-    color: #fff;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 220px;
+  transition: 0.3s;
+}
+
+.check-btn{
+  background: #0d6efd;
+  color: #fff;
+}
+
+.check-btn:hover{
+  background: #0b5ed7;
+}
+
+.event-submit-btn{
+  background: #198754;
+  color: #fff;
 }
 
 .event-submit-btn:hover{
-    background: #218838;
+  background: #157347;
 }
 
 .event-payment-box {

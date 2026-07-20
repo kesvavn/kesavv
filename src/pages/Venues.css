@@ -20,7 +20,14 @@
   position: relative;
   z-index: 2;
 }
+.venue-link-card{
+  text-decoration:none;
+  color:inherit;
+}
 
+.venue-link-card:hover{
+  color:inherit;
+}
 /* ✅ Make content appear above overlay */
 .venue-img{
     width:100%;
@@ -186,12 +193,34 @@
 }
 
 .whatsapp-btn{
-    font-size: 12px;
-  background: #1db954;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 25px;
+    font-size:12px;
+    background:#25D366;
+    color:white;
+    padding:10px 18px;
+    border-radius:25px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.venue-name-link{
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.venue-name-link:hover{
+    color: #8a5bb6;
+    text-decoration: none;
+}
+.whatsapp-btn:hover{
+    background:#128C7E;
+    color:white;
+    transform:translateY(-2px);
 }
 /* =========================
  LOGIN / REGISTER MODAL

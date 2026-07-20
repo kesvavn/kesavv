@@ -16,14 +16,15 @@ function Venue() {
   const [imageFile, setImageFile] = useState(null);
   const [editId, setEditId] = useState(null);
 
-  const [venue, setVenue] = useState({
-    title: "",
-    location: "",
-    type: "",
-    rating: "★★★★★",
-    image: "",
-    isTop: false,
-  });
+ const [venue, setVenue] = useState({
+  title: "",
+  link: "",
+  location: "",
+  type: "",
+  rating: "★★★★★",
+  image: "",
+  isTop: false,
+});
 
 
   // Fetch Venues
@@ -147,14 +148,15 @@ function Venue() {
 
 
 
-      setVenue({
-        title:"",
-        location:"",
-        type:"",
-        rating:"★★★★★",
-        image:"",
-        isTop:false,
-      });
+     setVenue({
+  title: "",
+  link: "",
+  location: "",
+  type: "",
+  rating: "★★★★★",
+  image: "",
+  isTop: false,
+});
 
 
       setImageFile(null);
@@ -181,16 +183,14 @@ function Venue() {
 
 
     setVenue({
-
-      title:item.title,
-      location:item.location,
-      type:item.type,
-      rating:item.rating,
-      image:item.image,
-      isTop:item.isTop,
-
-    });
-
+  title: item.title,
+  link: item.link,
+  location: item.location,
+  type: item.type,
+  rating: item.rating,
+  image: item.image,
+  isTop: item.isTop,
+});
 
     setEditId(item._id);
 
@@ -312,7 +312,16 @@ onChange={handleChange}
 
 </Form.Group>
 
+<Form.Group className="mb-3">
+  <Form.Label>Link</Form.Label>
 
+  <Form.Control
+    name="link"
+    placeholder="/kakkattu-mana"
+    value={venue.link}
+    onChange={handleChange}
+  />
+</Form.Group>
 
 
 

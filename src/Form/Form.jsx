@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-const Form = () => { 
+const Form = ({venue}) => {
+  const navigate = useNavigate();
 const [formData, setFormData] = useState({
-
   fullName: "",
   phone: "",
   email: "",
+venueName: venue?.title || "",
+
   functionDate: "",
   guests: "",
   rooms: "",
@@ -43,6 +46,17 @@ const [formData, setFormData] = useState({
   totalPrice: 0,
 });
 
+
+useEffect(()=>{
+
+ if(venue){
+   setFormData(prev=>({
+     ...prev,
+     venueName: venue.title
+   }));
+ }
+
+},[venue]);
 
 
   const handleChange = (e) => {
@@ -192,50 +206,34 @@ price += 25000;
 if(formData.birthdayDecoration === "Luxury")
 price += 50000;
 
-  // Final Price Update
-  setFormData(prev => ({
-    ...prev,
-    totalPrice: price
-  }));
+ return price;
 
 };
+const handleSubmit = (e) => {
+  e.preventDefault();
 
- const handleSubmit = async(e)=>{
+  const price = calculatePrice();
 
-e.preventDefault();
+  const submitData = {
+    ...formData,
+    venueName: venue?.title,
+    totalPrice: price,
+  };
 
-calculatePrice();
+  // Cart-ல் save
+  localStorage.setItem("cart", JSON.stringify(submitData));
 
-try{
-
-const response =
-await axios.post(
-
-"http://localhost:5000/api/requests",
-
-formData
-
-);
-
-alert(
-"Pricing Request Submitted Successfully!"
-);
-
-console.log(response.data);
-
-}
-
-catch(error){
-
-console.log(error);
-
-alert(
-"Something went wrong"
-);
-}
+  // Cart page
+  navigate("/cart");
 };
+    
+   
+
   return (
     <div className="event-form-container">
+      <h3>
+      {venue ? venue.title : "Selected Venue"}
+</h3>
       <div className="event-header">
         <h2>MELODIA EVENT MANAGEMENT</h2>
         <h3>Request Pricing</h3>
@@ -1034,7 +1032,7 @@ Custom Cake - ₹8000
 
             <input
               type="text"
-              value={`₹ ${formData.totalPrice.toLocaleString()}`}
+              value={`₹ ${Number(formData.totalPrice || 0).toLocaleString()}`}
               readOnly
             />
           </div>
@@ -1105,21 +1103,32 @@ Custom Cake - ₹8000
           </p>
         </div>
 
-       <div className="event-btn-group">
+     <div className="event-btn-group">
+
   <button
     type="button"
-    className="event-price-btn"
-    onClick={calculatePrice}>
+    className="check-btn"
+    onClick={() => {
+      const price = calculatePrice();
+
+      setFormData(prev => ({
+        ...prev,
+        totalPrice: price
+      }));
+    }}
+  >
     Check Availability & Prices
   </button>
 
   <button
     type="submit"
     className="event-submit-btn"
->
+  >
     Submit Request
   </button>
+
 </div>
+
       </form>
     </div>
   );

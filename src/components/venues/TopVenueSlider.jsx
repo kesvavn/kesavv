@@ -69,13 +69,10 @@ function TopVenueSlider() {
         {venues.map((venue) => (
           <SwiperSlide key={venue._id}>
             <div
-              className="venue-card"
-              onClick={() => navigate(venue.path)}
-            >
-              <img
-                src={venue.image}
-                alt={venue.title}
-              />
+  className="venue-card"
+  onClick={() => navigate(venue.link)}
+>
+               <img src={`http://localhost:5000/uploads/${venue.image}`}alt={venue.title}/>
 
               <div className="venue-content">
                 <div className="rating">

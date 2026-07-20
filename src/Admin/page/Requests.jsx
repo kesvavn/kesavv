@@ -112,7 +112,13 @@ Pricing Requests
 
 <th>Event</th>
 
+<th>Venue</th>
+
 <th>Date</th>
+
+<th>Guests</th>
+
+<th>Rooms</th>
 
 <th>Price</th>
 
@@ -152,11 +158,21 @@ requests.map((item)=>(
 {item.functionType}
 </td>
 
+<td>
+{item.venueName}
+</td>
 
 <td>
 {item.functionDate}
 </td>
 
+<td>
+{item.guests}
+</td>
+
+<td>
+{item.rooms}
+</td>
 
 <td>
 ₹ {item.totalPrice?.toLocaleString()}

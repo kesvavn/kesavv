@@ -38,52 +38,19 @@ const getDashboardData = async()=>{
 try{
 
 
-const res = await axios.get(
-"http://localhost:5000/api/requests"
-);
-
-
+const res = await axios.get("http://localhost:5000/api/requests");
 const requests = res.data;
 
 // Total Requests
-
 const total = requests.length;
 
-
-
 // Confirmed Events
-
-const confirmed = requests.filter(
-
-(item)=>
-
-item.status==="Confirmed"
-
-).length;
-
+const confirmed = requests.filter((item)=>item.status==="Confirmed").length;
 
 // Revenue
-
 const revenue = requests
 
-.filter(
-
-(item)=>
-
-item.status==="Confirmed"
-
-)
-
-.reduce(
-
-(sum,item)=>
-
-sum + Number(item.totalPrice || 0),
-
-0
-);
-
-
+.filter((item)=>item.status==="Confirmed").reduce((sum,item)=>sum + Number(item.totalPrice || 0),0);
 
 
 setStats({
@@ -166,10 +133,7 @@ revenue:monthly[month]
 
 const types={};
 
-
-
 requests.forEach(item=>{
-
 
 if(!types[item.functionType]){
 
@@ -183,29 +147,9 @@ types[item.functionType]++;
 
 });
 
+setBookingData(Object.keys(types).map(type=>({type:type,count:types[type]})));
 
-
-
-setBookingData(
-
-Object.keys(types)
-
-.map(type=>({
-
-type:type,
-
-count:types[type]
-
-}))
-
-);
-
-const users = await axios.get(
-
-"http://localhost:5000/api/auth/users-count"
-
-);
-
+const users = await axios.get("http://localhost:5000/api/auth/users-count");
 
 setUserStats(users.data);
 
@@ -221,8 +165,6 @@ console.log(error);
 };
 
 
-
-
 useEffect(()=>{
 
 getDashboardData();
@@ -235,8 +177,6 @@ getDashboardData();
 return(
 
 <div>
-
-
 
 
 <h2 className="page-title">
@@ -335,8 +275,6 @@ data={bookingData}
 </div>
 
 </div>
-
-
 
 <div className="user-card">
 
