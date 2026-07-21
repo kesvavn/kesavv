@@ -1,31 +1,33 @@
+
 .register-box{
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    width:100%;
 }
 
 
 .register-form{
-width:350px;
-display:flex;
-flex-direction:column;
-gap:15px;
+    width:350px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
 
 .register-input{
-padding:12px;
-border-radius:8px;
-border:1px solid #ccc;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
 }
 
 
 .register-btn{
-padding:12px;
-background:#111;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
+    padding:12px;
+    background:#111;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
 }

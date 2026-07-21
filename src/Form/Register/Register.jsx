@@ -8,30 +8,26 @@ function Register() {
 
 const [showLogin, setShowLogin] = useState(false);
 const navigate = useNavigate();
+
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const [showSidebar, setShowSidebar] = useState(true);
 const [passwordError, setPasswordError] = useState("");
+
 
 
 const handleRegister = async (e) => {
 
 e.preventDefault();
 
-
 if(password.length < 6){
-
-setPasswordError("Password must be minimum 6 characters");
-
-return;
-
+    setPasswordError("Password must be minimum 6 characters");
+    return;
 }
-
 
 try {
 
-const res = await axios.post(
+await axios.post(
 "http://localhost:5000/api/auth/register",
 {
 name,
@@ -51,8 +47,7 @@ catch(error){
 console.log(error.response?.data);
 
 alert(
-error.response?.data?.message ||
-"Registration Failed"
+error.response?.data?.message || "Registration Failed"
 );
 
 }
@@ -60,13 +55,13 @@ error.response?.data?.message ||
 };
 
 
+
 return (
 
-<>
+<div className="register-box">
+
 {
 !showLogin ?
-
-(
 
 <form 
 className="register-form"
@@ -98,13 +93,15 @@ placeholder="Password"
 value={password}
 onChange={(e)=>setPassword(e.target.value)}
 />
+
+
 {
-passwordError && (
-<small className="text-danger">
+passwordError && 
+<p className="error">
 {passwordError}
-</small>
-)
+</p>
 }
+
 
 <button
 className="register-btn"
@@ -115,21 +112,29 @@ Register
 </button>
 
 
+<p>
+Already have an account?
+
+<span 
+onClick={()=>setShowLogin(true)}
+style={{cursor:"pointer"}}
+>
+ Login
+</span>
+
+</p>
+
+
 </form>
 
-)
 
 :
-(
-<Login 
-showSidebar={true}
-setShowSidebar={setShowSidebar}
-/>
-)
+
+<Login/>
 
 }
 
-</>
+</div>
 
 );
 
