@@ -8,8 +8,16 @@
 
 .login-sidebar {
   width: 420px !important;
+  min-height: 100vh;
+  background: #fff;
+  padding: 40px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
-
 .login-top h2 {
   font-size: 32px;
   font-weight: 700;
@@ -157,4 +165,44 @@
 
 .para-logo {
   font-size: 15px;
+}
+.register-btn {
+  width: 100% !important;
+  height: 55px !important;
+  border: none !important;
+  border-radius: 14px !important;
+  background: linear-gradient(45deg, #a82587, #dd2476) !important;
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 15px rgba(221,36,118,0.3);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.signup-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+.signup-text span {
+  color: #a855f7;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.signup-text span:hover {
+  text-decoration: underline;
+}
+.login-sidebar input,
+.login-sidebar button {
+  width: 100%;
+  box-sizing: border-box;
 }

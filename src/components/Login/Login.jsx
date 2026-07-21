@@ -7,7 +7,6 @@ import {FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock,} from "react-icons/fa"
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
-import Register from "../../Form/Register/Register";
 
 
 function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
@@ -18,60 +17,57 @@ function Login({ showSidebar, setShowSidebar, redirectAfterLogin, onLogin,}) {
   const [showPassword, setShowPassword] = useState(false);
 
   // Email Validation
-   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidEmail =/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   // Password Validation
   const isValidPassword = password.length >= 6;
-  const handleLogin = async (e) => {
+ const handleLogin = async (e) => {
 
 e.preventDefault();
 
 try {
 
 const res = await axios.post(
-"http://localhost:5000/api/auth/login",
-{
- email,
- password
-}
+  "http://localhost:5000/api/auth/login",
+  {
+    email: email.trim().toLowerCase(),
+    password
+  }
 );
 
 
 localStorage.setItem(
-"token",
-res.data.token
+ "token",
+ res.data.token
 );
-
 
 localStorage.setItem(
-"user",
-JSON.stringify(res.data.user)
+ "user",
+ JSON.stringify(res.data.user)
 );
+
+
+alert("Login Successfully");
 
 
 if(onLogin){
-    onLogin();
+  console.log("onLogin called");
+  onLogin();
 }
 
 
 setShowSidebar(false);
 
 
-if(redirectAfterLogin){
-    navigate(redirectAfterLogin);
-}
-
-
 }
 catch(err){
 
 alert(
-err.response?.data?.message || "Login Failed"
+ err.response?.data?.message || "Login Failed"
 );
 
 }
 
 };
-      
   return (
     <>
       <Offcanvas
@@ -197,21 +193,32 @@ err.response?.data?.message || "Login Failed"
     </small>
   )}</div>
 
+<Button
+type="submit"
+className="login-btn w-100"
+>
+Login
+</Button>
 
-            <Button
-              type="submit"
-              className="login-btn w-100"
-              disabled={
-                !isValidEmail || !isValidPassword
-              }
-            >
-              Login
-            </Button>
-          </Form>
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
-  );
+
+<div className="signup-text">
+  Don't have an account? 
+  <span
+    onClick={() => {
+      setShowSidebar(false);
+      navigate("/register");
+    }}
+  >
+    Register
+  </span>
+</div>
+</Form>
+
+</Offcanvas.Body>
+</Offcanvas>
+
+</>
+);
 }
 
 export default Login;

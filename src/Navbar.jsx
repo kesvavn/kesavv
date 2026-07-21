@@ -215,7 +215,10 @@ const handleLogout = () => {
               <Nav.Link as={Link} to="/contact" onClick={closeMenu}>
                 CONTACT
               </Nav.Link>
-              
+          
+<Nav.Link as={Link} to="/my-bookings" onClick={closeMenu}>
+  MY BOOKINGS
+</Nav.Link>
               
             </Nav>
 <div className="right-section">
@@ -241,12 +244,7 @@ const handleLogout = () => {
       <FaBars />
     </Button>
   )}
-  {isLoggedIn && (
-  <Nav.Link as={Link} to="/cart" onClick={closeMenu}>
-    🛒 CART
-  </Nav.Link>
-)}
-
+  
 </div>
 
           </BsNavbar.Collapse>

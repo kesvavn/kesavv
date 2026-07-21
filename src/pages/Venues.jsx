@@ -80,14 +80,16 @@ venue.location.toLowerCase()
   return (
     
     <div>
-        <Login
-      showSidebar={showSidebar}
-      setShowSidebar={setShowSidebar}
-      onLogin={() => {
-        setShowSidebar(false);
-        setShowForm(true);
-      }}
-    />
+<Login
+  showSidebar={showSidebar}
+  setShowSidebar={setShowSidebar}
+  onLogin={()=>{
+    console.log("Opening Form");
+    setShowSidebar(false);
+    setShowForm(true);
+  }}
+/>
+      
 
       {/* HERO SECTION */}
       <div className="venues-bg">
@@ -303,11 +305,6 @@ onClick={(e)=>{
 
       
 
-<Login
-  showSidebar={showSidebar}
-  setShowSidebar={setShowSidebar}
-  redirectAfterLogin="/venues"
-/>
 <Footer />
       
     </div>

@@ -1,0 +1,68 @@
+.booking-container{
+    width:90%;
+    margin:auto;
+    padding:40px 0;
+}
+
+.booking-title{
+    text-align:center;
+    margin-bottom:30px;
+    font-weight:bold;
+}
+
+.booking-card{
+    display:flex;
+    gap:20px;
+    background:#fff;
+    border-radius:15px;
+    margin-bottom:25px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.booking-image{
+    width:300px;
+    height:220px;
+    object-fit:cover;
+}
+
+.booking-details{
+    padding:20px;
+}
+
+.booking-details h3{
+    color:#0d6efd;
+    margin-bottom:15px;
+}
+
+.pending{
+    color:orange;
+    font-weight:bold;
+}
+
+.confirmed{
+    color:green;
+    font-weight:bold;
+}
+
+.cancelled{
+    color:red;
+    font-weight:bold;
+}
+
+.completed{
+    color:blue;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+.booking-card{
+    flex-direction:column;
+}
+
+.booking-image{
+    width:100%;
+}
+
+}

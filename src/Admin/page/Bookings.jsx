@@ -89,6 +89,8 @@ Confirmed Bookings
 
 <th>Phone</th>
 
+<th>venue</th>
+
 <th>Event</th>
 
 <th>Date</th>
@@ -128,6 +130,9 @@ bookings.map((item)=>(
 {item.phone}
 </td>
 
+<td>
+{item.venueName}
+</td>
 
 <td>
 {item.functionType}

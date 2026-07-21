@@ -209,7 +209,7 @@ price += 50000;
  return price;
 
 };
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const price = calculatePrice();
@@ -220,11 +220,28 @@ const handleSubmit = (e) => {
     totalPrice: price,
   };
 
-  // Cart-ல் save
-  localStorage.setItem("cart", JSON.stringify(submitData));
+  try {
+    const token = localStorage.getItem("token");
 
-  // Cart page
-  navigate("/cart");
+    await axios.post(
+      "http://localhost:5000/api/requests",
+      submitData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Booking Request Submitted Successfully!");
+
+    navigate("/my-bookings");
+  } catch (err) {
+    console.log(err);
+    alert("Failed to submit booking.");
+  }
+
+ 
 };
     
    
@@ -1126,6 +1143,7 @@ Custom Cake - ₹8000
   >
     Submit Request
   </button>
+
 
 </div>
 

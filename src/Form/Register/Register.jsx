@@ -1,113 +1,137 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Register.css";
 import Login from "../../components/Login/Login";
 
 function Register() {
 
-  const [showLogin, setShowLogin] = useState(false);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleRegister = async (e) => {
-
-    e.preventDefault();
-
-    try {
-
-      await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          name,
-          email,
-          password
-        }
-      );
-
-      alert("Register Successfully");
-
-      setName("");
-      setEmail("");
-      setPassword("");
-
-      setShowLogin(true);
-
-    } catch (err) {
-
-      alert(
-        err.response?.data?.message ||
-        "Register Failed"
-      );
-
-    }
-
-  };
+const [showLogin, setShowLogin] = useState(false);
+const navigate = useNavigate();
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [showSidebar, setShowSidebar] = useState(true);
+const [passwordError, setPasswordError] = useState("");
 
 
-  return (
-    <>
+const handleRegister = async (e) => {
 
-    {
-      showLogin ? (
-        <Login />
-      ) : (
-
-      <form onSubmit={handleRegister}>
-
-        <input
-          className="register-input"
-          type="text"
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e)=>setName(e.target.value)}
-        />
+e.preventDefault();
 
 
-        <input
-          className="register-input"
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-        />
+if(password.length < 6){
+
+setPasswordError("Password must be minimum 6 characters");
+
+return;
+
+}
 
 
-        <input
-          className="register-input"
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-        />
+try {
+
+const res = await axios.post(
+"http://localhost:5000/api/auth/register",
+{
+name,
+email,
+password
+}
+);
+
+alert("Register Successfully");
+
+navigate("/venues");
+
+}
+
+catch(error){
+
+console.log(error.response?.data);
+
+alert(
+error.response?.data?.message ||
+"Registration Failed"
+);
+
+}
+
+};
 
 
-        <button
-          className="register-btn"
-          type="submit"
-        >
-          Register
-        </button>
+return (
+
+<>
+{
+!showLogin ?
+
+(
+
+<form 
+className="register-form"
+onSubmit={handleRegister}
+>
+
+<input
+className="register-input"
+type="text"
+placeholder="Name"
+value={name}
+onChange={(e)=>setName(e.target.value)}
+/>
 
 
-        <button
-          type="button"
-          className="login-btn"
-          onClick={()=>setShowLogin(true)}
-        >
-          Login
-        </button>
+<input
+className="register-input"
+type="email"
+placeholder="Email"
+value={email}
+onChange={(e)=>setEmail(e.target.value)}
+/>
 
 
-      </form>
+<input
+className="register-input"
+type="password"
+placeholder="Password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+/>
+{
+passwordError && (
+<small className="text-danger">
+{passwordError}
+</small>
+)
+}
 
-      )
+<button
+className="register-btn"
+type="submit"
+disabled={password.length < 6}
+>
+Register
+</button>
 
-    }
 
-    </>
-  );
+</form>
+
+)
+
+:
+(
+<Login 
+showSidebar={true}
+setShowSidebar={setShowSidebar}
+/>
+)
+
+}
+
+</>
+
+);
 
 }
 

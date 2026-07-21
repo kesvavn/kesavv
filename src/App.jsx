@@ -32,10 +32,11 @@ import Footer from "./pages/Footer";
 
 import WhatsAppButton from "./components/WhatsAppButton";
 
-import Cart from "./pages/Cart";
+import MyBookings from "./pages/MyBookings"
 import Layout from "./Layout";
 import Form from "./Form/Form";
-
+import Register from "./Form/Register/Register"
+import Login from "./components/Login/Login"
 //admin panel
 import AdminRoutes from "./Admin/AdminRoutes";
 
@@ -57,7 +58,9 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/about" element={<About />} />
-        
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login/>} />
+
           <Route path="/Blogs" element={<Blogs />} />
           <Route path="/Test" element={<Test />} />
           
@@ -68,6 +71,11 @@ function App() {
         <Route path="/gallery" element={<><MyNavbar /><Gallery /></>}/>
 
         <Route path="/contact" element={<Contact />} />
+
+<Route
+path="/my-bookings"
+element={<MyBookings/>}
+/>
 
         {/* EVENT ROUTES */}
         <Route path="/Corprate" element={<Corprate />} />
@@ -141,14 +149,7 @@ function App() {
     <Route path="customers" element={<Customers />} />
   </Route>
    <Route path="/admin/*" element={<AdminRoutes />} />
-<Route
-  path="/cart"
-  element={
-    localStorage.getItem("token")
-      ? <Cart />
-      : <Navigate to="/" replace />
-  }
-/>
+
       </Routes>
       
             <WhatsAppButton />

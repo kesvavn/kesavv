@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
-
+const Register = require("../models/Register");
 const Login = require("../models/Login");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 
-// ================= REGISTER =================
-
 router.post("/register", async (req,res)=>{
 
 try{
 
-const {name,email,password}=req.body;
+const {name,password}=req.body;
+
+const email = req.body.email.trim().toLowerCase();
 
 
-const existingUser = await Login.findOne({
+const existingUser = await Register.findOne({
 email
 });
 
@@ -29,15 +29,13 @@ message:"Email already exists"
 }
 
 
-
 const hashedPassword = await bcrypt.hash(
 password,
 10
 );
 
 
-
-const user = new Login({
+const user = new Register({
 
 name,
 email,
@@ -46,9 +44,7 @@ password:hashedPassword
 });
 
 
-
 await user.save();
-
 
 
 res.status(201).json({
@@ -58,8 +54,8 @@ message:"Register Successfully"
 });
 
 
-
 }
+
 catch(err){
 
 console.log(err);
@@ -72,24 +68,23 @@ message:"Server Error"
 
 }
 
-
 });
-
-
-
 // ================= LOGIN =================
 
 router.post("/login", async (req,res)=>{
 
+console.log("LOGIN DATA:", req.body);
 
 try {
 
 
-const {email,password}=req.body;
+const {password}=req.body;
+
+const email = req.body.email.trim().toLowerCase();
 
 
 
-const user = await Login.findOne({
+const user = await Register.findOne({
 email
 });
 
@@ -126,17 +121,52 @@ message:"Invalid Password"
 });
 
 }
+// Save Login Collection
+
+const loginData = await Login.findOne({
+email:user.email
+});
 
 
-
-// Update Login Details
-
-user.lastLogin = new Date();
-
-user.loginCount = (user.loginCount || 0) + 1;
+if(loginData){
 
 
-await user.save();
+await Login.findOneAndUpdate(
+{
+email:user.email
+},
+{
+$set:{
+lastLogin:new Date()
+},
+$inc:{
+loginCount:1
+}
+}
+);
+
+
+}
+else{
+
+
+await Login.create({
+
+name:user.name,
+
+email:user.email,
+
+password:user.password,
+
+lastLogin:new Date(),
+
+loginCount:1
+
+});
+
+
+}
+
 
 
 
@@ -194,8 +224,7 @@ router.get("/users-count", async(req,res)=>{
 try{
 
 
-const totalUsers = await Login.countDocuments();
-
+const totalUsers = await Register.countDocuments();
 
 // Today Login
 
@@ -204,25 +233,21 @@ const today = new Date();
 today.setHours(0,0,0,0);
 
 
-const todayLogin = await Login.countDocuments({
-
+const todayLogin = await Register.countDocuments({
 lastLogin:{
 $gte: today
 }
-
 });
-
 
 
 // New Users Today
 
-const newUsers = await Login.countDocuments({
-
+const newUsers = await Register.countDocuments({
 createdAt:{
 $gte: today
 }
-
 });
+
 
 
 
