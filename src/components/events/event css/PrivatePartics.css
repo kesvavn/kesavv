@@ -1,0 +1,42 @@
+.private-parties-bg {
+  min-height: 80vh;
+  background:
+  linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.55)
+  ),
+  url("../dj-spinning-mixing-scratching-track-controls-dj-s-deck-strobe-dj-music-club-life-concept.webp");
+
+  background-size: cover;
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 85vh;
+  position: relative;
+  top: -20px;
+}
+
+
+
+.text-para {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+
+h1 {
+  font-size: 45px;
+}
+
+
+@media(max-width:768px){
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .text-para {
+    font-size: 16px;
+  }
+
+}

@@ -30,25 +30,21 @@ useEffect(() => {
   fetchVenues();
 }, []);
 
-
 const fetchVenues = async () => {
-
   try {
 
     const res = await axios.get(
       "http://localhost:5000/api/venues"
     );
 
+    console.log("Venue API Data:", res.data);
+
     setVenues(res.data);
 
   } catch(error) {
-
     console.log(error);
-
   }
-
 };
-
 
 
 const filteredVenues = venues.filter((venue)=>{
@@ -56,22 +52,18 @@ const filteredVenues = venues.filter((venue)=>{
 return (
 
 (selectedLocation === "" ||
-venue.location === selectedLocation)
+venue.location?.toLowerCase() === selectedLocation.toLowerCase())
 
 &&
 
 (selectedType === "" ||
-venue.type === selectedType)
+venue.type?.toLowerCase() === selectedType.toLowerCase())
 
 &&
 
 (search === "" ||
-venue.title.toLowerCase()
-.includes(search.toLowerCase())
-||
-venue.location.toLowerCase()
-.includes(search.toLowerCase())
-)
+venue.title?.toLowerCase().includes(search.toLowerCase()) ||
+venue.location?.toLowerCase().includes(search.toLowerCase()))
 
 );
 
@@ -179,28 +171,34 @@ venue.location.toLowerCase()
           </select>
 
           {/* TYPE FILTER */}
-          <select>
-            <option value="">
-              Select Venue Type
-            </option>
+          <select
+  value={selectedType}
+  onChange={(e)=>setSelectedType(e.target.value)}
+>
 
-            <option value="heritage">
-              AC Marriage Halls
-            </option>
+<option value="">
+Select Venue Type
+</option>
 
-            <option value="beach">
-              Beach Wedding
-            </option>
+<option value="heritage">
+AC Marriage Halls
+</option>
 
-            <option value="outdoor">
-              Outdoor Wedding
-            </option>
-          </select>
+<option value="beach">
+Beach Wedding
+</option>
 
+<option value="outdoor">
+Outdoor Wedding
+</option>
+
+</select>
           <input
-            type="text"
-            placeholder="Search Venue/Location..."
-          />
+ type="text"
+ value={search}
+ onChange={(e)=>setSearch(e.target.value)}
+ placeholder="Search Venue/Location..."
+/>
 
         </div>
 
@@ -213,10 +211,14 @@ venue.location.toLowerCase()
 
     <div className="venue-card">
 
-  <img
-    src={`http://localhost:5000/uploads/${venue.image}`}
-    alt={venue.title}
-  />
+ <img
+ src={
+   venue.image?.startsWith("/uploads")
+   ? `http://localhost:5000${venue.image}`
+   : `http://localhost:5000/uploads/${venue.image}`
+ }
+ alt={venue.title}
+/>
 
   <div className="venue-card-body">
 
@@ -257,20 +259,23 @@ className="price-btn"
 onClick={(e)=>{
   e.stopPropagation();
 
+  console.log("CLICK VENUE:", venue);
+
   const token = localStorage.getItem("token");
 
   if(token){
 
-    setSelectedVenue(venue);   // 👈 selected card save pannum
+    setSelectedVenue(venue);
     setShowForm(true);
 
   }
   else{
     setShowSidebar(true);
   }
+
 }}
 >
-  Request Pricing
+Request Pricing
 </button>
 
     </div>

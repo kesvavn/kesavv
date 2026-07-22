@@ -72,10 +72,7 @@ function App() {
 
         <Route path="/contact" element={<Contact />} />
 
-<Route
-path="/my-bookings"
-element={<MyBookings/>}
-/>
+       <Route path="/my-bookings"element={<MyBookings/>}/>
 
         {/* EVENT ROUTES */}
         <Route path="/Corprate" element={<Corprate />} />
@@ -131,9 +128,9 @@ element={<MyBookings/>}
         />
 
       <Route
-  path="/KampifyKochi"
-  element={<KampifyKochi />}
-/>
+       path="/KampifyKochi"
+       element={<KampifyKochi />}
+       />
 
         <Route
           path="/kadavu-villas"
@@ -152,7 +149,7 @@ element={<MyBookings/>}
 
       </Routes>
       
-            <WhatsAppButton />
+      <WhatsAppButton />
 
     </>
   );

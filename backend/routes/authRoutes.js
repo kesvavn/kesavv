@@ -121,6 +121,16 @@ message:"Invalid Password"
 });
 
 }
+
+user.lastLogin = new Date();
+user.loginCount += 1;
+
+await user.save();
+
+console.log("Updated:", user);
+
+const updatedUser = await Register.findById(user._id);
+console.log("Updated User:", updatedUser);
 // Save Login Collection
 
 const loginData = await Login.findOne({
@@ -199,20 +209,11 @@ user
 
 }
 
-
-catch(err){
-
-
-console.log(err);
-
-
-res.status(500).json({
-
-message:"Server Error"
-
-});
-
-
+catch (err) {
+  console.error("Login Error:", err);
+  res.status(500).json({
+    message: "Server Error"
+  });
 }
 
 
@@ -242,14 +243,7 @@ $gte: today
 
 // New Users Today
 
-const newUsers = await Register.countDocuments({
-createdAt:{
-$gte: today
-}
-});
-
-
-
+const newUsers = await Register.countDocuments({createdAt:{$gte: today}});
 
 res.json({
 

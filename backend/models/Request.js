@@ -1,4 +1,6 @@
+
 const mongoose = require("mongoose");
+
 const requestSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +26,10 @@ const requestSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
+  image: {
+  type: String
+},
 
   functionDate: {
     type: String
@@ -58,3 +64,4 @@ const requestSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+module.exports = mongoose.model("Request", requestSchema);

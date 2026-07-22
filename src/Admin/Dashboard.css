@@ -74,11 +74,32 @@ td {
 }
 
 /* Dashboard Card */
+.dashboard-card{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:.3s;
+}
 
-.dashboard-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.dashboard-card:hover{
+    transform:translateY(-5px);
+}
+
+.dashboard-card h5{
+    font-size:15px;
+    color:#6b7280;
+    margin-bottom:8px;
+}
+
+.dashboard-card h2{
+    font-size:28px;
+    margin:0;
+    color:#111827;
+    font-weight:700;
 }
 
 /* Icon */
@@ -94,7 +115,7 @@ td {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
 

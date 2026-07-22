@@ -213,16 +213,27 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const price = calculatePrice();
+console.log("Selected Venue:", venue);
+console.log("Venue Image:", venue?.image);
 
-  const submitData = {
-    ...formData,
-    venueName: venue?.title,
-    totalPrice: price,
-  };
+ const submitData = {
+  ...formData,
+  venueName: venue?.title || formData.venueName,
+  image: venue?.image,
+  totalPrice: price,
+};
+
+console.log("Venue Prop:", venue);
+  console.log("Form Data:", formData);
+  console.log("Submit Data:", submitData);
+
+  console.log("Submit Data:", submitData);
+
+  const token = localStorage.getItem("token");
+  console.log("Token:", token);
 
   try {
-    const token = localStorage.getItem("token");
-
+    console.log("FINAL SUBMIT DATA:", submitData);
     await axios.post(
       "http://localhost:5000/api/requests",
       submitData,
@@ -234,17 +245,16 @@ const handleSubmit = async (e) => {
     );
 
     alert("Booking Request Submitted Successfully!");
-
     navigate("/my-bookings");
-  } catch (err) {
-    console.log(err);
-    alert("Failed to submit booking.");
-  }
 
- 
+  } catch (err) {
+    console.log("Status:", err.response?.status);
+    console.log("Data:", err.response?.data);
+    console.log("Error:", err.message);
+
+    alert(err.response?.data?.message || "Failed to submit booking");
+  }
 };
-    
-   
 
   return (
     <div className="event-form-container">

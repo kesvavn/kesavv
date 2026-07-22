@@ -30,10 +30,9 @@ const res = await axios.post(
   "http://localhost:5000/api/auth/login",
   {
     email: email.trim().toLowerCase(),
-    password
+    password,
   }
 );
-
 
 localStorage.setItem(
  "token",
@@ -76,8 +75,8 @@ alert(
         placement="start"
         className="login-sidebar"
       >
-        <Offcanvas.Header closeButton>
-  <Offcanvas.Title>
+      <Offcanvas.Header closeButton>
+     <Offcanvas.Title>
     <Image
       src={Img}
       alt="Melodia Logo"

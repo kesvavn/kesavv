@@ -23,6 +23,7 @@ function MyBookings() {
       );
 
       setBookings(res.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -38,11 +39,15 @@ function MyBookings() {
         bookings.map((item) => (
           <div className="booking-card" key={item._id}>
 
-            <img
-              src={item.image}
-              alt={item.venueName}
-              className="booking-image"
-            />
+           <img
+ src={
+   item.image?.startsWith("/uploads")
+   ? `http://localhost:5000${item.image}`
+   : `http://localhost:5000/uploads/${item.image}`
+ }
+ alt={item.venueName}
+ className="booking-image"
+/>
 
             <div className="booking-details">
 
