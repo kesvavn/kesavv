@@ -1,5 +1,5 @@
 .private-parties-bg {
-  min-height: 80vh;
+  height: 80vh;
   background:
   linear-gradient(
     rgba(0,0,0,0.55),
@@ -8,14 +8,8 @@
   url("../dj-spinning-mixing-scratching-track-controls-dj-s-deck-strobe-dj-music-club-life-concept.webp");
 
   background-size: cover;
-  background-size: cover; 
   background-position: center;
-  background-repeat: no-repeat;
-  height: 85vh;
-  position: relative;
-  top: -20px;
 }
-
 
 
 .text-para {
@@ -25,8 +19,12 @@
 
 
 h1 {
-  font-size: 45px;
+      color: #FFF;
+    font-family: "Montserrat", Sans-serif;
+    font-size: 45px;
+    font-weight: 700;
 }
+
 
 
 @media(max-width:768px){

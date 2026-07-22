@@ -3,6 +3,7 @@ import "./event css/PrivatePartics.css";
 import MyNavbar from "../../Navbar";
 import { useEffect } from "react";
 
+
 function PrivateParties() {
 
   useEffect(() => {
@@ -23,8 +24,7 @@ function PrivateParties() {
 
               <h1 className="text-white fw-bold">
                 Private Parties Event Management
-                <br />
-                Companies in Kochi
+               
               </h1>
 
               <p className="text-white text-para mt-4">
@@ -54,11 +54,7 @@ function PrivateParties() {
               Exclusive soirées amidst Kerala's breathtaking backdrops
             </h1>
 
-            <p className="mt-3 text-secondary">
-              Create unforgettable private celebrations with premium
-              event planning and beautiful Kerala locations.
-            </p>
-
+           
           </Col>
 
         </Row>

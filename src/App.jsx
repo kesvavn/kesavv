@@ -38,6 +38,8 @@ import Form from "./Form/Form";
 import Register from "./Form/Register/Register"
 import Login from "./components/Login/Login"
 //admin panel
+import ProtectedRoute from "./Admin/ProtectedRoute";
+import AdminLogin from "./Admin/Auth/AdminLogin";
 import AdminRoutes from "./Admin/AdminRoutes";
 
 import MainLayout from "./Admin/Layouts/MainLayout";
@@ -47,14 +49,16 @@ import Bookings from "./Admin/page/Bookings";
 import Customers from "./Admin/page/Customers";
 
 
-
 function App() {
   return (
     <>
       <ScrollToTop />
 
       <Routes>
-        
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+
+<Route path="/admin" element={ <ProtectedRoute> <MainLayout /> </ProtectedRoute> }></Route>
         <Route path="/" element={<Home />} />
 
         <Route path="/about" element={<About />} />

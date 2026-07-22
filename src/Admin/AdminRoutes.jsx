@@ -1,4 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+//admin
+import AdminLogin from "./Auth/AdminLogin";
+
+import ProtectedRoute from "./ProtectedRoute";
+
 
 import MainLayout from "./Layouts/MainLayout";
 
@@ -21,6 +26,11 @@ import Footer from "../pages/Footer";
 function AdminRoutes() {
   return (
     <Routes>
+      
+      <Route path="/admin/login" element={<AdminLogin/>}/>
+       
+<Route path="/admin" element={<ProtectedRoute><MainLayout/></ProtectedRoute>}></Route>
+
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="requests" element={<Requests />} />

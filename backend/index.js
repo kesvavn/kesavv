@@ -11,6 +11,9 @@ const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/ContactRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 
+//Admin
+const adminRoutes = require("./routes/adminRoutes");
+
 const auth = require("./middleware/auth");
 
 
@@ -97,6 +100,12 @@ res.json({
 });
 
 });
+
+// Admin Route
+app.use(
+"/api/admin",
+adminRoutes
+);
 
 
 // Server Start
