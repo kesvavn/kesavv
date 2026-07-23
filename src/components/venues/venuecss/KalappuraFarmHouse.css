@@ -1,0 +1,245 @@
+/* ===============================
+   Kalappura Farm House
+================================ */
+.KalappuraFarmHouse-bg{
+     height: 80vh;
+  background-image: url("../2023-05-09-2-rez9yswvqakifvxjp0sa1i4n4bry1unp59ojb8eape.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.KalappuraFarmHouse-hero-contant{
+  position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    z-index:2;
+
+    text-align:center;
+
+    width:100%;
+
+    color:white;
+}
+
+.KalappuraFarmHouse-heading {
+  font-size: 45px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 40px;
+  color: white;
+}
+
+
+.KalappuraFarmHouse-location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 20px;
+  font-size: 17px;
+  color: white;
+}
+
+
+.KalappuraFarmHouse-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #222;
+}
+
+
+.KalappuraFarmHouse-description {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #666;
+}
+
+
+/* Cards */
+
+.KalappuraFarmHouse-info-card {
+
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+
+}
+
+
+.KalappuraFarmHouse-section-title {
+
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+
+}
+
+
+.KalappuraFarmHouse-feature-row .col-md-4 {
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 16px;
+  color: #555;
+
+}
+
+
+.KalappuraFarmHouse-feature-row svg {
+
+  font-size: 25px;
+  color: #b08d57;
+
+}
+
+
+/* Enquiry */
+
+.KalappuraFarmHouse-enquiry-card {
+
+  border-radius: 15px;
+  padding:20px;
+  border:none;
+
+}
+
+
+.KalappuraFarmHouse-enquiry-card input {
+
+ height:50px;
+ border-radius:8px;
+
+}
+
+
+/* Promo */
+
+
+.KalappuraFarmHouse-promo-card {
+
+ border-radius:20px;
+ overflow:hidden;
+
+ background:
+ linear-gradient(
+ rgba(0,0,0,.65),
+ rgba(0,0,0,.65)
+ ),
+ url("../../images/event-bg.webp");
+
+ background-size:cover;
+ background-position:center;
+
+}
+
+
+
+.KalappuraFarmHouse-overlay {
+
+ padding:35px;
+ text-align:center;
+
+}
+
+
+
+.KalappuraFarmHouse-logo {
+
+ width:170px;
+
+}
+
+
+
+.KalappuraFarmHouse-promo-text {
+
+ color:white;
+ line-height:1.7;
+ font-size:16px;
+
+}
+
+
+
+.KalappuraFarmHouse-social-icons {
+
+ display:flex;
+ justify-content:center;
+ gap:20px;
+
+}
+
+
+
+.KalappuraFarmHouse-social-icons a {
+
+ width:45px;
+ height:45px;
+
+ display:flex;
+ justify-content:center;
+ align-items:center;
+
+ border-radius:50%;
+
+ background:white;
+ color:#333;
+
+ font-size:22px;
+
+}
+
+
+
+.KalappuraFarmHouse-enquiry-title {
+
+ font-size:28px;
+ font-weight:700;
+
+}
+
+
+
+.KalappuraFarmHouse-talk-btn {
+
+ height:50px;
+ font-size:18px;
+ font-weight:600;
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.KalappuraFarmHouse-heading{
+ font-size:32px;
+}
+
+
+.KalappuraFarmHouse-location{
+
+ flex-direction:column;
+ gap:10px;
+
+}
+
+
+.KalappuraFarmHouse-title{
+
+ font-size:24px;
+
+}
+
+}

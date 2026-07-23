@@ -3,107 +3,71 @@
   padding: 60px 0;
 }
 
+
 .statistics-number {
-  font-size: 69px;
+  font-size: clamp(32px, 5vw, 69px);
   color: black;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
 }
+
 
 .statistics-label {
   color: #766d6d;
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
+  font-size: clamp(12px, 1.5vw, 22px);
 }
 
-/* =========================
-   320px
-========================= */
-@media (max-width: 320px) {
 
-  .statistics-number {
-    font-size: 32px;
+/* Mobile */
+@media (max-width: 576px) {
+
+  .statistics-section {
+    padding: 40px 0;
   }
 
-  .statistics-label {
-    font-size: 12px;
-  }
-}
-
-/* =========================
-   375px
-========================= */
-@media (min-width: 321px) and (max-width: 375px) {
-
   .statistics-number {
-    font-size: 38px;
+    font-size: 36px;
   }
 
   .statistics-label {
     font-size: 13px;
   }
+
 }
 
-/* =========================
-   425px
-========================= */
-@media (min-width: 376px) and (max-width: 425px) {
 
-  .statistics-number {
-    font-size: 42px;
-  }
-
-  .statistics-label {
-    font-size: 14px;
-  }
-}
-
-/* =========================
-   768px
-========================= */
-@media (min-width: 426px) and (max-width: 768px) {
+/* Tablet */
+@media (min-width: 577px) and (max-width: 1024px) {
 
   .statistics-number {
     font-size: 50px;
   }
 
   .statistics-label {
-    font-size: 16px;
+    font-size: 17px;
   }
+
 }
 
-/* =========================
-   1024px
-========================= */
-@media (min-width: 769px) and (max-width: 1024px) {
 
-  .statistics-number {
-    font-size: 50px;
-  }
-
-  .statistics-label {
-    font-size: 18px;
-  }
-}
-
-/* =========================
-   1440px+
-========================= */
+/* Large Desktop */
 @media (min-width: 1440px) {
 
   .statistics-number {
-    font-size: 60px;
+    font-size: 70px;
   }
 
   .statistics-label {
     font-size: 22px;
   }
+
 }
 
-/* =========================
-   2K
-========================= */
+
+/* 2K Screens */
 @media (min-width: 2560px) {
 
   .statistics-number {
@@ -113,11 +77,11 @@
   .statistics-label {
     font-size: 28px;
   }
+
 }
 
-/* =========================
-   4K
-========================= */
+
+/* 4K Screens */
 @media (min-width: 3840px) {
 
   .statistics-number {
@@ -127,4 +91,5 @@
   .statistics-label {
     font-size: 40px;
   }
+
 }

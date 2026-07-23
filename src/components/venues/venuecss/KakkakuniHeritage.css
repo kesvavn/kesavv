@@ -1,0 +1,469 @@
+
+
+.kakkakuni-bg{
+       height: 80vh;
+  background-image: url("../2257_img3-rhvyl7p0694tnf39sawygjq9dlla96s83gdib4iz02.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
+/* ===============================
+   Main Container
+================================ */
+
+.kakkakuni-container {
+    padding: 50px 0;
+}
+
+.kakkakuni-overlay {
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.55);
+
+}
+
+
+
+/* Center Content */
+
+.kakkakuni-hero-content {
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    z-index:2;
+
+    text-align:center;
+
+    width:100%;
+
+    color:white;
+
+}
+
+
+
+.kakkakuni-hero-content h1 {
+
+    font-size:48px;
+
+    font-family:Georgia, serif;
+
+    font-weight:700;
+
+    line-height:1.3;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.kakkakuni-location {
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+
+
+.stars {
+
+    color:#f5a623;
+
+    letter-spacing:5px;
+
+}
+
+
+
+
+/* ===============================
+   About Section
+================================ */
+
+.kakkakuni-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+
+.kakkakuni-text {
+    font-size: 17px;
+    color: #666;
+    line-height: 1.8;
+}
+
+
+
+/* ===============================
+   Facility Cards
+================================ */
+
+.kakkakuni-facility-card {
+
+    border: none;
+    border-radius: 18px;
+    padding: 10px;
+    background: #fff;
+
+}
+
+
+
+.kakkakuni-section-title {
+
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+
+    border-left: 5px solid #d4a24c;
+    padding-left: 12px;
+
+}
+
+
+
+/* Facility Items */
+
+.kakkakuni-facility-row .col-md-4,
+.kakkakuni-facility-card .row .col-md-4 {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #555;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+}
+
+
+
+.kakkakuni-facility-card svg {
+
+    font-size: 22px;
+    color: #d4a24c;
+
+}
+
+
+
+/* ===============================
+   Enquiry Box
+================================ */
+
+.kakkakuni-enquiry-card {
+
+    border: none;
+    border-radius: 18px;
+
+    padding: 15px;
+
+    position: sticky;
+    top: 100px;
+
+}
+
+
+
+.kakkakuni-enquiry-card input {
+
+    height: 50px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+
+    padding-left: 15px;
+
+}
+
+
+
+.kakkakuni-enquiry-card button {
+
+    background: #d4a24c;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+}
+
+
+
+.kakkakuni-enquiry-card button:hover {
+
+    background: #b88932;
+
+}
+
+
+
+/* ===============================
+   Melodia Promo Card
+================================ */
+
+.kakkakuni-promo-card {
+  width: 80%;
+    border: none;
+ margin-left: 55px;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+
+    background:
+
+    linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.75)
+    ),
+
+    url("../../images/event-bg.webp");
+
+
+    background-size: cover;
+
+    background-position: center;
+
+}
+
+
+
+.kakkakuni-overlay {
+
+    padding: 35px 25px;
+
+}
+
+
+
+.kakkakuni-logo {
+
+    width: 160px;
+
+    height: auto;
+
+}
+
+
+
+.kakkakuni-promo-text {
+
+    color: #eee;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+
+.kakkakuni-promo-card p {
+
+    color: white;
+
+    font-size: 15px;
+
+}
+
+
+
+.kakkakuni-promo-card svg {
+
+    color: #d4a24c;
+
+}
+
+
+
+/* ===============================
+   Social Icons
+================================ */
+
+
+.kakkakuni-social-icons {
+
+    display: flex;
+
+    gap: 15px;
+
+}
+
+
+
+.kakkakuni-social-icons a {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    background: rgba(255,255,255,0.15);
+
+
+    color: white;
+
+    font-size: 20px;
+
+
+    transition: .3s;
+
+}
+
+
+
+.kakkakuni-social-icons a:hover {
+
+    background: #d4a24c;
+
+    color: white;
+
+}
+
+
+
+/* ===============================
+   Enquiry Button
+================================ */
+
+
+.kakkakuni-enquiry-title {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: white;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.kakkakuni-talk-btn {
+
+    height: 50px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+}
+
+
+
+.kakkakuni-talk-btn:hover {
+
+    background: #d4a24c;
+
+    color: white;
+
+}
+
+
+
+/* ===============================
+   Responsive
+================================ */
+
+
+@media(max-width:991px){
+
+
+    .kakkakuni-title {
+
+        font-size: 26px;
+
+    }
+
+
+    .kakkakuni-enquiry-card {
+
+        position: static;
+
+        margin-top: 30px;
+
+    }
+
+}
+
+
+
+@media(max-width:576px){
+
+
+    .kakkakuni-container {
+
+        padding:30px 15px;
+
+    }
+
+
+    .kakkakuni-title {
+
+        font-size:22px;
+
+    }
+
+
+    .kakkakuni-section-title {
+
+        font-size:20px;
+
+    }
+
+
+    .kakkakuni-facility-row .col-md-4 {
+
+        margin-bottom:15px;
+
+        font-size:15px;
+
+    }
+
+
+}

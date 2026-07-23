@@ -10,6 +10,7 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/ContactRoutes");
 const requestRoutes = require("./routes/requestRoutes");
+const eventRoutes = require("./routes/eventRoutes");
 
 //Admin
 const adminRoutes = require("./routes/adminRoutes");
@@ -62,6 +63,11 @@ app.use(
   venueRoutes
 );
 
+// Events
+app.use(
+  "/api/events",
+  eventRoutes
+);
 
 // Contact
 app.use(

@@ -9,13 +9,16 @@ const auth = require("../middleware/auth");
 // ===========================
 router.post("/", auth, async (req, res) => {
   try {
+        console.log("Incoming Request Body:", req.body); // 👈 Indha line add pannunga
+
     const request = new Request({
       ...req.body,
       userId: req.user.id, // or req.user._id (depends on auth middleware)
     });
 
     await request.save();
-
+ console.log("Saved Request:", request); 
+ 
     res.status(201).json({
       message: "Request Submitted Successfully",
       data: request,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-
+import "../pagecss/Request.css"
 
 function RequestModal({
 show,
@@ -32,6 +32,42 @@ Customer Request Details
 
 </Modal.Header>
 
+
+<Modal.Body>
+
+  <p><strong>Additional Package:</strong> {request.additionalPackage}</p>
+
+  {request.functionType === "Corporate Event" && (
+    <>
+      <p><strong>Stage Setup:</strong> {request.stageSetup}</p>
+      <p><strong>Sound System:</strong> {request.soundSystem}</p>
+      <p><strong>LED Screen:</strong> {request.ledScreen}</p>
+    </>
+  )}
+
+  {(request.functionType === "Wedding" ||
+    request.functionType === "Reception") && (
+    <>
+      <p><strong>Makeup:</strong> {request.makeupLevel}</p>
+      <p><strong>Decoration:</strong> {request.decorationLevel}</p>
+      <p><strong>Photography:</strong> {request.photographyPackage}</p>
+      <p><strong>Video:</strong> {request.videoPackage}</p>
+      <p><strong>Food Category:</strong> {request.foodCategory}</p>
+      <p><strong>Food Type:</strong> {request.foodType}</p>
+    </>
+  )}
+
+  {request.functionType === "Private Party" && (
+    <>
+      <p><strong>Party Type:</strong> {request.privatePartyType}</p>
+      <p><strong>Cake Package:</strong> {request.cakePackage}</p>
+      <p><strong>Birthday Decoration:</strong> {request.birthdayDecoration}</p>
+      <p><strong>Photography:</strong> {request.photographyPackage}</p>
+      <p><strong>Music:</strong> {request.musicEntertainment}</p>
+    </>
+  )}
+
+</Modal.Body>
 
 
 <Modal.Body>

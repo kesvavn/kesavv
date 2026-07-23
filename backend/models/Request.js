@@ -2,6 +2,33 @@
 const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema({
+
+  additionalPackage: {
+  type: String,
+  default: "No",
+},
+
+makeupLevel: String,
+decorationLevel: String,
+photographyPackage: String,
+videoPackage: String,
+
+foodCategory: String,
+foodType: String,
+
+stageSetup: String,
+soundSystem: String,
+ledScreen: String,
+
+cakePackage: String,
+birthdayDecoration: String,
+
+privatePartyType: String,
+musicEntertainment: String,
+
+paymentMethod: String,
+cancellationPolicy: String,
+
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -61,7 +88,10 @@ const requestSchema = new mongoose.Schema({
     default: "Pending"
   }
 
+
 }, {
   timestamps: true
 });
+
+
 module.exports = mongoose.model("Request", requestSchema);
