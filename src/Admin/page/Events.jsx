@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AddEventModal from "../Component/AddEventModal";
 import "../pagecss/Events.css";
@@ -301,3 +301,4 @@ editEvent={editEvent}
 
 
 export default Events;
+*/

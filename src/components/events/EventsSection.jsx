@@ -1,3 +1,4 @@
+/*
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./EventsSection.css";
@@ -114,3 +115,4 @@ Starting ₹ {event.startingPrice}
 
 
 export default EventsSection;
+*/

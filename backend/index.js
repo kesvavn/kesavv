@@ -10,11 +10,12 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const authRoutes = require("./routes/authRoutes");
 const contactRoutes = require("./routes/ContactRoutes");
 const requestRoutes = require("./routes/requestRoutes");
-const eventRoutes = require("./routes/eventRoutes");
+
+/*const eventRoutes = require("./routes/eventRoutes");*/
+const cancellationPolicyRoutes = require("./routes/cancellationPolicyRoutes");
 
 //Admin
 const adminRoutes = require("./routes/adminRoutes");
-
 const auth = require("./middleware/auth");
 
 
@@ -63,11 +64,15 @@ app.use(
   venueRoutes
 );
 
+//cancel policy
+app.use("/api/cancellation-policies", cancellationPolicyRoutes);
 // Events
-app.use(
+
+/*app.use(
   "/api/events",
   eventRoutes
-);
+);*/
+
 
 // Contact
 app.use(

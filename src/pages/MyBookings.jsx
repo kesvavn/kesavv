@@ -10,24 +10,28 @@ function MyBookings() {
   }, []);
 
   const getBookings = async () => {
-    try {
-      const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/requests/my-bookings",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    console.log("Token:", token);
 
-      setBookings(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const res = await axios.get(
+      "http://localhost:5000/api/requests/my-bookings",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
+    console.log("Bookings Response:", res.data);
+
+    setBookings(res.data);
+  } catch (err) {
+    console.log("Status:", err.response?.status);
+    console.log("Error:", err.response?.data);
+  }
+};
   return (
     <div className="booking-container">
       <h2 className="booking-title">My Bookings</h2>

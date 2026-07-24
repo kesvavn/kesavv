@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Image } from "react-bootstrap";
+import { FaFileContract } from "react-icons/fa";
 import { FaHome, FaClipboardList, FaCalendarCheck, FaUsers, FaBuilding, FaGlassCheers, FaGift, FaMoneyBillWave,
   FaCalendarAlt, FaCreditCard, FaImages, FaChartBar, FaBell, FaCog, FaSignOutAlt,} from "react-icons/fa";
 import Logomelodia from "../../images/MELODIA-LOGO-03-1.webp"; 
@@ -10,8 +11,8 @@ const menus = [
   { name: "Bookings", path: "/admin/bookings", icon: <FaCalendarCheck /> },
   { name: "Customers", path: "/admin/customers", icon: <FaUsers /> },
   { name: "Venue", path: "/admin/venue", icon: <FaBuilding /> },
-  { name: "Events", path: "/admin/events", icon: <FaGlassCheers /> },
   { name: "Packages", path: "/admin/packages", icon: <FaGift /> },
+  { name: "Cancellation Policy", path: "/admin/cancellation-policy", icon: <FaFileContract />,},
   { name: "Pricing", path: "/admin/pricing", icon: <FaMoneyBillWave /> },
   { name: "Availability", path: "/admin/availability", icon: <FaCalendarAlt /> },
   { name: "Payments", path: "/admin/payments", icon: <FaCreditCard /> },

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
 const Form = ({venue}) => {
+  
+const [policies,setPolicies] = useState([]);
   const navigate = useNavigate();
 const [formData, setFormData] = useState({
   fullName: "",
@@ -45,7 +47,8 @@ venueName: venue?.title || "",
 
   totalPrice: 0,
 });
-
+const [available, setAvailable] = useState(null);
+const [bookedDates, setBookedDates] = useState([]);
 
 useEffect(()=>{
 
@@ -58,22 +61,93 @@ useEffect(()=>{
 
 },[venue]);
 
+useEffect(()=>{
+axios.get("http://localhost:5000/api/cancellation-policies")
+  .then(res=>{
+    console.log(res.data);
+    setPolicies(res.data);
+  })
+  .catch(err=>console.log(err));
+},[]);
+
+useEffect(() => {
+  if (!venue?.title) return;
+
+  console.log("Selected Venue:", venue.title);
+
+  axios
+    .get("http://localhost:5000/api/requests/booked-dates", {
+      params: {
+        venueName: venue.title,
+      },
+    })
+    .then((res) => {
+      console.log("Booked Dates:", res.data);
+      setBookedDates(res.data);
+    })
+    .catch((err) => console.log(err));
+}, [venue]);
+
+useEffect(() => {
+
+const price = calculatePrice();
+
+setFormData(prev => ({
+...prev,
+totalPrice: price
+}));
+
+}, [
+formData.guests,
+formData.rooms,
+formData.makeupLevel,
+formData.decorationLevel,
+formData.photographyPackage,
+formData.videoPackage,
+formData.foodType,
+formData.foodCategory,
+formData.stageSetup,
+formData.soundSystem,
+formData.ledScreen,
+formData.cakePackage,
+formData.musicEntertainment,
+formData.birthdayDecoration
+]);
+
+const checkAvailability = () => {
+
+if(!formData.functionDate){
+  alert("Select Function Date");
+  return;
+}
+
+const isBooked = bookedDates.includes(
+  formData.functionDate
+);
+
+if(isBooked){
+  setAvailable(false);
+}
+else{
+  setAvailable(true);
+}
+
+};
 
   const handleChange = (e) => {
   const {name,value}=e.target;
 
 if(name==="additionalPackage" && value==="No"){
-
-setFormData({
-...formData,
+setFormData(prev=>({
+...prev,
 additionalPackage:"No",
 makeupLevel:"",
 foodType:"",
 foodCategory:"",
 decorationLevel:"",
-});
-
+}));
 return;
+
 
 }
 
@@ -199,7 +273,6 @@ price += 50000;
 
 if(formData.birthdayDecoration === "Basic")
 price += 10000;
-
 if(formData.birthdayDecoration === "Premium")
 price += 25000;
 
@@ -212,34 +285,33 @@ price += 50000;
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const price = calculatePrice();
-console.log("Selected Venue:", venue);
-console.log("Venue Image:", venue?.image);
-
- const submitData = {
-  ...formData,
-  venueName: venue?.title || formData.venueName,
-  image: venue?.image,
-  totalPrice: price,
-};
-
-console.log("Venue Prop:", venue);
-  console.log("Form Data:", formData);
-  console.log("Submit Data:", submitData);
-
-  console.log("Submit Data:", submitData);
-
   const token = localStorage.getItem("token");
-  console.log("Token:", token);
+
+  if(!token){
+    alert("Please login first");
+    navigate("/login");
+    return;
+  }
+
+  const price = calculatePrice();
+
+  const submitData = {
+    ...formData,
+    venueName: venue?.title || formData.venueName,
+    image: venue?.image,
+    totalPrice: price,
+  };
+
+  console.log("FINAL SUBMIT DATA:", submitData);
 
   try {
-    console.log("FINAL SUBMIT DATA:", submitData);
+
     await axios.post(
       "http://localhost:5000/api/requests",
       submitData,
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        headers:{
+          Authorization:`Bearer ${token}`,
         },
       }
     );
@@ -247,15 +319,17 @@ console.log("Venue Prop:", venue);
     alert("Booking Request Submitted Successfully!");
     navigate("/my-bookings");
 
-  } catch (err) {
+  } catch(err){
+
     console.log("Status:", err.response?.status);
     console.log("Data:", err.response?.data);
-    console.log("Error:", err.message);
 
-    alert(err.response?.data?.message || "Failed to submit booking");
+    alert(
+      err.response?.data?.message ||
+      "Failed to submit booking"
+    );
   }
 };
-
   return (
     <div className="event-form-container">
       <h3>
@@ -320,12 +394,40 @@ console.log("Venue Prop:", venue);
           <div>
             <label>Function Date</label>
 
-            <input
-              type="date"
-              name="functionDate"
-              value={formData.functionDate}
-              onChange={handleChange}
-            />
+           <input
+ type="date"
+ name="functionDate"
+ value={formData.functionDate}
+ onChange={(e)=>{
+
+ const date = e.target.value;
+
+ setFormData(prev=>({
+   ...prev,
+   functionDate: date
+ }));
+
+ if(bookedDates.includes(date)){
+   setAvailable(false);
+ }
+ else{
+   setAvailable(true);
+ }
+
+ }}
+/>
+{available === true && (
+<p style={{color:"green"}}>
+✅ Date Available
+</p>
+)}
+
+{available === false && (
+<p style={{color:"red"}}>
+❌ This date is already booked
+</p>
+)}
+            
           </div>
 
           {/* Guests */}
@@ -1108,44 +1210,30 @@ Custom Cake - ₹8000
 
         </div>
 
-        {/* Cancellation */}
-
         <div className="event-cancel-box">
-          <label>Cancellation Policy</label>
 
-          <select
-            name="cancellationPolicy"
-            value={formData.cancellationPolicy}
-            onChange={handleChange}
-          >
-            <option value="">Select Policy</option>
-            <option>50% Refund Before 30 Days</option>
-            <option>25% Refund Before 15 Days</option>
-            <option>No Refund</option>
-          </select>
+ <label>Cancellation Policy</label>
 
-          <p>
-            Cancellation charges and refund policy will be based on the
-            selected option.
-          </p>
-        </div>
+<select
+  name="cancellationPolicy"
+  value={formData.cancellationPolicy}
+  onChange={handleChange}
+>
+  <option value="">Select Policy</option>
+
+  {policies.map((policy) => (
+    <option key={policy._id} value={policy.title}>
+      {policy.title}
+    </option>
+  ))}
+
+</select>
+  <p>
+    Cancellation charges and refund policy will be based on the selected option.
+  </p>
+</div>
 
      <div className="event-btn-group">
-
-  <button
-    type="button"
-    className="check-btn"
-    onClick={() => {
-      const price = calculatePrice();
-
-      setFormData(prev => ({
-        ...prev,
-        totalPrice: price
-      }));
-    }}
-  >
-    Check Availability & Prices
-  </button>
 
   <button
     type="submit"

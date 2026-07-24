@@ -8,6 +8,7 @@ import DashboardCard from "../Component/DashboardCard";
 import "../Dashboard.css";
 
 function Dashboard() {
+
   const [revenueData, setRevenueData] = useState([]);
   const [bookingData, setBookingData] = useState([]);
 
@@ -20,91 +21,122 @@ function Dashboard() {
   const [stats, setStats] = useState({
     totalRequests: 0,
     confirmedEvents: 0,
+    pendingRequests: 0,
+    cancelledRequests: 0,
+    todayEvents: 0,
+    totalVenues: 0,
     revenue: 0,
   });
 
   const getDashboardData = async () => {
     try {
+
+      // Requests
       const res = await axios.get(
         "http://localhost:5000/api/requests"
       );
 
       const requests = res.data;
 
-      // Total Requests
+      // Venues
+      const venueRes = await axios.get(
+        "http://localhost:5000/api/venues"
+      );
+
+      // Users
+      const users = await axios.get(
+        "http://localhost:5000/api/auth/users-count"
+      );
+
+      setUserStats(users.data);
+
       const total = requests.length;
 
-      // Confirmed Events
       const confirmed = requests.filter(
-        (item) => item.status === "Confirmed"
+        item => item.status === "Confirmed"
       ).length;
 
-      // Total Revenue
+      const pending = requests.filter(
+        item => item.status === "Pending"
+      ).length;
+
+      const cancelled = requests.filter(
+        item => item.status === "Cancelled"
+      ).length;
+
       const revenue = requests
-        .filter((item) => item.status === "Confirmed")
+        .filter(item => item.status === "Confirmed")
         .reduce(
           (sum, item) => sum + Number(item.totalPrice || 0),
           0
         );
 
+      const today = new Date()
+        .toISOString()
+        .split("T")[0];
+
+      const todayEvents = requests.filter(
+        item =>
+          item.functionDate === today &&
+          item.status === "Confirmed"
+      ).length;
+
+      const totalVenues = venueRes.data.length;
+
       setStats({
         totalRequests: total,
         confirmedEvents: confirmed,
-        revenue: revenue,
+        pendingRequests: pending,
+        cancelledRequests: cancelled,
+        todayEvents,
+        totalVenues,
+        revenue,
       });
 
-      // Monthly Revenue
+      // Revenue Chart
+
       const monthly = {};
 
       requests
-        .filter((item) => item.status === "Confirmed")
-        .forEach((item) => {
-          const month = new Date(item.createdAt).toLocaleString(
-            "default",
-            {
+        .filter(item => item.status === "Confirmed")
+        .forEach(item => {
+
+          const month = new Date(item.createdAt)
+            .toLocaleString("default", {
               month: "short",
-            }
-          );
+            });
 
-          if (!monthly[month]) {
-            monthly[month] = 0;
-          }
+          monthly[month] =
+            (monthly[month] || 0) +
+            Number(item.totalPrice || 0);
 
-          monthly[month] += Number(item.totalPrice || 0);
         });
 
       setRevenueData(
-        Object.keys(monthly).map((month) => ({
-          month: month,
+        Object.keys(monthly).map(month => ({
+          month,
           revenue: monthly[month],
         }))
       );
 
       // Booking Statistics
+
       const types = {};
 
-      requests.forEach((item) => {
-        if (!types[item.functionType]) {
-          types[item.functionType] = 0;
-        }
+      requests.forEach(item => {
 
-        types[item.functionType]++;
+        types[item.functionType] =
+          (types[item.functionType] || 0) + 1;
+
       });
 
       setBookingData(
-        Object.keys(types).map((type) => ({
-          type: type,
+        Object.keys(types).map(type => ({
+          type,
           count: types[type],
         }))
       );
 
-      // User Statistics
-      const users = await axios.get(
-        "http://localhost:5000/api/auth/users-count"
-      );
-console.log("User Stats:", users.data);
-
-      setUserStats(users.data);
     } catch (error) {
       console.log(error);
     }
@@ -114,67 +146,94 @@ console.log("User Stats:", users.data);
     getDashboardData();
   }, []);
 
-return (
-  <div className="dashboard-container">
+  return (
+    <>
 
-    <h2 className="page-title">Dashboard</h2>
+      <h2 className="page-title">
+        Dashboard
+      </h2>
 
-    <div className="cards">
-      <DashboardCard
-        title="Total Requests"
-        value={stats.totalRequests}
-        color="#2563eb"
-      />
+      <div className="cards">
 
-      <DashboardCard
-        title="Confirmed Events"
-        value={stats.confirmedEvents}
-        color="#16a34a"
-      />
+        <DashboardCard
+          title="Total Requests"
+          value={stats.totalRequests}
+          color="#2563eb"
+        />
 
-      <DashboardCard
-        title="Total Revenue"
-        value={`₹ ${stats.revenue.toLocaleString()}`}
-        color="#f59e0b"
-      />
-    </div>
+        <DashboardCard
+          title="Confirmed Events"
+          value={stats.confirmedEvents}
+          color="#16a34a"
+        />
 
-    <div className="dashboard-charts">
-      <RevenueChart data={revenueData} />
-      <BookingStatistics data={bookingData} />
-    </div>
+        <DashboardCard
+          title="Pending Requests"
+          value={stats.pendingRequests}
+          color="#f59e0b"
+        />
 
-    <div className="user-stats">
+        <DashboardCard
+          title="Cancelled Requests"
+          value={stats.cancelledRequests}
+          color="#dc2626"
+        />
 
-      <div className="user-card">
-        <div>
-          <h5>Total Customers</h5>
-          <h2>{userStats.totalUsers}</h2>
-        </div>
-        <div className="user-icon customer">👥</div>
+        <DashboardCard
+          title="Total Venues"
+          value={stats.totalVenues}
+          color="#7c3aed"
+        />
+
+        <DashboardCard
+          title="Today's Events"
+          value={stats.todayEvents}
+          color="#0891b2"
+        />
+
+        <DashboardCard
+          title="Total Revenue"
+          value={`₹ ${stats.revenue.toLocaleString()}`}
+          color="#059669"
+        />
+
       </div>
 
-      <div className="user-card">
-        <div>
-          <h5>Today's Login</h5>
-          <h2>{userStats.todayLogin}</h2>
-        </div>
-        <div className="user-icon login">🔐</div>
+      <div className="dashboard-charts">
+        <RevenueChart data={revenueData} />
+        <BookingStatistics data={bookingData} />
       </div>
 
-      <div className="user-card">
-        <div>
-          <h5>New Customers</h5>
-          <h2>{userStats.newUsers}</h2>
+      <div className="user-stats">
+
+        <div className="user-card">
+          <div>
+            <h5>Total Customers</h5>
+            <h2>{userStats.totalUsers}</h2>
+          </div>
+          <div className="user-icon customer">👥</div>
         </div>
-        <div className="user-icon new">✨</div>
+
+        <div className="user-card">
+          <div>
+            <h5>Today's Login</h5>
+            <h2>{userStats.todayLogin}</h2>
+          </div>
+          <div className="user-icon login">🔐</div>
+        </div>
+
+        <div className="user-card">
+          <div>
+            <h5>New Customers</h5>
+            <h2>{userStats.newUsers}</h2>
+          </div>
+          <div className="user-icon new">✨</div>
+        </div>
+
       </div>
 
-    </div>
-
-  </div>
-);
+    </>
+  );
 }
-
 
 export default Dashboard;

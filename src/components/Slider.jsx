@@ -5,7 +5,7 @@ const images = [
   "https://eventsmanagementkerala.com/wp-content/uploads/2022/09/WhatsApp-Image-2022-08-26-at-7.53.33-PM.webp",
   "https://eventsmanagementkerala.com/wp-content/uploads/2023/05/rose-petals-cover-green-garden-ready-traditional-hindu-weddi.webp",
   "https://eventsmanagementkerala.com/wp-content/uploads/2023/05/blue-white-wedding-aisle-beach-surrounded-by-palms-with-sea-background.webp",
-  "https://eventsmanagementkerala.com/wp-content/uploads/2023/05/front-view-rich-arch-decorated-with-adorable-fresh-roses-flowers.webp"
+  "https://eventsmanagementkerala.com/wp-content/uploads/2023/05/front-view-rich-arch-decorated-with-adorable-fresh-roses-flowers.webp",
 ];
 
 function Slider({ children }) {
@@ -20,23 +20,21 @@ function Slider({ children }) {
   }, []);
 
   return (
-    <div className="slider">
+    <div className="hero-slider">
       {images.map((img, index) => (
         <div
           key={index}
-          className={`slide ${index === current ? "active" : ""}`}
+          className={`hero-slide ${index === current ? "hero-active" : ""}`}
           style={{ backgroundImage: `url(${img})` }}
         />
       ))}
 
-
-
-      <div className="slider-overlay">
+      <div className="hero-slider-overlay">
         {children}
       </div>
 
-      <div className="progress-bar">
-        <div key={current} className="progress"></div>
+      <div className="hero-progress-bar">
+        <div key={current} className="hero-progress"></div>
       </div>
     </div>
   );

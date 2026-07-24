@@ -2,7 +2,7 @@ import MyNavbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import Slider from "../components/Slider";
 import "./Home.css";
-import EventsSection from "../components/events/EventsSection";
+/*import EventsSection from "../components/events/EventsSection";*/
 
 import Stats from "../components/Stats";
 import DestinationSection from "../components/DestinationSection";
@@ -115,7 +115,7 @@ function Home() {
       <Testimonials /><br />
       <ContactSection />
       <FeaturedSection />
-      <EventsSection />
+     
       <BlogSection />
       <VenueSection />
       <VideoReview />

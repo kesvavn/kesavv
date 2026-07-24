@@ -122,6 +122,9 @@ Pricing Requests
 
 <th>Price</th>
 
+<th>payment method</th>
+
+
 <th>Status</th>
 
 <th>Action</th>
@@ -178,6 +181,9 @@ requests.map((item)=>(
 ₹ {item.totalPrice?.toLocaleString()}
 </td>
 
+<td>
+{item.paymentMethod}
+</td>
 
 <td>
 
@@ -192,55 +198,33 @@ requests.map((item)=>(
 
 
 <td>
+  <div className="action-buttons">
 
+    <button
+      className="btn btn-primary btn-sm"
+      onClick={() => {
+        setSelectedRequest(item);
+        setShowModal(true);
+      }}
+    >
+      View
+    </button>
 
-<button
-className="btn btn-primary btn-sm"
+    <button
+      className="btn btn-success btn-sm"
+      onClick={() => updateStatus(item._id, "Confirmed")}
+    >
+      Approve
+    </button>
 
-onClick={()=>{
+    <button
+      className="btn btn-danger btn-sm"
+      onClick={() => updateStatus(item._id, "Cancelled")}
+    >
+      Reject
+    </button>
 
-setSelectedRequest(item);
-
-setShowModal(true);
-
-}}
-
->
-
-View
-
-</button>
-
-
-
-<button
-
-className="btn btn-success btn-sm ms-2"
-
-onClick={()=>updateStatus(item._id,"Confirmed")}
-
->
-
-Approve
-
-</button>
-
-
-
-<button
-
-className="btn btn-danger btn-sm ms-2"
-
-onClick={()=>updateStatus(item._id,"Cancelled")}
-
->
-
-Reject
-
-</button>
-
-
-
+  </div>
 </td>
 
 

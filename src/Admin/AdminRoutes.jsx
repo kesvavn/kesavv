@@ -12,8 +12,8 @@ import Requests from "./page/Requests";
 import Bookings from "./page/Bookings";
 import Customers from "./page/Customers";
 import Venue from "./page/Venue";
-import Events from "./page/Events";
 import Packages from "./page/Packages";
+import CancellationPolicy from "./page/CancellationPolicy";
 import Pricing from "./page/Pricing";
 import Availability from "./page/Availability";
 import Payments from "./page/Payments";
@@ -37,8 +37,8 @@ function AdminRoutes() {
         <Route path="bookings" element={<Bookings />} />
         <Route path="customers" element={<Customers />} />
         <Route path="venue" element={<Venue />} />
-        <Route path="events" element={<Events />} />
         <Route path="packages" element={<Packages />} />
+        <Route path="cancellation-policy" element={<CancellationPolicy />}/>
         <Route path="pricing" element={<Pricing />} />
         <Route path="availability" element={<Availability />} />
         <Route path="payments" element={<Payments />} />

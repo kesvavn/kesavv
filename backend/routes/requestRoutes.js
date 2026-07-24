@@ -29,47 +29,43 @@ router.post("/", auth, async (req, res) => {
     });
   }
 });
-router.get("/my-bookings", auth, async (req, res) => {
-  try {
-    console.log("Logged User:", req.user);
-
-    const bookings = await Request.find({
-      userId: req.user.id,
-    }).sort({ createdAt: -1 });
-
-    console.log("Bookings:", bookings);
-
-    res.json(bookings);
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-});
 
 // ===========================
 // BOOKED DATES
 // ===========================
 router.get("/booked-dates", async (req, res) => {
   try {
-    const requests = await Request.find({
+    const { venueName } = req.query;
+
+    const bookings = await Request.find({
+      venueName,
       status: "Confirmed",
     });
 
-    const bookedDates = requests.map(
-      (item) => item.functionDate
-    );
+    const bookedDates = bookings.map((b) => b.functionDate);
 
     res.json(bookedDates);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
+// ===========================
+// MY BOOKINGS (USER)
+// ===========================
+router.get("/my-bookings", auth, async (req, res) => {
+  try {
+    const bookings = await Request.find({
+      userId: req.user.id,
+    }).sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
 // ===========================
 // GET ALL REQUESTS (ADMIN)
 // ===========================

@@ -78,6 +78,19 @@ cancellationPolicy: String,
     type: String
   },
 
+  paymentMethod: String,
+
+cancellationPolicy:{
+  type:String,
+  default:""
+},
+
+userId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
+  required:true
+},
+
   totalPrice: {
     type: Number,
     default: 0
