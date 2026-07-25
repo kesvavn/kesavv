@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container,Col, Row, Card, Form, Button } from "react-bootstrap";
 import { FaUsers,FaCar, FaWifi, FaBolt, FaVideo,FaMapMarkerAlt, FaCheck,FaInstagram, FaYoutube,FaFacebookF,} from "react-icons/fa";
 
@@ -10,10 +10,31 @@ import MyNavbar from "../../Navbar";
 import "./venuecss/KakkakuniHeritage.css";
 
 import melodiaLogo from "../../images/MELODIA-LOGO-03-1.webp";
+import img1 from "./kakkakuni img/get_image_gallery-1-rhvykvh9sokp8vowf0le5zhjs7l3rpkjznq08wh118.webp";
+import img2 from "./kakkakuni img/2257_img10-rhvykwf3zilzkhnj9j00qh90dlggzeoabsdhq6fmv0.webp";
 
 
 function KakkakuniHeritage() {
+const outdoorImages = [
+  img1,
+  img2
+];
 
+const [currentImage, setCurrentImage] = useState(0);
+
+
+const nextImage = () => {
+  setCurrentImage((prev) =>
+    prev === outdoorImages.length - 1 ? 0 : prev + 1
+  );
+};
+
+
+const prevImage = () => {
+  setCurrentImage((prev) =>
+    prev === 0 ? outdoorImages.length - 1 : prev - 1
+  );
+};
   return (
     <>
      <div className="kakkakuni-bg">
@@ -191,6 +212,46 @@ function KakkakuniHeritage() {
 
           </Card>
 
+<Row className="kakkakuni-gallery align-items-center justify-content-center mt-5">
+
+    <Col xs={2} className="text-center">
+
+        <Button
+            variant="dark"
+            className="rounded-circle"
+            onClick={prevImage}
+        >
+            ❮
+        </Button>
+
+    </Col>
+
+
+    <Col xs={8}>
+
+        <img
+            src={outdoorImages[currentImage]}
+            alt="Kakkakuni Heritage"
+            className="img-fluid rounded-4 w-100 kakkakuni-gallery-image"
+        />
+
+    </Col>
+
+
+    <Col xs={2} className="text-center">
+
+        <Button
+            variant="dark"
+            className="rounded-circle"
+            onClick={nextImage}
+        >
+            ❯
+        </Button>
+
+    </Col>
+
+
+</Row>
 
         </Col>
 
@@ -239,7 +300,6 @@ function KakkakuniHeritage() {
 
 
           </Card>
-
 
 
 
@@ -328,18 +388,16 @@ function KakkakuniHeritage() {
 
               </Button>
 
-
-
             </Card.Body>
 
 
           </Card>
 
-
+        
 
         </Col>
 
-         
+       
       </Row>
 
       </Container>
