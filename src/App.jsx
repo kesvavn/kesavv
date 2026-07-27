@@ -16,11 +16,11 @@ import PrivatePartics from "./components/events/PrivatePartics";
 
 import ScrollToTop from "./components/ScrollToTop";
 
-import KakkattuMana from "./components/venues/KakkattuMana";
+/*import KakkattuMana from "./components/venues/KakkattuMana";
 import KakkakuniHeritage from "./components/venues/KakkakuniHeritage";
 import KalappuraFarmHouse from "./components/venues/KalappuraFarmHouse";
 import KampifyKochi from "./components/venues/KampifyKochi";
-import KadavuVillas from "./components/venues/KadavuVillas";
+import KadavuVillas from "./components/venues/KadavuVillas";*/
 
 import PhotoGallery from "./components/gallery/PhotoGallery";
 import VideoGallery from "./components/gallery/VideoGallery";
@@ -48,6 +48,7 @@ import Requests from "./Admin/page/Requests";
 import Bookings from "./Admin/page/Bookings";
 import Customers from "./Admin/page/Customers";
 
+import VenueDetails from "./pages/VenueDetails";
 
 function App() {
   return (
@@ -115,7 +116,7 @@ function App() {
           element={<WeddingAlbums />}
         />
 
-        {/* VENUE ROUTES */}
+        {/* VENUE ROUTES 
         <Route
           path="/kakkattu-mana"
           element={<KakkattuMana />}
@@ -139,8 +140,12 @@ function App() {
         <Route
           path="/kadavu-villas"
           element={<KadavuVillas />}
-        />
+        /> */}
 
+<Route
+  path="/venue/:slug"
+  element={<VenueDetails />}
+/>
         {/* admin  panel */}
 
     <Route path="/admin" element={<MainLayout />}>
