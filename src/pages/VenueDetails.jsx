@@ -1,529 +1,461 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import {
+Container,
+Row,
+Col,
+Button,
+Badge,
+Modal,
+Spinner,
+Form as BootstrapForm
+} from "react-bootstrap";
 
-import "../pages/VenueDetails.css";
 
+import PricingForm from "../Form/Form";
+
+import {
+  FaMapMarkerAlt,
+  FaWifi,
+  FaParking,
+  FaCar,
+  FaBolt,
+  FaUtensils,
+  FaShieldAlt,
+  FaCamera,
+} from "react-icons/fa";
+import "./VenueDetails.css";
+import LoginSidebar from "../components/Login/Login";
+const API = "http://localhost:5000";
 
 function VenueDetails() {
+ const { slug } = useParams();
 
 
-const { slug } = useParams();
+const [venue, setVenue] = useState(null);
+const [loading, setLoading] = useState(true);
+
+const [selectedImage, setSelectedImage] = useState("");
+
+const [showModal, setShowModal] = useState(false);
 
 
-const [venue,setVenue] = useState(null);
+// ADD THESE
 
-const [loading,setLoading] = useState(true);
+const [showForm, setShowForm] = useState(false);
 
-const [showModal,setShowModal] = useState(false);
+const [selectedVenue, setSelectedVenue] = useState(null);
 
-
-
-
-useEffect(()=>{
-
-fetchVenue();
-
-},[slug]);
+const [showSidebar, setShowSidebar] = useState(false);
 
 
+const [relatedVenues, setRelatedVenues] = useState([]);
+  const fetchRelatedVenues = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/venues");
 
+    const data = res.data.filter(
+      (v) =>
+        v.type === venue.type &&
+        v._id !== venue._id
+    );
 
-
-const fetchVenue = async()=>{
-
-
-try{
-
-
-const res = await axios.get(
-
-`http://localhost:5000/api/venues/slug/${slug}`
-
-);
-
-
-setVenue(res.data);
-
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-
-finally{
-
-setLoading(false);
-
-}
-
-
+    setRelatedVenues(data.slice(0, 3));
+  } catch (err) {
+    console.log(err);
+  }
 };
+useEffect(() => {
+  if (venue) {
+    fetchRelatedVenues();
+  }
+}, [venue]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    functionDate: "",
+    guests: "",
+  });
+
+  useEffect(() => {
+    fetchVenue();
+  }, [slug]);
+
+  const fetchVenue = async () => {
+    try {
+      const res = await axios.get(
+        `${API}/api/venues/slug/${slug}`
+      );
+
+      setVenue(res.data);
+
+      if (res.data.image) {
+        if (res.data.image.startsWith("/uploads")) {
+          setSelectedImage(API + res.data.image);
+        } else {
+          setSelectedImage(
+            `${API}/uploads/${res.data.image}`
+          );
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const imageURL = (img) => {
+    if (!img) return "";
+
+    if (img.startsWith("/uploads")) {
+      return API + img;
+    }
 
+    return `${API}/uploads/${img}`;
+  };
 
+  if (loading) {
+    return (
+      <div className="loading-page">
+        <Spinner animation="border" />
+      </div>
+    );
+  }
 
+  if (!venue) {
+    return (
+      <Container className="text-center py-5">
+        <h2>Venue Not Found</h2>
+      </Container>
+    );
+  }
+
+console.log("venue", venue);
+console.log("selectedVenue", selectedVenue);
+console.log("showForm", showForm);
+
+  return (
+    <Container className="py-5">
+
+      <Row>
+
+        {/* LEFT */}
+
+        <Col lg={7}>
+
+          <img
+            src={selectedImage}
+            className="main-image"
+            alt={venue.title}
+          />
+
+          <Row className="mt-3">
+
+            <Col xs={3}>
+              <img
+                src={imageURL(venue.image)}
+                className="thumb"
+                onClick={() =>
+                  setSelectedImage(
+                    imageURL(venue.image)
+                  )
+                }
+              />
+            </Col>
+
+            {venue.gallery?.map((item, index) => (
 
+              <Col xs={3} key={index}>
 
+                <img
+                  src={imageURL(item.url)}
+                  className="thumb"
+                  onClick={() =>
+                    setSelectedImage(
+                      imageURL(item.url)
+                    )
+                  }
+                />
 
-if(loading){
+              </Col>
 
-return <h3>Loading...</h3>;
+            ))}
 
-}
+          </Row>
 
+        </Col>
 
+        {/* RIGHT */}
 
+        <Col lg={5}>
 
-if(!venue){
+          <h1>{venue.title}</h1>
 
-return <h3>Venue Not Found</h3>;
+          <Badge bg="warning" text="dark">
+            {venue.rating}
+          </Badge>
 
-}
+          <p className="mt-3">
 
+            <FaMapMarkerAlt />
 
+            {" "}
 
+            {venue.location}
 
+          </p>
 
-return (
+          <h5>{venue.category}</h5>
 
+          <p>{venue.description}</p>
+                    <hr />
 
-<div className="venue-details-container">
+          <h4 className="mb-3">Venue Amenities</h4>
 
+          <div className="amenities">
 
+            {venue.wifi && (
+              <div className="amenity-box">
+                <FaWifi />
+                <span>Free WiFi</span>
+              </div>
+            )}
 
-<div className="venue-main-row">
+            {venue.parkingCapacity && (
+              <div className="amenity-box">
+                <FaParking />
+                <span>{venue.parkingCapacity}</span>
+              </div>
+            )}
 
+            {venue.security && (
+              <div className="amenity-box">
+                <FaShieldAlt />
+                <span>24x7 Security</span>
+              </div>
+            )}
 
+            {venue.powerBackup && (
+              <div className="amenity-box">
+                <FaBolt />
+                <span>Power Backup</span>
+              </div>
+            )}
 
+            {venue.catering && (
+              <div className="amenity-box">
+                <FaUtensils />
+                <span>Catering Available</span>
+              </div>
+            )}
 
+            {venue.cctv && (
+              <div className="amenity-box">
+                <FaCamera />
+                <span>CCTV</span>
+              </div>
+            )}
 
-{/* LEFT IMAGE */}
+          </div>
 
+          <hr />
 
+          <div className="price-card">
 
-<div className="venue-image-box">
+            <h3>Pricing</h3>
 
+            <h2>
 
+              ₹{venue.price?.min?.toLocaleString()}
 
-<img
+              {" - "}
 
+              ₹{venue.price?.max?.toLocaleString()}
 
-src={
-
-
-venue.image?.startsWith("/uploads")
-
-?
-
-`http://localhost:5000${venue.image}`
-
-:
-
-`http://localhost:5000/uploads/${venue.image}`
-
-
-}
-
-
-className="venue-main-image"
-
-
-alt={venue.title}
-
-
-/>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* RIGHT CONTENT */}
-
-
-
-
-
-<div className="venue-content">
-
-
-
-<h1>
-
-{venue.title}
-
-</h1>
-
-
-
-
-
-<div className="rating">
-
-{venue.rating || "★★★★★"}
-
-</div>
-
-
-
-
-
-<p className="location">
-
-📍 {venue.location}
-
-</p>
-
-
-
-
-
-
-<p className="category">
-
-Category : {venue.type}
-
-</p>
-
-
-
-
-
-
-<h2>
-
-Facilities
-
-</h2>
-
-
-
-
-
-
-<div className="facilities">
-
-
-
-{
-
-venue.parking &&
-
-<span>
-
-🚗 Parking
-
-</span>
-
-}
-
-
-
-
-
-{
-
-venue.wifi &&
-
-<span>
-
-📶 Wifi
-
-</span>
-
-}
-
-
-
-
-
-
-
-{
-
-venue.powerBackup &&
-
-<span>
-
-⚡ Power Backup
-
-</span>
-
-}
-
-
-
-
-
-
-
-{
-
-venue.catering &&
-
-<span>
-
-🍽 Catering
-
-</span>
-
-}
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<button
-
-className="pricing-button"
-
+            </h2>
+<Button
+variant="danger"
+className="w-100 mt-3"
 onClick={()=>setShowModal(true)}
-
 >
-
 Request Pricing
+</Button>
 
-</button>
-
-
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* DESCRIPTION */}
-
-
+            <a
+  href={`https://wa.me/919876543210?text=Hi, I am interested in ${venue.title}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn btn-success w-100 mt-3"
+>
+  WhatsApp Enquiry
+</a>
+<Button
+  className="w-100 mt-2"
+  onClick={() =>
+    navigator.share({
+      title: venue.title,
+      url: window.location.href,
+    })
+  }
+>
+  Share Venue
+</Button>
 
 
+          </div>
 
-<div className="description-section">
+          <hr />
 
+          <h4>Venue Information</h4>
 
-<h2>
+          <table className="table table-bordered mt-3">
 
-About Venue
+            <tbody>
 
-</h2>
+              <tr>
+                <th>Capacity</th>
+                <td>{venue.capacity}</td>
+              </tr>
 
+              <tr>
+                <th>Indoor Space</th>
+                <td>{venue.indoorSpace}</td>
+              </tr>
 
-<p>
+              <tr>
+                <th>Outdoor Space</th>
+                <td>{venue.outdoorSpace}</td>
+              </tr>
 
-{venue.description}
+              <tr>
+                <th>AC Rooms</th>
+                <td>{venue.acRooms}</td>
+              </tr>
 
-</p>
+              <tr>
+                <th>Non AC Rooms</th>
+                <td>{venue.nonAcRooms}</td>
+              </tr>
 
+            </tbody>
 
-</div>
+          </table>
 
+        </Col>
 
+      </Row>
 
+      <hr className="my-5" />
 
+      <h2 className="mb-4">
+        Location Map
+      </h2>
 
+ 
 
-
-{/* MAP */}
-
-
-
-
-{
-
-venue.map &&
-
-
-<div className="map-section">
-
-
-<h2>
-
-Location Map
-
-</h2>
-
+{venue.map && venue.map.includes("embed") && (
 
 <iframe
+  src={venue.map}
+  width="100%"
+  height="450"
+  style={{border:0}}
+  loading="lazy"
+  allowFullScreen
+  title="venue-map"
+/>
+
+)}
+
+     <Modal
+show={showModal}
+onHide={()=>setShowModal(false)}
+centered
+>
+
+<Modal.Header closeButton>
+
+<Modal.Title>
+Request Pricing
+</Modal.Title>
+
+</Modal.Header>
 
 
-src={venue.map}
+<Modal.Body>
 
 
-width="100%"
+<Button
+variant="danger"
+className="w-100"
+
+onClick={()=>{
+
+const token = localStorage.getItem("token");
 
 
-height="400"
+if(token){
 
+setSelectedVenue(venue);
 
-style={{
+setShowModal(false);
 
-border:0
+setShowForm(true);
+
+}
+else{
+
+setShowModal(false);
+
+setShowSidebar(true);
+
+}
 
 }}
 
-
-loading="lazy"
-
-
-title="venue-map"
-
-
-></iframe>
-
-
-
-</div>
-
-
-
-}
-
-
-
-
-
-
-
-
-
-{/* MODAL */}
-
-
-
-
-{
-
-showModal &&
-
-
-
-<div className="modal-overlay">
-
-
-<div className="request-modal">
-
-
-<h2>
-
-Request Pricing
-
-</h2>
-
-
-
-<input
-
-placeholder="Name"
-
-/>
-
-
-
-<input
-
-placeholder="Phone"
-
-/>
-
-
-
-<input
-
-placeholder="Email"
-
-/>
-
-
-
-<input
-
-type="date"
-
-/>
-
-
-
-<input
-
-placeholder="Guests"
-
-/>
-
-
-
-
-
-<button className="submit-btn">
-
-Submit Request
-
-</button>
-
-
-
-
-<button
-
-className="close-btn"
-
-onClick={()=>setShowModal(false)}
-
 >
 
-Close
+Continue Request
 
-</button>
-
-
-
-</div>
+</Button>
 
 
+</Modal.Body>
 
-</div>
+</Modal>
+{showForm && (
+
+<PricingForm
+
+show={showForm}
+
+handleClose={()=>setShowForm(false)}
+
+venue={selectedVenue}
+
+/>
+
+)}
 
 
 
+{showSidebar && (
+
+<LoginSidebar
+
+show={showSidebar}
+
+handleClose={()=>setShowSidebar(false)}
+
+/>
+
+)}
+    </Container>
+  );
 }
-
-
-
-</div>
-
-
-
-);
-
-
-}
-
-
 
 export default VenueDetails;

@@ -43,10 +43,9 @@ category:{
 
 
 rating:{
-    type:String,
-    default:"★★★★★"
+type:Number,
+default:5
 },
-
 
 image:{
     type:String,

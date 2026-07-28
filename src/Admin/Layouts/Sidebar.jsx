@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { FaFileContract } from "react-icons/fa";
-import { FaHome, FaClipboardList, FaCalendarCheck, FaUsers, FaBuilding, FaGlassCheers, FaGift, FaMoneyBillWave,
+import { FaHome, FaClipboardList, FaCalendarCheck, FaUsers, FaBuilding,  FaGift, FaMoneyBillWave,
   FaCalendarAlt, FaCreditCard, FaImages, FaChartBar, FaBell, FaCog, FaSignOutAlt,} from "react-icons/fa";
 import Logomelodia from "../../images/MELODIA-LOGO-03-1.webp"; 
 

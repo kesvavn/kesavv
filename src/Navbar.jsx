@@ -123,7 +123,7 @@ const handleLogout = () => {
                 
                 <NavDropdown.Item
                   as={Link}
-                  to="/corporate"
+                  to="/wedding-photography-videography"
                   onClick={closeMenu}
                 >
                   WEDDING PHOTOGRAPHY & VIDEOGRAPHY

@@ -32,91 +32,73 @@ message:error.message
 
 
 
+// GET BY SLUG FIRST
 
-
-// GET VENUE BY SLUG
-
-// /api/venues/slug/kakkattu-mana
-router.get("/slug/:slug", async (req, res) => {
-    try {
-
-        const slug = req.params.slug;
-
-        const venue = await Venue.findOne({
-            link: {
-                $in: [
-                    slug,
-                    "/" + slug
-                ]
-            }
-        });
-
-        if (!venue) {
-            return res.status(404).json({
-                message: "Venue not found"
-            });
-        }
-
-        res.json(venue);
-
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-});
-
-
-// GET BY ID
-
-router.get("/:id",async(req,res)=>{
-
+router.get("/slug/:slug", async(req,res)=>{
 
 try{
 
-
-const venue = await Venue.findById(
-req.params.id
-);
-
+const venue = await Venue.findOne({
+slug:req.params.slug
+});
 
 
 if(!venue){
 
 return res.status(404).json({
-
 message:"Venue not found"
-
 });
 
 }
-
 
 
 res.json(venue);
 
 
-
 }
-
 catch(error){
 
 res.status(500).json({
-
 message:error.message
+});
 
+}
+
+});
+
+
+
+// GET BY ID AFTER SLUG
+
+router.get("/:id", async(req,res)=>{
+
+try{
+
+const venue = await Venue.findById(req.params.id);
+
+
+if(!venue){
+
+return res.status(404).json({
+message:"Venue not found"
 });
 
 }
 
 
+res.json(venue);
+
+
+}
+catch(error){
+
+res.status(500).json({
+message:error.message
 });
 
+}
 
-
-
-
-
+});
 
 
 
@@ -156,11 +138,6 @@ message:error.message
 
 
 });
-
-
-
-
-
 
 
 

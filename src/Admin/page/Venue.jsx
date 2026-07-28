@@ -1,4 +1,4 @@
-import {useEffect,useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 import {
@@ -8,164 +8,106 @@ Col,
 Card,
 Form,
 Button,
-Table
+Table,
+Image
 } from "react-bootstrap";
+
+
+const API = "http://localhost:5000";
 
 
 function AdminVenue(){
 
 
-const API="http://localhost:5000";
-
-
-
-const [venues,setVenues]=useState([]);
-
-const [editId,setEditId]=useState(null);
-
-
-const [imageFile,setImageFile]=useState(null);
-
-const [galleryFiles,setGalleryFiles]=useState([]);
-
-
-
-
-
 const initialState={
-
 
 title:"",
 slug:"",
-
 location:"",
-
 type:"",
-
 category:"Wedding Venue",
-
 rating:"★★★★★",
-
 
 image:"",
 
-
 description:"",
 
-
-
 capacity:"",
-
 indoorSpace:"",
-
 outdoorSpace:"",
-
 parkingCapacity:"",
-
-
 acRooms:"",
-
 nonAcRooms:"",
 
 
-
-
 wifi:false,
-
 security:false,
-
 powerBackup:false,
-
 cctv:false,
-
 catering:false,
-
 customPackage:false,
-
 
 
 gallery:[],
 
 
-
 map:"",
 
 
-
 price:{
-
-
 min:0,
-
 max:0
-
 },
-
 
 
 isTop:false
 
 
-
 };
-
-
 
 
 
 const [venue,setVenue]=useState(initialState);
 
+const [venues,setVenues]=useState([]);
+
+const [imageFile,setImageFile]=useState(null);
+
+const [galleryFiles,setGalleryFiles]=useState([]);
+
+const [editId,setEditId]=useState(null);
 
 
 
 
-// GET VENUES
-
+// GET ALL
 
 const fetchVenues=async()=>{
 
-
 try{
 
-
 const res=await axios.get(
-
 `${API}/api/venues`
-
 );
-
 
 setVenues(res.data);
 
 
-
-}
-
-catch(err){
+}catch(err){
 
 console.log(err);
 
 }
 
-
 };
-
-
 
 
 
 useEffect(()=>{
 
-
 fetchVenues();
 
-
 },[]);
-
-
-
-
-
 
 
 
@@ -177,59 +119,52 @@ const handleChange=(e)=>{
 
 
 const {
-
 name,
-
 value,
-
 checked
-
 }=e.target;
 
 
-
-setVenue({
-
-...venue,
-
-
-[name]:
-
-name==="isTop" ||
-
+if(
 [
 "wifi",
 "security",
 "powerBackup",
 "cctv",
 "catering",
-"customPackage"
+"customPackage",
+"isTop"
 ].includes(name)
+){
 
-?
+setVenue({
 
-checked
+...venue,
 
-:
-
-value
-
+[name]:checked
 
 });
 
 
+}
+
+else{
+
+
+setVenue({
+
+...venue,
+
+[name]:value
+
+});
+
+
+}
+
 };
 
-
-
-
-
-
-
-
-
-
-// PRICE CHANGE
+// PRICE
 
 
 const handlePrice=(e)=>{
@@ -237,33 +172,22 @@ const handlePrice=(e)=>{
 
 setVenue({
 
-
 ...venue,
-
 
 price:{
 
-
 ...venue.price,
-
 
 [e.target.name]:
 
 Number(e.target.value)
 
-
 }
-
 
 });
 
 
 };
-
-
-
-
-
 
 
 
@@ -277,13 +201,9 @@ const uploadImage=async(file)=>{
 
 const formData=new FormData();
 
-
 formData.append(
-
 "image",
-
 file
-
 );
 
 
@@ -306,47 +226,40 @@ return res.data.image;
 
 
 
+// GALLERY
 
 
+const uploadGallery = async()=>{
 
 
-
-// GALLERY UPLOAD
-
-
-const uploadGallery=async()=>{
+const formData = new FormData();
 
 
-let images=[];
+galleryFiles.forEach(file=>{
 
-
-
-for(let file of galleryFiles){
-
-
-const url=await uploadImage(file);
-
-
-images.push({
-
-url:url,
-
-alt:"Venue Gallery"
+formData.append(
+"images",
+file
+);
 
 });
 
 
-}
+
+const res = await axios.post(
+
+`${API}/api/upload/multiple`,
+
+formData
+
+);
 
 
-return images;
+
+return res.data.images;
 
 
 };
-
-
-
-
 
 
 
@@ -357,57 +270,42 @@ return images;
 
 const handleSubmit=async(e)=>{
 
-
 e.preventDefault();
 
 
 try{
 
-
-let mainImage=venue.image;
-
+let image = venue.image;
 
 
 if(imageFile){
 
-
-mainImage=await uploadImage(imageFile);
-
+image = await uploadImage(imageFile);
 
 }
 
 
 
-let gallery=venue.gallery;
+let gallery = venue.gallery || [];
 
 
+if(galleryFiles.length > 0){
 
-if(galleryFiles.length>0){
-
-
-gallery=await uploadGallery();
-
+gallery = await uploadGallery();
 
 }
 
 
 
-
-const data={
-
+const data = {
 
 ...venue,
 
-
-image:mainImage,
-
+image,
 
 gallery
 
-
 };
-
-
 
 
 
@@ -449,12 +347,9 @@ alert("Venue Added");
 
 
 
-
 setVenue(initialState);
 
-
 setImageFile(null);
-
 
 setGalleryFiles([]);
 
@@ -467,7 +362,6 @@ fetchVenues();
 
 }
 
-
 catch(err){
 
 console.log(err);
@@ -475,12 +369,8 @@ console.log(err);
 }
 
 
+
 };
-
-
-
-
-
 
 
 
@@ -494,9 +384,7 @@ const editVenue=(item)=>{
 
 setVenue(item);
 
-
 setEditId(item._id);
-
 
 
 window.scrollTo({
@@ -514,10 +402,6 @@ behavior:"smooth"
 
 
 
-
-
-
-
 // DELETE
 
 
@@ -525,11 +409,8 @@ const deleteVenue=async(id)=>{
 
 
 if(!window.confirm(
-
 "Delete Venue?"
-
 ))
-
 return;
 
 
@@ -541,7 +422,6 @@ await axios.delete(
 );
 
 
-
 fetchVenues();
 
 
@@ -551,14 +431,19 @@ fetchVenues();
 
 
 
-
-
-
-
 return(
 
 
-<Container className="mt-4">
+<Container fluid className="mt-4">
+
+
+<Row>
+
+
+
+{/* FORM */}
+
+<Col lg={5}>
 
 
 <Card>
@@ -566,14 +451,9 @@ return(
 
 <Card.Header>
 
-
-<h3>
-
 {
 
-editId
-
-?
+editId ?
 
 "Update Venue"
 
@@ -583,35 +463,23 @@ editId
 
 }
 
-</h3>
-
-
 </Card.Header>
-
 
 
 
 <Card.Body>
 
 
+
 <Form onSubmit={handleSubmit}>
 
 
-<Row>
-
-
-<Col md={6}>
-
-
-<Form.Group className="mb-3">
-
-
-<Form.Label>
-Venue Name
-</Form.Label>
-
 
 <Form.Control
+
+className="mb-3"
+
+placeholder="Venue Name"
 
 name="title"
 
@@ -622,24 +490,14 @@ onChange={handleChange}
 />
 
 
-</Form.Group>
-
-
-
-
-
-<Form.Group className="mb-3">
-
-<Form.Label>
-Slug
-</Form.Label>
-
 
 <Form.Control
 
-name="slug"
+className="mb-3"
 
-placeholder="kakkattu-mana"
+placeholder="Slug"
+
+name="slug"
 
 value={venue.slug}
 
@@ -648,21 +506,12 @@ onChange={handleChange}
 />
 
 
-</Form.Group>
-
-
-
-
-
-
-<Form.Group className="mb-3">
-
-<Form.Label>
-Location
-</Form.Label>
-
 
 <Form.Control
+
+className="mb-3"
+
+placeholder="Location"
 
 name="location"
 
@@ -673,22 +522,12 @@ onChange={handleChange}
 />
 
 
-</Form.Group>
-
-
-
-
-
-
-
-<Form.Group className="mb-3">
-
-<Form.Label>
-Type
-</Form.Label>
-
 
 <Form.Control
+
+className="mb-3"
+
+placeholder="Type"
 
 name="type"
 
@@ -699,41 +538,27 @@ onChange={handleChange}
 />
 
 
-</Form.Group>
-
-
-
-
-
-
-
-<Form.Group className="mb-3">
-
-<Form.Label>
-Category
-</Form.Label>
-
 
 <Form.Control
 
-name="category"
+className="mb-3"
 
-value={venue.category}
+placeholder="Description"
+
+as="textarea"
+
+rows={3}
+
+name="description"
+
+value={venue.description}
 
 onChange={handleChange}
 
 />
 
 
-</Form.Group>
 
-
-
-
-
-
-
-<Form.Group>
 
 <Form.Label>
 Main Image
@@ -745,111 +570,16 @@ Main Image
 type="file"
 
 onChange={(e)=>
-
 setImageFile(e.target.files[0])
-
 }
 
 />
 
 
-</Form.Group>
 
 
-</Col>
-
-
-
-
-
-
-
-
-
-<Col md={6}>
-
-
-<Form.Group>
-
-<Form.Label>
-Description
-</Form.Label>
-
-
-<Form.Control
-
-as="textarea"
-
-rows={4}
-
-name="description"
-
-value={venue.description}
-
-onChange={handleChange}
-
-/>
-
-
-</Form.Group>
-
-
-
-
-
-<Form.Group className="mt-3">
-
-<Form.Label>
-Capacity
-</Form.Label>
-
-
-<Form.Control
-
-name="capacity"
-
-value={venue.capacity}
-
-onChange={handleChange}
-
-/>
-
-
-</Form.Group>
-
-
-
-
-
-<Form.Group className="mt-3">
-
-<Form.Label>
-Parking Capacity
-</Form.Label>
-
-
-<Form.Control
-
-name="parkingCapacity"
-
-value={venue.parkingCapacity}
-
-onChange={handleChange}
-
-/>
-
-
-</Form.Group>
-
-
-
-
-
-
-<Form.Group className="mt-3">
-
-<Form.Label>
-Gallery Images
+<Form.Label className="mt-3">
+Gallery
 </Form.Label>
 
 
@@ -860,26 +590,12 @@ type="file"
 multiple
 
 onChange={(e)=>
-
-setGalleryFiles([...e.target.files])
-
+setGalleryFiles(
+[...e.target.files]
+)
 }
 
 />
-
-
-</Form.Group>
-
-
-</Col>
-
-
-</Row>
-
-
-
-
-
 
 
 
@@ -894,10 +610,75 @@ Facilities
 
 
 
-<Row>
+{
+
+[
+"wifi",
+"security",
+"powerBackup",
+"cctv",
+"catering",
+"customPackage"
+
+].map(item=>(
 
 
-<Col>
+<Form.Check
+
+key={item}
+
+label={item}
+
+name={item}
+
+checked={venue[item]}
+
+onChange={handleChange}
+
+/>
+
+
+))
+
+}
+
+
+
+<hr/>
+
+
+<Form.Control
+
+className="mb-2"
+
+placeholder="Capacity"
+
+name="capacity"
+
+value={venue.capacity}
+
+onChange={handleChange}
+
+/>
+
+
+
+<Form.Control
+
+className="mb-2"
+
+placeholder="Parking Capacity"
+
+name="parkingCapacity"
+
+value={venue.parkingCapacity}
+
+onChange={handleChange}
+
+/>
+
+
+
 
 
 <Form.Control
@@ -915,14 +696,10 @@ onChange={handleChange}
 />
 
 
-</Col>
-
-
-
-<Col>
-
 
 <Form.Control
+
+className="mb-2"
 
 placeholder="Outdoor Space"
 
@@ -934,126 +711,48 @@ onChange={handleChange}
 
 />
 
-
-</Col>
-
-
-</Row>
-
-
-
-
-
-<Row className="mt-3">
-
-
-<Col>
+<Form.Control
+  className="mb-2"
+  placeholder="AC Rooms"
+  name="acRooms"
+  value={venue.acRooms}
+  onChange={handleChange}
+/>
 
 <Form.Control
-
-placeholder="AC Rooms"
-
-name="acRooms"
-
-value={venue.acRooms}
-
-onChange={handleChange}
-
+  className="mb-2"
+  placeholder="Non AC Rooms"
+  name="nonAcRooms"
+  value={venue.nonAcRooms}
+  onChange={handleChange}
 />
 
-</Col>
+<Form.Group className="mb-3">
 
+  <Form.Label>
+    Google Map Embed URL
+  </Form.Label>
 
+  <Form.Control
 
-<Col>
+    className="mb-2"
 
-<Form.Control
+    placeholder="Paste Google Map Embed URL"
 
-placeholder="Non AC Rooms"
+    name="map"
 
-name="nonAcRooms"
+    value={venue.map}
 
-value={venue.nonAcRooms}
+    onChange={handleChange}
 
-onChange={handleChange}
+  />
 
-/>
+  <small className="text-muted">
+    Google Maps → Share → Embed a map
+  </small>
 
-</Col>
+</Form.Group>
 
-
-</Row>
-
-
-
-
-
-
-
-
-
-<hr/>
-
-
-<h5>
-Amenities
-</h5>
-
-
-<Row>
-
-
-{
-[
-"wifi",
-"security",
-"powerBackup",
-"cctv",
-"catering",
-"customPackage"
-].map(item=>(
-
-
-<Col md={4} key={item}>
-
-
-<Form.Check
-
-label={item}
-
-name={item}
-
-checked={venue[item]}
-
-onChange={handleChange}
-
-/>
-
-
-</Col>
-
-
-))
-}
-
-
-
-</Row>
-
-
-
-
-
-
-
-
-
-<hr/>
-
-
-<h5>
-Price
-</h5>
 
 
 
@@ -1061,7 +760,6 @@ Price
 
 
 <Col>
-
 
 <Form.Control
 
@@ -1069,7 +767,7 @@ type="number"
 
 name="min"
 
-placeholder="Minimum"
+placeholder="Min Price"
 
 value={venue.price.min}
 
@@ -1077,13 +775,10 @@ onChange={handlePrice}
 
 />
 
-
 </Col>
 
 
-
 <Col>
-
 
 <Form.Control
 
@@ -1091,7 +786,7 @@ type="number"
 
 name="max"
 
-placeholder="Maximum"
+placeholder="Max Price"
 
 value={venue.price.max}
 
@@ -1103,37 +798,7 @@ onChange={handlePrice}
 </Col>
 
 
-
 </Row>
-
-
-
-
-
-
-
-
-
-<Form.Group className="mt-3">
-
-
-<Form.Control
-
-placeholder="Google Map Link"
-
-name="map"
-
-value={venue.map}
-
-onChange={handleChange}
-
-/>
-
-
-</Form.Group>
-
-
-
 
 
 
@@ -1156,11 +821,9 @@ onChange={handleChange}
 
 
 
-
-
 <Button
 
-className="mt-3"
+className="mt-4 w-100"
 
 type="submit"
 
@@ -1169,15 +832,13 @@ type="submit"
 
 {
 
-editId
+editId ?
 
-?
-
-"Update"
+"Update Venue"
 
 :
 
-"Save"
+"Save Venue"
 
 }
 
@@ -1189,6 +850,7 @@ editId
 </Form>
 
 
+
 </Card.Body>
 
 
@@ -1196,13 +858,37 @@ editId
 
 
 
+</Col>
 
 
 
 
 
 
-<Table striped bordered className="mt-5">
+{/* TABLE */}
+
+
+
+<Col lg={7}>
+
+
+<Card>
+
+
+<Card.Header>
+
+All Venues
+
+</Card.Header>
+
+
+
+<Card.Body>
+
+
+
+<Table responsive bordered>
+
 
 
 <thead>
@@ -1232,6 +918,7 @@ Action
 
 
 
+
 <tbody>
 
 
@@ -1245,16 +932,25 @@ venues.map(item=>(
 
 <td>
 
-<img
+<Image
 
-src={`${API}/${item.image}`}
+src={
+item.image.startsWith("/uploads")
+?
+`${API}${item.image}`
+:
+`${API}/uploads/${item.image}`
+}
 
 width="80"
+
+height="60"
 
 />
 
 
 </td>
+
 
 
 <td>
@@ -1263,6 +959,8 @@ width="80"
 
 </td>
 
+<td>{item.acRooms}</td>
+<td>{item.nonAcRooms}</td>
 
 <td>
 
@@ -1271,14 +969,19 @@ width="80"
 </td>
 
 
+
 <td>
 
 
 <Button
 
+size="sm"
+
 variant="warning"
 
-onClick={()=>editVenue(item)}
+onClick={()=>
+editVenue(item)
+}
 
 >
 
@@ -1288,19 +991,25 @@ Edit
 
 
 
+
 <Button
+
+size="sm"
 
 variant="danger"
 
 className="ms-2"
 
-onClick={()=>deleteVenue(item._id)}
+onClick={()=>
+deleteVenue(item._id)
+}
 
 >
 
 Delete
 
 </Button>
+
 
 
 </td>
@@ -1312,6 +1021,7 @@ Delete
 
 ))
 
+
 }
 
 
@@ -1322,7 +1032,16 @@ Delete
 </Table>
 
 
+</Card.Body>
 
+
+</Card>
+
+
+</Col>
+
+
+</Row>
 
 
 </Container>

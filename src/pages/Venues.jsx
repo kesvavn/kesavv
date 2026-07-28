@@ -67,9 +67,6 @@ console.log(error);
 };
 
 
-
-
-
 const filteredVenues = venues.filter((venue)=>{
 
 
@@ -194,7 +191,7 @@ Venues in Kerala
 </h2>
 
 
-<p>
+<p className="venues-para">
 
 Melodia Event Management introduces Kerala’s venues, offering lush greenery, breathtaking beauty, and world-class amenities. These venues provide modern facilities and luxurious settings, making Kerala the perfect location for events.
 
@@ -221,7 +218,9 @@ alt="venue"
 
 </Col>
 
-
+<Col>
+<p className="venues-para">Find the best event and wedding venues in Kerala with Melodia Event Management. We offer expert event management services for luxurious, traditional, and modern weddings, as well as corporate and private parties. Discover 300+ event venues with stunning locations. Use the smart filters below to explore and book your dream event and wedding venues in Kerala by location and venue type now!</p>
+</Col>
 </Row>
 
 
@@ -357,95 +356,158 @@ setSearch(e.target.value)
 
 />
 
-
-
 </div>
-
-
-
-
-
+<br /><br />
 
 <Row>
 
 
 {filteredVenues.map((venue) => {
 
-  const venueSlug = venue.link?.replace(/^\/+/, "") || "";
+const venueSlug = venue.slug?.replace(/^\/+/, "") || "";
 
 console.log("Venue:", venue.title);
 console.log("Link:", venue.link);
 console.log("Slug:", venueSlug);
   return (
 
-    <Col lg={4} md={6} key={venue._id}>
+    <Col lg={4} md={6} sm={12} key={venue._id}>
 
-      <div className="venue-card">
+<div className="venue-card">
 
-        {/* IMAGE CLICK */}
-        <Link to={`/venue/${venueSlug}`}>
-          <img
-            src={
-              venue.image?.startsWith("/uploads")
-                ? `http://localhost:5000${venue.image}`
-                : `http://localhost:5000/uploads/${venue.image}`
-            }
-            alt={venue.title}
-            className="venue-image"
-          />
-        </Link>
 
-        <div className="rating">
-          {venue.rating || "★★★★★"}
-        </div>
+{/* IMAGE */}
 
-        <h4>
-          <Link
-            to={`/venue/${venueSlug}`}
-            className="venue-name-link"
-          >
-            {venue.title}
-          </Link>
-        </h4>
+<Link to={`/venue/${venueSlug}`}>
 
-        <p>📍 {venue.location}</p>
+<img
+src={
+venue.image?.startsWith("/uploads")
+?
+`http://localhost:5000${venue.image}`
+:
+`http://localhost:5000/uploads/${venue.image}`
+}
+alt={venue.title}
+className="venue-image"
+/>
 
-        <p>{venue.type}</p>
+</Link>
 
-        <div className="btn-group-custom">
 
-          <a
-            href={`https://wa.me/919876543210?text=Hi, I need enquiry for ${venue.title}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whatsapp-btn"
-          >
-            WhatsApp Enquiry
-          </a>
 
-          <button
-            className="price-btn"
-            onClick={(e) => {
-              e.stopPropagation();
+<div className="venue-card-body">
 
-              const token = localStorage.getItem("token");
 
-              if (token) {
-                setSelectedVenue(venue);
-                setShowForm(true);
-              } else {
-                setShowSidebar(true);
-              }
-            }}
-          >
-            Request Pricing
-          </button>
 
-        </div>
 
-      </div>
 
-    </Col>
+{/* TITLE */}
+
+<h4>
+
+<Link
+to={`/venue/${venueSlug}`}
+className="venue-name-link"
+>
+
+{venue.title}
+
+</Link>
+
+</h4>
+
+
+{/* RATING */}
+
+<div className="rating">
+
+{venue.rating || "★★★★★"}
+
+</div>
+
+{/* LOCATION */}
+
+<p className="venue-location">
+
+📍 {venue.location}
+
+</p>
+
+
+
+{/* TYPE */}
+
+<span className="venue-type">
+
+{venue.type}
+
+</span>
+
+
+
+{/* BUTTONS */}
+
+<div className="btn-group-custom">
+
+
+<a
+href={`https://wa.me/919876543210?text=Hi, I need enquiry for ${venue.title}`}
+target="_blank"
+rel="noopener noreferrer"
+className="whatsapp-btn"
+>
+
+WhatsApp
+
+</a>
+
+
+
+<button
+
+className="price-btn"
+
+onClick={(e)=>{
+
+e.stopPropagation();
+
+const token = localStorage.getItem("token");
+
+
+if(token){
+
+setSelectedVenue(venue);
+
+setShowForm(true);
+
+}
+
+else{
+
+setShowSidebar(true);
+
+}
+
+
+}}
+
+>
+
+Request Pricing
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</Col>
 
   );
 

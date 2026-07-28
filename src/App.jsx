@@ -13,6 +13,7 @@ import Destinationwedding from "./components/events/Destinationwedding";
 import BeachWedding from "./components/events/BeachWedding";
 import Entertainment from "./components/events/Entertainment";
 import PrivatePartics from "./components/events/PrivatePartics";
+import WeddingPhotoVideo from "./components/events/WeddingPhoto&video/WeddingPhotosVideo"
 
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -47,6 +48,16 @@ import Dashboard from "./Admin/page/Dashboard";
 import Requests from "./Admin/page/Requests";
 import Bookings from "./Admin/page/Bookings";
 import Customers from "./Admin/page/Customers";
+import GalleryAdmin from "./Admin/page/Gallery";
+import Venue from "./Admin/page/Venue";
+import Availability from "./Admin/page/Availability";
+import CancellationPolicy from "./Admin/page/CancellationPolicy";
+import Packages from "./Admin/page/Packages";
+import Payments from "./Admin/page/Payments";
+import Pricing from "./Admin/page/Pricing";
+import Reports from "./Admin/page/Reports";
+import Notifications from "./Admin/page/Notifications";
+import Settings from "./Admin/page/Settings";
 
 import VenueDetails from "./pages/VenueDetails";
 
@@ -72,6 +83,7 @@ function App() {
         <Route path="/services" element={<> <MyNavbar /> <Services /></> }/>
 
         <Route path="/venues" element={<Venues />} />
+<Route path="/venue/:slug" element={<VenueDetails />}/>
 
         <Route path="/gallery" element={<><MyNavbar /><Gallery /></>}/>
 
@@ -82,12 +94,10 @@ function App() {
         {/* EVENT ROUTES */}
         <Route path="/Corprate" element={<Corprate />} />
         <Route path="/Wedding" element={<Wedding />} />
-        <Route
-          path="/Destinationwedding"
-          element={<Destinationwedding />}
-        />
+        <Route path="/Destinationwedding" element={<Destinationwedding />}/>
         <Route path="/Beachwedding" element={<BeachWedding />} />
         <Route path="/Entertainment" element={<Entertainment />} />
+      <Route path="/wedding-photography-videography" element={<WeddingPhotoVideo />}/>
 
         {/* FIXED ROUTE */}
         <Route
@@ -142,18 +152,99 @@ function App() {
           element={<KadavuVillas />}
         /> */}
 
-<Route
-  path="/venue/:slug"
-  element={<VenueDetails />}
-/>
+
         {/* admin  panel */}
 
-    <Route path="/admin" element={<MainLayout />}>
-    <Route index element={<Dashboard />} />
-    <Route path="requests" element={<Requests />} />
-    <Route path="bookings" element={<Bookings />} />
-    <Route path="customers" element={<Customers />} />
-  </Route>
+  {/* ADMIN PANEL */}
+
+<Route 
+path="/admin"
+element={
+<ProtectedRoute>
+<MainLayout />
+</ProtectedRoute>
+}
+>
+
+<Route index element={<Dashboard />} />
+
+<Route 
+path="requests" 
+element={<Requests />} 
+/>
+
+<Route 
+path="bookings" 
+element={<Bookings />} 
+/>
+
+<Route 
+path="customers" 
+element={<Customers />} 
+/>
+
+
+<Route 
+path="venue" 
+element={<Venue />} 
+/>
+
+
+<Route 
+path="gallery" 
+element={<GalleryAdmin />} 
+/>
+
+
+<Route 
+path="availability" 
+element={<Availability />} 
+/>
+
+
+<Route 
+path="cancellation-policy" 
+element={<CancellationPolicy />} 
+/>
+
+
+<Route 
+path="packages" 
+element={<Packages />} 
+/>
+
+
+<Route 
+path="payments" 
+element={<Payments />} 
+/>
+
+
+<Route 
+path="pricing" 
+element={<Pricing />} 
+/>
+
+
+<Route 
+path="reports" 
+element={<Reports />} 
+/>
+
+
+<Route 
+path="notifications" 
+element={<Notifications />} 
+/>
+
+
+<Route 
+path="settings" 
+element={<Settings />} 
+/>
+
+
+</Route>
    <Route path="/admin/*" element={<AdminRoutes />} />
 
       </Routes>
