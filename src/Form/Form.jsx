@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
 const Form = ({venue}) => {
-  
+  const [pricing,setPricing] = useState([]);
 const [policies,setPolicies] = useState([]);
+
+const [disabledDates, setDisabledDates] = useState([]);
+
   const navigate = useNavigate();
 const [formData, setFormData] = useState({
   fullName: "",
@@ -18,6 +21,9 @@ venueName: venue?.title || "",
   rooms: "",
   functionType: "",
   functionTime: "",
+  // Food
+foodType:"",
+foodCategory:"",
 
   // Additional Package
   additionalPackage: "No",
@@ -61,6 +67,7 @@ useEffect(()=>{
 
 },[venue]);
 
+//cancel policy
 useEffect(()=>{
 axios.get("http://localhost:5000/api/cancellation-policies")
   .then(res=>{
@@ -70,24 +77,49 @@ axios.get("http://localhost:5000/api/cancellation-policies")
   .catch(err=>console.log(err));
 },[]);
 
-useEffect(() => {
-  if (!venue?.title) return;
 
-  console.log("Selected Venue:", venue.title);
+//pricing
+
+useEffect(()=>{
+
+axios.get(
+"http://localhost:5000/api/pricing"
+)
+.then(res=>{
+
+console.log("Pricing Data:",res.data);
+
+setPricing(res.data);
+
+})
+.catch(err=>console.log(err));
+
+
+},[]);
+
+
+//available
+  
+
+useEffect(() => {
+  if (!venue?._id) return;
 
   axios
-    .get("http://localhost:5000/api/requests/booked-dates", {
-      params: {
-        venueName: venue.title,
-      },
+    .get("http://localhost:5000/api/availability/unavailable", {
+      params: { venueId: venue._id },
     })
     .then((res) => {
-      console.log("Booked Dates:", res.data);
-      setBookedDates(res.data);
+      const dates = res.data.map(item => item.date.substring(0, 10));
+      setDisabledDates(dates);
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }, [venue]);
 
+useEffect(() => {
+  console.log("Disabled Dates:", disabledDates);
+}, [disabledDates]);
+
+//price
 useEffect(() => {
 
 const price = calculatePrice();
@@ -97,7 +129,8 @@ setFormData(prev => ({
 totalPrice: price
 }));
 
-}, [
+
+},[
 formData.guests,
 formData.rooms,
 formData.makeupLevel,
@@ -135,9 +168,12 @@ else{
 };
 
   const handleChange = (e) => {
-  const {name,value}=e.target;
+
+const {name,value}=e.target;
+
 
 if(name==="additionalPackage" && value==="No"){
+
 setFormData(prev=>({
 ...prev,
 additionalPackage:"No",
@@ -146,189 +182,243 @@ foodType:"",
 foodCategory:"",
 decorationLevel:"",
 }));
-return;
 
+return;
 
 }
 
-setFormData({...formData,[name]:value});};
 
-// Price Calculation
+setFormData(prev=>({
+...prev,
+[name]:value
+}));
+
+};
+
+const getPrice = (category, title) => {
+
+const item = pricing.find(
+(p)=>
+p.category === category &&
+p.title === title &&
+p.status === true
+);
+
+return item ? Number(item.amount) : 0;
+
+};
+
+
+
 const calculatePrice = () => {
 
-  let price = 0;
-
-  // Venue Cost
-  price += Number(formData.guests || 0) * 500;
+let price = 0;
 
 
-  // Room Cost
-  price += Number(formData.rooms || 0) * 2500;
+// Venue
+
+price += getPrice(
+"Venue",
+venue?.title
+);
 
 
-  // =========================
-  // Wedding Packages
-  // =========================
+// Food
 
-  // Makeup
-  if (formData.makeupLevel === "Basic") price += 5000;
-  if (formData.makeupLevel === "Premium") price += 15000;
-  if (formData.makeupLevel === "Luxury") price += 30000;
+const guests = Number(formData.guests || 0);
 
 
-  // Decoration
-  if (formData.decorationLevel === "Basic") price += 10000;
-  if (formData.decorationLevel === "Premium") price += 30000;
-  if (formData.decorationLevel === "Luxury") price += 50000;
+// Food
+
+if(formData.foodCategory){
+
+price += guests * getPrice(
+"Food",
+formData.foodCategory
+);
+
+}
 
 
-  // Photography
-  if (formData.photographyPackage === "Basic") price += 20000;
-  if (formData.photographyPackage === "Premium") price += 50000;
-  if (formData.photographyPackage === "Luxury") price += 100000;
+// Makeup
 
-// Video Package
-
-if (formData.videoPackage === "Basic")
-price += 30000;
-
-if (formData.videoPackage === "Premium")
-price += 60000;
-
-if (formData.videoPackage === "Luxury")
-price += 100000;
+price += getPrice(
+"Makeup",
+formData.makeupLevel
+);
 
 
-  // =========================
-  // Catering
-  // =========================
+// Decoration
 
-  const guests = Number(formData.guests || 0);
-
-  if (
-    formData.foodCategory === "Veg" ||
-    formData.foodType === "Veg"
-  ) {
-    price += guests * 300;
-  }
+price += getPrice(
+"Decoration",
+formData.decorationLevel
+);
 
 
-  if (
-    formData.foodCategory === "Non Veg" ||
-    formData.foodType === "Non Veg"
-  ) {
-    price += guests * 500;
-  }
+// Photography
+
+price += getPrice(
+"Photography",
+formData.photographyPackage
+);
 
 
+// Videography
 
-  // =========================
-  // Corporate Event
-  // =========================
-
-  // Stage Setup
-  if (formData.stageSetup === "Basic") price += 15000;
-  if (formData.stageSetup === "Premium") price += 30000;
-  if (formData.stageSetup === "Luxury") price += 50000;
+price += getPrice(
+"Videography",
+formData.videoPackage
+);
 
 
-  // Sound System
-  if (formData.soundSystem === "Basic") price += 10000;
-  if (formData.soundSystem === "Premium") price += 20000;
-  if (formData.soundSystem === "Luxury") price += 35000;
+// Corporate
+
+price += getPrice(
+"Stage Setup",
+formData.stageSetup
+);
 
 
-  // LED Screen
-  if (formData.ledScreen === "Basic") price += 15000;
-  if (formData.ledScreen === "Premium") price += 30000;
-  if (formData.ledScreen === "Luxury") price += 50000;
+price += getPrice(
+"Sound System",
+formData.soundSystem
+);
 
 
+price += getPrice(
+"LED Screen",
+formData.ledScreen
+);
 
-  // =========================
-  // Birthday / Private Party
-  // =========================
 
-  if (formData.cakePackage === "1 Kg") price += 1500;
-  if (formData.cakePackage === "2 Kg") price += 3000;
-  if (formData.cakePackage === "3 Kg") price += 4500;
-  if (formData.cakePackage === "Custom Cake") price += 8000;
+// Birthday
 
-  // Music & Entertainment
+price += getPrice(
+"Cake",
+formData.cakePackage
+);
 
-if (formData.musicEntertainment === "DJ") 
-price += 15000;
 
-if (formData.musicEntertainment === "Live Music") 
-price += 30000;
+price += getPrice(
+"Birthday Decoration",
+formData.birthdayDecoration
+);
+// Rooms
 
-if (formData.musicEntertainment === "Dance Performance") 
-price += 25000;
+price += Number(formData.rooms || 0)
+*
+getPrice(
+"Room",
+"AC Room"
+);
 
-if (formData.musicEntertainment === "DJ + Live Music") 
-price += 50000;
+// Cake
+
+price += getPrice(
+"Cake",
+formData.cakePackage
+);
 
 
 // Birthday Decoration
 
-if(formData.birthdayDecoration === "Basic")
-price += 10000;
-if(formData.birthdayDecoration === "Premium")
-price += 25000;
+price += getPrice(
+"Birthday Decoration",
+formData.birthdayDecoration
+);
 
-if(formData.birthdayDecoration === "Luxury")
-price += 50000;
+// GST
 
- return price;
+const gst = getPrice(
+"GST",
+"GST"
+);
+
+
+if(gst){
+
+price = price + (price * gst /100);
+
+}
+
+
+// Discount
+
+const discount = getPrice(
+"Discount",
+"Festival Offer"
+);
+
+
+if(discount){
+
+price = price - (price * discount /100);
+
+}
+
+
+return Math.round(price);
+
 
 };
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  const token = localStorage.getItem("token");
 
-  if(!token){
-    alert("Please login first");
-    navigate("/login");
-    return;
-  }
+const handleSubmit = async(e)=>{
 
-  const price = calculatePrice();
+e.preventDefault();
 
-  const submitData = {
-    ...formData,
-    venueName: venue?.title || formData.venueName,
-    image: venue?.image,
-    totalPrice: price,
-  };
 
-  console.log("FINAL SUBMIT DATA:", submitData);
+const token = localStorage.getItem("token");
 
-  try {
 
-    await axios.post(
-      "http://localhost:5000/api/requests",
-      submitData,
-      {
-        headers:{
-          Authorization:`Bearer ${token}`,
-        },
-      }
-    );
+if(!token){
+alert("Please Login First");
+navigate("/login");
+return;
+}
 
-    alert("Booking Request Submitted Successfully!");
-    navigate("/my-bookings");
 
-  } catch(err){
+const price = calculatePrice();
 
-    console.log("Status:", err.response?.status);
-    console.log("Data:", err.response?.data);
 
-    alert(
-      err.response?.data?.message ||
-      "Failed to submit booking"
-    );
-  }
+const submitData = {
+...formData,
+venueName:venue?.title,
+image:venue?.image,
+totalPrice:price
+};
+
+
+try{
+
+await axios.post(
+"http://localhost:5000/api/requests",
+submitData,
+{
+headers:{
+Authorization:`Bearer ${token}`
+}
+}
+);
+
+
+alert("Booking Request Submitted Successfully");
+
+
+navigate("/my-bookings");
+
+
+}
+catch(err){
+
+console.log(err.response?.data || err);
+
+alert("Booking Failed");
+
+}
+
+
 };
   return (
     <div className="event-form-container">
@@ -394,27 +484,27 @@ const handleSubmit = async (e) => {
           <div>
             <label>Function Date</label>
 
-           <input
- type="date"
- name="functionDate"
- value={formData.functionDate}
- onChange={(e)=>{
+         <input
+  type="date"
+  name="functionDate"
+  value={formData.functionDate}
+  onChange={(e) => {
+    const date = e.target.value;
 
- const date = e.target.value;
+    console.log("Selected Date:", date);
+    console.log("Disabled Dates:", disabledDates);
 
- setFormData(prev=>({
-   ...prev,
-   functionDate: date
- }));
+    setFormData((prev) => ({
+      ...prev,
+      functionDate: date,
+    }));
 
- if(bookedDates.includes(date)){
-   setAvailable(false);
- }
- else{
-   setAvailable(true);
- }
+    const isUnavailable = disabledDates.includes(date);
 
- }}
+    console.log("Unavailable:", isUnavailable);
+
+    setAvailable(!isUnavailable);
+  }}
 />
 {available === true && (
 <p style={{color:"green"}}>
@@ -679,9 +769,9 @@ Magic Show
 <select name="makeupLevel"value={formData.makeupLevel}onChange={handleChange}>
 
 <option value="">Select Makeup</option>
-<option value="Basic">Basic - ₹5000</option>
-<option value="Premium">Premium - ₹15000</option>
-<option value="Luxury">Luxury - ₹30000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium </option>
+<option value="Luxury">Luxury </option>
 
 </select>
 
@@ -695,9 +785,9 @@ Magic Show
 <select name="decorationLevel" value={formData.decorationLevel}onChange={handleChange}>
 
 <option value="">Select Decoration</option>
-<option value="Basic">Basic - ₹10000</option>
-<option value="Premium">Premium - ₹30000</option>
-<option value="Luxury">Luxury - ₹50000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium </option>
+<option value="Luxury">Luxury </option>
 </select>
 
 </div>
@@ -714,9 +804,9 @@ onChange={handleChange}
 >
 
 <option value="">Select Photography</option>
-<option value="Basic">Basic - ₹20000</option>
-<option value="Premium">Premium - ₹50000</option>
-<option value="Luxury">Luxury - ₹100000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium </option>
+<option value="Luxury">Luxury </option>
 
 </select>
 
@@ -810,15 +900,15 @@ Select Video Package
 </option>
 
 <option value="Basic">
-Basic - ₹30000
+Basic 
 </option>
 
 <option value="Premium">
-Premium - ₹60000
+Premium 
 </option>
 
 <option value="Luxury">
-Luxury - ₹100000
+Luxury 
 </option>
 
 </select>
@@ -850,9 +940,9 @@ onChange={handleChange}
 >
 
 <option value="">Select Stage</option>
-<option value="Basic">Basic - ₹15000</option>
-<option value="Premium">Premium - ₹30000</option>
-<option value="Luxury">Luxury - ₹50000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium</option>
+<option value="Luxury">Luxury </option>
 
 </select>
 
@@ -869,9 +959,9 @@ onChange={handleChange}
 >
 
 <option value="">Select Sound</option>
-<option value="Basic">Basic - ₹10000</option>
-<option value="Premium">Premium - ₹20000</option>
-<option value="Luxury">Luxury - ₹35000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium </option>
+<option value="Luxury">Luxury </option>
 
 </select>
 
@@ -888,9 +978,9 @@ onChange={handleChange}
 >
 
 <option value="">Select LED</option>
-<option value="Basic">Basic - ₹15000</option>
-<option value="Premium">Premium - ₹30000</option>
-<option value="Luxury">Luxury - ₹50000</option>
+<option value="Basic">Basic </option>
+<option value="Premium">Premium </option>
+<option value="Luxury">Luxury </option>
 
 </select>
 
@@ -929,19 +1019,19 @@ Select Cake
 </option>
 
 <option value="1 Kg">
-1 Kg - ₹1500
+1 Kg
 </option>
 
 <option value="2 Kg">
-2 Kg - ₹3000
+2 Kg 
 </option>
 
 <option value="3 Kg">
-3 Kg - ₹4500
+3 Kg 
 </option>
 
 <option value="Custom Cake">
-Custom Cake - ₹8000
+Custom Cake 
 </option>
 
 </select>
@@ -963,15 +1053,15 @@ Select Decoration
 </option>
 
 <option value="Basic">
-Basic - ₹10000
+Basic 
 </option>
 
 <option value="Premium">
-Premium - ₹25000
+Premium 
 </option>
 
 <option value="Luxury">
-Luxury - ₹50000
+Luxury 
 </option>
 
 </select>
@@ -992,15 +1082,15 @@ Select Photography
 </option>
 
 <option value="Basic">
-Basic - ₹20000
+Basic 
 </option>
 
 <option value="Premium">
-Premium - ₹50000
+Premium 
 </option>
 
 <option value="Luxury">
-Luxury - ₹100000
+Luxury 
 </option>
 
 </select>
@@ -1021,19 +1111,19 @@ Select Entertainment
 </option>
 
 <option value="DJ">
-DJ - ₹15000
+DJ 
 </option>
 
 <option value="Live Music">
-Live Music - ₹30000
+Live Music 
 </option>
 
 <option value="Dance Performance">
-Dance Performance - ₹25000
+Dance Performance 
 </option>
 
 <option value="DJ + Live Music">
-DJ + Live Music - ₹50000
+DJ + Live Music 
 </option>
 
 </select>
@@ -1068,15 +1158,15 @@ Select Decoration
 </option>
 
 <option value="Basic">
-Basic - ₹15000
+Basic 
 </option>
 
 <option value="Premium">
-Premium - ₹30000
+Premium
 </option>
 
 <option value="Luxury">
-Luxury - ₹60000
+Luxury 
 </option>
 
 </select>
@@ -1098,15 +1188,15 @@ Select Photography
 </option>
 
 <option value="Basic">
-Basic - ₹20000
+Basic
 </option>
 
 <option value="Premium">
-Premium - ₹50000
+Premium 
 </option>
 
 <option value="Luxury">
-Luxury - ₹100000
+Luxury 
 </option>
 
 </select>
@@ -1128,19 +1218,19 @@ Select Cake
 </option>
 
 <option value="1 Kg">
-1 Kg - ₹1500
+1 Kg 
 </option>
 
 <option value="2 Kg">
-2 Kg - ₹3000
+2 Kg 
 </option>
 
 <option value="3 Kg">
-3 Kg - ₹4500
+3 Kg 
 </option>
 
 <option value="Custom Cake">
-Custom Cake - ₹8000
+Custom Cake
 </option>
 
 </select></div>

@@ -1,229 +1,405 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  Table,
+  Button,
+  Form,
+  Modal,
+  Row,
+  Col,
+} from "react-bootstrap";
 
 import "../Dashboard.css";
 
+function Customers() {
+  const [customers, setCustomers] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
-function Customers(){
+  const [search, setSearch] = useState("");
 
+  const [show, setShow] = useState(false);
 
-const [customers,setCustomers]=useState([]);
+  const [customer, setCustomer] = useState(null);
 
+  const [history, setHistory] = useState([]);
 
+  const [note, setNote] = useState("");
 
-const getCustomers = async()=>{
+  useEffect(() => {
+    getCustomers();
+  }, []);
 
+  useEffect(() => {
+    const data = customers.filter((item) =>
+      item.fullName.toLowerCase().includes(search.toLowerCase()) ||
+      item.phone.includes(search) ||
+      item.email.toLowerCase().includes(search.toLowerCase())
+    );
 
-try{
+    setFiltered(data);
+  }, [search, customers]);
 
+  const getCustomers = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/requests");
 
-const res = await axios.get(
+      const unique = [];
 
-"http://localhost:5000/api/requests"
+      res.data.forEach((item) => {
+        const exist = unique.find(
+          (x) => x.phone === item.phone
+        );
 
-);
+        if (!exist) {
+          unique.push(item);
+        }
+      });
 
+      setCustomers(unique);
+      setFiltered(unique);
 
-// Remove duplicate customers
+    } catch (err) {
+      console.log(err);
+    }
+  };
+const viewCustomer = async (item) => {
 
-const uniqueCustomers = [];
+  setCustomer({ ...item });
 
+  setNote(item.note || "");
 
-res.data.forEach(item=>{
+  try {
 
+    const res = await axios.get(
+      `http://localhost:5000/api/requests/history/${item.phone}`
+    );
 
-const exist = uniqueCustomers.find(
+    setHistory(res.data.data);   // ✅ இதுதான் correct
 
-(customer)=>
+  } catch (err) {
+    console.log(err);
+    setHistory([]); // optional
+  }
 
-customer.phone === item.phone
-
-);
-
-
-
-if(!exist){
-
-uniqueCustomers.push(item);
-
-}
-
-
-});
-
-
-setCustomers(uniqueCustomers);
-
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-
+  setShow(true);
 };
+  const saveCustomer = async () => {
 
+    try {
 
+      await axios.put(
+        `http://localhost:5000/api/requests/${customer._id}`,
+        {
+          fullName: customer.fullName,
+          phone: customer.phone,
+          email: customer.email,
+          note,
+        }
+      );
 
-useEffect(()=>{
+      alert("Customer Updated");
 
-getCustomers();
+      setShow(false);
 
-},[]);
+      getCustomers();
 
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  const deleteCustomer = async (id) => {
 
+    if (!window.confirm("Delete Customer?")) return;
 
+    try {
 
-return(
+      await axios.delete(
+        `http://localhost:5000/api/requests/${id}`
+      );
 
-<div>
+      getCustomers();
 
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-<h2 className="page-title">
-Customers
-</h2>
+  return (
+    <div>
 
+      <h2 className="page-title">
+        Customers
+      </h2>
 
+      <Form.Control
+        placeholder="Search Customer..."
+        className="mb-3"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-<div className="table-box">
+      <div className="table-box">
 
+        <Table bordered hover>
 
-<table className="table table-bordered">
+          <thead>
 
+            <tr>
 
-<thead>
+              <th>Name</th>
 
-<tr>
+              <th>Phone</th>
 
-<th>Name</th>
+              <th>Email</th>
 
-<th>Phone</th>
+              <th>Status</th>
 
-<th>Email</th>
+              <th>Action</th>
 
-<th>Total Bookings</th>
+            </tr>
 
-<th>Last Event</th>
+          </thead>
 
-<th>Status</th>
+          <tbody>
 
-</tr>
+            {
+              filtered.length > 0 ?
 
-</thead>
+                filtered.map((item) => (
 
+                  <tr key={item._id}>
 
+                    <td>{item.fullName}</td>
 
-<tbody>
+                    <td>{item.phone}</td>
 
+                    <td>{item.email}</td>
 
-{
+                    <td>{item.status}</td>
 
-customers.length > 0 ?
+                    <td>
 
-customers.map((customer)=>(
+                      <Button
+                        size="sm"
+                        variant="primary"
+                        onClick={() => viewCustomer(item)}
+                      >
+                        View
+                      </Button>
 
+                      {" "}
 
-<tr key={customer._id}>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => deleteCustomer(item._id)}
+                      >
+                        Delete
+                      </Button>
 
+                    </td>
 
-<td>
-{customer.fullName}
-</td>
+                  </tr>
 
+                ))
 
-<td>
-{customer.phone}
-</td>
+                :
 
+                <tr>
 
-<td>
-{customer.email}
-</td>
+                  <td
+                    colSpan="5"
+                    className="text-center"
+                  >
+                    No Customers Found
+                  </td>
 
+                </tr>
 
-<td>
+            }
 
-{
-customer.status==="Confirmed"
-?
-"1"
-:
-"0"
+          </tbody>
+
+        </Table>
+
+      </div>
+
+      <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        size="lg"
+      >
+
+        <Modal.Header closeButton>
+
+          <Modal.Title>
+            Customer Details
+          </Modal.Title>
+
+        </Modal.Header>
+
+        <Modal.Body>
+
+          {
+            customer &&
+
+            <>
+
+              <Row>
+
+                <Col md={6}>
+
+                  <Form.Label>Name</Form.Label>
+
+                  <Form.Control
+                    value={customer.fullName}
+                    onChange={(e) =>
+                      setCustomer({
+                        ...customer,
+                        fullName: e.target.value,
+                      })
+                    }
+                  />
+
+                </Col>
+
+                <Col md={6}>
+
+                  <Form.Label>Phone</Form.Label>
+
+                  <Form.Control
+                    value={customer.phone}
+                    onChange={(e) =>
+                      setCustomer({
+                        ...customer,
+                        phone: e.target.value,
+                      })
+                    }
+                  />
+
+                </Col>
+
+                <Col md={6} className="mt-3">
+
+                  <Form.Label>Email</Form.Label>
+
+                  <Form.Control
+                    value={customer.email}
+                    onChange={(e) =>
+                      setCustomer({
+                        ...customer,
+                        email: e.target.value,
+                      })
+                    }
+                  />
+
+                </Col>
+
+                <Col md={6} className="mt-3">
+
+                  <Form.Label>Status</Form.Label>
+
+                  <Form.Control
+                    value={customer.status}
+                    disabled
+                  />
+
+                </Col>
+
+              </Row>
+
+              <hr />
+
+              <h5>Booking History</h5>
+
+              <Table bordered>
+
+                <thead>
+
+                  <tr>
+
+                    <th>Date</th>
+
+                    <th>Venue</th>
+
+                    <th>Function</th>
+
+                    <th>Status</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  {
+                    history.map((item) => (
+
+                      <tr key={item._id}>
+
+                        <td>{item.functionDate}</td>
+
+                        <td>{item.venueName}</td>
+
+                        <td>{item.functionType}</td>
+
+                        <td>{item.status}</td>
+
+                      </tr>
+
+                    ))
+                  }
+
+                </tbody>
+
+              </Table>
+
+              <Form.Group>
+
+                <Form.Label>
+                  Notes
+                </Form.Label>
+
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  value={note}
+                  onChange={(e) =>
+                    setNote(e.target.value)
+                  }
+                />
+
+              </Form.Group>
+
+            </>
+
+          }
+
+        </Modal.Body>
+
+        <Modal.Footer>
+
+          <Button
+            variant="secondary"
+            onClick={() => setShow(false)}
+          >
+            Close
+          </Button>
+
+          <Button
+            variant="success"
+            onClick={saveCustomer}
+          >
+            Save
+          </Button>
+
+        </Modal.Footer>
+
+      </Modal>
+
+    </div>
+  );
 }
-
-</td>
-
-
-<td>
-{customer.functionType}
-</td>
-
-
-<td>
-
-
-<span
-
-className={
-customer.status==="Confirmed"
-?
-"confirmed"
-:
-"pending"
-}
-
->
-
-{customer.status}
-
-</span>
-
-
-</td>
-
-
-
-</tr>
-
-
-))
-
-
-:
-
-<tr>
-
-<td colSpan="6" className="text-center">
-
-No Customers Found
-
-</td>
-
-</tr>
-
-
-}
-
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</div>
-
-)
-
-}
-
 
 export default Customers;

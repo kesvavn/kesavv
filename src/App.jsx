@@ -155,7 +155,7 @@ function App() {
 
         {/* admin  panel */}
 
-  {/* ADMIN PANEL */}
+{/* ADMIN PANEL */}
 
 <Route 
 path="/admin"
@@ -168,15 +168,18 @@ element={
 
 <Route index element={<Dashboard />} />
 
+
 <Route 
 path="requests" 
 element={<Requests />} 
 />
 
+
 <Route 
 path="bookings" 
 element={<Bookings />} 
 />
+
 
 <Route 
 path="customers" 

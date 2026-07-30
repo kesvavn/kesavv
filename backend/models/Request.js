@@ -84,6 +84,10 @@ cancellationPolicy:{
   type:String,
   default:""
 },
+note: {
+    type: String,
+    default: ""
+},
 
 userId: {
   type: mongoose.Schema.Types.ObjectId,
@@ -99,8 +103,26 @@ userId: {
   status: {
     type: String,
     default: "Pending"
-  }
+  },
+invoiceNumber: {
+  type: String,
+  default: "",
+},
 
+advanceAmount: {
+  type: Number,
+  default: 0,
+},
+
+paymentMethod: {
+  type: String,
+  default: "Cash",
+},
+
+gst: {
+  type: Number,
+  default: 18,
+},
 
 }, {
   timestamps: true

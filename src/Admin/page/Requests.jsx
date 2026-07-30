@@ -49,24 +49,31 @@ getRequests();
 
 
 
-
-// Status Update
-
 const updateStatus = async(id,status)=>{
-
 
 try{
 
+if(status === "Confirmed"){
 
-await axios.put(
+const res = await axios.put(
+`http://localhost:5000/api/requests/confirm/${id}`
+);
 
-`http://localhost:5000/api/requests/${id}`,
+console.log(res.data);
 
+}
+else{
+
+const res = await axios.put(
+`http://localhost:5000/api/requests/status/${id}`,
 {
 status:status
 }
-
 );
+
+console.log(res.data);
+
+}
 
 
 getRequests();
@@ -75,15 +82,11 @@ getRequests();
 }
 catch(error){
 
-console.log(error);
+console.log(error.response?.data || error.message);
 
 }
 
-
 };
-
-
-
 
 return(
 

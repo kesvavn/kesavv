@@ -19,6 +19,8 @@ const requestRoutes = require("./routes/requestRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
 const cancellationPolicyRoutes = require("./routes/cancellationPolicyRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const pricingRoutes = require("./routes/pricingRoutes");
+const availabilityRoutes = require("./routes/availabilityRoutes");
 
 const auth = require("./middleware/auth");
 
@@ -104,7 +106,13 @@ app.use(
 adminRoutes
 );
 
+app.use(
+"/api/pricing",
+pricingRoutes
+);
 
+//availabile
+app.use("/api/availability",availabilityRoutes);
 
 // Test
 
