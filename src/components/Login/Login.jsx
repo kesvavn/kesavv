@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Img from "../Login/MELODIA-LOGO-03-1.webp";
+import Img from "../../images/MELODIA-LOGO-03-1.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Offcanvas, Button, Form, Image } from "react-bootstrap";
 import {FaCheckCircle, FaTimesCircle, FaEnvelope, FaLock,} from "react-icons/fa";

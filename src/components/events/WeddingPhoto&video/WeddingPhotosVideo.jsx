@@ -1,6 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FaPhoneVolume, FaWhatsapp } from "react-icons/fa";
-import "./WeddingPhotoVideocss/WeddingPhotoVideo.css";
+import "../WeddingPhoto&video/WeddingPhotoVideocss/WeddingPhotoVideo.css";
 
 function WeddingPhotosVideo() {
   return (

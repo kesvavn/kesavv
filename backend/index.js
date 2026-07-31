@@ -21,6 +21,7 @@ const cancellationPolicyRoutes = require("./routes/cancellationPolicyRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const pricingRoutes = require("./routes/pricingRoutes");
 const availabilityRoutes = require("./routes/availabilityRoutes");
+const paymentRoutes = require("./routes/paymentsRoutes");
 
 const auth = require("./middleware/auth");
 
@@ -110,6 +111,8 @@ app.use(
 "/api/pricing",
 pricingRoutes
 );
+//payment
+app.use("/api/payments", paymentRoutes);
 
 //availabile
 app.use("/api/availability",availabilityRoutes);

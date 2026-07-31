@@ -1,132 +1,101 @@
-
 const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema({
 
-  additionalPackage: {
-  type: String,
-  default: "No",
+additionalPackage:{
+ type:String,
+ default:"No"
 },
 
-makeupLevel: String,
-decorationLevel: String,
-photographyPackage: String,
-videoPackage: String,
+makeupLevel:String,
+decorationLevel:String,
+photographyPackage:String,
+videoPackage:String,
 
-foodCategory: String,
-foodType: String,
+foodCategory:String,
+foodType:String,
 
-stageSetup: String,
-soundSystem: String,
-ledScreen: String,
+stageSetup:String,
+soundSystem:String,
+ledScreen:String,
 
-cakePackage: String,
-birthdayDecoration: String,
+cakePackage:String,
+birthdayDecoration:String,
 
-privatePartyType: String,
-musicEntertainment: String,
+privatePartyType:String,
+musicEntertainment:String,
 
-paymentMethod: String,
-cancellationPolicy: String,
 
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-  },
-
-  fullName: {
-    type: String,
-    required: true
-  },
-
-  phone: {
-    type: String,
-    required: true
-  },
-
-  email: {
-    type: String
-  },
-
-  venueName: {
-    type: String,
-    required: true
-  },
-  
-  image: {
-  type: String
+userId:{
+ type:mongoose.Schema.Types.ObjectId,
+ ref:"User",
+ required:true
 },
 
-  functionDate: {
-    type: String
-  },
 
-  guests: {
-    type: Number
-  },
+fullName:{
+ type:String,
+ required:true
+},
 
-  rooms: {
-    type: Number
-  },
+phone:{
+ type:String,
+ required:true
+},
 
-  functionType: {
-    type: String
-  },
+email:String,
 
-  functionTime: {
-    type: String
-  },
 
-  paymentMethod: String,
+venueName:{
+ type:String,
+ required:true
+},
+
+
+image:String,
+
+
+functionDate:String,
+
+guests:Number,
+
+rooms:Number,
+
+functionType:String,
+
+functionTime:String,
+
 
 cancellationPolicy:{
-  type:String,
-  default:""
-},
-note: {
-    type: String,
-    default: ""
+ type:String,
+ default:""
 },
 
-userId: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User",
-  required:true
+
+note:{
+ type:String,
+ default:""
 },
 
-  totalPrice: {
-    type: Number,
-    default: 0
-  },
 
-  status: {
-    type: String,
-    default: "Pending"
-  },
-invoiceNumber: {
-  type: String,
-  default: "",
+totalPrice:{
+ type:Number,
+ default:0
 },
 
-advanceAmount: {
-  type: Number,
-  default: 0,
-},
 
-paymentMethod: {
-  type: String,
-  default: "Cash",
-},
+status:{
+ type:String,
+ default:"Pending"
+}
 
-gst: {
-  type: Number,
-  default: 18,
-},
 
-}, {
-  timestamps: true
+},{
+ timestamps:true
 });
 
 
-module.exports = mongoose.model("Request", requestSchema);
+module.exports = mongoose.model(
+"Request",
+requestSchema
+);

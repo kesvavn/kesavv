@@ -125,7 +125,6 @@ Pricing Requests
 
 <th>Price</th>
 
-<th>payment method</th>
 
 
 <th>Status</th>
@@ -184,9 +183,7 @@ requests.map((item)=>(
 ₹ {item.totalPrice?.toLocaleString()}
 </td>
 
-<td>
-{item.paymentMethod}
-</td>
+
 
 <td>
 

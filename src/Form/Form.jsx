@@ -48,7 +48,7 @@ foodCategory:"",
   musicEntertainment: "",
 
   // Payment
-  paymentMethod: "",
+  
   cancellationPolicy: "",
 
   totalPrice: 0,
@@ -1257,46 +1257,6 @@ Custom Cake
           </div>
           
           {/* Payment Method */}
-
-<div className="event-payment-box">
-  <label>Payment Method</label>
-
-  <select
-    name="paymentMethod"
-    value={formData.paymentMethod}
-    onChange={handleChange}
-  >
-    <option value="">Select Payment Method</option>
-    <option value="Cash">Cash</option>
-    <option value="UPI">UPI</option>
-    <option value="Credit Card">Credit Card</option>
-    <option value="Debit Card">Debit Card</option>
-    <option value="Net Banking">Net Banking</option>
-  </select>
-
-  {formData.paymentMethod === "Cash" && (
-    <p className="payment-info">
-      💵 Pay the amount directly at the venue on the event day.
-    </p>
-  )}
-
-  {formData.paymentMethod === "UPI" && (
-    <div className="payment-info">
-      <p>
-        📱 UPI ID: <strong>melodiaevents@upi</strong>
-      </p>
-      <p>Complete the payment after booking confirmation.</p>
-    </div>
-  )}
-
-  {(formData.paymentMethod === "Credit Card" ||
-    formData.paymentMethod === "Debit Card" ||
-    formData.paymentMethod === "Net Banking") && (
-    <p className="payment-info">
-      💳 Online payment will be available after booking confirmation.
-    </p>
-  )}
-</div>
 
         </div>
 
