@@ -60,16 +60,17 @@ router.post("/", async (req, res) => {
     await payment.save();
 
     // Update Request
-    const booking = await Request.findByIdAndUpdate(
-      req.body.bookingId,
-      {
-        paymentStatus: req.body.paymentStatus,
-        paymentMethod: req.body.paymentMethod,
-        advanceAmount: req.body.advanceAmount,
-        balanceAmount: req.body.balanceAmount,
-      },
-      { new: true }
-    );
+   const booking = await Request.findByIdAndUpdate(
+  req.body.bookingId,
+  {
+    paymentStatus: req.body.paymentStatus,
+    paymentMethod: req.body.paymentMethod,
+    advanceAmount: req.body.advanceAmount,
+    balanceAmount: req.body.balanceAmount,
+    paymentId: payment._id,
+  },
+  { new: true }
+);
 
     // Send Email
     if (booking && booking.email) {
@@ -170,6 +171,53 @@ router.get("/", async (req, res) => {
 });
 
 
+// =============================
+// PAYMENT DASHBOARD STATS
+// =============================
+
+router.get("/dashboard/stats", async (req, res) => {
+  try {
+    const payments = await Payment.find();
+
+    const totalPayments = payments.length;
+
+    const totalCollected = payments.reduce(
+      (sum, item) => sum + Number(item.advanceAmount || 0),
+      0
+    );
+
+    const totalBalance = payments.reduce(
+      (sum, item) => sum + Number(item.balanceAmount || 0),
+      0
+    );
+
+    const fullyPaid = payments.filter(
+      (item) => item.paymentStatus === "Paid"
+    ).length;
+
+    const partialPaid = payments.filter(
+      (item) => item.paymentStatus === "Partial"
+    ).length;
+
+    const pendingPayments = payments.filter(
+      (item) => item.paymentStatus === "Pending"
+    ).length;
+
+    res.json({
+      totalPayments,
+      totalCollected,
+      totalBalance,
+      fullyPaid,
+      partialPaid,
+      pendingPayments,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
 
 // =============================
 // PAYMENT RECEIPT PDF

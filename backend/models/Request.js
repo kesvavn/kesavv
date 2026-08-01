@@ -70,7 +70,30 @@ cancellationPolicy:{
  type:String,
  default:""
 },
+paymentStatus: {
+  type: String,
+  default: "Pending",
+},
 
+paymentMethod: {
+  type: String,
+  default: "",
+},
+
+advanceAmount: {
+  type: Number,
+  default: 0,
+},
+
+balanceAmount: {
+  type: Number,
+  default: 0,
+},
+paymentId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Payment",
+  default: null,
+},
 
 note:{
  type:String,

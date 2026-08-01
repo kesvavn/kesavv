@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Request = require("../models/Request");
 const auth = require("../middleware/auth");
-
+const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
 const PDFDocument = require("pdfkit");
 const QRCode = require("qrcode");
@@ -32,13 +32,30 @@ router.post("/", auth, async (req, res) => {
       userId: req.user.id,
     });
 
-    await request.save();
+   await request.save();
 
-    res.status(201).json({
-      success: true,
-      message: "Request Submitted Successfully",
-      data: request,
-    });
+
+// Create Notification
+
+await Notification.create({
+
+    title:"New Booking Request",
+
+    message:`${request.fullName} requested ${request.venueName} booking`,
+
+    type:"Booking",
+
+    isRead:false
+
+});
+
+
+res.status(201).json({
+  success: true,
+  message: "Request Submitted Successfully",
+  data: request,
+});
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -476,6 +493,17 @@ router.put("/confirm/:id", async (req, res) => {
   booking._id.toString().slice(-6).toUpperCase();
     await booking.save();
 
+await Notification.create({
+
+    title:"Booking Confirmed",
+
+    message:`${booking.fullName} booking confirmed for ${booking.venueName}`,
+
+    type:"Confirmation",
+
+    isRead:false
+
+});
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: booking.email,

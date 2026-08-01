@@ -152,49 +152,84 @@ doc.moveDown();
 
 
 
-const gst =
-payment.totalAmount * 0.18;
+// =============================
+// PAYMENT DETAILS
+// =============================
 
+doc
+  .fontSize(14)
+  .fillColor("black")
+  .text("Payment Details", {
+    underline: true,
+  });
 
-const grandTotal =
-payment.totalAmount + gst;
+doc.moveDown(0.8);
 
+const gst = payment.totalAmount * 0.18;
+const grandTotal = payment.totalAmount + gst;
 
-
-doc.text(
-`Sub Total : ₹ ${payment.totalAmount}`
-);
-
-
-doc.text(
-`GST 18% : ₹ ${gst.toFixed(2)}`
-);
-
-
-doc.text(
-`Grand Total : ₹ ${grandTotal.toFixed(2)}`
-);
-
+doc.fontSize(12);
 
 doc.text(
-`Advance : ₹ ${payment.advanceAmount}`
+  `Sub Total        : Rs. ${Number(payment.totalAmount).toLocaleString()}`
 );
-
+doc.moveDown(0.3);
 
 doc.text(
-`Balance : ₹ ${payment.balanceAmount}`
+  `GST (18%)        : Rs. ${gst.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`
 );
-
+doc.moveDown(0.3);
 
 doc.text(
-`Payment Method : ${payment.paymentMethod}`
+  `Grand Total      : Rs. ${grandTotal.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`
 );
-
+doc.moveDown(0.3);
 
 doc.text(
-`Status : ${payment.paymentStatus}`
+  `Advance Paid     : Rs. ${Number(payment.advanceAmount).toLocaleString()}`
 );
+doc.moveDown(0.3);
 
+doc.text(
+  `Balance Amount   : Rs. ${Number(payment.balanceAmount).toLocaleString()}`
+);
+doc.moveDown(0.3);
+
+doc.text(
+  `Payment Method   : ${payment.paymentMethod}`
+);
+doc.moveDown(0.3);
+
+// Payment Status Color
+let statusColor = "red";
+
+if (payment.paymentStatus === "Paid") {
+  statusColor = "green";
+} else if (payment.paymentStatus === "Partial") {
+  statusColor = "orange";
+}
+
+doc
+  .fillColor(statusColor)
+  .text(`Payment Status   : ${payment.paymentStatus}`);
+
+doc.fillColor("black");
+
+doc.moveDown(1);
+
+// Divider Line
+doc
+  .moveTo(50, doc.y)
+  .lineTo(545, doc.y)
+  .stroke();
+
+doc.moveDown(2);
 
 
 doc.moveDown(3);
@@ -209,17 +244,13 @@ __dirname,
 );
 
 
-doc.text(
-"Authorized Signature"
-);
+doc.moveDown(2);
 
+doc.text("Authorized Signature", 400);
 
-doc.image(
-signaturePath,
-{
-width:100
-}
-);
+doc.image(signaturePath, 400, doc.y + 5, {
+  width: 100,
+});
 
 
 

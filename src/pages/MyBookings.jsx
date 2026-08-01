@@ -117,6 +117,50 @@ function MyBookings() {
               </p>
 
               <h4>₹ {item.totalPrice?.toLocaleString()}</h4>
+              <hr />
+
+<h4>Payment Details</h4>
+
+<p>
+  <strong>Payment Status:</strong>{" "}
+  <span
+    className={`badge ${
+      item.paymentStatus === "Paid"
+        ? "bg-success"
+        : item.paymentStatus === "Partial"
+        ? "bg-warning text-dark"
+        : "bg-danger"
+    }`}
+  >
+    {item.paymentStatus || "Pending"}
+  </span>
+</p>
+
+<p>
+  <strong>Payment Method:</strong> {item.paymentMethod || "-"}
+</p>
+
+<p>
+  <strong>Advance Paid:</strong> ₹ {item.advanceAmount?.toLocaleString() || 0}
+</p>
+
+<p>
+  <strong>Balance Amount:</strong> ₹ {item.balanceAmount?.toLocaleString() || 0}
+</p>
+
+{item.paymentId && (
+  <button
+    className="btn btn-primary mt-3"
+    onClick={() =>
+      window.open(
+        `http://localhost:5000/api/payments/receipt/${item.paymentId}`,
+        "_blank"
+      )
+    }
+  >
+    Download Receipt
+  </button>
+)}
 
             </div>
 

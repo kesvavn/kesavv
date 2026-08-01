@@ -22,6 +22,8 @@ const adminRoutes = require("./routes/adminRoutes");
 const pricingRoutes = require("./routes/pricingRoutes");
 const availabilityRoutes = require("./routes/availabilityRoutes");
 const paymentRoutes = require("./routes/paymentsRoutes");
+app.use("/api/requests", require("./routes/requestRoutes"));
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const auth = require("./middleware/auth");
 
@@ -117,8 +119,15 @@ app.use("/api/payments", paymentRoutes);
 //availabile
 app.use("/api/availability",availabilityRoutes);
 
-// Test
+//reports
+app.use("/api/reports", require("./routes/reportsRoutes"));
 
+//notifications
+app.use(
+"/api/notifications",
+notificationRoutes
+);
+// Test
 app.get("/",(req,res)=>{
 res.send("Backend Running");
 });

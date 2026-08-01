@@ -298,15 +298,19 @@ variant="danger"
 
 size="sm"
 
-onClick={()=>deleteImage(
+onClick={()=>{
+console.log("VENUE ID:",v._id);
+console.log("IMAGE DATA:",img);
+
+deleteImage(
 v._id,
 img._id
-)}
+);
+
+}}
 
 >
-
 Delete
-
 </Button>
 
 

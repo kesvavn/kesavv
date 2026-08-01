@@ -140,17 +140,13 @@ router.delete("/:venueId/:imageId", async(req,res)=>{
             venue.gallery
         );
 
+        console.log("IMAGE ID:", imageId);
+console.log("GALLERY:", venue.gallery);
 
-
-        venue.gallery = venue.gallery.filter(
-
-            (img)=>
-
-            img._id.toString() !== imageId
-
-        );
-
-
+venue.gallery = venue.gallery.filter(
+(img)=>
+String(img._id) !== String(imageId)
+);
 
         console.log(
 

@@ -728,29 +728,23 @@ onChange={handleChange}
 />
 
 <Form.Group className="mb-3">
-
   <Form.Label>
     Google Map Embed URL
   </Form.Label>
 
   <Form.Control
-
+    as="textarea"
+    rows={4}
     className="mb-2"
-
     placeholder="Paste Google Map Embed URL"
-
     name="map"
-
-    value={venue.map}
-
+    value={venue.map || ""}
     onChange={handleChange}
-
   />
 
   <small className="text-muted">
     Google Maps → Share → Embed a map
   </small>
-
 </Form.Group>
 
 
