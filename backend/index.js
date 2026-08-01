@@ -24,6 +24,9 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 const paymentRoutes = require("./routes/paymentsRoutes");
 app.use("/api/requests", require("./routes/requestRoutes"));
 const notificationRoutes = require("./routes/notificationRoutes");
+const photoRoutes = require("./routes/photoRoutes");
+
+
 
 const auth = require("./middleware/auth");
 
@@ -59,6 +62,7 @@ path.join(__dirname,"uploads")
 );
 
 
+
 // API Routes
 
 
@@ -73,7 +77,19 @@ app.use(
 venueRoutes
 );
 
+//photos
+app.use(
+"/api/photos",
+photoRoutes
+);
 
+//uploads
+app.use(
+"/uploads",
+express.static("uploads")
+);
+
+//gallery
 app.use(
 "/api/gallery",
 galleryRoutes

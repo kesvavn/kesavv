@@ -16,31 +16,44 @@ const API="http://localhost:5000";
 function Gallery(){
 
 
-const [venues,setVenues]=useState([]);
+const [photos,setPhotos]=useState([]);
 
-const [selected,setSelected]=useState("");
+
+const [form,setForm]=useState({
+
+category:"wedding",
+title:"",
+description:""
+
+});
+
 
 const [images,setImages]=useState([]);
 
 
 
+
+// GET PHOTOS
+
 useEffect(()=>{
 
-getVenues();
+getPhotos();
 
 },[]);
 
 
 
-const getVenues=async()=>{
+const getPhotos=async()=>{
 
 try{
 
 const res=await axios.get(
-`${API}/api/venues`
+`${API}/api/photos`
 );
 
-setVenues(res.data);
+
+setPhotos(res.data);
+
 
 }
 catch(err){
@@ -53,34 +66,33 @@ console.log(err);
 
 
 
-// UPLOAD
-
-const uploadGallery=async()=>{
 
 
-if(!selected){
 
-alert("Select Venue");
-return;
+// UPLOAD MULTIPLE PHOTOS
 
-}
+const uploadPhoto=async()=>{
 
 
 if(images.length===0){
 
 alert("Select Images");
+
 return;
 
 }
 
 
-const formData=new FormData();
+
+const data=new FormData();
 
 
+
+// multiple images
 
 for(let img of images){
 
-formData.append(
+data.append(
 "images",
 img
 );
@@ -89,32 +101,62 @@ img
 
 
 
-try{
+data.append(
+"category",
+form.category
+);
 
 
-await axios.post(
-`${API}/api/gallery/${selected}`,
-formData
+data.append(
+"title",
+form.title
+);
+
+
+data.append(
+"description",
+form.description
 );
 
 
 
-alert("Gallery Uploaded");
+
+
+try{
+
+
+const res=await axios.post(
+
+`${API}/api/photos/upload`,
+
+data
+
+);
+
+
+
+alert(
+res.data.message || "Photos Uploaded"
+);
+
 
 
 setImages([]);
 
 
-getVenues();
+getPhotos();
 
 
 
 }
 catch(err){
 
-console.log(err);
+console.log(
+err.response?.data || err.message
+);
 
 }
+
 
 
 };
@@ -122,41 +164,33 @@ console.log(err);
 
 
 
-// DELETE
-
-const deleteImage=async(
-venueId,
-imageId
-)=>{
 
 
-console.log(
-"venue",
-venueId
-);
 
 
-console.log(
-"image",
-imageId
-);
+// DELETE PHOTO
 
+const deletePhoto=async(id)=>{
 
 
 try{
 
 
 const res=await axios.delete(
-`${API}/api/gallery/${venueId}/${imageId}`
+
+`${API}/api/photos/${id}`
+
 );
 
 
 
-alert(res.data.message);
+alert(
+res.data.message
+);
 
 
 
-getVenues();
+getPhotos();
 
 
 
@@ -175,42 +209,67 @@ err.response?.data || err.message
 
 
 
+
+
+
 return(
+
 
 <div>
 
 
+<h3>
+Gallery Upload
+</h3>
+
+
+
+
+
 <Form.Select
 
-value={selected}
+className="mt-3"
+
+value={form.category}
 
 onChange={(e)=>
-setSelected(e.target.value)
+
+setForm({
+
+...form,
+
+category:e.target.value
+
+})
+
 }
 
 >
 
 
-<option>
-Select Venue
+<option value="wedding">
+Wedding
 </option>
 
 
-{
-venues.map(v=>(
-
-<option
-key={v._id}
-value={v._id}
->
-
-{v.title}
-
+<option value="corporate">
+Corporate
 </option>
 
-))
 
-}
+<option value="music">
+Music
+</option>
+
+
+<option value="private">
+Private Party
+</option>
+
+
+<option value="other">
+Other
+</option>
 
 
 </Form.Select>
@@ -219,19 +278,87 @@ value={v._id}
 
 
 
+
+
 <Form.Control
+
+className="mt-3"
+
+type="text"
+
+placeholder="Title"
+
+value={form.title}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+title:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+
+
+
+
+<Form.Control
+
+className="mt-3"
+
+type="text"
+
+placeholder="Description"
+
+value={form.description}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+description:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+
+
+
+
+
+<Form.Control
+
+className="mt-3"
 
 type="file"
 
 multiple
 
-className="mt-3"
-
 onChange={(e)=>
+
 setImages(e.target.files)
+
 }
 
 />
+
+
+
 
 
 
@@ -240,7 +367,7 @@ setImages(e.target.files)
 
 className="mt-3"
 
-onClick={uploadGallery}
+onClick={uploadPhoto}
 
 >
 
@@ -252,44 +379,72 @@ Upload Images
 
 
 
+
+
+
+
 <Row className="mt-4">
 
 
 {
 
-venues.map(v=>(
-
-v.gallery?.map(img=>(
+photos.map(photo=>(
 
 
-<Col md={3}
+<Col
+
+md={3}
 
 className="mb-4"
 
-key={img._id}
+key={photo._id}
 
 >
 
 
+
 <Card>
+
 
 
 <Card.Img
 
 variant="top"
 
-src={`${API}${img.url}`}
+src={`${API}${photo.image}`}
 
 height="180"
 
 style={{
+
 objectFit:"cover"
+
 }}
 
 />
 
 
+
+
+
 <Card.Body>
+
+
+<h6>
+
+{photo.title}
+
+</h6>
+
+
+
+<p>
+
+{photo.category}
+
+</p>
+
+
 
 
 <Button
@@ -298,32 +453,27 @@ variant="danger"
 
 size="sm"
 
-onClick={()=>{
-console.log("VENUE ID:",v._id);
-console.log("IMAGE DATA:",img);
-
-deleteImage(
-v._id,
-img._id
-);
-
-}}
+onClick={()=>deletePhoto(photo._id)}
 
 >
+
 Delete
+
 </Button>
+
 
 
 </Card.Body>
 
 
+
 </Card>
+
 
 
 </Col>
 
 
-))
 
 ))
 
@@ -331,7 +481,10 @@ Delete
 }
 
 
+
 </Row>
+
+
 
 
 </div>
