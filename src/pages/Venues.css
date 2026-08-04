@@ -369,6 +369,7 @@ flex-direction:column;
     color:white;
     transform:translateY(-2px);
 }
+
 /* =========================
  LOGIN / REGISTER MODAL
 ========================= */
@@ -475,10 +476,7 @@ flex-direction:column;
 
     padding:20px;
 
-}
-
-
-}
+}}
 
 /* =========================
    320px - Small Mobile

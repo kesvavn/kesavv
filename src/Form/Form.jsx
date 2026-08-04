@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
+import ReviewForm from "../Form/ReviewForm";
 
 const Form = ({venue}) => {
   const [pricing,setPricing] = useState([]);
 const [policies,setPolicies] = useState([]);
-
+const [showReview,setShowReview] = useState(false);
 const [disabledDates, setDisabledDates] = useState([]);
 
   const navigate = useNavigate();
@@ -406,7 +407,7 @@ Authorization:`Bearer ${token}`
 alert("Booking Request Submitted Successfully");
 
 
-navigate("/my-bookings");
+setShowReview(true);
 
 
 }
@@ -1294,8 +1295,38 @@ Custom Cake
 
 
 </div>
+{
+showReview && (
 
-      </form>
+<div className="review-section">
+
+<h3>
+Share Your Experience
+</h3>
+
+<ReviewForm />
+
+</div>
+
+)
+}
+    </form>
+
+
+{
+showReview && (
+<div className="review-box">
+
+<h3>
+Thank you for your booking 🎉
+</h3>
+
+<ReviewForm />
+
+</div>
+)
+}
+
     </div>
   );
 };

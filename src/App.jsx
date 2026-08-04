@@ -27,6 +27,7 @@ import PhotoGallery from "./components/gallery/PhotoGallery";
 import VideoGallery from "./components/gallery/VideoGallery";
 import ShortsGallery from "./components/gallery/ShortsGallery";
 import WeddingAlbums from "./components/gallery/WeddingAlbums";
+import AlbumDetails from "./components/gallery/AlbumDetails";
 import Blogs from "./components/about/Blogs";
 import Test from "./components/about/Test";
 import Footer from "./pages/Footer";
@@ -125,6 +126,7 @@ function App() {
           path="/Wedding-Albums"
           element={<WeddingAlbums />}
         />
+        <Route path="/wedding-album/:album" element={<AlbumDetails />} />
 
         {/* VENUE ROUTES 
         <Route

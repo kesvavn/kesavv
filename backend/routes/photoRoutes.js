@@ -64,6 +64,8 @@ const photos=req.files.map((file)=>({
 
 category:req.body.category,
 
+album:req.body.album,
+
 image:"/uploads/"+file.filename,
 
 title:req.body.title,
@@ -144,7 +146,65 @@ message:error.message
 
 });
 
+//albums
+router.get("/albums",async(req,res)=>{
 
+try{
 
+const albums=await Photo.aggregate([
+
+{
+$match:{
+category:"wedding"
+}
+},
+
+{
+$group:{
+_id:"$album",
+coverImage:{
+$first:"$image"
+},
+count:{
+$sum:1
+}
+}
+},
+
+{
+$sort:{
+_id:1
+}
+}
+
+]);
+
+res.json(albums);
+
+}
+catch(error){
+
+res.status(500).json({
+message:error.message
+});
+
+}
+
+});
+
+// GET PHOTOS BY ALBUM
+router.get("/album/:album", async (req, res) => {
+  try {
+    const photos = await Photo.find({
+      album: req.params.album,
+    }).sort({ createdAt: -1 });
+
+    res.json(photos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 
 module.exports=router;

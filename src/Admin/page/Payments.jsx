@@ -3,6 +3,7 @@ import axios from "axios";
 import PaymentModal from "../Component/PaymentModal";
 
 function Payments() {
+  const [search, setSearch] = useState("");
   const [payments, setPayments] = useState([]);
   const [showModal, setShowModal] = useState(false);
 const [selectedPayment, setSelectedPayment] = useState(null);
@@ -53,6 +54,16 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
         <div className="card-body">
 
+          <div className="mb-3">
+  <input
+    type="text"
+    className="form-control"
+    placeholder="Search by Invoice or Customer..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
+
           <table className="table table-bordered table-hover align-middle">
 
             <thead className="table-dark">
@@ -73,7 +84,12 @@ const [selectedPayment, setSelectedPayment] = useState(null);
             <tbody>
 
               {payments.length > 0 ? (
-                payments.map((item) => (
+                payments
+  .filter((item) =>
+    item.customerName.toLowerCase().includes(search.toLowerCase()) ||
+    item.invoiceNumber.toLowerCase().includes(search.toLowerCase())
+  )
+  .map((item) => (
 
                   <tr key={item._id}>
 
@@ -94,20 +110,18 @@ const [selectedPayment, setSelectedPayment] = useState(null);
                     <td>
                       <span
                         className={`badge ${
-                          item.paymentStatus === "Paid"
-                            ? "bg-success"
-                            : item.paymentStatus === "Partial"
-                            ? "bg-warning text-dark"
-                            : "bg-danger"
-                        }`}
+  item.paymentStatus === "Paid"
+    ? "bg-success"
+    : item.paymentStatus === "Partial"
+    ? "bg-warning text-dark"
+    : "bg-secondary"
+}`}
                       >
                         {item.paymentStatus}
                       </span>
                     </td>
 
-                    <td>
-                      {new Date(item.paymentDate).toLocaleDateString()}
-                    </td>
+                    <td>{new Date(item.paymentDate).toLocaleDateString("en-IN")} </td>
 
                    <td>
 

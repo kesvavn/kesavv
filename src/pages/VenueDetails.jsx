@@ -280,7 +280,23 @@ console.log("showForm", showForm);
 <Button
 variant="danger"
 className="w-100 mt-3"
-onClick={()=>setShowModal(true)}
+onClick={()=>{
+
+const token = localStorage.getItem("token");
+
+if(token){
+
+setSelectedVenue(venue);
+setShowForm(true);
+
+}
+else{
+
+setShowSidebar(true);
+
+}
+
+}}
 >
 Request Pricing
 </Button>
@@ -370,64 +386,21 @@ Request Pricing
 />
 
 )}
-
-     <Modal
-show={showModal}
-onHide={()=>setShowModal(false)}
+<Modal
+show={showForm}
+onHide={()=>setShowForm(false)}
+size="lg"
 centered
 >
 
 <Modal.Header closeButton>
-
 <Modal.Title>
-Request Pricing
+Request Pricing - {selectedVenue?.title}
 </Modal.Title>
-
 </Modal.Header>
 
 
 <Modal.Body>
-
-
-<Button
-variant="danger"
-className="w-100"
-
-onClick={()=>{
-
-const token = localStorage.getItem("token");
-
-
-if(token){
-
-setSelectedVenue(venue);
-
-setShowModal(false);
-
-setShowForm(true);
-
-}
-else{
-
-setShowModal(false);
-
-setShowSidebar(true);
-
-}
-
-}}
-
->
-
-Continue Request
-
-</Button>
-
-
-</Modal.Body>
-
-</Modal>
-{showForm && (
 
 <PricingForm
 
@@ -439,20 +412,34 @@ venue={selectedVenue}
 
 />
 
-)}
+</Modal.Body>
+
+
+</Modal>
 
 
 
 {showSidebar && (
-
 <LoginSidebar
 
 show={showSidebar}
 
-handleClose={()=>setShowSidebar(false)}
+handleClose={()=>{
+
+setShowSidebar(false);
+
+const token = localStorage.getItem("token");
+
+if(token){
+
+setSelectedVenue(venue);
+setShowForm(true);
+
+}
+
+}}
 
 />
-
 )}
     </Container>
   );

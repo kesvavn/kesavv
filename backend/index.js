@@ -22,9 +22,9 @@ const adminRoutes = require("./routes/adminRoutes");
 const pricingRoutes = require("./routes/pricingRoutes");
 const availabilityRoutes = require("./routes/availabilityRoutes");
 const paymentRoutes = require("./routes/paymentsRoutes");
-app.use("/api/requests", require("./routes/requestRoutes"));
 const notificationRoutes = require("./routes/notificationRoutes");
 const photoRoutes = require("./routes/photoRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 
 
@@ -95,40 +95,48 @@ app.use(
 galleryRoutes
 );
 
-
+//cancellation policies
 app.use(
 "/api/cancellation-policies",
 cancellationPolicyRoutes
 );
 
+//reviews
+app.use(
+"/api/reviews",
+reviewRoutes
+);
 
+//contact
 app.use(
 "/api/contact",
 contactRoutes
 );
 
-
+//requests
 app.use(
 "/api/requests",
 requestRoutes
 );
 
-
+//auth
 app.use(
 "/api/auth",
 authRoutes
 );
 
-
+// admin
 app.use(
 "/api/admin",
 adminRoutes
 );
 
+//pricing
 app.use(
 "/api/pricing",
 pricingRoutes
 );
+
 //payment
 app.use("/api/payments", paymentRoutes);
 

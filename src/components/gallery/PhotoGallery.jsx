@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
 
@@ -11,15 +12,31 @@ const API="http://localhost:5000";
 
 function PhotoGallery() {
 
+const [currentImages,setCurrentImages] = useState([]);
+const [currentIndex,setCurrentIndex] = useState(0);
+const [selectedImage,setSelectedImage] = useState(null);
+const [albums, setAlbums] = useState([]);
 
 const [galleryData,setGalleryData]=useState({});
 
 const [activeTab,setActiveTab]=useState("wedding");
 
+//albums
+const getAlbums = async () => {
+  try {
+    const res = await axios.get(`${API}/api/photos/albums`);
+    setAlbums(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+
+
+//photos
 
 useEffect(()=>{
-
+getAlbums();
 
 const getPhotos=async()=>{
 
@@ -36,8 +53,14 @@ const res=await axios.get(
 const data={};
 
 
-
 res.data.forEach((photo)=>{
+
+
+// album photos exclude
+if(photo.album){
+    return;
+}
+
 
 
 if(!data[photo.category]){
@@ -49,15 +72,12 @@ data[photo.category]=[];
 
 
 data[photo.category].push(
-
 `${API}${photo.image}`
-
 );
 
 
 
 });
-
 
 
 setGalleryData(data);
@@ -70,11 +90,7 @@ catch(error){
 console.log(error);
 
 }
-
-
 };
-
-
 
 getPhotos();
 
@@ -131,6 +147,45 @@ Melodia® Events always prioritizes the satisfaction of our clients in Kerala. W
 
 </div>
 
+<h3 className="text-center mb-4">
+  Wedding Albums
+</h3>
+
+<Row className="mb-5">
+
+  {albums.map((album) => (
+
+    <Col lg={4} md={6} key={album._id}>
+
+      <Link
+        to={`/wedding-album/${encodeURIComponent(album._id)}`}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+
+        <div className="gallery-card">
+
+          <img
+            src={`${API}${album.coverImage}`}
+            alt={album._id}
+          />
+
+          <div className="p-3 text-center">
+
+            <h5>{album._id}</h5>
+
+            <p>{album.count} Photos</p>
+
+          </div>
+
+        </div>
+
+      </Link>
+
+    </Col>
+
+  ))}
+
+</Row>
 
 
 
@@ -273,11 +328,20 @@ key={index}
 
 
 <img
-
 src={img}
-
 alt="gallery"
 
+onClick={()=>{
+
+setCurrentImages(galleryData[activeTab]);
+
+setCurrentIndex(index);
+
+setSelectedImage(img);
+
+}}
+
+style={{cursor:"pointer"}}
 />
 
 
@@ -299,8 +363,99 @@ alt="gallery"
 </Row>
 
 
+{
+selectedImage && (
+
+<div className="lightbox">
 
 
+{/* Close Button */}
+
+<button
+className="close-btn"
+onClick={()=>setSelectedImage(null)}
+>
+✕
+</button>
+
+
+
+{/* Previous Button */}
+
+<button
+
+className="arrow left"
+
+onClick={()=>{
+
+const newIndex =
+(currentIndex - 1 + currentImages.length)
+% currentImages.length;
+
+
+setCurrentIndex(newIndex);
+
+setSelectedImage(
+currentImages[newIndex]
+);
+
+}}
+
+>
+
+❮
+
+</button>
+
+
+
+
+
+<img
+src={selectedImage}
+alt="preview"
+/>
+
+
+
+
+
+{/* Next Button */}
+
+<button
+
+className="arrow right"
+
+onClick={()=>{
+
+
+const newIndex =
+(currentIndex + 1)
+% currentImages.length;
+
+
+setCurrentIndex(newIndex);
+
+
+setSelectedImage(
+currentImages[newIndex]
+);
+
+
+}}
+
+>
+
+❯
+
+</button>
+
+
+
+</div>
+
+)
+}
 </Container>
 
 

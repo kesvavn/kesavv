@@ -10,6 +10,11 @@ const photoSchema = new mongoose.Schema({
         trim:true
     },
 
+ album:{
+        type:String,
+        required:true,
+        trim:true
+    },
 
     image:{
         type:String,

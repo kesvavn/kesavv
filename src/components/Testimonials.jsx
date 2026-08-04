@@ -1,5 +1,5 @@
 import "./Testimonials.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,42 +8,41 @@ import { Autoplay, Navigation } from "swiper/modules";
 import VerifiedTick from "./events/ti-verified.svg";
 import GoogleLogo from "./events/icon.svg";
 import DividerImg from "../images/58cb37cd-b70a-4c5b-b8f9-4fc4d20bd3a0.svg";
+import axios from "axios";
 
 function Testimonials() {
-  const [expanded, setExpanded] = useState({});
+ const [expanded,setExpanded] = useState({});
+const [data,setData] = useState([]);
 
-  const data = [
-    {
-      text: "This is best event management in Kerala. Our wedding event was amazing with this company. We are very happy with this group.",
-      name: "Ashik Ch",
-      time: "2 years ago",
-      initial: "A",
-    },
-    {
-      text: "In my point of view best event management in Thrissur and very good wedding planner in Kerala.",
-      name: "PINDIYAN ANTONY",
-      time: "3 years ago",
-      initial: "P",
-    },
-    {
-      text: "Very good event management company Kerala. We had a wedding last year. The wedding was wonderful in Thrissur.",
-      name: "Saleena Devassy",
-      time: "3 years ago",
-      initial: "S",
-    },
-    {
-      text: "Melodia Events is very good event management in Thrissur. My daughter's wedding was amazing with this company.",
-      name: "Peter K P",
-      time: "3 years ago",
-      initial: "P",
-    },
-    {
-      text: "Very good event management company. Good team management and coordination.",
-      name: "Pushpa P L",
-      time: "3 years ago",
-      initial: "P",
-    },
-  ];
+
+  useEffect(()=>{
+
+axios
+.get("http://localhost:5000/api/reviews")
+.then((res)=>{
+
+
+const reviewData = res.data.map((item)=>({
+
+...item,
+
+initial:item.name.charAt(0)
+
+}));
+
+
+setData(reviewData);
+
+
+})
+.catch((err)=>{
+
+console.log(err);
+
+});
+
+
+},[]);
 
   const toggleReadMore = (index) => {
     setExpanded((prev) => ({
@@ -93,58 +92,86 @@ function Testimonials() {
               }}
               className="testimonial-swiper"
             >
-              {data.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="testimonial-card">
-                    <div className="top">
-                      <div className="stars">
-                        ★★★★★
-                        <img
-                          src={VerifiedTick}
-                          alt="Verified"
-                          className="review-tick-img"
-                        />
-                      </div>
+              {data.map((item,index)=>(
 
-                      <div className="google">
-                        <img
-                          src={GoogleLogo}
-                          alt="Google"
-                        />
-                      </div>
-                    </div>
+<SwiperSlide key={index}>
 
-                    <p className="text">
-                      {expanded[index]
-                        ? item.text
-                        : `${item.text.slice(0, 100)}...`}
-                    </p>
+<div className="testimonial-card">
 
-                    <button
-                      className="read-more"
-                      onClick={() => toggleReadMore(index)}
-                    >
-                      {expanded[index]
-                        ? "Read Less"
-                        : "Read More"}
-                    </button>
 
-                    <div className="user">
-                      <div className="avatar">
-                        {item.initial}
-                      </div>
+<div className="stars">
 
-                      <div>
-                        <h4 className="user-name">
-                          {item.name}
-                        </h4>
+{"★".repeat(item.rating)}
 
-                        <span>{item.time}</span>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
+<img
+src={VerifiedTick}
+className="review-tick-img"
+/>
+
+</div>
+
+
+<p className="text">
+
+{
+expanded[index]
+?
+item.text
+:
+item.text.length > 100
+?
+item.text.slice(0,100)+"..."
+:
+item.text
+}
+
+</p>
+
+
+<button
+className="read-more"
+onClick={()=>toggleReadMore(index)}
+>
+
+{
+expanded[index]
+?
+"Read Less"
+:
+"Read More"
+}
+
+</button>
+
+
+<div className="user">
+
+<div className="avatar">
+{item.initial}
+</div>
+
+
+<div>
+
+<h4>
+{item.name}
+</h4>
+
+<span>
+{item.time}
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</SwiperSlide>
+
+))}
             </Swiper>
           </Col>
         </Row>

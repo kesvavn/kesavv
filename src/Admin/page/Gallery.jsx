@@ -17,16 +17,14 @@ function Gallery(){
 
 
 const [photos,setPhotos]=useState([]);
+const [selectedImage,setSelectedImage] = useState(null);
 
-
-const [form,setForm]=useState({
-
-category:"wedding",
-title:"",
-description:""
-
+const [form, setForm] = useState({
+  category: "wedding",
+  album: "",
+  title: "",
+  description: "",
 });
-
 
 const [images,setImages]=useState([]);
 
@@ -68,10 +66,7 @@ console.log(err);
 
 
 
-
-// UPLOAD MULTIPLE PHOTOS
-
-const uploadPhoto=async()=>{
+const uploadPhoto = async()=>{
 
 
 if(images.length===0){
@@ -84,59 +79,50 @@ return;
 
 
 
-const data=new FormData();
+const data = new FormData();
+
+
+
+data.append("category", form.category);
+data.append("album", form.album);
+data.append("title", form.title);
+data.append("description", form.description);
 
 
 
 // multiple images
-
-for(let img of images){
+for(let i=0;i<images.length;i++){
 
 data.append(
 "images",
-img
+images[i]
 );
 
 }
 
 
 
-data.append(
-"category",
-form.category
-);
-
-
-data.append(
-"title",
-form.title
-);
-
-
-data.append(
-"description",
-form.description
-);
-
-
-
-
-
 try{
 
 
-const res=await axios.post(
+const res = await axios.post(
 
 `${API}/api/photos/upload`,
 
-data
+data,
+
+{
+headers:{
+"Content-Type":"multipart/form-data"
+}
+}
 
 );
 
 
 
 alert(
-res.data.message || "Photos Uploaded"
+res.data.message
 );
 
 
@@ -158,9 +144,7 @@ err.response?.data || err.message
 }
 
 
-
 };
-
 
 
 
@@ -277,7 +261,18 @@ Other
 
 
 
-
+<Form.Control
+  className="mt-3"
+  type="text"
+  placeholder="Album Name (Example: Rahul & Priya Wedding)"
+  value={form.album}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      album: e.target.value,
+    })
+  }
+/>
 
 
 <Form.Control
@@ -359,10 +354,6 @@ setImages(e.target.files)
 
 
 
-
-
-
-
 <Button
 
 className="mt-3"
@@ -374,9 +365,6 @@ onClick={uploadPhoto}
 Upload Images
 
 </Button>
-
-
-
 
 
 
@@ -436,6 +424,9 @@ objectFit:"cover"
 
 </h6>
 
+<p className="text-primary fw-bold">
+  {photo.album}
+</p>
 
 
 <p>
@@ -483,8 +474,6 @@ Delete
 
 
 </Row>
-
-
 
 
 </div>
