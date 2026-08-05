@@ -25,6 +25,9 @@ const paymentRoutes = require("./routes/paymentsRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const photoRoutes = require("./routes/photoRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+import privatePartyRoutes from "./routes/privatePartyRoutes.js";
+
+
 
 
 
@@ -106,6 +109,10 @@ app.use(
 "/api/reviews",
 reviewRoutes
 );
+
+//services 
+//private parties
+app.use("/api/private-parties", privatePartyRoutes);
 
 //contact
 app.use(

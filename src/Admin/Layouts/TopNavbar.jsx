@@ -20,6 +20,8 @@ const [darkMode,setDarkMode] = useState(false);
 
 const [notificationCount,setNotificationCount]=useState(0);
 
+const [mailCount,setMailCount]=useState(0);
+
 
 const navigate = useNavigate();
 
@@ -37,10 +39,13 @@ const today = new Date().toLocaleDateString("en-IN", {
 useEffect(()=>{
 
 getNotificationCount();
+getMailCount();
 
 },[]);
 
 
+
+// Notification Count
 
 const getNotificationCount = async()=>{
 
@@ -53,7 +58,6 @@ const res = await fetch(
 
 const data = await res.json();
 
-
 setNotificationCount(data.count);
 
 
@@ -64,8 +68,34 @@ console.log(error);
 
 }
 
+};
+
+
+
+// Mail Count
+
+const getMailCount = async()=>{
+
+try{
+
+const res = await fetch(
+"http://localhost:5000/api/mails/count"
+);
+
+
+const data = await res.json();
+
+setMailCount(data.count);
+
 
 }
+catch(error){
+
+console.log(error);
+
+}
+
+};
 
 
 
@@ -79,7 +109,6 @@ return (
 
 
 <FaBars className="menu-icon"/>
-
 
 
 <div className="search-box">
@@ -131,13 +160,28 @@ darkMode ?
 
 
 
-<div className="icon-box">
+
+{/* MAIL */}
+
+<div 
+className="icon-box"
+onClick={()=>navigate("/admin/mail")}
+>
 
 <FaEnvelope/>
 
+
+{
+mailCount > 0 &&
+
 <span className="badge">
-3
+
+{mailCount}
+
 </span>
+
+}
+
 
 </div>
 
@@ -145,6 +189,8 @@ darkMode ?
 
 
 
+
+{/* NOTIFICATION */}
 
 <div 
 className="icon-box"

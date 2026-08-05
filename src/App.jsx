@@ -53,11 +53,11 @@ import GalleryAdmin from "./Admin/page/Gallery";
 import Venue from "./Admin/page/Venue";
 import Availability from "./Admin/page/Availability";
 import CancellationPolicy from "./Admin/page/CancellationPolicy";
-import Packages from "./Admin/page/Packages";
 import Payments from "./Admin/page/Payments";
 import Pricing from "./Admin/page/Pricing";
 import Reports from "./Admin/page/Reports";
 import Notifications from "./Admin/page/Notifications";
+import AdminMail from "./Admin/page/AdminMail";
 import Settings from "./Admin/page/Settings";
 
 import VenueDetails from "./pages/VenueDetails";
@@ -214,12 +214,6 @@ element={<CancellationPolicy />}
 
 
 <Route 
-path="packages" 
-element={<Packages />} 
-/>
-
-
-<Route 
 path="payments" 
 element={<Payments />} 
 />
@@ -242,6 +236,14 @@ path="notifications"
 element={<Notifications />} 
 />
 
+<Route
+ path="/admin/AdminMail"
+ element={
+  <ProtectedRoute>
+    <AdminMail/>
+  </ProtectedRoute>
+ }
+/>
 
 <Route 
 path="settings" 
