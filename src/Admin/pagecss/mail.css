@@ -1,0 +1,29 @@
+.mail-icon{
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+
+.mail-badge{
+  position: absolute;
+  top: -8px;
+  right: -10px;
+
+  background: #ff0000;
+  color: white;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid white;
+}

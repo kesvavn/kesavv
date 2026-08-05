@@ -11,27 +11,26 @@ const app = express();
 
 // Routes
 
-const venueRoutes = require("./routes/venueRoutes");
-const uploadRoutes = require("./routes/uploadRoutes");
-const authRoutes = require("./routes/authRoutes");
-const contactRoutes = require("./routes/ContactRoutes");
-const requestRoutes = require("./routes/requestRoutes");
-const galleryRoutes = require("./routes/galleryRoutes");
-const cancellationPolicyRoutes = require("./routes/cancellationPolicyRoutes");
-const adminRoutes = require("./routes/adminRoutes");
-const pricingRoutes = require("./routes/pricingRoutes");
-const availabilityRoutes = require("./routes/availabilityRoutes");
-const paymentRoutes = require("./routes/paymentsRoutes");
-const notificationRoutes = require("./routes/notificationRoutes");
-const photoRoutes = require("./routes/photoRoutes");
-const reviewRoutes = require("./routes/reviewRoutes");
-import privatePartyRoutes from "./routes/privatePartyRoutes.js";
+const venueRoutes = require("./routes/venueRoutes.js");
+const uploadRoutes = require("./routes/uploadRoutes.js");
+const authRoutes = require("./routes/authRoutes.js");
+const contactRoutes = require("./routes/ContactRoutes.js");
+const requestRoutes = require("./routes/requestRoutes.js");
+const galleryRoutes = require("./routes/galleryRoutes.js");
+const cancellationPolicyRoutes = require("./routes/cancellationPolicyRoutes.js");
+const adminRoutes = require("./routes/adminRoutes.js");
+const pricingRoutes = require("./routes/pricingRoutes.js");
+const availabilityRoutes = require("./routes/availabilityRoutes.js");
+const paymentRoutes = require("./routes/paymentsRoutes.js");
+const notificationRoutes = require("./routes/notificationRoutes.js");
+const photoRoutes = require("./routes/photoRoutes.js");
+const reviewRoutes = require("./routes/reviewRoutes.js");
 
 
 
 
 
-const auth = require("./middleware/auth");
+const auth = require("./middleware/auth.js");
 
 
 // Middleware
@@ -110,9 +109,6 @@ app.use(
 reviewRoutes
 );
 
-//services 
-//private parties
-app.use("/api/private-parties", privatePartyRoutes);
 
 //contact
 app.use(
@@ -151,7 +147,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/availability",availabilityRoutes);
 
 //reports
-app.use("/api/reports", require("./routes/reportsRoutes"));
+app.use("/api/reports", require("./routes/reportsRoutes.js"));
 
 //notifications
 app.use(

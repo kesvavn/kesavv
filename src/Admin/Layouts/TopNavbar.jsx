@@ -165,7 +165,7 @@ darkMode ?
 
 <div 
 className="icon-box"
-onClick={()=>navigate("/admin/mail")}
+onClick={()=>navigate("/admin/AdminMail")}
 >
 
 <FaEnvelope/>
@@ -174,7 +174,7 @@ onClick={()=>navigate("/admin/mail")}
 {
 mailCount > 0 &&
 
-<span className="badge">
+<span className="badge1">
 
 {mailCount}
 

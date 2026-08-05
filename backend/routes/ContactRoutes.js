@@ -49,6 +49,29 @@ router.get("/", async(req,res)=>{
 });
 
 
+// Admin unread message count
+router.get("/count/unread", async(req,res)=>{
+
+  try{
+
+    const count = await Contact.countDocuments({
+      status:"Unread"
+    });
+
+    res.json({
+      count
+    });
+
+  }catch(err){
+
+    res.status(500).json({
+      success:false,
+      message:err.message
+    });
+
+  }
+
+});
 
 // Admin update message status
 router.put("/:id", async(req,res)=>{
@@ -73,6 +96,7 @@ router.put("/:id", async(req,res)=>{
   }
 
 });
+
 
 
 module.exports = router;
