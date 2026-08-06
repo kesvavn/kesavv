@@ -17,20 +17,14 @@ const reviewSchema = new mongoose.Schema(
         default:5
     },
 
-    time:{
-        type:String,
-        default:"Recently"
-    },
-
     status:{
         type:String,
         default:"Approved"
     }
-
 },
 {
     timestamps:true
 });
 
-
 module.exports = mongoose.model("Review", reviewSchema);
+

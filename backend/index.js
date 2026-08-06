@@ -25,7 +25,7 @@ const paymentRoutes = require("./routes/paymentsRoutes.js");
 const notificationRoutes = require("./routes/notificationRoutes.js");
 const photoRoutes = require("./routes/photoRoutes.js");
 const reviewRoutes = require("./routes/reviewRoutes.js");
-
+const settingsRoutes = require("./routes/settingsRoutes");
 
 
 
@@ -85,11 +85,7 @@ app.use(
 photoRoutes
 );
 
-//uploads
-app.use(
-"/uploads",
-express.static("uploads")
-);
+
 
 //gallery
 app.use(
@@ -154,6 +150,10 @@ app.use(
 "/api/notifications",
 notificationRoutes
 );
+
+//settings
+app.use("/api/settings", settingsRoutes);
+
 // Test
 app.get("/",(req,res)=>{
 res.send("Backend Running");

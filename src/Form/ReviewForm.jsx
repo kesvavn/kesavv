@@ -3,8 +3,7 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 
 
-function ReviewForm(){
-
+function ReviewForm({ booking }) {
 const [form,setForm]=useState({
 
 name:"",
@@ -35,8 +34,12 @@ e.preventDefault();
 try{
 
 await axios.post(
-"http://localhost:5000/api/reviews",
-form
+  "http://localhost:5000/api/reviews",
+  {
+    ...form,
+    bookingId: booking._id,
+    venueName: booking.venueName
+  }
 );
 
 

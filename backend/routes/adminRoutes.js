@@ -5,6 +5,7 @@ const Admin = require("../models/Admin");
 
 const router = express.Router();
 
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -21,25 +22,36 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
+
     const token = jwt.sign(
-      { id: admin._id },
+      { 
+        id: admin._id,
+        role: admin.role
+      },
       "SECRET_KEY",
       { expiresIn: "1d" }
     );
 
+
     res.json({
+      success:true,
       message: "Login successful",
       token,
+
       admin: {
+        id: admin._id,
         name: admin.name,
         email: admin.email,
+        role: admin.role || "Administrator"
       },
     });
+
 
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;

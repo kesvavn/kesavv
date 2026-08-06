@@ -687,6 +687,29 @@ router.get("/:id", async (req, res) => {
 });
 
 
+// Delete Customer / Request
+router.delete("/:id", async (req, res) => {
+  try {
+    const request = await Request.findByIdAndDelete(req.params.id);
 
+    if (!request) {
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Customer deleted successfully",
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
 
 module.exports = router;

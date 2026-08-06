@@ -21,9 +21,19 @@ function AdminLogin() {
       }
     );
 
-    localStorage.setItem("adminToken", res.data.token);
+   localStorage.setItem(
+  "adminToken",
+  res.data.token
+);
 
-    navigate("/admin");
+localStorage.setItem(
+  "admin",
+  JSON.stringify(res.data.admin)
+);
+
+navigate("/admin");
+
+
 
   } catch (err) {
     alert(err.response?.data?.message || "Login Failed");
@@ -32,6 +42,8 @@ function AdminLogin() {
 
   return (
     <form onSubmit={handleLogin}>
+     <h1 className="Admin-login-clr"style={{ color: "#674188" }}>Admin Login</h1>
+
       <input
         type="email"
         placeholder="Email"
@@ -45,6 +57,7 @@ function AdminLogin() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      
 
       <button type="submit">Login</button>
     </form>

@@ -56,6 +56,7 @@ import CancellationPolicy from "./Admin/page/CancellationPolicy";
 import Payments from "./Admin/page/Payments";
 import Pricing from "./Admin/page/Pricing";
 import Reports from "./Admin/page/Reports";
+import Reviews from "./Admin/page/Reviews";
 import Notifications from "./Admin/page/Notifications";
 import AdminMail from "./Admin/page/AdminMail";
 import Settings from "./Admin/page/Settings";
@@ -235,6 +236,8 @@ element={<Reports />}
 path="notifications" 
 element={<Notifications />} 
 />
+
+<Route path="/admin/reviews" element={<Reviews />} />
 
 <Route
  path="/admin/AdminMail"

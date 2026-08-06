@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import "./MyBookings.css";
+import ReviewForm from "../Form/ReviewForm";
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
+  const [showReview, setShowReview] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
     getBookings();
@@ -160,14 +164,46 @@ function MyBookings() {
   >
     Download Receipt
   </button>
+
+  
+)}
+{item.status === "Confirmed" && (
+ <button
+  className="btn btn-success mt-2 ms-2"
+  onClick={() => {
+    setSelectedBooking(item);
+    setShowReview(true);
+  }}
+>
+  Write Review
+</button>
 )}
 
             </div>
+            
 
           </div>
         ))
       )}
+      
+      <Modal
+  show={showReview}
+  onHide={() => setShowReview(false)}
+  centered
+  size="lg"
+>
+  <Modal.Header closeButton>
+    <Modal.Title>Share Your Experience</Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+    {selectedBooking && (
+      <ReviewForm booking={selectedBooking} />
+    )}
+  </Modal.Body>
+</Modal>
     </div>
+    
   );
 }
 

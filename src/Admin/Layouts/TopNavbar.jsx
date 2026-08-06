@@ -22,10 +22,25 @@ const [notificationCount,setNotificationCount]=useState(0);
 
 const [mailCount,setMailCount]=useState(0);
 
+//admin data
+const [admin,setAdmin] = useState(null);
 
+
+useEffect(()=>{
+
+const adminData = localStorage.getItem("admin");
+
+if(adminData){
+ setAdmin(JSON.parse(adminData));
+}
+
+getNotificationCount();
+getMailCount();
+
+},[]);
+
+//theme
 const navigate = useNavigate();
-
-
 
 const today = new Date().toLocaleDateString("en-IN", {
     weekday:"long",
@@ -226,14 +241,12 @@ notificationCount > 0 &&
 
 
 <div>
-
 <h6>
-Kesavan
+ {admin?.name || "Admin"}
 </h6>
 
-
 <small>
-Administrator
+ {admin?.role || "Administrator"}
 </small>
 
 

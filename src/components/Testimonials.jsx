@@ -4,11 +4,17 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+
 import { Autoplay, Navigation } from "swiper/modules";
 import VerifiedTick from "./events/ti-verified.svg";
 import GoogleLogo from "./events/icon.svg";
 import DividerImg from "../images/58cb37cd-b70a-4c5b-b8f9-4fc4d20bd3a0.svg";
 import axios from "axios";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 function Testimonials() {
  const [expanded,setExpanded] = useState({});
@@ -99,15 +105,23 @@ console.log(err);
 <div className="testimonial-card">
 
 
-<div className="stars">
+<div className="top">
+  <div className="stars">
+    {"★".repeat(item.rating)}
 
-{"★".repeat(item.rating)}
+    <img
+      src={VerifiedTick}
+      className="review-tick-img"
+      alt="Verified"
+    />
+  </div>
 
-<img
-src={VerifiedTick}
-className="review-tick-img"
-/>
-
+  <div className="google">
+    <img
+      src={GoogleLogo}
+      alt="Google"
+    />
+  </div>
 </div>
 
 
@@ -145,24 +159,19 @@ expanded[index]
 
 
 <div className="user">
+  <div className="avatar">
+    {item.initial.toUpperCase()}
+  </div>
 
-<div className="avatar">
-{item.initial}
-</div>
+  <div>
+    <h4 className="user-name">
+      {item.name}
+    </h4>
 
-
-<div>
-
-<h4>
-{item.name}
-</h4>
-
-<span>
-{item.time}
-</span>
-
-</div>
-
+    <span>
+      {dayjs(item.createdAt).fromNow()}
+    </span>
+  </div>
 </div>
 
 
