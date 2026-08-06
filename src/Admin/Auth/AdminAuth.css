@@ -92,4 +92,64 @@
 }
 
 
-/*register/
+
+
+
+.admin-login-form {
+  width: 380px;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(103,65,136,0.2);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.admin-login-title {
+  text-align: center;
+  color: #674188;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+
+.admin-login-input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 18px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+
+.admin-login-input:focus {
+  border-color: #674188;
+}
+
+
+.admin-login-btn {
+  width: 100%;
+  padding: 13px;
+
+  background: #674188;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.admin-login-btn:hover {
+  background: #512d75;
+}

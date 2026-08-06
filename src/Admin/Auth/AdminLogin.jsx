@@ -10,41 +10,40 @@ function AdminLogin() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await axios.post(
-      "http://localhost:5000/api/admin/login",
-      {
-        email,
-        password,
-      }
-    );
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/admin/login",
+        {
+          email,
+          password,
+        }
+      );
 
-   localStorage.setItem(
-  "adminToken",
-  res.data.token
-);
+      localStorage.setItem("adminToken", res.data.token);
 
-localStorage.setItem(
-  "admin",
-  JSON.stringify(res.data.admin)
-);
+      localStorage.setItem(
+        "admin",
+        JSON.stringify(res.data.admin)
+      );
 
-navigate("/admin");
+      navigate("/admin");
 
-
-
-  } catch (err) {
-    alert(err.response?.data?.message || "Login Failed");
-  }
-};
+    } catch (err) {
+      alert(err.response?.data?.message || "Login Failed");
+    }
+  };
 
   return (
-    <form onSubmit={handleLogin}>
-     <h1 className="Admin-login-clr"style={{ color: "#674188" }}>Admin Login</h1>
+    <form className="admin-login-form" onSubmit={handleLogin}>
+
+      <h1 className="admin-login-title">
+        Admin Login
+      </h1>
 
       <input
+        className="admin-login-input"
         type="email"
         placeholder="Email"
         value={email}
@@ -52,14 +51,17 @@ navigate("/admin");
       />
 
       <input
+        className="admin-login-input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      
 
-      <button type="submit">Login</button>
+      <button className="admin-login-btn" type="submit">
+        Login
+      </button>
+
     </form>
   );
 }
