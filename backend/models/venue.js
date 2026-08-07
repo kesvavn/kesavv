@@ -147,6 +147,36 @@ customPackage:{
 },
 
 
+//Nearby Attractions
+airportDistance: {
+  type: String,
+  default: "",
+},
+
+railwayDistance: {
+  type: String,
+  default: "",
+},
+
+busStandDistance: {
+  type: String,
+  default: "",
+},
+
+beachDistance: {
+  type: String,
+  default: "",
+},
+
+hotelDistance: {
+  type: String,
+  default: "",
+},
+
+hospitalDistance: {
+  type: String,
+  default: "",
+},
 
 
 

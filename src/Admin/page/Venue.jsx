@@ -898,6 +898,14 @@ Name
 </th>
 
 <th>
+AC Rooms
+</th>
+
+<th>
+Non AC Rooms
+</th>
+
+<th>
 Location
 </th>
 
