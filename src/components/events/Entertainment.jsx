@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import "./Events.css";
+import "./event css/entertainment.css";
 import MyNavbar from "../../Navbar";
 import { useEffect } from "react";
 

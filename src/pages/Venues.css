@@ -131,6 +131,7 @@
 }
 
 .filter-bar {
+    color: white;
   position: relative;
   z-index: 9999;
   overflow: visible;

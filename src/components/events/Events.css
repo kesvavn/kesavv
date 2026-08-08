@@ -25,15 +25,7 @@
   position: relative;
   top: -20px;
 }
-.entertainment-bg {
-  background-image: url("./entertainment.webp");
-  background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 85vh;
-  position: relative;
-  top: -20px;
-}
+
 
 
 

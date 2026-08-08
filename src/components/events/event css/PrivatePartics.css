@@ -12,106 +12,321 @@
 }
 
 
-.text-para {
+
+/*private parties section*/
+.private-party-container {
+  max-width: 1120px;
+  margin: auto;
+  padding-top: 30px;
+}
+
+
+/* Main Image */
+
+.private-party-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+
+/* Content */
+
+.private-party-text {
+  color: #333;
+  font-family: "Jost", Sans-serif;
   font-size: 18px;
-  line-height: 1.8;
+  line-height: 1.4em;
+  margin-top: 55px;
+  margin-bottom: 0;
+  text-align: justify;
+  font-weight: 400;
+    
 }
 
 
-h1 {
-      color: #FFF;
-    font-family: "Montserrat", Sans-serif;
-    font-size: 45px;
-    font-weight: 700;
+/* Highlight */
+
+.highlight-text {
+  color: #633b8f;
+  font-weight: 700;
 }
+
+
+/* Section */
+
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+}
+
+.section-subtitle {
+  color: #666;
+  margin-top: 10px;
+}
+
+
+/* Party Card */
 
 .party-card {
   background: #fff;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
   transition: 0.3s;
 }
 
 .party-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0,0,0,.15);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.party-img {
+
+/* Party Image */
+
+.party-image {
   width: 100%;
-  height: 280px;
+  height: 300px;
   object-fit: cover;
 }
 
-.party-card h3 {
-  color: #222;
+
+/* Button */
+
+.party-card .btn-warning {
+  background: #f4b400;
+  border-color: #f4b400;
+  color: white;
+  font-weight: 600;
+  padding: 10px 25px;
 }
 
-.party-card p {
+
+/* =========================================
+   PRIVATE PARTY CARDS
+========================================= */
+
+.private-party-cards-container {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+
+/* CARD */
+
+.private-party-card {
+  width: 100%;
+
+  border: none !important;
+
+  border-radius: 12px !important;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.09);
+
+  transition: all 0.3s ease;
+}
+
+
+/* Hover */
+
+.private-party-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.13);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.private-party-card-image {
+  width: 100%;
+
+  height: 230px;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+
+/* =========================================
+   CARD BODY
+========================================= */
+
+.private-party-card-body {
+  padding: 18px 20px 25px !important;
+
+  background: #ffffff;
+}
+
+
+/* TITLE */
+
+.private-party-card-title {
+  color: #111111 !important;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 17px !important;
+
+  font-weight: 500 !important;
+
+  margin-bottom: 20px !important;
+}
+
+
+/* =========================================
+   BUTTON ROW
+========================================= */
+
+.private-party-buttons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+/* =========================================
+   LEARN MORE
+========================================= */
+
+.learn-more-btn {
+  height: 35px;
+
+  padding: 0 20px !important;
+
+  border: 1px solid #7442a8 !important;
+
+  border-radius: 20px !important;
+
+  background: #ffffff !important;
+
+  color: #7442a8 !important;
+
+  font-size: 13px !important;
+
+  font-weight: 400 !important;
+
+  line-height: 33px;
+
+  transition: all 0.3s ease;
+}
+
+
+.learn-more-btn:hover {
+  background: #7442a8 !important;
+
+  color: #ffffff !important;
+}
+
+
+/* =========================================
+   WHATSAPP BUTTON
+========================================= */
+
+.whatsapp-btn {
+  height: 35px;
+
+  padding: 0 20px !important;
+
+  border: none !important;
+
+  border-radius: 20px !important;
+
+  background: #12c83f !important;
+
+  color: #ffffff !important;
+
+  font-size: 13px !important;
+
+  font-weight: 500 !important;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  white-space: nowrap;
+
+  transition: all 0.3s ease;
+}
+
+
+.whatsapp-btn:hover {
+  background: #0eae36 !important;
+
+  color: #ffffff !important;
+}
+
+
+/* WhatsApp Icon */
+
+.whatsapp-btn i {
   font-size: 15px;
-  line-height: 1.8;
+
+  line-height: 1;
 }
 
-.why-card{
-    background:#fff;
-    border-radius:15px;
-    transition:.3s;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-    height:100%;
-}
 
-.why-card:hover{
-    transform:translateY(-8px);
-}
+/* =========================================
+   TABLET
+========================================= */
 
-.why-icon{
-    font-size:45px;
-    color:#f4b400;
-}
-.gallery-card{
-    overflow:hidden;
-    border-radius:15px;
-    cursor:pointer;
-}
+@media (max-width: 992px) {
 
-.gallery-img{
-    width:100%;
-    height:260px;
-    object-fit:cover;
-    transition:.4s;
-}
-
-.gallery-card:hover .gallery-img{
-    transform:scale(1.08);
-}
-
-.testimonial-card{
-    background:#fff;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-    text-align:center;
-    height:100%;
-    transition:.3s;
-}
-
-.testimonial-card:hover{
-    transform:translateY(-8px);
-}
-
-.testimonial-card p{
-    color:#666;
-    line-height:1.8;
-    margin:20px 0;
-}
-@media(max-width:768px){
-
-  h1 {
-    font-size: 32px;
+  .private-party-card-image {
+    height: 220px;
   }
 
-  .text-para {
-    font-size: 16px;
+  .private-party-card-body {
+    padding: 17px !important;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+
+  .private-party-cards-container {
+    padding: 20px 15px;
+  }
+
+  .private-party-card-image {
+    height: 230px;
+  }
+
+  .private-party-card-title {
+    font-size: 17px !important;
+  }
+
+  .private-party-buttons {
+    gap: 8px;
+  }
+
+  .learn-more-btn {
+    padding: 0 18px !important;
+  }
+
+  .whatsapp-btn {
+    padding: 0 16px !important;
   }
 
 }

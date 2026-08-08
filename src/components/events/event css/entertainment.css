@@ -1,0 +1,28 @@
+.entertainment-bg {
+  background-image: url("../excited-audience-watching-confetti-fireworks-having-fun-music-festival-night-copy-space.webp");
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 85vh;
+  position: relative;
+  top: -20px;
+}
+
+
+.entertainment-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    106deg,
+    rgba(0, 0, 0, 0.85) 10%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  z-index: 1;
+}
+
+.entertainment-bg.container {
+  position: relative;
+  z-index: -2;
+}
