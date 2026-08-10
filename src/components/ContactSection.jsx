@@ -74,11 +74,7 @@ function ContactSection() {
         every client.
       </p>
 
-      <div className="divider">
-        <span></span>
-        ◆
-        <span></span>
-      </div>
+      
       <section className="image-section">
       <Container>
         <Row className="g-4 align-items-center">
