@@ -38,14 +38,14 @@ function CancellationPolicy() {
     try {
       if (editId) {
         await axios.put(
-          `http://localhost:5000/api/cancellation-policy/${editId}`,
+          `http://localhost:5000/api/cancellation-policies/${editId}`,
           formData
         );
 
         alert("Policy Updated Successfully");
       } else {
         await axios.post(
-          "http://localhost:5000/api/cancellation-policy",
+          "http://localhost:5000/api/cancellation-policies",
           formData
         );
 
@@ -70,7 +70,7 @@ function CancellationPolicy() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/cancellation-policy/${id}`
+        `http://localhost:5000/api/cancellation-policies/${id}`
       );
 
       alert("Policy Deleted Successfully");

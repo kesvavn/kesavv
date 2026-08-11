@@ -15,30 +15,28 @@ Badge
 
 
 function Pricing(){
+const categories = [
+  "Venue",
+  "Food",
+  "Room",
+  "Decoration",
+  "Makeup",
+  "Photography",
+  "Videography",
+  "Music & Entertainment",
 
-const categories=[
-"Venue",
-"Food",
-"Room",
-"Decoration",
-"Makeup",
-"Photography",
-"Videography",
-"DJ & Music",
+  // Corporate
+  "Stage Setup",
+  "Sound System",
+  "LED Screen",
 
-// Corporate
-"Stage Setup",
-"Sound System",
-"LED Screen",
+  // Birthday / Party
+  "Cake",
+  "Birthday Decoration",
 
-// Birthday / Party
-"Cake",
-"Birthday Decoration",
-
-"GST",
-"Discount"
+  "GST",
+  "Discount"
 ];
-
 const [pricing,setPricing]=useState([]);
 
 const [show,setShow]=useState(false);
@@ -485,15 +483,11 @@ filteredPricing.map((item)=>(
 
 </td>
 
-
-
 <td>
 
 {item.unit}
 
 </td>
-
-
 
 <td>
 
@@ -525,8 +519,6 @@ item.status?
 
 
 </td>
-
-
 
 
 <td>
@@ -683,22 +675,40 @@ categories.map((cat)=>(
 
 <Form.Group className="mb-3">
 
+  <Form.Label>
+    Title
+  </Form.Label>
 
-<Form.Label>
-Title
-</Form.Label>
+  {form.category === "Room" ? (
 
+    <Form.Select
+      name="title"
+      value={form.title}
+      onChange={handleChange}
+    >
+      <option value="">
+        Select Room Type
+      </option>
 
-<Form.Control
+      <option value="AC Room">
+        AC Room
+      </option>
 
-name="title"
+      <option value="Non AC Room">
+        Non AC Room
+      </option>
+    </Form.Select>
 
-value={form.title}
+  ) : (
 
-onChange={handleChange}
+    <Form.Control
+      name="title"
+      value={form.title}
+      onChange={handleChange}
+      placeholder="Enter pricing title"
+    />
 
-/>
-
+  )}
 
 </Form.Group>
 

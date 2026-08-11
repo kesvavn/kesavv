@@ -182,8 +182,10 @@ router.get("/receipt/:id", async (req, res) => {
     // Pipe PDF to response
     doc.pipe(res);
 
-    
-const logo = path.join(__dirname, "../backend/public/MELODIA-LOGO-03-1.webp");
+    const logo = path.join(
+  __dirname,
+  "../public/MELODIA-LOGO-03-1.webp"
+);
 
 try {
   doc.image(logo, 50, 35, {
@@ -249,16 +251,25 @@ doc
 doc.moveDown(3);
 
   
-   // ========================================
+ // ========================================
 // CALCULATIONS
 // ========================================
 
 const subtotal = booking.totalPrice || 0;
+
 const gst = booking.gst || 18;
-const gstAmount = subtotal * gst / 100;
-const grandTotal = subtotal + gstAmount;
-const advance = booking.advanceAmount || 0;
-const balance = grandTotal - advance;
+
+const gstAmount =
+  booking.gstAmount || (subtotal * gst) / 100;
+
+const grandTotal =
+  booking.grandTotal || (subtotal + gstAmount);
+
+const advance =
+  booking.advanceAmount || 0;
+
+const balance =
+  booking.balanceAmount || (grandTotal - advance);
 
 // ========================================
 // CUSTOMER DETAILS
@@ -318,40 +329,42 @@ doc.text(`Venue : ${booking.venueName}`);
 doc.text(`Function : ${booking.functionType}`);
 doc.text(`Date : ${booking.functionDate}`);
 doc.text(`Guests : ${booking.guests}`);
-doc.text(`Rooms : ${booking.rooms}`);
+doc.text(`AC Rooms : ${booking.acRooms || 0}`);
+doc.text(`Non-AC Rooms : ${booking.nonAcRooms || 0}`);
 
-doc.moveDown();
+
 
 // ========================================
-// PAYMENT DETAILS
+// DISPLAY PAYMENT VALUES
 // ========================================
 
-const paymentY = doc.y;
+doc.text(
+  `Subtotal : ₹ ${subtotal.toLocaleString()}`
+);
 
-doc
-  .roundedRect(50, paymentY, 500, 30, 5)
-  .fill("#198754");
+doc.text(
+  `GST (${gst}%) : ₹ ${gstAmount.toLocaleString()}`
+);
 
-doc
-  .fillColor("white")
-  .font("Helvetica-Bold")
-  .fontSize(14)
-  .text("PAYMENT DETAILS", 65, paymentY + 8);
+doc.text(
+  `Advance : ₹ ${advance.toLocaleString()}`
+);
 
-doc.y = paymentY + 40;
+doc.text(
+  `Balance : ₹ ${balance.toLocaleString()}`
+);
 
-doc
-  .fillColor("black")
-  .font("Helvetica")
-  .fontSize(12);
+doc.text(
+  `Grand Total : ₹ ${grandTotal.toLocaleString()}`
+);
 
-doc.text(`Subtotal : ₹ ${subtotal.toLocaleString()}`);
-doc.text(`GST (${gst}%) : ₹ ${gstAmount.toLocaleString()}`);
-doc.text(`Advance : ₹ ${advance.toLocaleString()}`);
-doc.text(`Balance : ₹ ${balance.toLocaleString()}`);
-doc.text(`Grand Total : ₹ ${grandTotal.toLocaleString()}`);
-doc.text(`Payment Method : ${booking.paymentMethod || "Cash"}`);
-doc.text(`Status : ${booking.status}`);
+doc.text(
+  `Payment Method : ${booking.paymentMethod || "Cash"}`
+);
+
+doc.text(
+  `Status : ${booking.status}`
+);
 
 // ========================================
 // QR CODE
@@ -488,22 +501,64 @@ router.put("/confirm/:id", async (req, res) => {
       });
     }
 
+    // ========================================
+    // CONFIRM BOOKING
+    // ========================================
+
     booking.status = "Confirmed";
-    booking.invoiceNumber ="INV-" + new Date().getFullYear() +"-" +
-  booking._id.toString().slice(-6).toUpperCase();
+
+    // ========================================
+    // INVOICE NUMBER
+    // ========================================
+
+    booking.invoiceNumber =
+      "INV-" +
+      new Date().getFullYear() +
+      "-" +
+      booking._id.toString().slice(-6).toUpperCase();
+
+    // ========================================
+    // GST CALCULATION
+    // ========================================
+
+    const subtotal = booking.totalPrice || 0;
+
+    const gst = booking.gst || 18;
+
+    const gstAmount = (subtotal * gst) / 100;
+
+    const grandTotal = subtotal + gstAmount;
+
+    const advance = booking.advanceAmount || 0;
+
+    const balance = grandTotal - advance;
+
+    // ========================================
+    // SAVE GST + PAYMENT DETAILS
+    // ========================================
+
+    booking.gst = gst;
+    booking.gstAmount = gstAmount;
+    booking.grandTotal = grandTotal;
+    booking.balanceAmount = balance;
+
     await booking.save();
 
-await Notification.create({
+    // ========================================
+    // NOTIFICATION
+    // ========================================
 
-    title:"Booking Confirmed",
+    await Notification.create({
+      title: "Booking Confirmed",
+      message: `${booking.fullName} booking confirmed for ${booking.venueName}`,
+      type: "Confirmation",
+      isRead: false
+    });
 
-    message:`${booking.fullName} booking confirmed for ${booking.venueName}`,
+    // ========================================
+    // SEND EMAIL
+    // ========================================
 
-    type:"Confirmation",
-
-    isRead:false
-
-});
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: booking.email,
@@ -515,7 +570,6 @@ await Notification.create({
           <h2 style="color:green;">
             Booking Confirmed
           </h2>
-      
 
           <p>Hello <b>${booking.fullName}</b>,</p>
 
@@ -524,6 +578,11 @@ await Notification.create({
           <hr>
 
           <table cellpadding="8">
+
+            <tr>
+              <td><b>Invoice No</b></td>
+              <td>${booking.invoiceNumber}</td>
+            </tr>
 
             <tr>
               <td><b>Venue</b></td>
@@ -546,8 +605,38 @@ await Notification.create({
             </tr>
 
             <tr>
-              <td><b>Total Amount</b></td>
-              <td>₹ ${booking.totalPrice}</td>
+              <td><b>AC Rooms</b></td>
+              <td>${booking.acRooms || 0}</td>
+            </tr>
+
+            <tr>
+              <td><b>Non-AC Rooms</b></td>
+              <td>${booking.nonAcRooms || 0}</td>
+            </tr>
+
+            <tr>
+              <td><b>Subtotal</b></td>
+              <td>₹ ${subtotal.toLocaleString()}</td>
+            </tr>
+
+            <tr>
+              <td><b>GST (${gst}%)</b></td>
+              <td>₹ ${gstAmount.toLocaleString()}</td>
+            </tr>
+
+            <tr>
+              <td><b>Advance Paid</b></td>
+              <td>₹ ${advance.toLocaleString()}</td>
+            </tr>
+
+            <tr>
+              <td><b>Balance Amount</b></td>
+              <td>₹ ${balance.toLocaleString()}</td>
+            </tr>
+
+            <tr>
+              <td><b>Grand Total</b></td>
+              <td>₹ ${grandTotal.toLocaleString()}</td>
             </tr>
 
             <tr>
@@ -582,7 +671,6 @@ await Notification.create({
 
   }
 });
-
 
 // ========================================
 // UPDATE STATUS

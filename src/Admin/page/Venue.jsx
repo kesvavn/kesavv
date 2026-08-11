@@ -208,12 +208,9 @@ file
 
 
 
-const res=await axios.post(
-
-`${API}/api/upload`,
-
-formData
-
+const res = await axios.post(
+  `${API}/api/upload/single`,
+  formData
 );
 
 
@@ -361,18 +358,21 @@ fetchVenues();
 
 
 }
-
 catch(err){
+  console.log("SAVE VENUE ERROR:", err);
 
-console.log(err);
+  console.log(
+    "Backend Response:",
+    err.response?.data
+  );
 
+  alert(
+    err.response?.data?.message ||
+    "Venue save failed"
+  );
 }
 
-
-
-};
-
-
+}
 
 
 
@@ -556,6 +556,19 @@ value={venue.description}
 onChange={handleChange}
 
 />
+
+<Form.Select
+  className="mb-3"
+  name="rating"
+  value={venue.rating}
+  onChange={handleChange}
+>
+  <option value="★★★★★">★★★★★ </option>
+  <option value="★★★★☆">★★★★☆ </option>
+  <option value="★★★☆☆">★★★☆☆ </option>
+  <option value="★★☆☆☆">★★☆☆☆ </option>
+  <option value="★☆☆☆☆">★☆☆☆☆ </option>
+</Form.Select>
 
 
 
@@ -897,6 +910,8 @@ Image
 Name
 </th>
 
+<th>Rating</th>
+
 <th>
 AC Rooms
 </th>
@@ -960,6 +975,8 @@ height="60"
 {item.title}
 
 </td>
+
+<td>{item.rating}</td>
 
 <td>{item.acRooms}</td>
 <td>{item.nonAcRooms}</td>

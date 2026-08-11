@@ -19,7 +19,9 @@ venueName: venue?.title || "",
 
   functionDate: "",
   guests: "",
-  rooms: "",
+
+acRooms: 0,
+nonAcRooms: 0,
   functionType: "",
   functionTime: "",
   // Food
@@ -116,36 +118,41 @@ useEffect(() => {
     .catch(console.error);
 }, [venue]);
 
+
+
 useEffect(() => {
   console.log("Disabled Dates:", disabledDates);
 }, [disabledDates]);
 
-//price
+
 useEffect(() => {
+  const price = calculatePrice();
 
-const price = calculatePrice();
-
-setFormData(prev => ({
-...prev,
-totalPrice: price
-}));
-
-
-},[
-formData.guests,
-formData.rooms,
-formData.makeupLevel,
-formData.decorationLevel,
-formData.photographyPackage,
-formData.videoPackage,
-formData.foodType,
-formData.foodCategory,
-formData.stageSetup,
-formData.soundSystem,
-formData.ledScreen,
-formData.cakePackage,
-formData.musicEntertainment,
-formData.birthdayDecoration
+  setFormData(prev => ({
+    ...prev,
+    totalPrice: price,
+  }));
+}, [
+  venue,
+  pricing,
+  formData.guests,
+  formData.acRooms,
+  formData.nonAcRooms,
+  formData.functionType,
+  formData.privatePartyType,
+  formData.additionalPackage,
+  formData.makeupLevel,
+  formData.decorationLevel,
+  formData.photographyPackage,
+  formData.videoPackage,
+  formData.foodType,
+  formData.foodCategory,
+  formData.stageSetup,
+  formData.soundSystem,
+  formData.ledScreen,
+  formData.cakePackage,
+  formData.musicEntertainment,
+  formData.birthdayDecoration,
 ]);
 
 const checkAvailability = () => {
@@ -168,200 +175,247 @@ else{
 
 };
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
 
-const {name,value}=e.target;
+  const { name, value } = e.target;
 
+  // AC Room limit
+  if (name === "acRooms") {
 
-if(name==="additionalPackage" && value==="No"){
+    const rooms = Number(value);
 
-setFormData(prev=>({
-...prev,
-additionalPackage:"No",
-makeupLevel:"",
-foodType:"",
-foodCategory:"",
-decorationLevel:"",
-}));
+    if (rooms > Number(venue?.acRooms || 0)) {
+      alert(`Only ${venue?.acRooms || 0} AC rooms available`);
+      return;
+    }
+  }
 
-return;
+  // Non AC Room limit
+  if (name === "nonAcRooms") {
 
-}
+    const rooms = Number(value);
 
+    if (rooms > Number(venue?.nonAcRooms || 0)) {
+      alert(`Only ${venue?.nonAcRooms || 0} Non AC rooms available`);
+      return;
+    }
+  }
 
-setFormData(prev=>({
-...prev,
-[name]:value
-}));
+  // Additional Package No
+  if (name === "additionalPackage" && value === "No") {
+
+    setFormData(prev => ({
+      ...prev,
+      additionalPackage: "No",
+      makeupLevel: "",
+      foodType: "",
+      foodCategory: "",
+      decorationLevel: "",
+      photographyPackage: "",
+      videoPackage: "",
+      stageSetup: "",
+      soundSystem: "",
+      ledScreen: "",
+      cakePackage: "",
+      birthdayDecoration: "",
+      privatePartyType: "",
+      musicEntertainment: ""
+    }));
+
+    return;
+  }
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
 
 };
 
 const getPrice = (category, title) => {
 
-const item = pricing.find(
-(p)=>
-p.category === category &&
-p.title === title &&
-p.status === true
-);
+  console.log("Searching Price:", {
+    category,
+    title,
+    pricing
+  });
 
-return item ? Number(item.amount) : 0;
+  const item = pricing.find((p) => {
 
+    console.log("Checking:", {
+      dbCategory: p.category,
+      dbTitle: p.title,
+      dbAmount: p.amount,
+      dbStatus: p.status
+    });
+
+    return (
+      p.category?.trim().toLowerCase() ===
+        category?.trim().toLowerCase() &&
+      p.title?.trim().toLowerCase() ===
+        title?.trim().toLowerCase() &&
+      p.status === true
+    );
+  });
+
+  console.log("FOUND PRICE:", item);
+
+  return item ? Number(item.amount) : 0;
 };
 
-
-
 const calculatePrice = () => {
+  let price = 0;
 
-let price = 0;
-
-
-// Venue
-
-price += getPrice(
-"Venue",
-venue?.title
-);
+  // =========================
+  // VENUE - ALWAYS
+  // =========================
+  if (venue?.title) {
+    price += getPrice("Venue", venue.title);
+  }
 
 
-// Food
+// =========================
+// ROOM PRICE
+// =========================
 
-const guests = Number(formData.guests || 0);
+const acRooms = Number(formData.acRooms || 0);
+const nonAcRooms = Number(formData.nonAcRooms || 0);
 
-
-// Food
-
-if(formData.foodCategory){
-
-price += guests * getPrice(
-"Food",
-formData.foodCategory
-);
-
+if (acRooms > 0) {
+  price +=
+    acRooms *
+    getPrice("Room", "AC Room");
 }
 
-
-// Makeup
-
-price += getPrice(
-"Makeup",
-formData.makeupLevel
-);
-
-
-// Decoration
-
-price += getPrice(
-"Decoration",
-formData.decorationLevel
-);
-
-
-// Photography
-
-price += getPrice(
-"Photography",
-formData.photographyPackage
-);
-
-
-// Videography
-
-price += getPrice(
-"Videography",
-formData.videoPackage
-);
-
-
-// Corporate
-
-price += getPrice(
-"Stage Setup",
-formData.stageSetup
-);
-
-
-price += getPrice(
-"Sound System",
-formData.soundSystem
-);
-
-
-price += getPrice(
-"LED Screen",
-formData.ledScreen
-);
-
-
-// Birthday
-
-price += getPrice(
-"Cake",
-formData.cakePackage
-);
-
-
-price += getPrice(
-"Birthday Decoration",
-formData.birthdayDecoration
-);
-// Rooms
-
-price += Number(formData.rooms || 0)
-*
-getPrice(
-"Room",
-"AC Room"
-);
-
-// Cake
-
-price += getPrice(
-"Cake",
-formData.cakePackage
-);
-
-
-// Birthday Decoration
-
-price += getPrice(
-"Birthday Decoration",
-formData.birthdayDecoration
-);
-
-// GST
-
-const gst = getPrice(
-"GST",
-"GST"
-);
-
-
-if(gst){
-
-price = price + (price * gst /100);
-
+if (nonAcRooms > 0) {
+  price +=
+    nonAcRooms *
+    getPrice("Room", "Non AC Room");
 }
+  // =========================
+  // ADDITIONAL PACKAGE
+  // =========================
+  if (formData.additionalPackage === "Yes") {
 
+    // Food
+    const guests = Number(formData.guests || 0);
 
-// Discount
+    if (guests > 0 && formData.foodCategory) {
+      price += guests * getPrice(
+        "Food",
+        formData.foodCategory
+      );
+    }
 
-const discount = getPrice(
-"Discount",
-"Festival Offer"
-);
+    // Wedding / Reception
+    if (
+      formData.functionType === "Wedding" ||
+      formData.functionType === "Reception"
+    ) {
+      price += getPrice("Makeup", formData.makeupLevel);
 
+      price += getPrice(
+        "Decoration",
+        formData.decorationLevel
+      );
 
-if(discount){
+      price += getPrice(
+        "Photography",
+        formData.photographyPackage
+      );
 
-price = price - (price * discount /100);
+      price += getPrice(
+        "Videography",
+        formData.videoPackage
+      );
+    }
 
-}
+    // Corporate
+    if (formData.functionType === "Corporate Event") {
+      price += getPrice(
+        "Stage Setup",
+        formData.stageSetup
+      );
 
+      price += getPrice(
+        "Sound System",
+        formData.soundSystem
+      );
 
-return Math.round(price);
+      price += getPrice(
+        "LED Screen",
+        formData.ledScreen
+      );
+    }
 
+    // Private Party
+    if (formData.functionType === "Private Party") {
 
+      if (formData.privatePartyType === "Birthday") {
+
+        price += getPrice(
+          "Cake",
+          formData.cakePackage
+        );
+
+        price += getPrice(
+          "Birthday Decoration",
+          formData.birthdayDecoration
+        );
+
+        price += getPrice(
+          "Photography",
+          formData.photographyPackage
+        );
+
+        price += getPrice(
+          "Music & Entertainment",
+          formData.musicEntertainment
+        );
+      }
+
+      if (formData.privatePartyType === "Anniversary") {
+
+        price += getPrice(
+          "Birthday Decoration",
+          formData.birthdayDecoration
+        );
+
+        price += getPrice(
+          "Photography",
+          formData.photographyPackage
+        );
+
+        price += getPrice(
+          "Cake",
+          formData.cakePackage
+        );
+      }
+    }
+  }
+
+  // =========================
+  // GST
+  // =========================
+  const gst = getPrice("GST", "GST");
+
+  if (gst > 0) {
+    price += price * gst / 100;
+  }
+
+  // =========================
+  // DISCOUNT
+  // =========================
+  const discount = getPrice(
+    "Discount",
+    "Festival Offer"
+  );
+
+  if (discount > 0) {
+    price -= price * discount / 100;
+  }
+
+  return Math.round(price);
 };
 
 
@@ -536,18 +590,41 @@ alert("Booking Failed");
           </div>
 
           {/* Rooms */}
+<div>
+  <label>AC Rooms</label>
 
-          <div>
-            <label>Rooms</label>
+  <input
+    type="number"
+    name="acRooms"
+    min="0"
+    max={venue?.acRooms || 0}
+    value={formData.acRooms}
+    onChange={handleChange}
+  />
 
-            <input
-              type="number"
-              name="rooms"
-              value={formData.rooms}
-              placeholder="Number of Rooms"
-              onChange={handleChange}
-            />
-          </div>
+  <small>
+    Available: {venue?.acRooms || 0}
+  </small>
+</div>
+
+<div>
+  <label>Non AC Rooms</label>
+
+  <input
+    type="number"
+    name="nonAcRooms"
+    min="0"
+    max={venue?.nonAcRooms || 0}
+    value={formData.nonAcRooms}
+    onChange={handleChange}
+  />
+
+  <small>
+    Available: {venue?.nonAcRooms || 0}
+  </small>
+</div>
+
+
            {/* Function Type */}
 
            <div>

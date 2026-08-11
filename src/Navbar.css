@@ -40,7 +40,7 @@
 }
 
 .logo-img{
-    height: 80px;
+    height: 70px;
     width: auto;
     object-fit: contain;
 }
@@ -84,7 +84,7 @@
 .my-navbar .dropdown-toggle{
     color: #fff !important;
     font-family: "Montserrat", sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     padding: 6px 8px !important;
     margin: 0;

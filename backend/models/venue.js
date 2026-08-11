@@ -42,17 +42,15 @@ category:{
 },
 
 
-rating:{
-type:Number,
-default:5
+rating: {
+  type: String,
+  default: "★★★★★"
 },
 
 image:{
     type:String,
     required:true
 },
-
-
 
 
 // ABOUT VENUE
@@ -93,17 +91,15 @@ parkingCapacity:{
 },
 
 
-acRooms:{
-    type:String,
-    default:""
+acRooms: {
+  type: Number,
+  default: 0
 },
 
-
-nonAcRooms:{
-    type:String,
-    default:""
+nonAcRooms: {
+  type: Number,
+  default: 0
 },
-
 
 
 

@@ -14,7 +14,6 @@ import {
   FaEye,
   FaTrash,
   FaFileInvoice,
-  FaCheck,
   FaPrint,
   FaFilePdf,
   FaFileCsv,
@@ -155,7 +154,8 @@ function Bookings() {
       Event: item.functionType,
       Date: item.functionDate,
       Guests: item.guests,
-      Rooms: item.rooms,
+       "AC Rooms": item.acRooms || 0,
+      "Non-AC Rooms": item.nonAcRooms || 0,
       Amount: item.totalPrice,
       Status: item.status,
     }));
@@ -406,7 +406,8 @@ className="align-middle shadow-sm"
 
 <th>Guests</th>
 
-<th>Rooms</th>
+<th>AC Rooms</th>
+<th>Non-AC Rooms</th>
 
 <th>Amount</th>
 
@@ -443,7 +444,8 @@ currentBookings.map((item,index)=>(
 
 <td>{item.guests}</td>
 
-<td>{item.rooms}</td>
+<td>{item.acRooms || 0}</td>
+<td>{item.nonAcRooms || 0}</td>
 
 <td>
 ₹ {item.totalPrice?.toLocaleString()}
@@ -495,35 +497,6 @@ window.open(
 <FaFileInvoice/>
 </Button>
 
-<Button
-size="sm"
-variant="warning"
-className="me-1"
-onClick={async()=>{
-
-try{
-
-await axios.put(
-`http://localhost:5000/api/requests/confirm/${item._id}`
-);
-
-alert("Booking Confirmed");
-
-getBookings();
-
-}
-catch(err){
-
-console.log(err);
-
-}
-
-}}
->
-
-<FaCheck/>
-
-</Button>
 
 <Button
 size="sm"
@@ -618,9 +591,14 @@ No Confirmed Bookings
         </Col>
 
         <Col md={6} className="mb-3">
-          <strong>Rooms</strong>
-          <p>{selected.rooms}</p>
-        </Col>
+  <strong>AC Rooms</strong>
+  <p>{selected.acRooms || 0}</p>
+</Col>
+
+<Col md={6} className="mb-3">
+  <strong>Non-AC Rooms</strong>
+  <p>{selected.nonAcRooms || 0}</p>
+</Col>
 
         <Col md={6} className="mb-3">
           <strong>Total Amount</strong>
@@ -777,11 +755,15 @@ No Confirmed Bookings
           <strong>Guests</strong>
           <p>{selected.guests}</p>
         </Col>
+<Col md={6} className="mb-3">
+  <strong>AC Rooms</strong>
+  <p>{selected.acRooms || 0}</p>
+</Col>
 
-        <Col md={6} className="mb-3">
-          <strong>Rooms</strong>
-          <p>{selected.rooms}</p>
-        </Col>
+<Col md={6} className="mb-3">
+  <strong>Non-AC Rooms</strong>
+  <p>{selected.nonAcRooms || 0}</p>
+</Col>
 
         <Col md={6} className="mb-3">
           <strong>Total Amount</strong>

@@ -121,7 +121,8 @@ Pricing Requests
 
 <th>Guests</th>
 
-<th>Rooms</th>
+<th>AC Rooms</th>
+<th>Non-AC Rooms</th>
 
 <th>Price</th>
 
@@ -176,7 +177,11 @@ requests.map((item)=>(
 </td>
 
 <td>
-{item.rooms}
+  {item.acRooms || 0}
+</td>
+
+<td>
+  {item.nonAcRooms || 0}
 </td>
 
 <td>

@@ -110,7 +110,15 @@ function MyBookings() {
               <p><strong>Function:</strong> {item.functionType}</p>
               <p><strong>Date:</strong> {item.functionDate}</p>
               <p><strong>Guests:</strong> {item.guests}</p>
-              <p><strong>Rooms:</strong> {item.rooms}</p>
+             
+             <p>
+  <strong>AC Rooms:</strong> {item.acRooms || 0}
+</p>
+
+<p>
+  <strong>Non-AC Rooms:</strong> {item.nonAcRooms || 0}
+</p>
+
               <p><strong>Phone:</strong> {item.phone}</p>
 
               <p>

@@ -59,7 +59,15 @@ functionDate:String,
 
 guests:Number,
 
-rooms:Number,
+acRooms: {
+  type: Number,
+  default: 0
+},
+
+nonAcRooms: {
+  type: Number,
+  default: 0
+},
 
 functionType:String,
 
