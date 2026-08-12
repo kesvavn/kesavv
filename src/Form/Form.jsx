@@ -434,6 +434,7 @@ return;
 }
 
 
+ // Calculate 
 const price = calculatePrice();
 
 
@@ -539,39 +540,25 @@ alert("Booking Failed");
           <div>
             <label>Function Date</label>
 
-         <input
-  type="date"
-  name="functionDate"
-  value={formData.functionDate}
-  onChange={(e) => {
-    const date = e.target.value;
+         <input type="date" name="functionDate" value={formData.functionDate} 
+         onChange={(e) => {const date = e.target.value;
 
-    console.log("Selected Date:", date);
-    console.log("Disabled Dates:", disabledDates);
+        console.log("Selected Date:", date);
+        console.log("Disabled Dates:", disabledDates);
 
-    setFormData((prev) => ({
-      ...prev,
-      functionDate: date,
-    }));
+        setFormData((prev) => ({
+        ...prev,
+        functionDate: date,
+        }));
 
     const isUnavailable = disabledDates.includes(date);
 
     console.log("Unavailable:", isUnavailable);
 
-    setAvailable(!isUnavailable);
-  }}
-/>
-{available === true && (
-<p style={{color:"green"}}>
-✅ Date Available
-</p>
-)}
+    setAvailable(!isUnavailable); }}/>
 
-{available === false && (
-<p style={{color:"red"}}>
-❌ This date is already booked
-</p>
-)}
+{available === true && (<p style={{color:"green"}}>✅ Date Available</p>)}
+{available === false && (<p style={{color:"red"}}>❌ This date is already booked</p>)}
             
           </div>
 
@@ -590,793 +577,744 @@ alert("Booking Failed");
           </div>
 
           {/* Rooms */}
-<div>
-  <label>AC Rooms</label>
+              <div>
+              <label>AC Rooms</label>
 
-  <input
-    type="number"
-    name="acRooms"
-    min="0"
-    max={venue?.acRooms || 0}
-    value={formData.acRooms}
-    onChange={handleChange}
-  />
+              <input
+                type="number"
+                name="acRooms"
+                min="0"
+                max={venue?.acRooms || 0}
+                value={formData.acRooms}
+                onChange={handleChange}/>
 
-  <small>
-    Available: {venue?.acRooms || 0}
-  </small>
-</div>
+               <small>
+                Available: {venue?.acRooms || 0}
+               </small>
+               </div>
 
-<div>
-  <label>Non AC Rooms</label>
+              <div>
+              <label>Non AC Rooms</label>
 
-  <input
-    type="number"
-    name="nonAcRooms"
-    min="0"
-    max={venue?.nonAcRooms || 0}
-    value={formData.nonAcRooms}
-    onChange={handleChange}
-  />
-
-  <small>
-    Available: {venue?.nonAcRooms || 0}
-  </small>
-</div>
+              <input
+              type="number"
+              name="nonAcRooms"
+              min="0"
+              max={venue?.nonAcRooms || 0}
+              value={formData.nonAcRooms}
+              onChange={handleChange}/>
+            <small> Available: {venue?.nonAcRooms || 0} </small></div>
 
 
            {/* Function Type */}
 
            <div>
+           <label>Function Type</label>
 
-            <label>Function Type</label>
+            <select name="functionType"value={formData.functionType}onChange={handleChange}>
 
-            <select
-name="functionType"
-value={formData.functionType}
-onChange={handleChange}
->
+            <option value="">Select Function Type</option>
 
-<option value="">
-Select Function Type
-</option>
+            <option value="Wedding">Wedding</option>
+            <option value="Reception">Reception</option>
 
-<option value="Wedding">
-Wedding
-</option>
+            <option value="Private Party">Private Party</option>
+            <option value="Corporate Event">Corporate Event</option>
 
-<option value="Reception">
-Reception
-</option>
+           {/* Private Party Type */}
 
-<option value="Private Party">
-Private Party
-</option>
+            {formData.functionType === "Private Party" && (
 
-<option value="Corporate Event">
-Corporate Event
-</option>
+          <div>
+            <label>Private Party Type</label>
 
+            <select name="privatePartyType"value={formData.privatePartyType}onChange={handleChange}>
+            <option value="">Select Party Type</option>
 
-{/* Private Party Type */}
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            </select>
 
-{formData.functionType === "Private Party" && (
-
-<div>
-
-<label>Private Party Type</label>
-
-<select
-name="privatePartyType"
-value={formData.privatePartyType}
-onChange={handleChange}
->
-
-<option value="">
-Select Party Type
-</option>
-
-<option value="Birthday">
-Birthday
-</option>
-
-<option value="Anniversary">
-Anniversary
-</option>
-
-</select>
-
-</div>
-
-)}
+          </div> 
+        )}
 
             </select>
 
-</div>
+            </div>
 
-
-          {/* Function Time */}
+            {/* Function Time */}
 
           <div>
-  <label>Function Time</label>
+          <label>Function Time</label>
 
-  <select
-    name="functionTime"
-    value={formData.functionTime}
-    onChange={handleChange}
-  >
-    <option value="">Select Function Time</option>
-    <option value="2 Hours">2 Hours</option>
-    <option value="4 Hours">4 Hours</option>
-    <option value="6 Hours">6 Hours</option>
-    <option value="8 Hours">8 Hours</option>
-    <option value="Half Day">Half Day</option>
-    <option value="Full Day">Full Day</option>
-  </select>
-</div>
+          <select name="functionTime" value={formData.functionTime} onChange={handleChange}>
+          <option value="">Select Function Time</option>
+          <option value="2 Hours">2 Hours</option>
+          <option value="4 Hours">4 Hours</option>
+          <option value="6 Hours">6 Hours</option>
+          <option value="8 Hours">8 Hours</option>
+          <option value="Half Day">Half Day</option>
+          <option value="Full Day">Full Day</option>
+        </select>
+        </div>
 
 
         
         {/* Additional Package */}
 
-<div>
-  <label>Additional Packages</label>
-
-  <div className="event-radio-group">
-
-    <label>
-      <input
-        type="radio"
-        name="additionalPackage"
-        value="Yes"
-        checked={formData.additionalPackage === "Yes"}
-        onChange={handleChange}
-      />
-      Yes
-    </label>
-
-
-    <label>
-      <input
-        type="radio"
-        name="additionalPackage"
-        value="No"
-        checked={formData.additionalPackage === "No"}
-        onChange={handleChange}
-      />
-      No
-    </label>
-
-    {/* Private Party Type */}
-
-{formData.functionType === "Private Party" && (
-
-<div>
-
-<label>Party Type</label>
-
-<select
-name="privatePartyType"
-value={formData.privatePartyType}
-onChange={handleChange}
->
-
-<option value="">
-Select Party Type
-</option>
-
-<option value="Birthday">
-Birthday
-</option>
-
-<option value="Anniversary">
-Anniversary
-</option>
-
-</select>
-
-</div>
-
-)}
-
-{formData.functionType === "Music & Entertainment" && (
-
-<div>
-
-<label>Entertainment Type</label>
-
-<select
-name="musicEntertainment"
-value={formData.musicEntertainment}
-onChange={handleChange}
->
-
-<option value="">
-Select Entertainment
-</option>
-
-<option value="DJ">
-DJ
-</option>
-
-<option value="Live Music">
-Live Music
-</option>
-
-<option value="Dance Performance">
-Dance Performance
-</option>
-
-<option value="Celebrity Show">
-Celebrity Show
-</option>
-
-<option value="Stage Show">
-Stage Show
-</option>
-
-<option value="Magic Show">
-Magic Show
-</option>
-
-</select>
-
-</div>
-
-)}
-
-
-  </div>
-</div>
-     
-{/* Show Additional Package */}
-
-{formData.additionalPackage === "Yes" && (
-
-<>
-
-{/* Wedding Package */}
-
-{(formData.functionType === "Wedding" ||
-  formData.functionType === "Reception") && (
-<>
-
-<div>
-<label>Makeup Level</label>
-
-<select name="makeupLevel"value={formData.makeupLevel}onChange={handleChange}>
-
-<option value="">Select Makeup</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium </option>
-<option value="Luxury">Luxury </option>
-
-</select>
-
-</div>
-
-
-
-<div>
-<label>Decoration Level</label>
-
-<select name="decorationLevel" value={formData.decorationLevel}onChange={handleChange}>
-
-<option value="">Select Decoration</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium </option>
-<option value="Luxury">Luxury </option>
-</select>
-
-</div>
-
-
-
-<div>
-<label>Photography Package</label>
-
-<select
-name="photographyPackage"
-value={formData.photographyPackage}
-onChange={handleChange}
->
-
-<option value="">Select Photography</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium </option>
-<option value="Luxury">Luxury </option>
-
-</select>
-
-</div>
-{/* Catering */}
-
-{(formData.functionType === "Wedding" ||
-formData.functionType === "Reception") && (
-
-<>
-
-<div>
-
-<label>Food Category</label>
-
-<div className="event-radio-group">
-
-<label>
-<input
-type="radio"
-name="foodCategory"
-value="Veg"
-checked={formData.foodCategory === "Veg"}
-onChange={handleChange}
-/>
-Veg
-</label>
-
-
-<label>
-<input
-type="radio"
-name="foodCategory"
-value="Non Veg"
-checked={formData.foodCategory === "Non Veg"}
-onChange={handleChange}
-/>
-Non Veg
-</label>
-
-</div>
-
-</div>
-
-
-<div>
-
-<label>Food Type</label>
-
-<select
-name="foodType"
-value={formData.foodType}
-onChange={handleChange}
->
-
-<option value="">
-Select Food Type
-</option>
-
-<option value="South Indian">
-South Indian
-</option>
-
-<option value="North Indian">
-North Indian
-</option>
-
-<option value="Chinese">
-Chinese
-</option>
-
-<option value="Mixed">
-Mixed
-</option>
-
-</select>
-
-</div>
-<div>
-
-<label>Video Package</label>
-
-<select
-name="videoPackage"
-value={formData.videoPackage}
-onChange={handleChange}
->
-
-<option value="">
-Select Video Package
-</option>
-
-<option value="Basic">
-Basic 
-</option>
-
-<option value="Premium">
-Premium 
-</option>
-
-<option value="Luxury">
-Luxury 
-</option>
-
-</select>
-
-</div>
-
-</>
-
-
-)}
-
-</>
-
-)}
-
-{/* Corporate */}
-
-{formData.functionType === "Corporate Event" && (
-
-<>
-
-<div>
-<label>Stage Setup</label>
-
-<select
-name="stageSetup"
-value={formData.stageSetup}
-onChange={handleChange}
->
-
-<option value="">Select Stage</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium</option>
-<option value="Luxury">Luxury </option>
-
-</select>
-
-</div>
-
-
-<div>
-<label>Sound System</label>
-
-<select
-name="soundSystem"
-value={formData.soundSystem}
-onChange={handleChange}
->
-
-<option value="">Select Sound</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium </option>
-<option value="Luxury">Luxury </option>
-
-</select>
-
-</div>
-
-
-<div>
-<label>LED Screen</label>
-
-<select
-name="ledScreen"
-value={formData.ledScreen}
-onChange={handleChange}
->
-
-<option value="">Select LED</option>
-<option value="Basic">Basic </option>
-<option value="Premium">Premium </option>
-<option value="Luxury">Luxury </option>
-
-</select>
-
-</div>
-
-</>
-
-)}
-
-
-{/* Private Party Packages */}
-
-{formData.functionType === "Private Party" && (
-
-<>
-
-
-
-{/* Birthday Only Packages */}
-
-{formData.privatePartyType === "Birthday" && (
-
-<>
-
-<div>
-<label>Cake Package</label>
-
-<select
-name="cakePackage"
-value={formData.cakePackage}
-onChange={handleChange}
->
-
-<option value="">
-Select Cake
-</option>
-
-<option value="1 Kg">
-1 Kg
-</option>
-
-<option value="2 Kg">
-2 Kg 
-</option>
-
-<option value="3 Kg">
-3 Kg 
-</option>
-
-<option value="Custom Cake">
-Custom Cake 
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-<label>Birthday Decoration</label>
-
-<select
-name="birthdayDecoration"
-value={formData.birthdayDecoration}
-onChange={handleChange}
->
-
-<option value="">
-Select Decoration
-</option>
-
-<option value="Basic">
-Basic 
-</option>
-
-<option value="Premium">
-Premium 
-</option>
-
-<option value="Luxury">
-Luxury 
-</option>
-
-</select>
-
-</div>
-
-<div>
-<label>Photography Package</label>
-
-<select
-name="photographyPackage"
-value={formData.photographyPackage}
-onChange={handleChange}
->
-
-<option value="">
-Select Photography
-</option>
-
-<option value="Basic">
-Basic 
-</option>
-
-<option value="Premium">
-Premium 
-</option>
-
-<option value="Luxury">
-Luxury 
-</option>
-
-</select>
-
-</div>
-
-<div>
-<label>Music & Entertainment</label>
-
-<select
-name="musicEntertainment"
-value={formData.musicEntertainment}
-onChange={handleChange}
->
-
-<option value="">
-Select Entertainment
-</option>
-
-<option value="DJ">
-DJ 
-</option>
-
-<option value="Live Music">
-Live Music 
-</option>
-
-<option value="Dance Performance">
-Dance Performance 
-</option>
-
-<option value="DJ + Live Music">
-DJ + Live Music 
-</option>
-
-</select>
-
-</div>
-
-</>
-
-)}
-
-</>
-
-)}
-
-{/* Anniversary Packages */}
-
-{formData.privatePartyType === "Anniversary" && (
-
-<>
-
-<div>
-<label>Anniversary Decoration</label>
-
-<select
-name="birthdayDecoration"
-value={formData.birthdayDecoration}
-onChange={handleChange}
->
-
-<option value="">
-Select Decoration
-</option>
-
-<option value="Basic">
-Basic 
-</option>
-
-<option value="Premium">
-Premium
-</option>
-
-<option value="Luxury">
-Luxury 
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-<label>Photography Package</label>
-
-<select
-name="photographyPackage"
-value={formData.photographyPackage}
-onChange={handleChange}
->
-
-<option value="">
-Select Photography
-</option>
-
-<option value="Basic">
-Basic
-</option>
-
-<option value="Premium">
-Premium 
-</option>
-
-<option value="Luxury">
-Luxury 
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-<label>Cake Package</label>
-
-<select
-name="cakePackage"
-value={formData.cakePackage}
-onChange={handleChange}
->
-
-<option value="">
-Select Cake
-</option>
-
-<option value="1 Kg">
-1 Kg 
-</option>
-
-<option value="2 Kg">
-2 Kg 
-</option>
-
-<option value="3 Kg">
-3 Kg 
-</option>
-
-<option value="Custom Cake">
-Custom Cake
-</option>
-
-</select></div>
-</>
-)}
-
-
-</>
-
-
-)}
-
-
-          {/* Total Price */}
+        <div>
+        <label>Additional Packages</label>
+
+        <div className="event-radio-group">
+
+          <label>
+            <input type="radio" name="additionalPackage" value="Yes" checked={formData.additionalPackage === "Yes"}
+             onChange={handleChange}/>
+             Yes
+          </label>
+
+
+          <label>
+            <input
+              type="radio"
+              name="additionalPackage"
+              value="No"
+              checked={formData.additionalPackage === "No"}
+              onChange={handleChange}
+            />
+            No
+          </label>
+
+              {/* Private Party Type */}
+
+          {formData.functionType === "Private Party" && (
 
           <div>
-            <label>Estimated Price</label>
 
-            <input
-              type="text"
-              value={`₹ ${Number(formData.totalPrice || 0).toLocaleString()}`}
-              readOnly
-            />
+          <label>Party Type</label>
+
+          <select
+          name="privatePartyType"
+          value={formData.privatePartyType}
+          onChange={handleChange}
+          >
+
+          <option value="">
+          Select Party Type
+          </option>
+
+          <option value="Birthday">
+          Birthday
+          </option>
+
+          <option value="Anniversary">
+          Anniversary
+          </option>
+
+          </select>
+
+          </div>
+
+          )}
+
+          {formData.functionType === "Music & Entertainment" && (
+
+          <div>
+
+          <label>Entertainment Type</label>
+
+          <select
+          name="musicEntertainment"
+          value={formData.musicEntertainment}
+          onChange={handleChange}
+          >
+
+          <option value="">
+          Select Entertainment
+          </option>
+
+          <option value="DJ">
+          DJ
+          </option>
+
+          <option value="Live Music">
+          Live Music
+          </option>
+
+          <option value="Dance Performance">
+          Dance Performance
+          </option>
+
+          <option value="Celebrity Show">
+          Celebrity Show
+          </option>
+
+          <option value="Stage Show">
+          Stage Show
+          </option>
+
+          <option value="Magic Show">
+          Magic Show
+          </option>
+
+          </select>
+
+          </div>
+
+          )}
+
+
+            </div>
           </div>
           
-          {/* Payment Method */}
+      {/* Show Additional Package */}
 
-        </div>
+      {formData.additionalPackage === "Yes" && (
 
-        <div className="event-cancel-box">
+      <>
 
- <label>Cancellation Policy</label>
+      {/* Wedding Package */}
 
-<select
-  name="cancellationPolicy"
-  value={formData.cancellationPolicy}
-  onChange={handleChange}
->
-  <option value="">Select Policy</option>
+      {(formData.functionType === "Wedding" ||
+        formData.functionType === "Reception") && (
+      <>
 
-  {policies.map((policy) => (
-    <option key={policy._id} value={policy.title}>
-      {policy.title}
-    </option>
-  ))}
+      <div>
+      <label>Makeup Level</label>
 
-</select>
-  <p>
-    Cancellation charges and refund policy will be based on the selected option.
-  </p>
-</div>
+      <select name="makeupLevel"value={formData.makeupLevel}onChange={handleChange}>
 
-     <div className="event-btn-group">
+      <option value="">Select Makeup</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium </option>
+      <option value="Luxury">Luxury </option>
 
-  <button
-    type="submit"
-    className="event-submit-btn"
-  >
-    Submit Request
-  </button>
+      </select>
+
+      </div>
 
 
-</div>
 
-    </form>
+      <div>
+      <label>Decoration Level</label>
 
-    </div>
-  );
-};
+      <select name="decorationLevel" value={formData.decorationLevel}onChange={handleChange}>
+
+      <option value="">Select Decoration</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium </option>
+      <option value="Luxury">Luxury </option>
+      </select>
+
+      </div>
+
+
+
+      <div>
+      <label>Photography Package</label>
+
+      <select
+      name="photographyPackage"
+      value={formData.photographyPackage}
+      onChange={handleChange}
+      >
+
+      <option value="">Select Photography</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium </option>
+      <option value="Luxury">Luxury </option>
+
+      </select>
+
+      </div>
+      {/* Catering */}
+
+      {(formData.functionType === "Wedding" ||
+      formData.functionType === "Reception") && (
+
+      <>
+
+      <div>
+
+      <label>Food Category</label>
+
+      <div className="event-radio-group">
+
+      <label>
+      <input
+      type="radio"
+      name="foodCategory"
+      value="Veg"
+      checked={formData.foodCategory === "Veg"}
+      onChange={handleChange}
+      />
+      Veg
+      </label>
+
+
+      <label>
+      <input
+      type="radio"
+      name="foodCategory"
+      value="Non Veg"
+      checked={formData.foodCategory === "Non Veg"}
+      onChange={handleChange}
+      />
+      Non Veg
+      </label>
+
+      </div>
+
+      </div>
+
+
+      <div>
+
+      <label>Food Type</label>
+
+      <select
+      name="foodType"
+      value={formData.foodType}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Food Type
+      </option>
+
+      <option value="South Indian">
+      South Indian
+      </option>
+
+      <option value="North Indian">
+      North Indian
+      </option>
+
+      <option value="Chinese">
+      Chinese
+      </option>
+
+      <option value="Mixed">
+      Mixed
+      </option>
+
+      </select>
+
+      </div>
+      <div>
+
+      <label>Video Package</label>
+
+      <select
+      name="videoPackage"
+      value={formData.videoPackage}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Video Package
+      </option>
+
+      <option value="Basic">
+      Basic 
+      </option>
+
+      <option value="Premium">
+      Premium 
+      </option>
+
+      <option value="Luxury">
+      Luxury 
+      </option>
+
+      </select>
+
+      </div>
+
+      </>
+
+
+      )}
+
+      </>
+
+      )}
+
+      {/* Corporate */}
+
+      {formData.functionType === "Corporate Event" && (
+
+      <>
+
+      <div>
+      <label>Stage Setup</label>
+
+      <select
+      name="stageSetup"
+      value={formData.stageSetup}
+      onChange={handleChange}
+      >
+
+      <option value="">Select Stage</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium</option>
+      <option value="Luxury">Luxury </option>
+
+      </select>
+
+      </div>
+
+
+      <div>
+      <label>Sound System</label>
+
+      <select
+      name="soundSystem"
+      value={formData.soundSystem}
+      onChange={handleChange}
+      >
+
+      <option value="">Select Sound</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium </option>
+      <option value="Luxury">Luxury </option>
+
+      </select>
+
+      </div>
+
+
+      <div>
+      <label>LED Screen</label>
+
+      <select
+      name="ledScreen"
+      value={formData.ledScreen}
+      onChange={handleChange}
+      >
+
+      <option value="">Select LED</option>
+      <option value="Basic">Basic </option>
+      <option value="Premium">Premium </option>
+      <option value="Luxury">Luxury </option>
+
+      </select>
+
+      </div>
+
+      </>
+
+      )}
+
+
+      {/* Private Party Packages */}
+
+      {formData.functionType === "Private Party" && (
+
+      <>
+
+
+
+      {/* Birthday Only Packages */}
+
+      {formData.privatePartyType === "Birthday" && (
+
+      <>
+
+      <div>
+      <label>Cake Package</label>
+
+      <select
+      name="cakePackage"
+      value={formData.cakePackage}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Cake
+      </option>
+
+      <option value="1 Kg">
+      1 Kg
+      </option>
+
+      <option value="2 Kg">
+      2 Kg 
+      </option>
+
+      <option value="3 Kg">
+      3 Kg 
+      </option>
+
+      <option value="Custom Cake">
+      Custom Cake 
+      </option>
+
+      </select>
+
+      </div>
+
+
+      <div>
+      <label>Birthday Decoration</label>
+
+      <select
+      name="birthdayDecoration"
+      value={formData.birthdayDecoration}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Decoration
+      </option>
+
+      <option value="Basic">
+      Basic 
+      </option>
+
+      <option value="Premium">
+      Premium 
+      </option>
+
+      <option value="Luxury">
+      Luxury 
+      </option>
+
+      </select>
+
+      </div>
+
+      <div>
+      <label>Photography Package</label>
+
+      <select
+      name="photographyPackage"
+      value={formData.photographyPackage}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Photography
+      </option>
+
+      <option value="Basic">
+      Basic 
+      </option>
+
+      <option value="Premium">
+      Premium 
+      </option>
+
+      <option value="Luxury">
+      Luxury 
+      </option>
+
+      </select>
+
+      </div>
+
+      <div>
+      <label>Music & Entertainment</label>
+
+      <select
+      name="musicEntertainment"
+      value={formData.musicEntertainment}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Entertainment
+      </option>
+
+      <option value="DJ">
+      DJ 
+      </option>
+
+      <option value="Live Music">
+      Live Music 
+      </option>
+
+      <option value="Dance Performance">
+      Dance Performance 
+      </option>
+
+      <option value="DJ + Live Music">
+      DJ + Live Music 
+      </option>
+
+      </select>
+
+      </div>
+
+      </>
+
+      )}
+
+      </>
+
+      )}
+
+      {/* Anniversary Packages */}
+
+      {formData.privatePartyType === "Anniversary" && (
+
+      <>
+
+      <div>
+      <label>Anniversary Decoration</label>
+
+      <select
+      name="birthdayDecoration"
+      value={formData.birthdayDecoration}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Decoration
+      </option>
+
+      <option value="Basic">
+      Basic 
+      </option>
+
+      <option value="Premium">
+      Premium
+      </option>
+
+      <option value="Luxury">
+      Luxury 
+      </option>
+
+      </select>
+
+      </div>
+
+
+      <div>
+      <label>Photography Package</label>
+
+      <select
+      name="photographyPackage"
+      value={formData.photographyPackage}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Photography
+      </option>
+
+      <option value="Basic">
+      Basic
+      </option>
+
+      <option value="Premium">
+      Premium 
+      </option>
+
+      <option value="Luxury">
+      Luxury 
+      </option>
+
+      </select>
+
+      </div>
+
+
+      <div>
+      <label>Cake Package</label>
+
+      <select
+      name="cakePackage"
+      value={formData.cakePackage}
+      onChange={handleChange}
+      >
+
+      <option value="">
+      Select Cake
+      </option>
+
+      <option value="1 Kg">
+      1 Kg 
+      </option>
+
+      <option value="2 Kg">
+      2 Kg 
+      </option>
+
+      <option value="3 Kg">
+      3 Kg 
+      </option>
+
+      <option value="Custom Cake">
+      Custom Cake
+      </option>
+
+      </select></div>
+      </>
+      )}
+
+
+      </>
+
+
+      )}
+
+
+                {/* Total Price */}
+
+                <div>
+                  <label>Estimated Price</label>
+
+                  <input
+                    type="text"
+                    value={`₹ ${Number(formData.totalPrice || 0).toLocaleString()}`}
+                    readOnly
+                  />
+                </div>
+                
+                {/* Payment Method */}
+
+              </div>
+
+              <div className="event-cancel-box">
+
+      <label>Cancellation Policy</label>
+
+      <select
+        name="cancellationPolicy"
+        value={formData.cancellationPolicy}
+        onChange={handleChange}
+      >
+        <option value="">Select Policy</option>
+
+        {policies.map((policy) => (
+          <option key={policy._id} value={policy.title}>
+            {policy.title}
+          </option>
+        ))}
+
+      </select>
+        <p>
+          Cancellation charges and refund policy will be based on the selected option.
+        </p>
+      </div>
+
+          <div className="event-btn-group">
+
+        <button
+          type="submit"
+          className="event-submit-btn"
+        >
+          Submit Request
+        </button>
+
+
+      </div>
+
+          </form>
+
+          </div>
+        );
+      };
 
 export default Form;

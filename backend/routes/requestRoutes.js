@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Request = require("../models/Request");
+const Pricing = require("../models/Pricing");
 const auth = require("../middleware/auth");
 const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
@@ -517,21 +518,26 @@ router.put("/confirm/:id", async (req, res) => {
       "-" +
       booking._id.toString().slice(-6).toUpperCase();
 
-    // ========================================
-    // GST CALCULATION
-    // ========================================
+// ========================================
+// GST CALCULATION
+// ========================================
 
-    const subtotal = booking.totalPrice || 0;
+const subtotal = booking.totalPrice || 0;
 
-    const gst = booking.gst || 18;
+// Get GST from Admin Pricing
+const gstPricing = await Pricing.findOne({
+  category: "GST",
+  title: "GST",
+  status: true
+});
 
-    const gstAmount = (subtotal * gst) / 100;
+const gst = gstPricing
+  ? Number(gstPricing.amount)
+  : 18;
 
-    const grandTotal = subtotal + gstAmount;
+const gstAmount = (subtotal * gst) / 100;
 
-    const advance = booking.advanceAmount || 0;
-
-    const balance = grandTotal - advance;
+const grandTotal = subtotal + gstAmount;
 
     // ========================================
     // SAVE GST + PAYMENT DETAILS

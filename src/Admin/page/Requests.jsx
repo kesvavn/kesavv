@@ -49,43 +49,56 @@ getRequests();
 
 
 
-const updateStatus = async(id,status)=>{
+const updateStatus = async (id, status) => {
 
-try{
+  try {
 
-if(status === "Confirmed"){
+    if (status === "Confirmed") {
 
-const res = await axios.put(
-`http://localhost:5000/api/requests/confirm/${id}`
-);
+      const res = await axios.put(
+        `http://localhost:5000/api/requests/confirm/${id}`
+      );
 
-console.log(res.data);
+      console.log("CONFIRMED DATA:", res.data);
 
-}
-else{
+      // ⭐ IMPORTANT
+      // Modal data update
+      if (res.data.data) {
+        setSelectedRequest(res.data.data);
+      }
 
-const res = await axios.put(
-`http://localhost:5000/api/requests/status/${id}`,
-{
-status:status
-}
-);
+    } else {
 
-console.log(res.data);
+      const res = await axios.put(
+        `http://localhost:5000/api/requests/status/${id}`,
+        {
+          status: status
+        }
+      );
 
-}
+      console.log("STATUS DATA:", res.data);
 
+      // Update modal for reject also
+      if (res.data.data) {
+        setSelectedRequest(res.data.data);
+      }
+    }
 
-getRequests();
+    // Refresh table
+    await getRequests();
 
+  } catch (error) {
 
-}
-catch(error){
+    console.error(
+      "UPDATE ERROR:",
+      error.response?.data || error.message
+    );
 
-console.log(error.response?.data || error.message);
-
-}
-
+    alert(
+      error.response?.data?.message ||
+      "Update failed"
+    );
+  }
 };
 
 return(

@@ -34,14 +34,27 @@ Customer Request Details
 
 
 <Modal.Body>
-
-  <p><strong>Additional Package:</strong> {request.additionalPackage}</p>
+<p>
+  <strong>Additional Package:</strong>{" "}
+  {request.additionalPackage || "No additional package"}
+</p>
 
   {request.functionType === "Corporate Event" && (
     <>
-      <p><strong>Stage Setup:</strong> {request.stageSetup}</p>
-      <p><strong>Sound System:</strong> {request.soundSystem}</p>
-      <p><strong>LED Screen:</strong> {request.ledScreen}</p>
+    <p>
+  <strong>Stage Setup:</strong>{" "}
+  {request.stageSetup || "Not selected"}
+</p>
+
+<p>
+  <strong>Sound System:</strong>{" "}
+  {request.soundSystem || "Not selected"}
+</p>
+
+<p>
+  <strong>LED Screen:</strong>{" "}
+  {request.ledScreen || "Not selected"}
+</p>
     </>
   )}
 
@@ -78,6 +91,10 @@ Customer Request Details
 
 <tbody>
 
+<tr>
+  <td>Invoice No</td>
+  <td>{request.invoiceNumber || "Not generated"}</td>
+</tr>
 
 <tr>
 <td>Name</td>
@@ -116,16 +133,47 @@ Customer Request Details
 
 
 <tr>
-<td>Rooms</td>
-<td>{request.rooms}</td>
+  <td>AC Rooms</td>
+  <td>{request.acRooms || 0}</td>
+</tr>
+
+<tr>
+  <td>Non-AC Rooms</td>
+  <td>{request.nonAcRooms || 0}</td>
 </tr>
 
 
 <tr>
-<td>Total Price</td>
-<td>
-₹ {request.totalPrice?.toLocaleString()}
-</td>
+  <td>Subtotal</td>
+  <td>₹ {request.totalPrice?.toLocaleString() || 0}</td>
+</tr>
+
+<tr>
+  <td>GST</td>
+  <td>
+    ₹ {request.gstAmount?.toLocaleString() || 0}
+  </td>
+</tr>
+
+<tr>
+  <td>Advance</td>
+  <td>
+    ₹ {request.advanceAmount?.toLocaleString() || 0}
+  </td>
+</tr>
+
+<tr>
+  <td>Balance</td>
+  <td>
+    ₹ {request.balanceAmount?.toLocaleString() || 0}
+  </td>
+</tr>
+
+<tr>
+  <td>Grand Total</td>
+  <td>
+    ₹ {request.grandTotal?.toLocaleString() || 0}
+  </td>
 </tr>
 
 

@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Table,
-  Button,
-  Form,
-  Modal,
-  Row,
-  Col,
-} from "react-bootstrap";
+import {Table,Button,Form,Modal,Row,Col} from "react-bootstrap";
 
 import "../Dashboard.css";
 
@@ -178,28 +171,17 @@ const viewCustomer = async (item) => {
 
                     <td>{item.status}</td>
 
-                    <td>
+                   <td style={{ whiteSpace: "nowrap" }}>
+                    <Button
+                      size="sm"
+                     variant="primary"
+                     onClick={() => viewCustomer(item)} >
+                     View 
+                     </Button>
 
-                      <Button
-                        size="sm"
-                        variant="primary"
-                        onClick={() => viewCustomer(item)}
-                      >
-                        View
-                      </Button>
-
-                      {" "}
-
-                      <Button
-                        size="sm"
-                        variant="danger"
-                        onClick={() => deleteCustomer(item._id)}
-                      >
-                        Delete
-                      </Button>
-
-                    </td>
-
+                     <Button size="sm" variant="danger" className="ms-2"
+                      onClick={() => deleteCustomer(item._id)}>
+                      Delete</Button></td>
                   </tr>
 
                 ))
