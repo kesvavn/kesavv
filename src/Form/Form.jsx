@@ -138,6 +138,7 @@ useEffect(() => {
   formData.guests,
   formData.acRooms,
   formData.nonAcRooms,
+  formData.functionTime,
   formData.functionType,
   formData.privatePartyType,
   formData.additionalPackage,
@@ -263,56 +264,64 @@ const getPrice = (category, title) => {
   return item ? Number(item.amount) : 0;
 };
 
+
 const calculatePrice = () => {
   let price = 0;
 
   // =========================
-  // VENUE - ALWAYS
+  // VENUE + FUNCTION HOURS
   // =========================
-  if (venue?.title) {
-    price += getPrice("Venue", venue.title);
+  if (venue?.title && formData.functionTime) {
+    const venuePrice = getPrice(
+      "Venue",
+      `${venue.title} - ${formData.functionTime}`
+    );
+
+    price += venuePrice;
   }
 
+  // =========================
+  // ROOMS
+  // =========================
+  const acRooms = Number(formData.acRooms || 0);
+  const nonAcRooms = Number(formData.nonAcRooms || 0);
 
-// =========================
-// ROOM PRICE
-// =========================
+  price += acRooms * getPrice("Room", "AC Room");
 
-const acRooms = Number(formData.acRooms || 0);
-const nonAcRooms = Number(formData.nonAcRooms || 0);
+  price += nonAcRooms * getPrice("Room", "Non AC Room");
 
-if (acRooms > 0) {
-  price +=
-    acRooms *
-    getPrice("Room", "AC Room");
-}
 
-if (nonAcRooms > 0) {
-  price +=
-    nonAcRooms *
-    getPrice("Room", "Non AC Room");
-}
   // =========================
   // ADDITIONAL PACKAGE
   // =========================
   if (formData.additionalPackage === "Yes") {
 
-    // Food
-    const guests = Number(formData.guests || 0);
+    // =========================
+// FOOD
+// =========================
+const guests = Number(formData.guests || 0);
 
-    if (guests > 0 && formData.foodCategory) {
-      price += guests * getPrice(
-        "Food",
-        formData.foodCategory
-      );
-    }
+if (guests > 0 && formData.foodCategory) {
 
-    // Wedding / Reception
+  const foodPrice = getPrice(
+    "Food",
+    formData.foodCategory
+  );
+
+  price += guests * foodPrice;
+}
+    // =========================
+    // WEDDING / RECEPTION
+    // =========================
     if (
       formData.functionType === "Wedding" ||
       formData.functionType === "Reception"
     ) {
-      price += getPrice("Makeup", formData.makeupLevel);
+
+      price += getPrice(
+        "Makeup",
+        formData.makeupLevel
+      );
 
       price += getPrice(
         "Decoration",
@@ -330,8 +339,12 @@ if (nonAcRooms > 0) {
       );
     }
 
-    // Corporate
+
+    // =========================
+    // CORPORATE
+    // =========================
     if (formData.functionType === "Corporate Event") {
+
       price += getPrice(
         "Stage Setup",
         formData.stageSetup
@@ -348,7 +361,10 @@ if (nonAcRooms > 0) {
       );
     }
 
-    // Private Party
+
+    // =========================
+    // PRIVATE PARTY
+    // =========================
     if (formData.functionType === "Private Party") {
 
       if (formData.privatePartyType === "Birthday") {
@@ -374,6 +390,7 @@ if (nonAcRooms > 0) {
         );
       }
 
+
       if (formData.privatePartyType === "Anniversary") {
 
         price += getPrice(
@@ -394,14 +411,16 @@ if (nonAcRooms > 0) {
     }
   }
 
+
   // =========================
   // GST
   // =========================
   const gst = getPrice("GST", "GST");
 
-  if (gst > 0) {
-    price += price * gst / 100;
-  }
+  const gstAmount = price * gst / 100;
+
+  price += gstAmount;
+
 
   // =========================
   // DISCOUNT
@@ -411,9 +430,10 @@ if (nonAcRooms > 0) {
     "Festival Offer"
   );
 
-  if (discount > 0) {
-    price -= price * discount / 100;
-  }
+  const discountAmount = price * discount / 100;
+
+  price -= discountAmount;
+
 
   return Math.round(price);
 };

@@ -679,36 +679,41 @@ categories.map((cat)=>(
     Title
   </Form.Label>
 
-  {form.category === "Room" ? (
+  
+{form.category === "Room" ? (
 
-    <Form.Select
-      name="title"
-      value={form.title}
-      onChange={handleChange}
-    >
-      <option value="">
-        Select Room Type
-      </option>
+  <Form.Select
+    name="title"
+    value={form.title}
+    onChange={handleChange}
+  >
+    <option value="">Select Room Type</option>
 
-      <option value="AC Room">
-        AC Room
-      </option>
+    <option value="AC Room">AC Room</option>
 
-      <option value="Non AC Room">
-        Non AC Room
-      </option>
-    </Form.Select>
+    <option value="Non AC Room">Non AC Room</option>
+  </Form.Select>
 
-  ) : (
+) : form.category === "Venue" ? (
 
-    <Form.Control
-      name="title"
-      value={form.title}
-      onChange={handleChange}
-      placeholder="Enter pricing title"
-    />
+  <Form.Control
+    name="title"
+    value={form.title}
+    onChange={handleChange}
+    placeholder="Example: kakkattu mana - 4 Hours"
+  />
 
-  )}
+) : (
+
+  <Form.Control
+    name="title"
+    value={form.title}
+    onChange={handleChange}
+    placeholder="Enter pricing title"
+  />
+
+)}
+  
 
 </Form.Group>
 

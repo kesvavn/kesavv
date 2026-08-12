@@ -518,6 +518,7 @@ router.put("/confirm/:id", async (req, res) => {
       "-" +
       booking._id.toString().slice(-6).toUpperCase();
 
+
 // ========================================
 // GST CALCULATION
 // ========================================
@@ -535,10 +536,17 @@ const gst = gstPricing
   ? Number(gstPricing.amount)
   : 18;
 
+// GST amount
 const gstAmount = (subtotal * gst) / 100;
 
+// Grand Total
 const grandTotal = subtotal + gstAmount;
 
+// Advance
+const advance = booking.advanceAmount || 0;
+
+// Balance
+const balance = grandTotal - advance;
     // ========================================
     // SAVE GST + PAYMENT DETAILS
     // ========================================
