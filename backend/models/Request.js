@@ -97,6 +97,12 @@ balanceAmount: {
   type: Number,
   default: 0,
 },
+
+invoiceNumber: {
+  type: String,
+  default: ""
+},
+
 paymentId: {
   type: mongoose.Schema.Types.ObjectId,
   ref: "Payment",
@@ -108,6 +114,20 @@ note:{
  default:""
 },
 
+gst: {
+  type: Number,
+  default: 18
+},
+
+gstAmount: {
+  type: Number,
+  default: 0
+},
+
+grandTotal: {
+  type: Number,
+  default: 0
+},
 
 totalPrice:{
  type:Number,

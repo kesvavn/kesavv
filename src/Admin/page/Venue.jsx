@@ -36,8 +36,8 @@ capacity:"",
 indoorSpace:"",
 outdoorSpace:"",
 parkingCapacity:"",
-acRooms:"",
-nonAcRooms:"",
+  acRooms: 0,
+  nonAcRooms: 0,
 
 
 wifi:false,
@@ -723,22 +723,31 @@ value={venue.outdoorSpace}
 onChange={handleChange}
 
 />
+<Form.Group className="mb-3">
+  <Form.Label>AC Rooms</Form.Label>
 
-<Form.Control
-  className="mb-2"
-  placeholder="AC Rooms"
-  name="acRooms"
-  value={venue.acRooms}
-  onChange={handleChange}
-/>
+  <Form.Control
+    type="number"
+    min="0"
+    name="acRooms"
+    value={venue.acRooms}
+    onChange={handleChange}
+    placeholder="Enter AC Room Count"
+  />
+</Form.Group>
 
-<Form.Control
-  className="mb-2"
-  placeholder="Non AC Rooms"
-  name="nonAcRooms"
-  value={venue.nonAcRooms}
-  onChange={handleChange}
-/>
+<Form.Group className="mb-3">
+  <Form.Label>Non-AC Rooms</Form.Label>
+
+  <Form.Control
+    type="number"
+    min="0"
+    name="nonAcRooms"
+    value={venue.nonAcRooms}
+    onChange={handleChange}
+    placeholder="Enter Non-AC Room Count"
+  />
+</Form.Group>
 
 <Form.Group className="mb-3">
   <Form.Label>

@@ -82,7 +82,7 @@ body {
 /* Desktop */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .hero-slider {
-    height: 85vh;
+    height: 95vh;
   }
 }
 

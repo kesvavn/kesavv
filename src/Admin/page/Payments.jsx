@@ -8,15 +8,23 @@ function Payments() {
   const [showModal, setShowModal] = useState(false);
 const [selectedPayment, setSelectedPayment] = useState(null);
 
-  const getPayments = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/payments");
-      setPayments(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+const getPayments = async () => {
+  try {
 
+    const res = await axios.get(
+      "http://localhost:5000/api/payments"
+    );
+
+    console.log("PAYMENTS FROM BACKEND:", res.data);
+
+    setPayments(res.data);
+
+  } catch (err) {
+
+    console.log(err);
+
+  }
+};
   //delete 
   const deletePayment = async (id) => {
   if (!window.confirm("Delete this payment?")) return;
@@ -90,7 +98,8 @@ const [selectedPayment, setSelectedPayment] = useState(null);
     item.invoiceNumber.toLowerCase().includes(search.toLowerCase())
   )
   .map((item) => (
-
+         
+    
                   <tr key={item._id}>
 
                     <td>{item.invoiceNumber}</td>
@@ -106,7 +115,8 @@ const [selectedPayment, setSelectedPayment] = useState(null);
                     <td>₹ {item.balanceAmount?.toLocaleString()}</td>
 
                     <td>{item.paymentMethod}</td>
-
+                    
+                  
                     <td>
                       <span
                         className={`badge ${
@@ -184,7 +194,7 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
       </div>
 
-<PaymentModal
+  <PaymentModal
   show={showModal}
   handleClose={() => setShowModal(false)}
   selectedPayment={selectedPayment}

@@ -65,89 +65,56 @@ console.log(err);
 
 
 
+const uploadPhoto = async () => {
 
-const uploadPhoto = async()=>{
+    if (images.length === 0) {
+        alert("Select Images");
+        return;
+    }
 
+    const data = new FormData();
 
-if(images.length===0){
+    data.append("category", form.category);
+    data.append("album", form.album.trim());
+    data.append("title", form.title.trim());
+    data.append("description", form.description.trim());
 
-alert("Select Images");
+    images.forEach((image) => {
+        data.append("images", image);
+    });
 
-return;
+    try {
 
-}
+        const res = await axios.post(
+            `${API}/api/photos/upload`,
+            data
+        );
 
+        alert(res.data.message);
 
+        setImages([]);
 
-const data = new FormData();
+        setForm({
+            category: "wedding",
+            album: "",
+            title: "",
+            description: ""
+        });
 
+        getPhotos();
 
+    } catch (err) {
 
-data.append("category", form.category);
-data.append("album", form.album);
-data.append("title", form.title);
-data.append("description", form.description);
+        console.log(
+            err.response?.data || err.message
+        );
 
-
-
-// multiple images
-for(let i=0;i<images.length;i++){
-
-data.append(
-"images",
-images[i]
-);
-
-}
-
-
-
-try{
-
-
-const res = await axios.post(
-
-`${API}/api/photos/upload`,
-
-data,
-
-{
-headers:{
-"Content-Type":"multipart/form-data"
-}
-}
-
-);
-
-
-
-alert(
-res.data.message
-);
-
-
-
-setImages([]);
-
-
-getPhotos();
-
-
-
-}
-catch(err){
-
-console.log(
-err.response?.data || err.message
-);
-
-}
-
-
+        alert(
+            err.response?.data?.message ||
+            "Upload failed"
+        );
+    }
 };
-
-
-
 
 
 
@@ -337,19 +304,13 @@ description:e.target.value
 
 
 <Form.Control
-
-className="mt-3"
-
-type="file"
-
-multiple
-
-onChange={(e)=>
-
-setImages(e.target.files)
-
-}
-
+    className="mt-3"
+    type="file"
+    multiple
+    accept="image/*"
+    onChange={(e) => {
+        setImages(Array.from(e.target.files));
+    }}
 />
 
 

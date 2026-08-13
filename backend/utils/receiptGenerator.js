@@ -50,23 +50,6 @@ await QRCode.toDataURL(qrData);
 
 
 
-// LOGO
-
-const logoPath = path.join(
-__dirname,
-"../public/MELODIA-LOGO.png"
-);
-
-doc.image(
-logoPath,
-230,
-40,
-{
-width:120
-}
-);
-
-
 
 doc.moveDown(5);
 
@@ -234,23 +217,6 @@ doc.moveDown(2);
 
 doc.moveDown(3);
 
-
-// SIGNATURE
-
-const signaturePath =
-path.join(
-__dirname,
-"../public/img.png"
-);
-
-
-doc.moveDown(2);
-
-doc.text("Authorized Signature", 400);
-
-doc.image(signaturePath, 400, doc.y + 5, {
-  width: 100,
-});
 
 
 

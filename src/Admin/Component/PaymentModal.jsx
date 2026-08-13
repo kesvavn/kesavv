@@ -12,7 +12,6 @@ function PaymentModal({
  const [formData,setFormData]=useState({
 
 bookingId:"",
-
 invoiceNumber:"",
 customerName:"",
 venueName:"",
@@ -26,11 +25,32 @@ remarks:""
 
 });
 
-  useEffect(() => {
-    if (selectedPayment) {
-      setFormData(selectedPayment);
-    }
-  }, [selectedPayment]);
+
+useEffect(() => {
+
+  if (selectedPayment) {
+
+    setFormData(selectedPayment);
+
+  } else {
+
+    setFormData({
+      bookingId: "",
+      invoiceNumber: "",
+      customerName: "",
+      venueName: "",
+      totalAmount: "",
+      advanceAmount: "",
+      balanceAmount: "",
+      paymentMethod: "Cash",
+      paymentStatus: "Pending",
+      transactionId: "",
+      remarks: "",
+    });
+
+  }
+
+}, [selectedPayment]);
 
   
 
@@ -59,47 +79,79 @@ loadBookings();
 
 },[]);
 
-
+//save payment
 const savePayment = async () => {
 
-  const data = {
-    ...formData,
+  const total = Number(formData.totalAmount || 0);
+  const advance = Number(formData.advanceAmount || 0);
 
-    balanceAmount:
-      Number(formData.totalAmount || 0) -
-      Number(formData.advanceAmount || 0)
+  if (advance > total) {
+    alert("Advance amount cannot be greater than total amount");
+    return;
+  }
+
+  let balance = total - advance;
+
+  if (formData.paymentStatus === "Paid") {
+    balance = 0;
+  }
+
+  const data = {
+    bookingId: formData.bookingId,
+    invoiceNumber: formData.invoiceNumber,
+    customerName: formData.customerName,
+    venueName: formData.venueName,
+
+    totalAmount: total,
+    advanceAmount: advance,
+    balanceAmount: balance,
+
+    paymentMethod: formData.paymentMethod,
+    paymentStatus: formData.paymentStatus,
+
+    transactionId: formData.transactionId || "",
+    remarks: formData.remarks || "",
   };
 
+  console.log("SENDING PAYMENT:", data);
 
   try {
 
     if (selectedPayment?._id) {
 
-      await axios.put(
+      const res = await axios.put(
         `http://localhost:5000/api/payments/${selectedPayment._id}`,
         data
       );
 
+      console.log("UPDATED:", res.data);
+
     } else {
 
-      await axios.post(
+      const res = await axios.post(
         "http://localhost:5000/api/payments",
         data
       );
 
+      console.log("CREATED:", res.data);
     }
 
+    await getPayments();
 
-    getPayments();
     handleClose();
-
 
   } catch (err) {
 
-    console.log(err);
+    console.log(
+      "PAYMENT ERROR:",
+      err.response?.data || err.message
+    );
 
+    alert(
+      err.response?.data?.message ||
+      "Payment Save Failed"
+    );
   }
-
 };
   return (
     <Modal show={show} onHide={handleClose} size="lg">
@@ -134,34 +186,33 @@ Booking
 
 <Form.Select
 
-onChange={(e)=>{
+onChange={(e) => {
 
-const booking = bookings.find(
-x=>x._id===e.target.value
-);
+  const booking = bookings.find(
+    x => x._id === e.target.value
+  );
 
-setFormData({
+  if (!booking) return;
 
-...formData,
+  setFormData({
 
-bookingId:booking._id,
+    ...formData,
 
-invoiceNumber:"INV" + Date.now(),
+    bookingId: booking._id,
 
-customerName:booking.fullName,
+    customerName: booking.fullName,
 
-venueName:booking.venueName,
+    venueName: booking.venueName,
 
-totalAmount:booking.totalPrice,
+    totalAmount: booking.totalPrice,
 
-advanceAmount:0,
+    advanceAmount: 0,
 
-balanceAmount:booking.totalPrice
+    balanceAmount: booking.totalPrice,
 
-});
+  });
 
 }}
-
 >
 
 <option>

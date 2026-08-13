@@ -291,6 +291,11 @@ Kochi
 
 </option>
 
+<option value="kerala">
+
+kerala
+
+</option>
 
 
 </select>
@@ -324,9 +329,9 @@ Heritage
 </option>
 
 
-<option value="resort">
+<option value="Ac Halls">
 
-Resort
+Ac Halls
 
 </option>
 

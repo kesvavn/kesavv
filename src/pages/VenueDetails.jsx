@@ -25,8 +25,9 @@ import {
   FaShieldAlt,
   FaCamera,
 } from "react-icons/fa";
+
 import "./VenueDetails.css";
-import LoginSidebar from "../components/Login/Login";
+import Login from "../components/Login/Login";
 const API = "http://localhost:5000";
 
 function VenueDetails() {
@@ -373,76 +374,66 @@ Request Pricing
 
  
 
-{venue.map && venue.map.includes("embed") && (
+      {venue.map && venue.map.includes("embed") && (
 
-<iframe
-  src={venue.map}
-  width="100%"
-  height="450"
-  style={{border:0}}
-  loading="lazy"
-  allowFullScreen
-  title="venue-map"
+      <iframe
+        src={venue.map}
+        width="100%"
+        height="450"
+        style={{border:0}}
+        loading="lazy"
+        allowFullScreen
+        title="venue-map"
+      />
+
+      )}
+      <Modal
+      show={showForm}
+      onHide={()=>setShowForm(false)}
+      size="lg"
+      centered
+      >
+
+      <Modal.Header closeButton>
+      <Modal.Title>
+      Request Pricing - {selectedVenue?.title}
+      </Modal.Title>
+      </Modal.Header>
+
+
+      <Modal.Body>
+
+      <PricingForm
+
+      show={showForm}
+
+      handleClose={()=>setShowForm(false)}
+
+      venue={selectedVenue}
+
+      />
+
+      </Modal.Body>
+
+
+      </Modal>
+
+
+<Login
+  showSidebar={showSidebar}
+  setShowSidebar={setShowSidebar}
+  onLogin={() => {
+
+    setShowSidebar(false);
+
+    setSelectedVenue(venue);
+
+    setShowForm(true);
+
+  }}
 />
-
-)}
-<Modal
-show={showForm}
-onHide={()=>setShowForm(false)}
-size="lg"
-centered
->
-
-<Modal.Header closeButton>
-<Modal.Title>
-Request Pricing - {selectedVenue?.title}
-</Modal.Title>
-</Modal.Header>
-
-
-<Modal.Body>
-
-<PricingForm
-
-show={showForm}
-
-handleClose={()=>setShowForm(false)}
-
-venue={selectedVenue}
-
-/>
-
-</Modal.Body>
-
-
-</Modal>
-
-
-
-{showSidebar && (
-<LoginSidebar
-
-show={showSidebar}
-
-handleClose={()=>{
-
-setShowSidebar(false);
-
-const token = localStorage.getItem("token");
-
-if(token){
-
-setSelectedVenue(venue);
-setShowForm(true);
-
-}
-
-}}
-
-/>
-)}
-    </Container>
-  );
-}
+          </Container>
+        );
+      }
 
 export default VenueDetails;

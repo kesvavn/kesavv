@@ -71,6 +71,7 @@ router.post("/", async (req, res) => {
   },
   { new: true }
 );
+  
 
     // Send Email
     if (booking && booking.email) {
@@ -134,7 +135,9 @@ contentType:
       data: payment,
     });
 
-  } catch (err) {
+    } catch (err) {
+
+    console.log("ADD PAYMENT ERROR:", err);
 
     res.status(500).json({
       success: false,
@@ -142,7 +145,6 @@ contentType:
     });
 
   }
-
 });
 
 
@@ -387,47 +389,33 @@ doc.moveDown(2);
     doc.fontSize(12);
 
 
-   const gst = payment.totalAmount * 0.18;
+// =============================
+// PAYMENT AMOUNT DETAILS
+// =============================
 
-const grandTotal =
-payment.totalAmount + gst;
-
-
-doc.text(
-  `Sub Total : ₹ ${payment.totalAmount}`
-);
-
+const totalAmount = Number(payment.totalAmount || 0);
+const advanceAmount = Number(payment.advanceAmount || 0);
+const balanceAmount = Number(payment.balanceAmount || 0);
 
 doc.text(
-  `GST (18%) : ₹ ${gst.toFixed(2)}`
+  `Total Booking Amount : ₹ ${totalAmount.toLocaleString("en-IN")}`
 );
-
 
 doc.text(
-  `Grand Total : ₹ ${grandTotal.toFixed(2)}`
+  `Advance Paid : ₹ ${advanceAmount.toLocaleString("en-IN")}`
 );
-
 
 doc.text(
-  `Advance Paid : ₹ ${payment.advanceAmount}`
+  `Balance Amount : ₹ ${balanceAmount.toLocaleString("en-IN")}`
 );
-
-
-doc.text(
-  `Balance Amount : ₹ ${payment.balanceAmount}`
-);
-
 
 doc.text(
   `Payment Method : ${payment.paymentMethod}`
 );
 
-
 doc.text(
   `Payment Status : ${payment.paymentStatus}`
 );
-
-
 doc.moveDown(2);
 
 
@@ -518,8 +506,6 @@ router.get("/:id", async (req, res) => {
   }
 
 });
-
-
 // =============================
 // UPDATE PAYMENT
 // =============================
@@ -528,39 +514,177 @@ router.put("/:id", async (req, res) => {
 
   try {
 
+    // 1. Update Payment
     const payment = await Payment.findByIdAndUpdate(
       req.params.id,
       req.body,
       {
         new: true,
+        runValidators: true,
       }
     );
 
     if (!payment) {
-
       return res.status(404).json({
+        success: false,
         message: "Payment not found",
       });
+    }
+
+
+    // 2. Update Related Booking
+    const booking = await Request.findByIdAndUpdate(
+      payment.bookingId,
+      {
+        paymentStatus: payment.paymentStatus,
+        paymentMethod: payment.paymentMethod,
+        advanceAmount: payment.advanceAmount,
+        balanceAmount: payment.balanceAmount,
+        paymentId: payment._id,
+      },
+      {
+        new: true,
+      }
+    );
+
+
+    // 3. Email
+    let emailSent = false;
+
+    if (booking && booking.email) {
+
+      try {
+
+        console.log("Sending email to:", booking.email);
+
+        const pdfBuffer =
+          await generateReceiptPDF(payment);
+
+        await transporter.sendMail({
+
+          from: process.env.EMAIL_USER,
+
+          to: booking.email,
+
+          subject:
+            "Payment Receipt Updated - Events Management Kerala",
+
+          html: `
+            <h2>Payment Details Updated</h2>
+
+            <p>
+              Hello <b>${booking.fullName}</b>,
+            </p>
+
+            <p>
+              Your payment details have been updated successfully.
+            </p>
+
+            <p>
+              <b>Invoice:</b>
+              ${payment.invoiceNumber}
+            </p>
+
+            <p>
+              <b>Total Booking Amount:</b>
+              ₹ ${payment.totalAmount}
+            </p>
+
+            <p>
+              <b>Advance Paid:</b>
+              ₹ ${payment.advanceAmount}
+            </p>
+
+            <p>
+              <b>Balance:</b>
+              ₹ ${payment.balanceAmount}
+            </p>
+
+            <p>
+              <b>Payment Method:</b>
+              ${payment.paymentMethod}
+            </p>
+
+            <p>
+              <b>Payment Status:</b>
+              ${payment.paymentStatus}
+            </p>
+
+            <p>
+              Thank you for choosing Events Management Kerala.
+            </p>
+          `,
+
+          attachments: [
+            {
+              filename:
+                `Receipt-${payment.invoiceNumber}.pdf`,
+
+              content: pdfBuffer,
+
+              contentType:
+                "application/pdf",
+            },
+          ],
+
+        });
+
+        emailSent = true;
+
+        console.log("EMAIL SENT SUCCESSFULLY");
+
+      } catch (emailError) {
+
+        console.log(
+          "EMAIL ERROR:",
+          emailError
+        );
+
+      }
+
+    } else {
+
+      console.log(
+        "Customer email not found"
+      );
 
     }
 
+
+    // 4. Response
     res.json({
+
       success: true,
-      message: "Payment Updated",
+
+      message: emailSent
+        ? "Payment Updated and Email Sent Successfully"
+        : "Payment Updated Successfully, but Email Failed",
+
+      emailSent,
+
       data: payment,
+
     });
+
 
   } catch (err) {
 
+    console.log(
+      "UPDATE PAYMENT ERROR:",
+      err
+    );
+
     res.status(500).json({
+
+      success: false,
+
       message: err.message,
+
     });
 
   }
 
 });
-
-
 // =============================
 // DELETE PAYMENT
 // =============================

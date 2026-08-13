@@ -1,89 +1,29 @@
 const express = require("express");
 const router = express.Router();
-
-const Venue = require("../models/Venue");
+const Photo = require("../models/Photo");
+const upload = require("../middleware/upload");
 
 
 // ===============================
-// UPLOAD GALLERY IMAGE
+// GET ALL PHOTOS
 // ===============================
 
-router.post("/:venueId", async (req, res) => {
+router.get("/", async (req, res) => {
 
     try {
 
-        const { venueId } = req.params;
+        const photos = await Photo.find()
+            .sort({ createdAt: -1 });
 
+        res.json(photos);
 
-        const venue = await Venue.findById(venueId);
-
-
-        if (!venue) {
-
-            return res.status(404).json({
-                message: "Venue not found"
-            });
-
-        }
-
-
-        const images = req.files;
-
-
-        if (!images || images.length === 0) {
-
-            return res.status(400).json({
-                message: "No images uploaded"
-            });
-
-        }
-
-
-
-        images.forEach((file)=>{
-
-            venue.gallery.push({
-
-                url: `/uploads/${file.filename}`,
-
-                alt:"Venue Image"
-
-            });
-
-        });
-
-
-
-        await venue.save();
-
-
-
-        res.json({
-
-            success:true,
-
-            message:"Gallery uploaded successfully",
-
-            gallery:venue.gallery
-
-        });
-
-
-
-    }
-    catch(err){
+    } catch (err) {
 
         console.log(err);
 
-
         res.status(500).json({
-
-            success:false,
-
-            message:"Upload failed",
-
-            error:err.message
-
+            success: false,
+            message: err.message
         });
 
     }
@@ -91,109 +31,201 @@ router.post("/:venueId", async (req, res) => {
 });
 
 
+// ===============================
+// GET ALBUMS
+// ===============================
+router.get("/albums", async (req, res) => {
 
+    try {
+
+        const albums = await Photo.aggregate([
+
+            {
+                $match: {
+                    category: "wedding",
+                    album: {
+                        $exists: true,
+                        $ne: ""
+                    }
+                }
+            },
+
+            {
+                $group: {
+                    _id: "$album",
+
+                    count: {
+                        $sum: 1
+                    },
+
+                    coverImage: {
+                        $first: "$image"
+                    }
+                }
+            },
+
+            {
+                $sort: {
+                    _id: 1
+                }
+            }
+
+        ]);
+
+        res.json(albums);
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.status(500).json({
+            success: false,
+            message: err.message
+        });
+
+    }
+
+});
 
 // ===============================
-// DELETE GALLERY IMAGE
+// UPLOAD MULTIPLE PHOTOS
 // ===============================
 
+router.post(
+    "/upload",
+    upload.array("images"),
+    async (req, res) => {
 
-router.delete("/:venueId/:imageId", async(req,res)=>{
+        try {
 
-
-    try{
-
-
-        console.log("DELETE ROUTE HIT");
-
-        console.log(req.params);
-
+            console.log("FILES:", req.files);
+            console.log("BODY:", req.body);
 
 
-        const {
-            venueId,
-            imageId
-        } = req.params;
+            if (!req.files || req.files.length === 0) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "No images uploaded"
+                });
+
+            }
 
 
+            const {
+                category,
+                album,
+                title,
+                description
+            } = req.body;
 
-        const venue = await Venue.findById(venueId);
+
+            const photos = [];
 
 
+            for (const file of req.files) {
 
-        if(!venue){
+                const photo = await Photo.create({
+
+                    category: category,
+
+                    album: album,
+
+                    image: `/uploads/${file.filename}`,
+
+                    title: title,
+
+                    description: description
+
+                });
 
 
-            return res.status(404).json({
+                photos.push(photo);
 
-                message:"Venue not found"
+            }
+
+
+            res.status(201).json({
+
+                success: true,
+
+                message: "Images uploaded successfully",
+
+                photos: photos
 
             });
 
 
+        } catch (err) {
+
+            console.log("UPLOAD ERROR:", err);
+
+            res.status(500).json({
+
+                success: false,
+
+                message: "Upload failed",
+
+                error: err.message
+
+            });
+
         }
 
-
-
-        console.log(
-            "Before Delete:",
-            venue.gallery
-        );
-
-        console.log("IMAGE ID:", imageId);
-console.log("GALLERY:", venue.gallery);
-
-venue.gallery = venue.gallery.filter(
-(img)=>
-String(img._id) !== String(imageId)
+    }
 );
 
-        console.log(
 
-            "After Delete:",
-            venue.gallery
+// ===============================
+// DELETE PHOTO
+// ===============================
 
+router.delete("/:id", async (req, res) => {
+
+    try {
+
+        const photo = await Photo.findByIdAndDelete(
+            req.params.id
         );
 
 
+        if (!photo) {
 
-        await venue.save();
+            return res.status(404).json({
 
+                success: false,
+
+                message: "Photo not found"
+
+            });
+
+        }
 
 
         res.json({
 
-            success:true,
+            success: true,
 
-            message:"Gallery image deleted successfully"
+            message: "Photo deleted successfully"
 
         });
 
 
-
-    }
-    catch(err){
-
+    } catch (err) {
 
         console.log(err);
 
-
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:"Delete failed",
-
-            error:err.message
+            message: err.message
 
         });
 
-
     }
 
-
 });
-
 
 
 module.exports = router;

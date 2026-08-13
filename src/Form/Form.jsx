@@ -124,6 +124,20 @@ useEffect(() => {
   console.log("Disabled Dates:", disabledDates);
 }, [disabledDates]);
 
+//razorpay
+useEffect(() => {
+  const script = document.createElement("script");
+
+  script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  script.async = true;
+
+  document.body.appendChild(script);
+
+  return () => {
+    document.body.removeChild(script);
+  };
+}, []);
+
 
 useEffect(() => {
   const price = calculatePrice();
@@ -494,7 +508,6 @@ alert("Booking Failed");
 
 }
 
-
 };
   return (
     <div className="event-form-container">
@@ -503,7 +516,7 @@ alert("Booking Failed");
 </h3>
       <div className="event-header">
         <h2>MELODIA EVENT MANAGEMENT</h2>
-        <h3>Request Pricing</h3>
+        
 
         <p>
           Fill this form and we will contact you shortly.
