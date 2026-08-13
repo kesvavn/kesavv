@@ -391,7 +391,16 @@ MOBILE & TABLET
   #phone-btn {
     font-size: 15px;
   }
+
+  .right-section{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
 }
+
+}
+
 
 /* =========================
    2K / QHD (2560px+)
