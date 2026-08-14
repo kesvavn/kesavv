@@ -320,18 +320,18 @@ setRecentPayments(payments.slice(0, 5));
               <td>₹ {item.totalAmount?.toLocaleString()}</td>
               <td>{item.paymentMethod}</td>
               <td>
-                <span
-                  className={`badge ${
-                    item.paymentStatus === "Paid"
-                      ? "bg-success"
-                      : item.paymentStatus === "Partial"
-                      ? "bg-warning text-dark"
-                      : "bg-danger"
-                  }`}
-                >
-                  {item.paymentStatus}
-                </span>
-              </td>
+              <span
+                className={`badge ${
+                  String(item.paymentStatus).trim().toLowerCase() === "paid"
+                    ? "bg-success"
+                    : String(item.paymentStatus).trim().toLowerCase() === "partial"
+                    ? "bg-warning text-dark"
+                    : "bg-danger"
+                }`}
+              >
+                {item.paymentStatus}
+              </span>
+            </td>
             </tr>
           ))
         ) : (

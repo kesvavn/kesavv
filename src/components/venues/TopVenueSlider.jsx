@@ -67,28 +67,41 @@ function TopVenueSlider() {
         }}
       >
         {venues.map((venue) => (
-          <SwiperSlide key={venue._id}>
-            <div
-  className="venue-card"
-  onClick={() => navigate(venue.link)}
->
-               <img src={`http://localhost:5000/uploads/${venue.image}`}alt={venue.title}/>
+  <SwiperSlide key={venue._id}>
+    <div
+      className="venue-card"
+      onClick={() => {
+        const slug = venue.slug?.replace(/^\/+/, "");
 
-              <div className="venue-content">
-                <div className="rating">
-                  {venue.rating}
-                </div>
+        if (slug) {
+          navigate(`/venue/${slug}`);
+        }
+      }}
+    >
+      <img
+        src={
+          venue.image?.startsWith("/uploads")
+            ? `http://localhost:5000${venue.image}`
+            : `http://localhost:5000/uploads/${venue.image}`
+        }
+        alt={venue.title}
+      />
 
-                <h3>{venue.title}</h3>
+      <div className="venue-content">
+        <div className="rating">
+          {venue.rating}
+        </div>
 
-                <p className="location-text">
-                  <FaLocationDot className="location-icon" />
-                  {venue.location}
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+        <h3>{venue.title}</h3>
+
+        <p className="location-text">
+          <FaLocationDot className="location-icon" />
+          {venue.location}
+        </p>
+      </div>
+    </div>
+  </SwiperSlide>
+))}
       </Swiper>
     </section>
   );

@@ -185,7 +185,6 @@ Booking
 </Form.Label>
 
 <Form.Select
-
 onChange={(e) => {
 
   const booking = bookings.find(
@@ -199,6 +198,10 @@ onChange={(e) => {
     ...formData,
 
     bookingId: booking._id,
+
+    invoiceNumber:
+      booking.invoiceNumber ||
+      "INV" + Date.now(),
 
     customerName: booking.fullName,
 

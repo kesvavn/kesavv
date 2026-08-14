@@ -189,6 +189,15 @@ doc.text(
 );
 doc.moveDown(0.3);
 
+//remark
+if (payment.remarks) {
+  doc.moveDown(0.3);
+
+  doc.text(
+    `Remarks         : ${payment.remarks}`
+  );
+}
+
 // Payment Status Color
 let statusColor = "red";
 

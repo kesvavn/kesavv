@@ -10,19 +10,24 @@ const [selectedPayment, setSelectedPayment] = useState(null);
 
 const getPayments = async () => {
   try {
-
     const res = await axios.get(
       "http://localhost:5000/api/payments"
     );
 
     console.log("PAYMENTS FROM BACKEND:", res.data);
 
+    res.data.forEach((item) => {
+      console.log(
+        item.invoiceNumber,
+        "=>",
+        item.paymentStatus
+      );
+    });
+
     setPayments(res.data);
 
   } catch (err) {
-
     console.log(err);
-
   }
 };
   //delete 
@@ -93,11 +98,11 @@ const getPayments = async () => {
 
               {payments.length > 0 ? (
                 payments
-  .filter((item) =>
-    item.customerName.toLowerCase().includes(search.toLowerCase()) ||
-    item.invoiceNumber.toLowerCase().includes(search.toLowerCase())
-  )
-  .map((item) => (
+                .filter((item) =>
+                  item.customerName.toLowerCase().includes(search.toLowerCase()) ||
+                  item.invoiceNumber.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((item) => (
          
     
                   <tr key={item._id}>
@@ -117,19 +122,19 @@ const getPayments = async () => {
                     <td>{item.paymentMethod}</td>
                     
                   
-                    <td>
-                      <span
-                        className={`badge ${
-  item.paymentStatus === "Paid"
-    ? "bg-success"
-    : item.paymentStatus === "Partial"
-    ? "bg-warning text-dark"
-    : "bg-secondary"
-}`}
-                      >
-                        {item.paymentStatus}
-                      </span>
-                    </td>
+                  <td>
+                <span
+                  className={`badge ${
+                    String(item.paymentStatus).trim().toLowerCase() === "paid"
+                      ? "bg-success"
+                      : String(item.paymentStatus).trim().toLowerCase() === "partial"
+                      ? "bg-warning text-dark"
+                      : "bg-secondary"
+                  }`}
+                >
+                  {item.paymentStatus}
+                </span>
+              </td>
 
                     <td>{new Date(item.paymentDate).toLocaleDateString("en-IN")} </td>
 
