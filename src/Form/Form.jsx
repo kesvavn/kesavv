@@ -15,18 +15,18 @@ const [formData, setFormData] = useState({
   fullName: "",
   phone: "",
   email: "",
-venueName: venue?.title || "",
+  venueName: venue?.title || "",
 
   functionDate: "",
   guests: "",
 
-acRooms: 0,
-nonAcRooms: 0,
+  acRooms: 0,
+  nonAcRooms: 0,
   functionType: "",
   functionTime: "",
   // Food
-foodType:"",
-foodCategory:"",
+  foodType:"",
+  foodCategory:"",
 
   // Additional Package
   additionalPackage: "No",
@@ -123,20 +123,6 @@ useEffect(() => {
 useEffect(() => {
   console.log("Disabled Dates:", disabledDates);
 }, [disabledDates]);
-
-//razorpay
-useEffect(() => {
-  const script = document.createElement("script");
-
-  script.src = "https://checkout.razorpay.com/v1/checkout.js";
-  script.async = true;
-
-  document.body.appendChild(script);
-
-  return () => {
-    document.body.removeChild(script);
-  };
-}, []);
 
 
 useEffect(() => {
@@ -507,6 +493,7 @@ console.log(err.response?.data || err);
 alert("Booking Failed");
 
 }
+
 
 };
   return (
@@ -1180,8 +1167,7 @@ alert("Booking Failed");
       </div>
 
       </>
-
-      )}
+    )}
 
       </>
 

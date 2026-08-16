@@ -13,7 +13,8 @@ import Destinationwedding from "./components/events/Destinationwedding";
 import BeachWedding from "./components/events/BeachWedding";
 import Entertainment from "./components/events/Entertainment";
 import PrivatePartics from "./components/events/PrivatePartics";
-import WeddingPhotoVideo from "./components/events/WeddingPhoto&video/WeddingPhotosVideo"
+import WeddingPhotoVideo from "./components/events/WeddingPhoto&video/WeddingPhotosVideo";
+import Catering from "./components/events/Catering";
 
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -72,26 +73,21 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
 
 
-<Route path="/admin" element={ <ProtectedRoute> <MainLayout /> </ProtectedRoute> }></Route>
+        <Route path="/admin" element={ <ProtectedRoute> <MainLayout /> 
+        </ProtectedRoute> }></Route>
         <Route path="/" element={<Home />} />
-
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login/>} />
 
-          <Route path="/Blogs" element={<Blogs />} />
-          <Route path="/Test" element={<Test />} />
-          
+        <Route path="/Blogs" element={<Blogs />} />
+        <Route path="/Test" element={<Test />} />          
         <Route path="/services" element={<> <MyNavbar /> <Services /></> }/>
-
         <Route path="/venues" element={<Venues />} />
-<Route path="/venue/:slug" element={<VenueDetails />}/>
-
+        <Route path="/venue/:slug" element={<VenueDetails />}/>
         <Route path="/gallery" element={<><MyNavbar /><Gallery /></>}/>
-
         <Route path="/contact" element={<Contact />} />
-
-       <Route path="/my-bookings"element={<MyBookings/>}/>
+        <Route path="/my-bookings"element={<MyBookings/>}/>
 
         {/* EVENT ROUTES */}
         <Route path="/Corprate" element={<Corprate />} />
@@ -99,7 +95,8 @@ function App() {
         <Route path="/Destinationwedding" element={<Destinationwedding />}/>
         <Route path="/Beachwedding" element={<BeachWedding />} />
         <Route path="/Entertainment" element={<Entertainment />} />
-      <Route path="/wedding-photography-videography" element={<WeddingPhotoVideo />}/>
+        <Route path="/wedding-photography-videography" element={<WeddingPhotoVideo />}/>
+        <Route path="/Catering"element={<Catering />}/> 
 
         {/* FIXED ROUTE */}
         <Route

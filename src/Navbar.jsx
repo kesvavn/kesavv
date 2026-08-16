@@ -132,7 +132,7 @@ const handleLogout = () => {
                
                 <NavDropdown.Item
                   as={Link}
-                  to="/corporate"
+                  to="/Catering"
                   onClick={closeMenu}
                 >
                   CATERING SERVICES

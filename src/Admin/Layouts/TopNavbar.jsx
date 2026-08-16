@@ -94,7 +94,7 @@ const getMailCount = async()=>{
 try{
 
 const res = await fetch(
-"http://localhost:5000/api/mails/count"
+"http://localhost:5000/api/mails/count/unread"
 );
 
 
