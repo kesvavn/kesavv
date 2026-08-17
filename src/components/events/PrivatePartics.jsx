@@ -4,7 +4,8 @@ import MyNavbar from "../../Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import privatePartyImage from "../../components/events/closeup-dj-working-blue-light-1024x589.webp";
-
+import Aniversary from "../gallery/privatepartys/images (6).jpg"
+import Birthday from "../gallery/privatepartys/images.jpg"
 function PrivateParties() {
 
   return (
@@ -148,6 +149,81 @@ function PrivateParties() {
           </p>
        </Col>
     </Row>
+
+    <Row className="g-4">
+
+  {/* Anniversary Party */}
+  <Col lg={4} md={6} sm={12}>
+    <div className="party-card">
+
+      <img
+        src={Aniversary}
+        alt="Anniversary Parties"
+      />
+
+      <div className="party-card-body">
+
+        <h5>Anniversary Parties</h5>
+
+        <div className="party-buttons">
+
+          <button className="learn-btn">
+            Learn More
+          </button>
+
+          <a
+            href="https://wa.me/918590010011"
+            target="_blank"
+            rel="noreferrer"
+            className="whatsapp-btn"
+          >
+            <i className="bi bi-whatsapp"></i>
+            WhatsApp Enquiry
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </Col>
+
+
+  {/* Birthday Party */}
+  <Col lg={4} md={6} sm={12}>
+    <div className="party-card">
+
+      <img
+        src={Birthday}
+        alt="Birthday Parties"
+      />
+
+      <div className="party-card-body">
+
+        <h5>Birthday Parties</h5>
+
+        <div className="party-buttons">
+
+          <button className="learn-btn">
+            Learn More
+          </button>
+
+          <a
+            href="https://wa.me/918590010011"
+            target="_blank"
+            rel="noreferrer"
+            className="whatsapp-btn"
+          >
+            <i className="bi bi-whatsapp"></i>
+            WhatsApp Enquiry
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </Col>
+
+</Row>
    </Container>
 
    
