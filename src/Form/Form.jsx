@@ -265,6 +265,15 @@ const getPrice = (category, title) => {
 };
 
 
+const getActivePricing = (category) => {
+  return pricing.filter(
+    (item) =>
+      item.category?.trim().toLowerCase() ===
+        category.trim().toLowerCase() &&
+      item.status === true
+  );
+};
+
 const calculatePrice = () => {
   let price = 0;
 
@@ -798,55 +807,61 @@ alert("Booking Failed");
       {(formData.functionType === "Wedding" ||
         formData.functionType === "Reception") && (
       <>
+     
+     <div>
+  <label>Makeup Level</label>
+
+  <select
+    name="makeupLevel"
+    value={formData.makeupLevel}
+    onChange={handleChange}
+  >
+    <option value="">Select Makeup</option>
+
+    {getActivePricing("Makeup").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
+
+
+<div>
+  <label>Decoration Level</label>
+
+  <select
+    name="decorationLevel"
+    value={formData.decorationLevel}
+    onChange={handleChange}
+  >
+    <option value="">Select Decoration</option>
+
+    {getActivePricing("Decoration").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
 
       <div>
-      <label>Makeup Level</label>
+  <label>Photography Package</label>
 
-      <select name="makeupLevel"value={formData.makeupLevel}onChange={handleChange}>
+  <select
+    name="photographyPackage"
+    value={formData.photographyPackage}
+    onChange={handleChange}
+  >
+    <option value="">Select Photography</option>
 
-      <option value="">Select Makeup</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium </option>
-      <option value="Luxury">Luxury </option>
-
-      </select>
-
-      </div>
-
-
-
-      <div>
-      <label>Decoration Level</label>
-
-      <select name="decorationLevel" value={formData.decorationLevel}onChange={handleChange}>
-
-      <option value="">Select Decoration</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium </option>
-      <option value="Luxury">Luxury </option>
-      </select>
-
-      </div>
-
-
-
-      <div>
-      <label>Photography Package</label>
-
-      <select
-      name="photographyPackage"
-      value={formData.photographyPackage}
-      onChange={handleChange}
-      >
-
-      <option value="">Select Photography</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium </option>
-      <option value="Luxury">Luxury </option>
-
-      </select>
-
-      </div>
+    {getActivePricing("Photography").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
       {/* Catering */}
 
       {(formData.functionType === "Wedding" ||
@@ -854,103 +869,45 @@ alert("Booking Failed");
 
       <>
 
-      <div>
+<div>
+  <label>Food Category</label>
 
-      <label>Food Category</label>
+  <div className="event-radio-group">
 
-      <div className="event-radio-group">
+    {getActivePricing("Food").map((item) => (
+      <label key={item._id}>
+        <input
+          type="radio"
+          name="foodCategory"
+          value={item.title}
+          checked={formData.foodCategory === item.title}
+          onChange={handleChange}
+        />
 
-      <label>
-      <input
-      type="radio"
-      name="foodCategory"
-      value="Veg"
-      checked={formData.foodCategory === "Veg"}
-      onChange={handleChange}
-      />
-      Veg
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
       </label>
+    ))}
 
+  </div>
+</div>
 
-      <label>
-      <input
-      type="radio"
-      name="foodCategory"
-      value="Non Veg"
-      checked={formData.foodCategory === "Non Veg"}
-      onChange={handleChange}
-      />
-      Non Veg
-      </label>
+<div>
+  <label>Video Package</label>
 
-      </div>
+  <select
+    name="videoPackage"
+    value={formData.videoPackage}
+    onChange={handleChange}
+  >
+    <option value="">Select Video Package</option>
 
-      </div>
-
-
-      <div>
-
-      <label>Food Type</label>
-
-      <select
-      name="foodType"
-      value={formData.foodType}
-      onChange={handleChange}
-      >
-
-      <option value="">
-      Select Food Type
+    {getActivePricing("Videography").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
       </option>
-
-      <option value="South Indian">
-      South Indian
-      </option>
-
-      <option value="North Indian">
-      North Indian
-      </option>
-
-      <option value="Chinese">
-      Chinese
-      </option>
-
-      <option value="Mixed">
-      Mixed
-      </option>
-
-      </select>
-
-      </div>
-      <div>
-
-      <label>Video Package</label>
-
-      <select
-      name="videoPackage"
-      value={formData.videoPackage}
-      onChange={handleChange}
-      >
-
-      <option value="">
-      Select Video Package
-      </option>
-
-      <option value="Basic">
-      Basic 
-      </option>
-
-      <option value="Premium">
-      Premium 
-      </option>
-
-      <option value="Luxury">
-      Luxury 
-      </option>
-
-      </select>
-
-      </div>
-
+    ))}
+  </select>
+</div>
       </>
 
 
@@ -965,62 +922,61 @@ alert("Booking Failed");
       {formData.functionType === "Corporate Event" && (
 
       <>
+<div>
+  <label>Stage Setup</label>
 
-      <div>
-      <label>Stage Setup</label>
+  <select
+    name="stageSetup"
+    value={formData.stageSetup}
+    onChange={handleChange}
+  >
+    <option value="">Select Stage</option>
 
-      <select
-      name="stageSetup"
-      value={formData.stageSetup}
-      onChange={handleChange}
-      >
-
-      <option value="">Select Stage</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium</option>
-      <option value="Luxury">Luxury </option>
-
-      </select>
-
-      </div>
-
-
-      <div>
-      <label>Sound System</label>
-
-      <select
-      name="soundSystem"
-      value={formData.soundSystem}
-      onChange={handleChange}
-      >
-
-      <option value="">Select Sound</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium </option>
-      <option value="Luxury">Luxury </option>
-
-      </select>
-
-      </div>
+    {getActivePricing("Stage Setup").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
 
 
       <div>
-      <label>LED Screen</label>
+  <label>Sound System</label>
 
-      <select
-      name="ledScreen"
-      value={formData.ledScreen}
-      onChange={handleChange}
-      >
+  <select
+    name="soundSystem"
+    value={formData.soundSystem}
+    onChange={handleChange}
+  >
+    <option value="">Select Sound</option>
 
-      <option value="">Select LED</option>
-      <option value="Basic">Basic </option>
-      <option value="Premium">Premium </option>
-      <option value="Luxury">Luxury </option>
+    {getActivePricing("Sound System").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
 
-      </select>
 
-      </div>
+      <div>
+  <label>LED Screen</label>
+
+  <select
+    name="ledScreen"
+    value={formData.ledScreen}
+    onChange={handleChange}
+  >
+    <option value="">Select LED</option>
+
+    {getActivePricing("LED Screen").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
+      </option>
+    ))}
+  </select>
+</div>
 
       </>
 
@@ -1040,69 +996,42 @@ alert("Booking Failed");
       {formData.privatePartyType === "Birthday" && (
 
       <>
+<div>
+  <label>Cake Package</label>
 
-      <div>
-      <label>Cake Package</label>
+  <select
+    name="cakePackage"
+    value={formData.cakePackage}
+    onChange={handleChange}
+  >
+    <option value="">Select Cake</option>
 
-      <select
-      name="cakePackage"
-      value={formData.cakePackage}
-      onChange={handleChange}
-      >
-
-      <option value="">
-      Select Cake
+    {getActivePricing("Cake").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
       </option>
-
-      <option value="1 Kg">
-      1 Kg
-      </option>
-
-      <option value="2 Kg">
-      2 Kg 
-      </option>
-
-      <option value="3 Kg">
-      3 Kg 
-      </option>
-
-      <option value="Custom Cake">
-      Custom Cake 
-      </option>
-
-      </select>
-
-      </div>
+    ))}
+  </select>
+</div>
 
 
       <div>
-      <label>Birthday Decoration</label>
+  <label>Birthday Decoration</label>
 
-      <select
-      name="birthdayDecoration"
-      value={formData.birthdayDecoration}
-      onChange={handleChange}
-      >
+  <select
+    name="birthdayDecoration"
+    value={formData.birthdayDecoration}
+    onChange={handleChange}
+  >
+    <option value="">Select Decoration</option>
 
-      <option value="">
-      Select Decoration
+    {getActivePricing("Birthday Decoration").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
       </option>
-
-      <option value="Basic">
-      Basic 
-      </option>
-
-      <option value="Premium">
-      Premium 
-      </option>
-
-      <option value="Luxury">
-      Luxury 
-      </option>
-
-      </select>
-
-      </div>
+    ))}
+  </select>
+</div>
 
       <div>
       <label>Photography Package</label>
@@ -1134,38 +1063,22 @@ alert("Booking Failed");
       </div>
 
       <div>
-      <label>Music & Entertainment</label>
+  <label>Music & Entertainment</label>
 
-      <select
-      name="musicEntertainment"
-      value={formData.musicEntertainment}
-      onChange={handleChange}
-      >
+  <select
+    name="musicEntertainment"
+    value={formData.musicEntertainment}
+    onChange={handleChange}
+  >
+    <option value="">Select Entertainment</option>
 
-      <option value="">
-      Select Entertainment
+    {getActivePricing("Music & Entertainment").map((item) => (
+      <option key={item._id} value={item.title}>
+        {item.title} - ₹{Number(item.amount).toLocaleString()}
       </option>
-
-      <option value="DJ">
-      DJ 
-      </option>
-
-      <option value="Live Music">
-      Live Music 
-      </option>
-
-      <option value="Dance Performance">
-      Dance Performance 
-      </option>
-
-      <option value="DJ + Live Music">
-      DJ + Live Music 
-      </option>
-
-      </select>
-
-      </div>
-
+    ))}
+  </select>
+</div>
       </>
     )}
 

@@ -1,0 +1,47 @@
+/* Pricing Page */
+
+.pricing-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.pricing-actions .btn {
+  min-width: 65px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+/* Edit Button */
+.pricing-actions .btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Delete Button */
+.pricing-actions .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+/* Hover Effect */
+.pricing-actions .btn:hover {
+  transform: translateY(-1px);
+  transition: 0.2s ease;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .pricing-actions {
+    gap: 8px;
+  }
+
+  .pricing-actions .btn {
+    min-width: 60px;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+}

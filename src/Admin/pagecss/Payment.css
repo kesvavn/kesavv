@@ -1,0 +1,28 @@
+
+/* =========================
+   Action Buttons
+========================= */
+
+.payment-btns {
+  min-width: 230px;
+}
+
+.payment-btns .btn {
+  min-width: 55px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 6px 10px;
+  transition: 0.2s ease;
+}
+
+.payment-btns .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Edit */
+.payment-btns .btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+

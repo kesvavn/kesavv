@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PaymentModal from "../Component/PaymentModal";
+import "../pagecss/Payment.css"
 
 function Payments() {
   const [search, setSearch] = useState("");
@@ -88,8 +89,9 @@ const getPayments = async () => {
                 <th>Advance</th>
                 <th>Balance</th>
                 <th>Method</th>
+                 <th>Date</th>
                 <th>Status</th>
-                <th>Date</th>
+               
                 <th>Action</th>
               </tr>
             </thead>
@@ -120,7 +122,8 @@ const getPayments = async () => {
                     <td>₹ {item.balanceAmount?.toLocaleString()}</td>
 
                     <td>{item.paymentMethod}</td>
-                    
+
+                     <td>{new Date(item.paymentDate).toLocaleDateString("en-IN")} </td>  
                   
                   <td>
                 <span
@@ -136,9 +139,8 @@ const getPayments = async () => {
                 </span>
               </td>
 
-                    <td>{new Date(item.paymentDate).toLocaleDateString("en-IN")} </td>
 
-                   <td>
+              <td className="payment-btns">
 
   <button
     className="btn btn-success btn-sm me-2"
@@ -148,7 +150,7 @@ const getPayments = async () => {
     }}
   >
     Edit
-  </button><br />
+  </button>
 
 
   <button
@@ -156,7 +158,7 @@ const getPayments = async () => {
     onClick={() => deletePayment(item._id)}
   >
     Delete
-  </button><br />
+  </button>
 
 
   <button
@@ -171,7 +173,7 @@ const getPayments = async () => {
     }}
   >
     Receipt
-  </button><br />
+  </button>
 
 
 </td>

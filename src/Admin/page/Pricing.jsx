@@ -12,7 +12,7 @@ Modal,
 Form,
 Badge
 } from "react-bootstrap";
-
+import "../pagecss/pricing.css"
 
 function Pricing(){
 const categories = [
@@ -255,34 +255,34 @@ getPricing();
 // =======================
 // STATUS TOGGLE
 // =======================
+const toggleStatus = async (item) => {
+  try {
+    const newStatus = !item.status;
 
+    console.log("Current:", item.status);
+    console.log("New:", newStatus);
 
-const toggleStatus=async(item)=>{
+    const res = await axios.put(
+      `http://localhost:5000/api/pricing/${item._id}`,
+      {
+        status: newStatus
+      }
+    );
 
+    console.log("Backend Response:", res.data);
 
-await axios.put(
+    setPricing((prev) =>
+      prev.map((price) =>
+        price._id === item._id
+          ? res.data
+          : price
+      )
+    );
 
-`http://localhost:5000/api/pricing/${item._id}`,
-
-{
-
-...item,
-
-status:!item.status
-
-}
-
-);
-
-
-getPricing();
-
-
+  } catch (error) {
+    console.error("Status update error:", error);
+  }
 };
-
-
-
-
 
 // SEARCH FILTER
 
@@ -488,77 +488,40 @@ filteredPricing.map((item)=>(
 {item.unit}
 
 </td>
-
 <td>
-
-
-<Badge
-
-bg={
-item.status?
-"success":
-"danger"
-}
-
-style={{
-cursor:"pointer"
-}}
-
-onClick={()=>toggleStatus(item)}
-
->
-
-{
-item.status?
-"Active":
-"Inactive"
-}
-
-
-</Badge>
-
-
+  <span
+    onClick={() => toggleStatus(item)}
+    style={{
+      display: "inline-block",
+      padding: "6px 12px",
+      borderRadius: "20px",
+      backgroundColor: item.status === true ? "#198754" : "#dc3545",
+      color: "white",
+      fontSize: "12px",
+      fontWeight: "600",
+      cursor: "pointer"
+    }}
+  >
+    {item.status === true ? "Active" : "Inactive"}
+  </span>
 </td>
+<td className="pricing-actions">
+  <Button
+    size="sm"
+    variant="primary"
+    onClick={() => editPricing(item)}
+  >
+    Edit
+  </Button>
 
-
-<td>
-
-
-<Button
-
-size="sm"
-
-variant="primary"
-
-className="me-2"
-
-onClick={()=>editPricing(item)}
-
->
-
-Edit
-
-</Button>
-
-
-
-<Button
-
-size="sm"
-
-variant="danger"
-
-onClick={()=>deletePricing(item._id)}
-
->
-
-Delete
-
-</Button>
-
-
+  <Button
+    size="sm"
+    variant="danger"
+    onClick={() => deletePricing(item._id)}
+  >
+    Delete
+  </Button>
 </td>
-
 
 
 </tr>

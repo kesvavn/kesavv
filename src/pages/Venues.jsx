@@ -160,8 +160,7 @@ setShowForm(true);
             </h1>
 
             <p className="venue-txt">
-                Looking for a perfect venue in Kerala?
-                Find beautiful wedding and event venues.
+               Looking for a perfect venue in Kerala? Our updated list features the most stunning locations and venue types, from backwater and beach resorts to banquet halls and traditional local mandapas. Find your dream event venue in Kerala today! 
             </p>
         </Col>
 

@@ -184,6 +184,12 @@ Customer Request Details
 </td>
 </tr>
 
+<tr>
+  <td>Cancellation Policy</td>
+  <td>
+    {request.cancellationPolicy || "Not selected"}
+  </td>
+</tr>
 
 <tr>
 <td>Status</td>

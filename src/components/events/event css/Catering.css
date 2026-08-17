@@ -7,9 +7,7 @@
 
 .catering-hero-section {
 
-  background-image: url(
-    "../ananthapuri.webp"
-  );
+  background-image: url("../ananthapuri.webp");
 
   background-size: cover; 
   background-position: center;

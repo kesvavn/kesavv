@@ -36,6 +36,22 @@
     font-family: "Montserrat", Sans-serif;
     font-size: 45px;
     font-weight: 700;
+    
+animation: slideUp 1.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
 }
 
 .venue-txt{
@@ -46,6 +62,21 @@
   font-family: "Jost", Sans-serif;
   font-size: 15px;
   font-weight: 400;
+
+animation: slideUp 1.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
 
 }
 .venue-img {
@@ -679,6 +710,10 @@ flex-direction:column;
 ========================= */
 
 @media (min-width:1025px) and (max-width:1440px){
+
+    .venues-bg{
+    height:100vh;
+}
 
 .venue-head{
     font-size:45px;
