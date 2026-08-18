@@ -8,9 +8,66 @@ function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [showReview, setShowReview] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  
+  
+  const [policies, setPolicies] = useState([]);
+const [showCancel, setShowCancel] = useState(false);
+const [cancelBooking, setCancelBooking] = useState(null);
+
+
+const getPolicies = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/cancellation-policies"
+    );
+
+    setPolicies(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+const handleCancelBooking = async () => {
+  try {
+    if (!cancelBooking) return;
+
+    const token = localStorage.getItem("token");
+
+    const res = await axios.put(
+      `http://localhost:5000/api/requests/cancel/${cancelBooking._id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = res.data.data;
+
+    alert(
+      `Booking Cancelled Successfully\n\n` +
+      `Cancellation Charge: ₹${data.cancellationCharge.toLocaleString()}\n` +
+      `Refund Amount: ₹${data.refundAmount.toLocaleString()}`
+    );
+
+    setShowCancel(false);
+    setCancelBooking(null);
+
+    getBookings();
+
+  } catch (err) {
+    console.log(err);
+
+    alert(
+      err.response?.data?.message ||
+      "Cancellation failed"
+    );
+  }
+};
 
   useEffect(() => {
     getBookings();
+     getPolicies();
   }, []);
 
   const getBookings = async () => {
@@ -35,6 +92,17 @@ function MyBookings() {
     console.log("Status:", err.response?.status);
     console.log("Error:", err.response?.data);
   }
+};
+const getSelectedPolicy = () => {
+  if (!cancelBooking?.cancellationPolicy) {
+    return null;
+  }
+
+  return policies.find(
+    (policy) =>
+      policy.title?.trim() ===
+      cancelBooking.cancellationPolicy?.trim()
+  );
 };
   return (
     <div className="booking-container">
@@ -175,16 +243,29 @@ function MyBookings() {
 
   
 )}
+
 {item.status === "Confirmed" && (
- <button
-  className="btn btn-success mt-2 ms-2"
-  onClick={() => {
-    setSelectedBooking(item);
-    setShowReview(true);
-  }}
->
-  Write Review
-</button>
+  <>
+    <button
+      className="btn btn-danger mt-2 ms-2"
+      onClick={() => {
+        setCancelBooking(item);
+        setShowCancel(true);
+      }}
+    >
+      Cancel Booking
+    </button>
+
+    <button
+      className="btn btn-success mt-2 ms-2"
+      onClick={() => {
+        setSelectedBooking(item);
+        setShowReview(true);
+      }}
+    >
+      Write Review
+    </button>
+  </>
 )}
 
             </div>
@@ -209,6 +290,131 @@ function MyBookings() {
       <ReviewForm booking={selectedBooking} />
     )}
   </Modal.Body>
+</Modal>
+
+{/* Cancellation Policy Modal */}
+
+<Modal
+  show={showCancel}
+  onHide={() => setShowCancel(false)}
+  centered
+>
+  <Modal.Header closeButton>
+    <Modal.Title>Cancellation Policy</Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+
+    {cancelBooking && (
+      <>
+        <p>
+          <strong>Venue:</strong>{" "}
+          {cancelBooking.venueName}
+        </p>
+
+        <p>
+          <strong>Booking Amount:</strong>{" "}
+          ₹ {cancelBooking.totalPrice?.toLocaleString()}
+        </p>
+
+        <hr />
+
+        <h5>Cancellation Policy</h5>
+
+        {(() => {
+  const selectedPolicy = getSelectedPolicy();
+
+  const grandTotal =
+    Number(cancelBooking.grandTotal) ||
+    Number(cancelBooking.totalPrice) ||
+    0;
+
+  const advance =
+    Number(cancelBooking.advanceAmount) || 0;
+
+  const percentage =
+    Number(selectedPolicy?.percentage) || 0;
+
+  const cancellationCharge =
+    (grandTotal * percentage) / 100;
+
+  const refundAmount =
+    Math.max(advance - cancellationCharge, 0);
+
+  if (!selectedPolicy) {
+    return (
+      <p className="text-danger">
+        No cancellation policy selected for this booking.
+      </p>
+    );
+  }
+
+  return (
+    <div>
+
+      <h6>
+        <strong>{selectedPolicy.title}</strong>
+      </h6>
+
+      <p>
+        {selectedPolicy.description}
+      </p>
+
+      <p>
+        <strong>Cancellation Charge:</strong>{" "}
+        {percentage}%
+      </p>
+
+      <p>
+        <strong>Booking Amount:</strong>{" "}
+        ₹ {grandTotal.toLocaleString()}
+      </p>
+
+      <p>
+        <strong>Advance Paid:</strong>{" "}
+        ₹ {advance.toLocaleString()}
+      </p>
+
+      <p className="text-danger">
+        <strong>Cancellation Amount:</strong>{" "}
+        ₹ {cancellationCharge.toLocaleString()}
+      </p>
+
+      <p className="text-success">
+        <strong>Estimated Refund:</strong>{" "}
+        ₹ {refundAmount.toLocaleString()}
+      </p>
+
+    </div>
+  );
+})()}
+
+        <p className="text-danger">
+          Cancellation charges may apply based on the
+          cancellation policy.
+        </p>
+      </>
+    )}
+
+  </Modal.Body>
+
+  <Modal.Footer>
+
+    <Button
+      variant="secondary"
+      onClick={() => setShowCancel(false)}
+    >
+      Close
+    </Button>
+
+    <Button
+  variant="danger"
+  onClick={handleCancelBooking}
+>
+  Confirm Cancellation
+</Button>
+
+  </Modal.Footer>
 </Modal>
     </div>
     

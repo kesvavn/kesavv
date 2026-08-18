@@ -466,6 +466,8 @@ return;
 const price = calculatePrice();
 
 const gstPercentage = getPrice("GST", "GST");
+const selectedPolicy = policies.find(
+  (policy) => policy.title === formData.cancellationPolicy)
 
 // GST இல்லாமல் base price கண்டுபிடிக்க
 const gstAmount =

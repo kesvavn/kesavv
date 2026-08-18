@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Request = require("../models/Request");
 const Pricing = require("../models/Pricing");
+const CancellationPolicy = require("../models/CancellationPolicy");
 const auth = require("../middleware/auth");
 const Notification = require("../models/Notification");
 const nodemailer = require("nodemailer");
@@ -734,7 +735,107 @@ message:err.message
 
 
 });
+router.put("/cancel/:id", auth, async (req, res) => {
+  try {
+    const booking = await Request.findById(req.params.id);
 
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found",
+      });
+    }
+
+    // Only Confirmed booking can be cancelled
+    if (booking.status !== "Confirmed") {
+      return res.status(400).json({
+        success: false,
+        message: "Only confirmed bookings can be cancelled",
+      });
+    }
+
+    // Get latest cancellation policy
+    const policy = await CancellationPolicy.findOne().sort({
+      createdAt: -1,
+    });
+
+    if (!policy) {
+      return res.status(400).json({
+        success: false,
+        message: "Cancellation policy not configured",
+      });
+    }
+
+    // Grand Total
+    const grandTotal =
+      Number(booking.grandTotal) ||
+      Number(booking.totalPrice) ||
+      0;
+
+    // Advance
+    const advance =
+      Number(booking.advanceAmount) || 0;
+
+    // Percentage
+    const cancellationPercentage =
+      Number(policy.percentage) || 0;
+
+    // Cancellation charge
+    const cancellationCharge =
+      (grandTotal * cancellationPercentage) / 100;
+
+    // Refund
+    const refundAmount =
+      Math.max(advance - cancellationCharge, 0);
+
+    // Update booking
+    booking.status = "Cancelled";
+
+    booking.cancellationCharge = cancellationCharge;
+
+    booking.refundAmount = refundAmount;
+
+    booking.cancelledBy = "User";
+
+    booking.cancelledAt = new Date();
+
+    await booking.save();
+
+    // Notification
+    await Notification.create({
+      title: "Booking Cancelled",
+
+      message:
+        `${booking.fullName} cancelled ${booking.venueName} booking`,
+
+      type: "Cancellation",
+
+      isRead: false,
+    });
+
+    res.json({
+      success: true,
+
+      message: "Booking cancelled successfully",
+
+      data: {
+        booking: booking,
+        cancellationPercentage: cancellationPercentage,
+        cancellationCharge: cancellationCharge,
+        refundAmount: refundAmount,
+      },
+    });
+
+  } catch (err) {
+
+    console.error("CANCELLATION ERROR:", err);
+
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
 
 // ========================================
 // GET ALL REQUESTS

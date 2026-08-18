@@ -135,11 +135,36 @@ totalPrice:{
 },
 
 
-status:{
- type:String,
- default:"Pending"
-}
+status: {
+  type: String,
+  enum: ["Pending", "Confirmed", "Cancelled"],
+  default: "Pending"
+},
 
+cancellationPercentage: {
+  type: Number,
+  default: 0
+},
+
+cancellationCharge: {
+  type: Number,
+  default: 0
+},
+
+refundAmount: {
+  type: Number,
+  default: 0
+},
+
+cancelledBy: {
+  type: String,
+  default: null
+},
+
+cancelledAt: {
+  type: Date,
+  default: null
+}
 
 },{
  timestamps:true

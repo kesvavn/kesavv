@@ -8,6 +8,7 @@ function CancellationPolicy() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    percentage: "",
   });
 
   const getPolicies = async () => {
@@ -55,6 +56,7 @@ function CancellationPolicy() {
       setFormData({
         title: "",
         description: "",
+          percentage: "",
       });
 
       setEditId(null);
@@ -103,6 +105,17 @@ function CancellationPolicy() {
           onChange={handleChange}
         />
 
+        <input
+  type="number"
+  className="form-control mb-3"
+  name="percentage"
+  placeholder="Cancellation Percentage"
+  min="0"
+  max="100"
+  value={formData.percentage}
+  onChange={handleChange}
+/>
+
         <button className="btn btn-primary">
           {editId ? "Update Policy" : "Add Policy"}
         </button>
@@ -110,46 +123,56 @@ function CancellationPolicy() {
 
       <hr />
 
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+     <table className="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Cancellation Percentage</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          {policies.map((policy) => (
-            <tr key={policy._id}>
-              <td>{policy.title}</td>
-              <td>{policy.description}</td>
+  <tbody>
+    {policies.map((policy) => (
+      <tr key={policy._id}>
 
-              <td>
-                <button
-                  className="btn btn-warning btn-sm me-2"
-                  onClick={() => {
-                    setEditId(policy._id);
-                    setFormData({
-                      title: policy.title,
-                      description: policy.description,
-                    });
-                  }}
-                >
-                  Edit
-                </button>
+        <td>{policy.title}</td>
 
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => deletePolicy(policy._id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <td>{policy.description}</td>
+
+        <td>
+          {policy.percentage}%
+        </td>
+
+        <td>
+          <button
+            className="btn btn-warning btn-sm me-2"
+            onClick={() => {
+              setEditId(policy._id);
+
+              setFormData({
+                title: policy.title,
+                description: policy.description,
+                percentage: policy.percentage,
+              });
+            }}
+          >
+            Edit
+          </button>
+
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => deletePolicy(policy._id)}
+          >
+            Delete
+          </button>
+        </td>
+
+      </tr>
+    ))}
+  </tbody>
+</table>
     </div>
   );
 }

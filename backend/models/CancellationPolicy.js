@@ -1,15 +1,29 @@
 const mongoose = require("mongoose");
 
-const cancellationPolicySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+const cancellationPolicySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+
+    description: {
+      type: String,
+      required: true,
+    },
+
+    percentage: {
+      type: Number,
+      required: true,
+      default: 0,
+      min: 0,
+      max: 100,
+    },
   },
-  description: {
-    type: String,
-    required: true,
+  {
+    timestamps: true,
   }
-}, { timestamps: true });
+);
 
 module.exports = mongoose.model(
   "CancellationPolicy",
