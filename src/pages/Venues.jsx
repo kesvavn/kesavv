@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 import "../pages/Venues.css";
 
 import MyNavbar from "../Navbar";
@@ -28,6 +29,29 @@ const [selectedVenue,setSelectedVenue] = useState(null);
 
 const [venues,setVenues] = useState([]);
 
+const [showAvailability, setShowAvailability] = useState(false);
+const [availabilityVenue, setAvailabilityVenue] = useState(null);
+const [unavailableDates, setUnavailableDates] = useState([]);
+
+const handleCheckAvailability = async (venue) => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/availability/unavailable",
+      {
+        params: {
+          venueId: venue._id,
+        },
+      }
+    );
+
+    setAvailabilityVenue(venue);
+    setUnavailableDates(res.data);
+    setShowAvailability(true);
+
+  } catch (error) {
+    console.log("Availability Error:", error);
+  }
+};
 
 
 useEffect(()=>{
@@ -64,6 +88,30 @@ console.log(error);
 
 }
 
+};
+
+const openAvailability = async (venue) => {
+  try {
+    console.log("Selected Venue:", venue);
+
+    const res = await axios.get(
+      "http://localhost:5000/api/availability/unavailable",
+      {
+        params: {
+          venueId: venue._id,
+        },
+      }
+    );
+
+    console.log("Unavailable Dates:", res.data);
+
+    setAvailabilityVenue(venue);
+    setUnavailableDates(res.data);
+    setShowAvailability(true);
+
+  } catch (error) {
+    console.log("Availability Error:", error);
+  }
 };
 
 
@@ -465,8 +513,12 @@ className="whatsapp-btn"
 WhatsApp
 
 </a>
-
-
+  <button
+    className="availability-btn"
+    onClick={() => handleCheckAvailability(venue)}
+  >
+    Check Availability
+  </button>
 
 <button
 
@@ -477,7 +529,6 @@ onClick={(e)=>{
 e.stopPropagation();
 
 const token = localStorage.getItem("token");
-
 
 if(token){
 
@@ -553,7 +604,71 @@ Request Pricing
 )}
 
 
+{showAvailability && (
+  <div className="availability-overlay">
 
+    <div className="availability-modal">
+
+      <button
+        className="close-modal"
+        onClick={() => setShowAvailability(false)}
+      >
+        ✕
+      </button>
+
+      <h3>Check Availability</h3>
+
+      <h5>{availabilityVenue?.title}</h5>
+
+      <p>📍 {availabilityVenue?.location}</p>
+
+      <hr />
+
+      <h5>Unavailable Dates</h5>
+
+      {unavailableDates.length === 0 ? (
+
+        <p className="available-text">
+          ✅ No unavailable dates found.
+        </p>
+
+      ) : (
+
+        <div className="availability-list">
+
+          {unavailableDates.map((item) => (
+
+            <div
+              className="availability-item"
+              key={item._id}
+            >
+
+              <strong>
+                {new Date(item.date).toLocaleDateString("en-IN")}
+              </strong>
+
+              <span>
+                {item.status}
+              </span>
+
+              {item.reason && (
+                <small>
+                  {item.reason}
+                </small>
+              )}
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+
+    </div>
+
+  </div>
+)}
 
 <Footer/>
 

@@ -150,7 +150,7 @@ function PrivateParties() {
        </Col>
     </Row>
 
-    <Row className="g-4">
+    <Row className="g-4 justify-content-start">
 
   {/* Anniversary Party */}
   <Col lg={4} md={6} sm={12}>

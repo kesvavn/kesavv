@@ -147,47 +147,55 @@ doc
   });
 
 doc.moveDown(0.8);
+const grandTotal = Number(payment.totalAmount || 0);
 
-const gst = payment.totalAmount * 0.18;
-const grandTotal = payment.totalAmount + gst;
+const gstRate = Number(payment.gstPercentage || 0);
+const gstAmount = Number(payment.gstAmount || 0);
+
+const subTotal = grandTotal - gstAmount;
 
 doc.fontSize(12);
 
 doc.text(
-  `Sub Total        : Rs. ${Number(payment.totalAmount).toLocaleString()}`
-);
-doc.moveDown(0.3);
-
-doc.text(
-  `GST (18%)        : Rs. ${gst.toLocaleString(undefined, {
+  `Sub Total        : Rs. ${subTotal.toLocaleString("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`
 );
+
 doc.moveDown(0.3);
 
 doc.text(
-  `Grand Total      : Rs. ${grandTotal.toLocaleString(undefined, {
+  `GST (${gstRate}%)   : Rs. ${gstAmount.toLocaleString("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`
 );
+
 doc.moveDown(0.3);
 
 doc.text(
-  `Advance Paid     : Rs. ${Number(payment.advanceAmount).toLocaleString()}`
+  `Grand Total      : Rs. ${grandTotal.toLocaleString("en-IN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`
 );
+
 doc.moveDown(0.3);
 
 doc.text(
-  `Balance Amount   : Rs. ${Number(payment.balanceAmount).toLocaleString()}`
+  `Advance Paid     : Rs. ${Number(
+    payment.advanceAmount || 0
+  ).toLocaleString("en-IN")}`
 );
+
 doc.moveDown(0.3);
 
 doc.text(
-  `Payment Method   : ${payment.paymentMethod}`
+  `Balance Amount   : Rs. ${Number(
+    payment.balanceAmount || 0
+  ).toLocaleString("en-IN")}`
 );
-doc.moveDown(0.3);
 
 //remark
 if (payment.remarks) {

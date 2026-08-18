@@ -199,13 +199,15 @@ expiresIn:"1d"
 
 
 res.json({
-
-token,
-
-user
-
+  token,
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    lastLogin: user.lastLogin,
+    loginCount: user.loginCount
+  }
 });
-
 
 }
 

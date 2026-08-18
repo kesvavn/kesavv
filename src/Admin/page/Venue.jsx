@@ -819,23 +819,7 @@ onChange={handlePrice}
 
 
 
-<Form.Check
-
-className="mt-3"
-
-label="Top Venue"
-
-name="isTop"
-
-checked={venue.isTop}
-
-onChange={handleChange}
-
-/>
-
-
-
-
+<Form.Check className="mt-3" label="Top Venue" name="isTop" checked={venue.isTop} onChange={handleChange}/>
 
 <Button
 

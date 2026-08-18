@@ -402,6 +402,85 @@ flex-direction:column;
     transform:translateY(-2px);
 }
 
+
+.availability-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.availability-modal {
+  width: 450px;
+  max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.availability-list {
+  margin-top: 15px;
+}
+
+.availability-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #f8f8f8;
+  border-left: 4px solid #dc3545;
+}
+
+.availability-item span {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.availability-item small {
+  color: #666;
+}
+
+.available-text {
+  color: green;
+  font-weight: 600;
+}
+.availability-btn {
+  background: #c14a42;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+}
+
+.availability-btn:hover {
+  background: #9d5133;
+  color: white;
+  transform: translateY(-1px);
+}
+
+
 /* =========================
  LOGIN / REGISTER MODAL
 ========================= */

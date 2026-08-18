@@ -222,11 +222,13 @@ const handleLogout = () => {
               
             </Nav>
 <div className="right-section">
-
-  <Button id="phone-btn">
-    <FaPhoneAlt className="me-2" />
-    +91 859 001 0011
-  </Button>
+<Button
+  id="phone-btn"
+  onClick={() => window.location.href = "tel:+918590010011"}
+>
+  <FaPhoneAlt className="me-2" />
+  +91 859 001 0011
+</Button>
 
   {isLoggedIn ? (
     <Button

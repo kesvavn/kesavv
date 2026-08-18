@@ -8,6 +8,7 @@ function PaymentModal({
   selectedPayment,
   getPayments,
 }) {
+  const [pricing, setPricing] = useState([]);
       const [bookings, setBookings] = useState([]);
  const [formData,setFormData]=useState({
 
@@ -16,6 +17,8 @@ invoiceNumber:"",
 customerName:"",
 venueName:"",
 totalAmount:"",
+gstPercentage: "",
+gstAmount: "",
 advanceAmount:"",
 balanceAmount:"",
 paymentMethod:"Cash",
@@ -40,6 +43,10 @@ useEffect(() => {
       customerName: "",
       venueName: "",
       totalAmount: "",
+
+      gstPercentage: "",
+      gstAmount: "",
+
       advanceAmount: "",
       balanceAmount: "",
       paymentMethod: "Cash",
@@ -54,12 +61,33 @@ useEffect(() => {
 
   
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+ const handleChange = (e) => {
+
+  const { name, value } = e.target;
+
+  setFormData((prev) => {
+
+    const updatedData = {
+      ...prev,
+      [name]: value,
+    };
+
+    if (name === "advanceAmount") {
+
+      const total = Number(prev.totalAmount || 0);
+      const advance = Number(value || 0);
+
+      updatedData.balanceAmount =
+        advance > total ? 0 : total - advance;
+    }
+
+    if (name === "paymentStatus" && value === "Paid") {
+      updatedData.balanceAmount = 0;
+    }
+
+    return updatedData;
+  });
+};
 
   
 //conform booking
@@ -79,6 +107,30 @@ loadBookings();
 
 },[]);
 
+useEffect(() => {
+
+  const loadPricing = async () => {
+
+    try {
+
+      const res = await axios.get(
+        "http://localhost:5000/api/pricing"
+      );
+
+      setPricing(res.data);
+
+    } catch (err) {
+
+      console.log("PRICING ERROR:", err);
+
+    }
+
+  };
+
+  loadPricing();
+
+}, []);
+
 //save payment
 const savePayment = async () => {
 
@@ -97,21 +149,25 @@ const savePayment = async () => {
   }
 
   const data = {
-    bookingId: formData.bookingId,
-    invoiceNumber: formData.invoiceNumber,
-    customerName: formData.customerName,
-    venueName: formData.venueName,
+  bookingId: formData.bookingId,
+  invoiceNumber: formData.invoiceNumber,
+  customerName: formData.customerName,
+  venueName: formData.venueName,
 
-    totalAmount: total,
-    advanceAmount: advance,
-    balanceAmount: balance,
+  totalAmount: total,
 
-    paymentMethod: formData.paymentMethod,
-    paymentStatus: formData.paymentStatus,
+gstPercentage: formData.gstPercentage,
+gstAmount: formData.gstAmount,
 
-    transactionId: formData.transactionId || "",
-    remarks: formData.remarks || "",
-  };
+  advanceAmount: advance,
+  balanceAmount: balance,
+
+  paymentMethod: formData.paymentMethod,
+  paymentStatus: formData.paymentStatus,
+
+  transactionId: formData.transactionId || "",
+  remarks: formData.remarks || "",
+};
 
   console.log("SENDING PAYMENT:", data);
 
@@ -193,27 +249,50 @@ onChange={(e) => {
 
   if (!booking) return;
 
-  setFormData({
+  const gstItem = pricing.find(
+  item =>
+    item.category?.trim().toLowerCase() === "gst" &&
+    item.title?.trim().toLowerCase() === "gst" &&
+    item.status === true
+);
 
-    ...formData,
+const gstPercentage = gstItem
+  ? Number(gstItem.amount)
+  : 0;
 
-    bookingId: booking._id,
+const subtotal = Number(booking.totalPrice || 0);
 
-    invoiceNumber:
-      booking.invoiceNumber ||
-      "INV" + Date.now(),
+const gstAmount =
+  subtotal * gstPercentage / 100;
 
-    customerName: booking.fullName,
+const grandTotal =
+  subtotal + gstAmount;
 
-    venueName: booking.venueName,
+setFormData({
 
-    totalAmount: booking.totalPrice,
+  ...formData,
 
-    advanceAmount: 0,
+  bookingId: booking._id,
 
-    balanceAmount: booking.totalPrice,
+  invoiceNumber:
+    booking.invoiceNumber ||
+    "INV" + Date.now(),
 
-  });
+  customerName: booking.fullName,
+
+  venueName: booking.venueName,
+
+  totalAmount: grandTotal,
+
+  gstPercentage: gstPercentage,
+
+  gstAmount: gstAmount,
+
+  advanceAmount: 0,
+
+  balanceAmount: grandTotal,
+
+});
 
 }}
 >

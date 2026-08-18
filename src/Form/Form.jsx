@@ -462,18 +462,23 @@ navigate("/login");
 return;
 }
 
-
- // Calculate 
+//calculate
 const price = calculatePrice();
 
+const gstPercentage = getPrice("GST", "GST");
+
+// GST இல்லாமல் base price கண்டுபிடிக்க
+const gstAmount =
+  price - (price / (1 + gstPercentage / 100));
 
 const submitData = {
-...formData,
-venueName:venue?.title,
-image:venue?.image,
-totalPrice:price
+  ...formData,
+  venueName: venue?.title,
+  image: venue?.image,
+  totalPrice: price,
+  gstPercentage: gstPercentage,
+  gstAmount: Math.round(gstAmount * 100) / 100
 };
-
 
 try{
 

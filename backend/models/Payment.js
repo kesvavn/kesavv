@@ -26,9 +26,25 @@ const paymentSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // =============================
+    // AMOUNT DETAILS
+    // =============================
+
     totalAmount: {
       type: Number,
       required: true,
+      min: 0,
+    },
+
+    gstPercentage: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    gstAmount: {
+      type: Number,
+      default: 0,
       min: 0,
     },
 
@@ -43,6 +59,10 @@ const paymentSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+
+    // =============================
+    // PAYMENT DETAILS
+    // =============================
 
     paymentMethod: {
       type: String,
