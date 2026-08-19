@@ -421,15 +421,6 @@ if (guests > 0 && formData.foodCategory) {
   }
 
 
-  // =========================
-  // GST
-  // =========================
-  const gst = getPrice("GST", "GST");
-
-  const gstAmount = price * gst / 100;
-
-  price += gstAmount;
-
 
   // =========================
   // DISCOUNT
@@ -447,71 +438,130 @@ if (guests > 0 && formData.foodCategory) {
   return Math.round(price);
 };
 
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-const handleSubmit = async(e)=>{
+  // Login check
+  const token = localStorage.getItem("token");
 
-e.preventDefault();
+  if (!token) {
+    alert("Please Login First");
+    navigate("/login");
+    return;
+  }
 
+  // Required validation
+  if (!formData.fullName) {
+    alert("Enter Full Name");
+    return;
+  }
 
-const token = localStorage.getItem("token");
+  if (!formData.phone) {
+    alert("Enter Phone Number");
+    return;
+  }
 
+  if (!formData.functionDate) {
+    alert("Select Function Date");
+    return;
+  }
 
-if(!token){
-alert("Please Login First");
-navigate("/login");
-return;
-}
+  if (!formData.cancellationPolicy) {
+    alert("Please select a cancellation policy");
+    return;
+  }
 
-//calculate
-const price = calculatePrice();
+  // Date availability
+  if (available === false) {
+    alert("This date is already booked");
+    return;
+  }
 
-const gstPercentage = getPrice("GST", "GST");
-const selectedPolicy = policies.find(
-  (policy) => policy.title === formData.cancellationPolicy)
+  // Calculate price
+  const price = calculatePrice();
 
-// GST இல்லாமல் base price கண்டுபிடிக்க
-const gstAmount =
-  price - (price / (1 + gstPercentage / 100));
+  const gstPercentage = getPrice("GST", "GST");
 
-const submitData = {
-  ...formData,
-  venueName: venue?.title,
-  image: venue?.image,
-  totalPrice: price,
-  gstPercentage: gstPercentage,
-  gstAmount: Math.round(gstAmount * 100) / 100
+  // Find selected cancellation policy
+  const selectedPolicy = policies.find(
+    (policy) =>
+      policy.title?.trim() ===
+      formData.cancellationPolicy?.trim()
+  );
+
+  console.log("SELECTED POLICY:", selectedPolicy);
+
+  if (!selectedPolicy) {
+    alert("Selected cancellation policy not found");
+    return;
+  }
+
+  // Get cancellation percentage
+  const cancellationPercentage =
+    Number(selectedPolicy.percentage) || 0;
+
+  console.log(
+    "CANCELLATION PERCENTAGE:",
+    cancellationPercentage
+  );
+
+  // GST amount
+  const gstAmount =
+    price - (price / (1 + gstPercentage / 100));
+
+  // Submit data
+  const submitData = {
+    ...formData,
+
+    venueName: venue?.title,
+
+    image: venue?.image,
+
+    totalPrice: price,
+
+    cancellationPercentage:
+      cancellationPercentage,
+
+    cancellationCharge: 0,
+
+    refundAmount: 0
+  };
+
+  console.log("========== SUBMIT DATA ==========");
+  console.log(submitData);
+
+  try {
+
+    const response = await axios.post(
+      "http://localhost:5000/api/requests",
+      submitData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    console.log("BOOKING RESPONSE:", response.data);
+
+    alert("Booking Request Submitted Successfully");
+
+    navigate("/my-bookings");
+
+  } catch (err) {
+
+    console.error(
+      "BOOKING ERROR:",
+      err.response?.data || err
+    );
+
+    alert(
+      err.response?.data?.message ||
+      "Booking Failed"
+    );
+  }
 };
 
-try{
-
-await axios.post(
-"http://localhost:5000/api/requests",
-submitData,
-{
-headers:{
-Authorization:`Bearer ${token}`
-}
-}
-);
-
-
-alert("Booking Request Submitted Successfully");
-
-
-navigate("/my-bookings");
-
-
-}
-catch(err){
-
-console.log(err.response?.data || err);
-
-alert("Booking Failed");
-
-}
-
-
-};
   return (
     <div className="event-form-container">
       <h3>
@@ -1220,19 +1270,19 @@ alert("Booking Failed");
       <label>Cancellation Policy</label>
 
       <select
-        name="cancellationPolicy"
-        value={formData.cancellationPolicy}
-        onChange={handleChange}
-      >
-        <option value="">Select Policy</option>
+  name="cancellationPolicy"
+  value={formData.cancellationPolicy}
+  onChange={handleChange}
+  required
+>
+  <option value="">Select Policy</option>
 
-        {policies.map((policy) => (
-          <option key={policy._id} value={policy.title}>
-            {policy.title}
-          </option>
-        ))}
-
-      </select>
+  {policies.map((policy) => (
+    <option key={policy._id} value={policy.title}>
+      {policy.title}
+    </option>
+  ))}
+</select>
         <p>
           Cancellation charges and refund policy will be based on the selected option.
         </p>

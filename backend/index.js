@@ -44,16 +44,17 @@ app.use(express.json());
 // MongoDB
 
 mongoose.connect(
-process.env.MONGO_URI || 
-"mongodb://127.0.0.1:27017/event"
+  process.env.MONGO_URI ||
+  "mongodb://127.0.0.1:27017/event"
 )
-.then(()=>{
-console.log("MongoDB Connected");
+.then(() => {
+  console.log("MongoDB Connected");
+  console.log("DATABASE:", mongoose.connection.name);
+  console.log("HOST:", mongoose.connection.host);
 })
-.catch(err=>{
-console.log(err);
+.catch(err => {
+  console.log("MongoDB ERROR:", err);
 });
-
 
 // Static
 

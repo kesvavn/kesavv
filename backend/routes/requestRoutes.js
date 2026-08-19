@@ -26,40 +26,95 @@ const transporter = nodemailer.createTransport({
 // ========================================
 // CREATE REQUEST
 // ========================================
-
 router.post("/", auth, async (req, res) => {
   try {
-    const request = new Request({
-      ...req.body,
-      userId: req.user.id,
+    console.log("========== CREATE BOOKING ==========");
+    console.log("BODY:", req.body);
+    console.log("USER:", req.user);
+
+    const policyTitle =
+      req.body.cancellationPolicy?.trim();
+
+    console.log("POLICY TITLE:", policyTitle);
+
+    if (!policyTitle) {
+      return res.status(400).json({
+        success: false,
+        message: "Cancellation policy is required",
+      });
+    }
+
+    const policy = await CancellationPolicy.findOne({
+      title: policyTitle,
     });
 
-   await request.save();
+    console.log("FOUND POLICY:", policy);
 
+    if (!policy) {
+      return res.status(400).json({
+        success: false,
+        message: "Cancellation policy not found",
+      });
+    }
 
-// Create Notification
+    const cancellationPercentage =
+      Number(policy.percentage);
 
-await Notification.create({
+    console.log(
+      "CANCELLATION PERCENTAGE:",
+      cancellationPercentage
+    );
 
-    title:"New Booking Request",
+    const request = new Request({
+      ...req.body,
 
-    message:`${request.fullName} requested ${request.venueName} booking`,
+      userId: req.user.id,
 
-    type:"Booking",
+      cancellationPolicy: policy.title,
 
-    isRead:false
+      cancellationPercentage:
+        cancellationPercentage,
 
-});
+      cancellationCharge: 0,
 
+      refundAmount: 0,
+    });
 
-res.status(201).json({
-  success: true,
-  message: "Request Submitted Successfully",
-  data: request,
-});
+    console.log("REQUEST BEFORE SAVE:", request);
+
+    const savedRequest = await request.save();
+
+    console.log(
+      "BOOKING SAVED SUCCESSFULLY:",
+      savedRequest._id
+    );
+
+    await Notification.create({
+      title: "New Booking Request",
+
+      message:
+        `${savedRequest.fullName} requested ${savedRequest.venueName} booking`,
+
+      type: "Booking",
+
+      isRead: false,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Request Submitted Successfully",
+      data: savedRequest,
+    });
 
   } catch (error) {
-    res.status(500).json({
+
+    console.error(
+      "========== CREATE BOOKING ERROR =========="
+    );
+
+    console.error(error);
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -735,6 +790,8 @@ message:err.message
 
 
 });
+
+//cancelation 
 router.put("/cancel/:id", auth, async (req, res) => {
   try {
     const booking = await Request.findById(req.params.id);
@@ -746,7 +803,7 @@ router.put("/cancel/:id", auth, async (req, res) => {
       });
     }
 
-    // Only Confirmed booking can be cancelled
+    // User can cancel only confirmed booking
     if (booking.status !== "Confirmed") {
       return res.status(400).json({
         success: false,
@@ -754,46 +811,80 @@ router.put("/cancel/:id", auth, async (req, res) => {
       });
     }
 
-    // Get latest cancellation policy
-    const policy = await CancellationPolicy.findOne().sort({
-      createdAt: -1,
+    // Make sure user can cancel only his own booking
+    if (booking.userId.toString() !== req.user.id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not allowed to cancel this booking",
+      });
+    }
+
+    // ========================================
+    // GET SELECTED CANCELLATION POLICY
+    // ========================================
+
+    const policy = await CancellationPolicy.findOne({
+      title: booking.cancellationPolicy,
     });
 
     if (!policy) {
       return res.status(400).json({
         success: false,
-        message: "Cancellation policy not configured",
+        message: "Cancellation policy not found",
       });
     }
 
-    // Grand Total
+    // ========================================
+    // GET CANCELLATION PERCENTAGE
+    // ========================================
+
+    const cancellationPercentage =
+      Number(policy.percentage) || 0;
+
+    // ========================================
+    // GRAND TOTAL
+    // ========================================
+
     const grandTotal =
       Number(booking.grandTotal) ||
       Number(booking.totalPrice) ||
       0;
 
-    // Advance
+    // ========================================
+    // ADVANCE
+    // ========================================
+
     const advance =
       Number(booking.advanceAmount) || 0;
 
-    // Percentage
-    const cancellationPercentage =
-      Number(policy.percentage) || 0;
+    // ========================================
+    // CANCELLATION CHARGE
+    // ========================================
 
-    // Cancellation charge
     const cancellationCharge =
       (grandTotal * cancellationPercentage) / 100;
 
-    // Refund
+    // ========================================
+    // REFUND
+    // ========================================
+
     const refundAmount =
       Math.max(advance - cancellationCharge, 0);
 
-    // Update booking
+    // ========================================
+    // UPDATE BOOKING
+    // ========================================
+
     booking.status = "Cancelled";
 
-    booking.cancellationCharge = cancellationCharge;
+    booking.cancellationPercentage =
+      cancellationPercentage;
 
-    booking.refundAmount = refundAmount;
+    booking.cancellationCharge =
+      Math.round(cancellationCharge * 100) / 100;
+
+    booking.refundAmount =
+      Math.round(refundAmount * 100) / 100;
 
     booking.cancelledBy = "User";
 
@@ -801,7 +892,10 @@ router.put("/cancel/:id", auth, async (req, res) => {
 
     await booking.save();
 
-    // Notification
+    // ========================================
+    // NOTIFICATION
+    // ========================================
+
     await Notification.create({
       title: "Booking Cancelled",
 
@@ -813,16 +907,20 @@ router.put("/cancel/:id", auth, async (req, res) => {
       isRead: false,
     });
 
+    // ========================================
+    // RESPONSE
+    // ========================================
+
     res.json({
       success: true,
 
       message: "Booking cancelled successfully",
 
       data: {
-        booking: booking,
-        cancellationPercentage: cancellationPercentage,
-        cancellationCharge: cancellationCharge,
-        refundAmount: refundAmount,
+        booking,
+        cancellationPercentage,
+        cancellationCharge,
+        refundAmount,
       },
     });
 

@@ -50,83 +50,117 @@ router.get("/confirmed-bookings", async (req, res) => {
 // =============================
 // ADD PAYMENT
 // =============================
-
 router.post("/", async (req, res) => {
-
   try {
 
+    console.log("========== ADD PAYMENT ==========");
+    console.log("PAYMENT BODY:", req.body);
+
+    // Check duplicate invoice
+    const existingPayment = await Payment.findOne({
+      invoiceNumber: req.body.invoiceNumber,
+    });
+
+    if (existingPayment) {
+      return res.status(400).json({
+        success: false,
+        message: `Payment already exists for invoice ${req.body.invoiceNumber}`,
+      });
+    }
+
+    // Create payment
     const payment = new Payment(req.body);
 
     await payment.save();
 
-    // Update Request
-   const booking = await Request.findByIdAndUpdate(
-  req.body.bookingId,
-  {
-    paymentStatus: req.body.paymentStatus,
-    paymentMethod: req.body.paymentMethod,
-    advanceAmount: req.body.advanceAmount,
-    balanceAmount: req.body.balanceAmount,
-    paymentId: payment._id,
-  },
-  { new: true }
-);
-  
+    // Update related booking
+    const booking = await Request.findByIdAndUpdate(
+      req.body.bookingId,
+      {
+        paymentStatus: req.body.paymentStatus,
+        paymentMethod: req.body.paymentMethod,
+        advanceAmount: req.body.advanceAmount,
+        balanceAmount: req.body.balanceAmount,
+        paymentId: payment._id,
+      },
+      { new: true }
+    );
 
     // Send Email
     if (booking && booking.email) {
 
-      const pdfBuffer =
-await generateReceiptPDF(payment);
+      try {
 
+        const pdfBuffer =
+          await generateReceiptPDF(payment);
 
+        await transporter.sendMail({
 
-await transporter.sendMail({
+          from: process.env.EMAIL_USER,
 
-from: process.env.EMAIL_USER,
+          to: booking.email,
 
-to: booking.email,
+          subject:
+            "Payment Receipt - Events Management Kerala",
 
-subject:
-"Payment Receipt - Events Management Kerala",
+          html: `
+            <h2>Payment Received Successfully</h2>
 
+            <p>
+              Hello <b>${booking.fullName}</b>,
+            </p>
 
-html:`
+            <p>
+              Your payment receipt is attached with this email.
+            </p>
 
-<h2>Payment Received Successfully</h2>
+            <hr>
 
-<p>
-Hello <b>${booking.fullName}</b>,
-</p>
+            <p>
+              <b>Invoice:</b>
+              ${payment.invoiceNumber}
+            </p>
 
-<p>
-Your payment receipt is attached with this email.
-</p>
+            <p>
+              <b>Total Amount:</b>
+              ₹ ${Number(payment.totalAmount || 0).toLocaleString("en-IN")}
+            </p>
 
+            <p>
+              <b>Advance Paid:</b>
+              ₹ ${Number(payment.advanceAmount || 0).toLocaleString("en-IN")}
+            </p>
 
-<p>
-Thank you for choosing Events Management Kerala.
-</p>
+            <p>
+              <b>Balance:</b>
+              ₹ ${Number(payment.balanceAmount || 0).toLocaleString("en-IN")}
+            </p>
 
-`,
+            <p>
+              Thank you for choosing Events Management Kerala.
+            </p>
+          `,
 
+          attachments: [
+            {
+              filename:
+                `Receipt-${payment.invoiceNumber}.pdf`,
 
-attachments:[
+              content: pdfBuffer,
 
-{
-filename:
-`Receipt-${payment.invoiceNumber}.pdf`,
+              contentType:
+                "application/pdf",
+            },
+          ],
+        });
 
-content:
-pdfBuffer,
+        console.log("PAYMENT EMAIL SENT");
 
-contentType:
-"application/pdf"
-}
+      } catch (emailError) {
 
-]
-});
+        console.log("EMAIL ERROR:", emailError);
 
+      }
     }
 
     res.status(201).json({
@@ -135,18 +169,25 @@ contentType:
       data: payment,
     });
 
-    } catch (err) {
+  } catch (err) {
 
     console.log("ADD PAYMENT ERROR:", err);
+
+    // MongoDB duplicate key safety
+    if (err.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "This invoice number already has a payment.",
+      });
+    }
 
     res.status(500).json({
       success: false,
       message: err.message,
     });
-
   }
 });
-
 
 // =============================
 // GET ALL PAYMENTS
