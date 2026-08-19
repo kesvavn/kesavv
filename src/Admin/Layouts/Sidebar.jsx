@@ -8,7 +8,7 @@ import { FaFileContract } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { FaHome, FaClipboardList, FaCalendarCheck, FaUsers, FaBuilding,  FaGift, FaMoneyBillWave,
-  FaCalendarAlt, FaCreditCard, FaImages, FaChartBar, FaBell, FaCog, FaSignOutAlt,} from "react-icons/fa";
+  FaCalendarAlt, FaCreditCard, FaImages, FaChartBar, FaBell, FaCog, FaSignOutAlt} from "react-icons/fa";
 
 
 const menus = [

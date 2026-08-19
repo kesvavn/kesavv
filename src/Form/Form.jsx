@@ -480,7 +480,7 @@ const handleSubmit = async (e) => {
   // Calculate price
   const price = calculatePrice();
 
-  const gstPercentage = getPrice("GST", "GST");
+  
 
   // Find selected cancellation policy
   const selectedPolicy = policies.find(
@@ -505,9 +505,7 @@ const handleSubmit = async (e) => {
     cancellationPercentage
   );
 
-  // GST amount
-  const gstAmount =
-    price - (price / (1 + gstPercentage / 100));
+  
 
   // Submit data
   const submitData = {
