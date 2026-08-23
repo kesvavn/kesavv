@@ -5,8 +5,12 @@ import {Navbar as BsNavbar, Nav, Container, Button,NavDropdown,} from "react-boo
 import { FaPhoneAlt, FaBars } from "react-icons/fa";
 import "./Navbar.css";
 import Login from "./components/Login/Login";
+import { useSettings } from "./context/SettingsContext";
 
 function MyNavbar() {
+
+    const { settings } = useSettings();
+
   const [redirectAfterLogin, setRedirectAfterLogin] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -50,11 +54,16 @@ const handleLogout = () => {
         <Container fluid>
 
           <BsNavbar.Brand as={Link} to="/" className="logo">
-            <img
-              src="https://eventsmanagementkerala.com/wp-content/uploads/2022/09/MELODIA-LOGO-03-1.webp"
-              alt="logo"
-              className="logo-img"
-            />
+             <img
+  src={
+    settings?.logo
+      ? `http://localhost:5000/uploads/${settings.logo}`
+      : "https://eventsmanagementkerala.com/wp-content/uploads/2022/09/MELODIA-LOGO-03-1.webp"
+  }
+  alt={settings?.companyName || "Melodia Event Management"}
+  className="logo-img"
+/>
+
           </BsNavbar.Brand>
 
           <BsNavbar.Toggle
@@ -224,10 +233,14 @@ const handleLogout = () => {
 <div className="right-section">
 <Button
   id="phone-btn"
-  onClick={() => window.location.href = "tel:+918590010011"}
+  onClick={() => {
+    if (settings?.phone) {
+      window.location.href = `tel:${settings.phone}`;
+    }
+  }}
 >
   <FaPhoneAlt className="me-2" />
-  +91 859 001 0011
+  {settings?.phone || "+91 859 001 0011"}
 </Button>
 
   {isLoggedIn ? (

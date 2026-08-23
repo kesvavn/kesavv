@@ -61,20 +61,20 @@ import Reviews from "./Admin/page/Reviews";
 import Notifications from "./Admin/page/Notifications";
 import AdminMail from "./Admin/page/AdminMail";
 import Settings from "./Admin/page/Settings";
+import { SettingsProvider } from "./context/SettingsContext";
+
 
 import VenueDetails from "./pages/VenueDetails";
 
 function App() {
   return (
     <>
+     <SettingsProvider>
       <ScrollToTop />
 
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
 
-
-        <Route path="/admin" element={ <ProtectedRoute> <MainLayout /> 
-        </ProtectedRoute> }></Route>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
@@ -155,108 +155,94 @@ function App() {
 
         {/* admin  panel */}
 
-{/* ADMIN PANEL */}
-
-<Route 
-path="/admin"
-element={
-<ProtectedRoute>
-<MainLayout />
-</ProtectedRoute>
-}
->
-
-<Route index element={<Dashboard />} />
-
-
-<Route 
-path="requests" 
-element={<Requests />} 
-/>
-
-
-<Route 
-path="bookings" 
-element={<Bookings />} 
-/>
-
-
-<Route 
-path="customers" 
-element={<Customers />} 
-/>
-
-
-<Route 
-path="venue" 
-element={<Venue />} 
-/>
-
-
-<Route 
-path="gallery" 
-element={<GalleryAdmin />} 
-/>
-
-
-<Route 
-path="availability" 
-element={<Availability />} 
-/>
-
-
-<Route 
-path="cancellation-policy" 
-element={<CancellationPolicy />} 
-/>
-
-
-<Route 
-path="payments" 
-element={<Payments />} 
-/>
-
-
-<Route 
-path="pricing" 
-element={<Pricing />} 
-/>
-
-
-<Route 
-path="reports" 
-element={<Reports />} 
-/>
-
-
-<Route 
-path="notifications" 
-element={<Notifications />} 
-/>
-
-<Route path="/admin/reviews" element={<Reviews />} />
+{/* ================= ADMIN PANEL ================= */}
 
 <Route
- path="/admin/AdminMail"
- element={
-  <ProtectedRoute>
-    <AdminMail/>
-  </ProtectedRoute>
- }
-/>
+  path="/admin"
+  element={
+    <ProtectedRoute>
+      <MainLayout />
+    </ProtectedRoute>
+  }
+>
+  <Route index element={<Dashboard />} />
 
-<Route 
-path="settings" 
-element={<Settings />} 
-/>
+  <Route
+    path="requests"
+    element={<Requests />}
+  />
 
+  <Route
+    path="bookings"
+    element={<Bookings />}
+  />
+
+  <Route
+    path="customers"
+    element={<Customers />}
+  />
+
+  <Route
+    path="venue"
+    element={<Venue />}
+  />
+
+  <Route
+    path="gallery"
+    element={<GalleryAdmin />}
+  />
+
+  <Route
+    path="availability"
+    element={<Availability />}
+  />
+
+  <Route
+    path="cancellation-policy"
+    element={<CancellationPolicy />}
+  />
+
+  <Route
+    path="payments"
+    element={<Payments />}
+  />
+
+  <Route
+    path="pricing"
+    element={<Pricing />}
+  />
+
+  <Route
+    path="reports"
+    element={<Reports />}
+  />
+
+  <Route
+    path="notifications"
+    element={<Notifications />}
+  />
+
+  <Route
+    path="reviews"
+    element={<Reviews />}
+  />
+
+  <Route
+    path="AdminMail"
+    element={<AdminMail />}
+  />
+
+  <Route
+    path="settings"
+    element={<Settings />}
+  />
 
 </Route>
-   <Route path="/admin/*" element={<AdminRoutes />} />
 
       </Routes>
       
       <WhatsAppButton />
+      </SettingsProvider>
 
     </>
   );

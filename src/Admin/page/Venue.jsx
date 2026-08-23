@@ -9,7 +9,8 @@ Card,
 Form,
 Button,
 Table,
-Image
+Image,
+ Modal
 } from "react-bootstrap";
 
 
@@ -76,6 +77,8 @@ const [imageFile,setImageFile]=useState(null);
 const [galleryFiles,setGalleryFiles]=useState([]);
 
 const [editId,setEditId]=useState(null);
+
+const [showModal, setShowModal] = useState(false);
 
 
 
@@ -352,6 +355,7 @@ setGalleryFiles([]);
 
 setEditId(null);
 
+setShowModal(false);
 
 fetchVenues();
 
@@ -378,27 +382,22 @@ catch(err){
 
 // EDIT
 
-
 const editVenue=(item)=>{
 
+  setVenue({
+    ...initialState,
+    ...item,
+    price:{
+      ...initialState.price,
+      ...(item.price || {})
+    }
+  });
 
-setVenue(item);
+  setEditId(item._id);
 
-setEditId(item._id);
-
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
+  setShowModal(true);
 
 };
-
-
 
 
 
@@ -443,443 +442,38 @@ return(
 
 {/* FORM */}
 
-<Col lg={5}>
 
 
-<Card>
 
+<Card.Header className="d-flex justify-content-between align-items-center">
+  <span>All Venues</span>
 
-<Card.Header>
-
-{
-
-editId ?
-
-"Update Venue"
-
-:
-
-"Add Venue"
-
-}
-
+  <Button
+    variant="primary"
+    onClick={() => {
+      setVenue(initialState);
+      setEditId(null);
+      setImageFile(null);
+      setGalleryFiles([]);
+      setShowModal(true);
+    }}
+  >
+    + Add Venue
+  </Button>
 </Card.Header>
-
-
-
-<Card.Body>
-
-
-
-<Form onSubmit={handleSubmit}>
-
-
-
-<Form.Control
-
-className="mb-3"
-
-placeholder="Venue Name"
-
-name="title"
-
-value={venue.title}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-3"
-
-placeholder="Slug"
-
-name="slug"
-
-value={venue.slug}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-3"
-
-placeholder="Location"
-
-name="location"
-
-value={venue.location}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-3"
-
-placeholder="Type"
-
-name="type"
-
-value={venue.type}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-3"
-
-placeholder="Description"
-
-as="textarea"
-
-rows={3}
-
-name="description"
-
-value={venue.description}
-
-onChange={handleChange}
-
-/>
-
-<Form.Select
-  className="mb-3"
-  name="rating"
-  value={venue.rating}
-  onChange={handleChange}
->
-  <option value="★★★★★">★★★★★ </option>
-  <option value="★★★★☆">★★★★☆ </option>
-  <option value="★★★☆☆">★★★☆☆ </option>
-  <option value="★★☆☆☆">★★☆☆☆ </option>
-  <option value="★☆☆☆☆">★☆☆☆☆ </option>
-</Form.Select>
-
-
-
-
-<Form.Label>
-Main Image
-</Form.Label>
-
-
-<Form.Control
-
-type="file"
-
-onChange={(e)=>
-setImageFile(e.target.files[0])
-}
-
-/>
-
-
-
-
-<Form.Label className="mt-3">
-Gallery
-</Form.Label>
-
-
-<Form.Control
-
-type="file"
-
-multiple
-
-onChange={(e)=>
-setGalleryFiles(
-[...e.target.files]
-)
-}
-
-/>
-
-
-
-
-
-<hr/>
-
-
-<h5>
-Facilities
-</h5>
-
-
-
-{
-
-[
-"wifi",
-"security",
-"powerBackup",
-"cctv",
-"catering",
-"customPackage"
-
-].map(item=>(
-
-
-<Form.Check
-
-key={item}
-
-label={item}
-
-name={item}
-
-checked={venue[item]}
-
-onChange={handleChange}
-
-/>
-
-
-))
-
-}
-
-
-
-<hr/>
-
-
-<Form.Control
-
-className="mb-2"
-
-placeholder="Capacity"
-
-name="capacity"
-
-value={venue.capacity}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-2"
-
-placeholder="Parking Capacity"
-
-name="parkingCapacity"
-
-value={venue.parkingCapacity}
-
-onChange={handleChange}
-
-/>
-
-
-
-
-
-<Form.Control
-
-className="mb-2"
-
-placeholder="Indoor Space"
-
-name="indoorSpace"
-
-value={venue.indoorSpace}
-
-onChange={handleChange}
-
-/>
-
-
-
-<Form.Control
-
-className="mb-2"
-
-placeholder="Outdoor Space"
-
-name="outdoorSpace"
-
-value={venue.outdoorSpace}
-
-onChange={handleChange}
-
-/>
-<Form.Group className="mb-3">
-  <Form.Label>AC Rooms</Form.Label>
-
-  <Form.Control
-    type="number"
-    min="0"
-    name="acRooms"
-    value={venue.acRooms}
-    onChange={handleChange}
-    placeholder="Enter AC Room Count"
-  />
-</Form.Group>
-
-<Form.Group className="mb-3">
-  <Form.Label>Non-AC Rooms</Form.Label>
-
-  <Form.Control
-    type="number"
-    min="0"
-    name="nonAcRooms"
-    value={venue.nonAcRooms}
-    onChange={handleChange}
-    placeholder="Enter Non-AC Room Count"
-  />
-</Form.Group>
-
-<Form.Group className="mb-3">
-  <Form.Label>
-    Google Map Embed URL
-  </Form.Label>
-
-  <Form.Control
-    as="textarea"
-    rows={4}
-    className="mb-2"
-    placeholder="Paste Google Map Embed URL"
-    name="map"
-    value={venue.map || ""}
-    onChange={handleChange}
-  />
-
-  <small className="text-muted">
-    Google Maps → Share → Embed a map
-  </small>
-</Form.Group>
-
-
-
-
-<Row>
-
-
-<Col>
-
-<Form.Control
-
-type="number"
-
-name="min"
-
-placeholder="Min Price"
-
-value={venue.price.min}
-
-onChange={handlePrice}
-
-/>
-
-</Col>
-
-
-<Col>
-
-<Form.Control
-
-type="number"
-
-name="max"
-
-placeholder="Max Price"
-
-value={venue.price.max}
-
-onChange={handlePrice}
-
-/>
-
-
-</Col>
-
-
-</Row>
-
-
-
-
-<Form.Check className="mt-3" label="Top Venue" name="isTop" checked={venue.isTop} onChange={handleChange}/>
-
-<Button
-
-className="mt-4 w-100"
-
-type="submit"
-
->
-
-
-{
-
-editId ?
-
-"Update Venue"
-
-:
-
-"Save Venue"
-
-}
-
-
-</Button>
-
-
-
-</Form>
-
-
-
-</Card.Body>
-
-
-</Card>
-
-
-
-</Col>
-
-
-
-
+<br /><br />
 
 
 {/* TABLE */}
 
 
 
-<Col lg={7}>
+<Col lg={12}>
 
 
 <Card>
 
 
-<Card.Header>
-
-All Venues
-
-</Card.Header>
 
 
 
@@ -982,48 +576,26 @@ height="60"
 
 
 
-<td>
+<td style={{ whiteSpace: "nowrap" }}>
+  <div className="d-flex gap-2 align-items-center">
 
+    <Button
+      size="sm"
+      variant="warning"
+      onClick={() => editVenue(item)}
+    >
+      Edit
+    </Button>
 
-<Button
+    <Button
+      size="sm"
+      variant="danger"
+      onClick={() => deleteVenue(item._id)}
+    >
+      Delete
+    </Button>
 
-size="sm"
-
-variant="warning"
-
-onClick={()=>
-editVenue(item)
-}
-
->
-
-Edit
-
-</Button>
-
-
-
-
-<Button
-
-size="sm"
-
-variant="danger"
-
-className="ms-2"
-
-onClick={()=>
-deleteVenue(item._id)
-}
-
->
-
-Delete
-
-</Button>
-
-
-
+  </div>
 </td>
 
 
@@ -1052,6 +624,255 @@ Delete
 
 </Col>
 
+
+<Modal
+  show={showModal}
+  onHide={() => setShowModal(false)}
+  size="lg"
+  centered
+  scrollable
+>
+  <Modal.Header closeButton>
+    <Modal.Title>
+      {editId ? "Update Venue" : "Add Venue"}
+    </Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+
+    <Form onSubmit={async (e) => {
+
+      await handleSubmit(e);
+
+      setShowModal(false);
+
+    }}>
+
+      <Form.Control
+        className="mb-3"
+        placeholder="Venue Name"
+        name="title"
+        value={venue.title}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-3"
+        placeholder="Slug"
+        name="slug"
+        value={venue.slug}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-3"
+        placeholder="Location"
+        name="location"
+        value={venue.location}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-3"
+        placeholder="Type"
+        name="type"
+        value={venue.type}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-3"
+        placeholder="Description"
+        as="textarea"
+        rows={3}
+        name="description"
+        value={venue.description}
+        onChange={handleChange}
+      />
+
+      <Form.Select
+        className="mb-3"
+        name="rating"
+        value={venue.rating}
+        onChange={handleChange}
+      >
+        <option value="★★★★★">★★★★★</option>
+        <option value="★★★★☆">★★★★☆</option>
+        <option value="★★★☆☆">★★★☆☆</option>
+        <option value="★★☆☆☆">★★☆☆☆</option>
+        <option value="★☆☆☆☆">★☆☆☆☆</option>
+      </Form.Select>
+
+      <Form.Label>Main Image</Form.Label>
+
+      <Form.Control
+        type="file"
+        onChange={(e) =>
+          setImageFile(e.target.files[0])
+        }
+      />
+
+      <Form.Label className="mt-3">
+        Gallery
+      </Form.Label>
+
+      <Form.Control
+        type="file"
+        multiple
+        onChange={(e) =>
+          setGalleryFiles([...e.target.files])
+        }
+      />
+
+      <hr />
+
+      <h5>Facilities</h5>
+
+      {[
+        "wifi",
+        "security",
+        "powerBackup",
+        "cctv",
+        "catering",
+        "customPackage"
+      ].map(item => (
+
+        <Form.Check
+          key={item}
+          label={item}
+          name={item}
+          checked={venue[item]}
+          onChange={handleChange}
+        />
+
+      ))}
+
+      <hr />
+
+      <Form.Control
+        className="mb-2"
+        placeholder="Capacity"
+        name="capacity"
+        value={venue.capacity}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-2"
+        placeholder="Parking Capacity"
+        name="parkingCapacity"
+        value={venue.parkingCapacity}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-2"
+        placeholder="Indoor Space"
+        name="indoorSpace"
+        value={venue.indoorSpace}
+        onChange={handleChange}
+      />
+
+      <Form.Control
+        className="mb-2"
+        placeholder="Outdoor Space"
+        name="outdoorSpace"
+        value={venue.outdoorSpace}
+        onChange={handleChange}
+      />
+
+      <Form.Group className="mb-3">
+        <Form.Label>AC Rooms</Form.Label>
+
+        <Form.Control
+          type="number"
+          min="0"
+          name="acRooms"
+          value={venue.acRooms}
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Non-AC Rooms</Form.Label>
+
+        <Form.Control
+          type="number"
+          min="0"
+          name="nonAcRooms"
+          value={venue.nonAcRooms}
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Google Map Embed URL</Form.Label>
+
+        <Form.Control
+          as="textarea"
+          rows={3}
+          placeholder="Paste Google Map Embed URL"
+          name="map"
+          value={venue.map || ""}
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Row>
+
+        <Col>
+          <Form.Control
+            type="number"
+            name="min"
+            placeholder="Min Price"
+            value={venue.price.min}
+            onChange={handlePrice}
+          />
+        </Col>
+
+        <Col>
+          <Form.Control
+            type="number"
+            name="max"
+            placeholder="Max Price"
+            value={venue.price.max}
+            onChange={handlePrice}
+          />
+        </Col>
+
+      </Row>
+
+      <Form.Check
+        className="mt-3"
+        label="Top Venue"
+        name="isTop"
+        checked={venue.isTop}
+        onChange={handleChange}
+      />
+
+      <div className="d-flex justify-content-end gap-2 mt-4">
+
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => setShowModal(false)}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          variant="primary"
+          type="submit"
+        >
+          {editId ? "Update Venue" : "Save Venue"}
+        </Button>
+
+      </div>
+
+    </Form>
+
+  </Modal.Body>
+</Modal>
 
 </Row>
 

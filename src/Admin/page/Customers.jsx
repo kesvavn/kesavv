@@ -146,6 +146,8 @@ const viewCustomer = async (item) => {
 
               <th>Email</th>
 
+                <th>Venues</th>
+              
               <th>Status</th>
 
               <th>Action</th>
@@ -169,7 +171,11 @@ const viewCustomer = async (item) => {
 
                     <td>{item.email}</td>
 
+                      <td>{item.venueName}</td>
+
                     <td>{item.status}</td>
+
+                     
 
                    <td style={{ whiteSpace: "nowrap" }}>
                     <Button

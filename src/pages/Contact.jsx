@@ -1,142 +1,259 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { FaPhoneAlt, FaEnvelope, FaInstagram, FaYoutube,FaFacebookF, FaLinkedinIn, FaTwitter,} from "react-icons/fa";
-import Image from "../images/WhatsApp-Image-2022-08-26-at-7.41.01-PM.webp";
+import { Container, Row, Col } from "react-bootstrap";
+
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaInstagram,
+  FaYoutube,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaTwitter,
+} from "react-icons/fa";
+
 import MyNavbar from "../Navbar";
 import "./Contact.css";
-import BranchOffice from "../components/Contact/BranchOffice"
-import Footer from "./Footer" 
+
+import BranchOffice from "../components/Contact/BranchOffice";
+import Footer from "./Footer";
 import ContactForm from "../Form/ContactForm";
 
-
+import { useSettings } from "../context/SettingsContext";
 
 function Contact() {
+  const { settings, loading } = useSettings();
+
+  // Settings loading
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-           <>
-           
-            <div className="cont-bg">
-             < MyNavbar />
-           <Container className="contact-container">
-  <Row>
+    <>
+      {/* ================= CONTACT HERO ================= */}
 
-    <Col md={8} className="contact-content">
+      <div className="cont-bg">
 
-      <h1 className="cont-head">
-        Contact Us
-      </h1>
+        <MyNavbar />
 
-      <div className="cont-txt">
-        <p>
-          Need help planning your next event?
-          Look no further than Melodia Event Management Kerala!
-        </p>
+        <Container className="contact-container">
 
-        <p>
-          We can provide everything you need
-          to ensure your event is a success.
-        </p>
+          <Row>
+
+            <Col md={12} className="contact-content">
+
+              <h1 className="cont-head">
+                Contact Us
+              </h1>
+
+              <div className="cont-txt">
+
+                <p>
+                  Need help planning your next event?
+                  Look no further than{" "}
+                  {settings.companyName || "Melodia Event Management"}!
+                </p>
+
+                <p>
+                  We can provide everything you need
+                  to ensure your event is a success.
+                </p>
+
+              </div>
+
+            </Col>
+
+          </Row>
+
+        </Container>
+
       </div>
-    </Col>
 
-  </Row>
-</Container>
 
-            </div>
-    <section className="reach-section">
-      
-  <Container>
-    <Row className="align-items-center">
+      {/* ================= REACH SECTION ================= */}
 
-      {/* LEFT SIDE */}
-      <Col lg={6} className="mb-5 mb-lg-0">
+      <section className="reach-section">
 
-        <h2 className="reach-title">
-          WANT TO WORK WITH US?
-        </h2>
+        <Container>
 
-        {/* PHONE */}
-        <div className="reach-card">
+          <Row className="align-items-center">
 
-          <div className="reach-icon">
-            <FaPhoneAlt />
-          </div>
+            {/* ================= LEFT SIDE ================= */}
 
-          <div>
-            <p className="reach-label">
-              TALK TO OUR CLIENT SUPPORT TEAM
-            </p>
+            <Col lg={6} className="mb-5 mb-lg-0">
 
-            <h4 className="reach-number">
-              +91-859-001-0011
-            </h4>
-          </div>
+              <h2 className="reach-title">
+                WANT TO WORK WITH US?
+              </h2>
 
-        </div>
 
-        {/* EMAIL */}
-        <div className="reach-card">
+              {/* ================= PHONE ================= */}
 
-          <div className="reach-icon">
-            <FaEnvelope />
-          </div>
+              <div className="reach-card">
 
-          <div>
-            <p className="reach-label">
-              WRITE TO US ABOUT YOUR NEEDS
-            </p>
+                <div className="reach-icon">
+                  <FaPhoneAlt />
+                </div>
 
-            <h4 className="reach-mail">
-              melodiaeventmanagement@gmail.com
-            </h4>
-          </div>
+                <div>
 
-        </div>
+                  <p className="reach-label">
+                    TALK TO OUR CLIENT SUPPORT TEAM
+                  </p>
 
-        {/* SOCIAL ICONS */}
-        <div className="reach-socials">
+                  <h4 className="reach-number">
 
-          <a href="/">
-            <FaInstagram />
-          </a>
+                    <a
+                      href={`tel:${settings.phone || ""}`}
+                      className="contact-link"
+                    >
+                      {settings.phone || "+91 859 001 0011"}
+                    </a>
 
-          <a href="/">
-            <FaYoutube />
-          </a>
+                  </h4>
 
-          <a href="/">
-            <FaFacebookF />
-          </a>
+                </div>
 
-          <a href="/">
-            <FaLinkedinIn />
-          </a>
+              </div>
 
-          <a href="/">
-            <FaTwitter />
-          </a>
 
-        </div>
+              {/* ================= EMAIL ================= */}
 
-      </Col>
+              <div className="reach-card">
 
-      {/* RIGHT SIDE */}
-      <Col lg={6}>
+                <div className="reach-icon">
+                  <FaEnvelope />
+                </div>
 
-        <div className="reach-form-wrapper">
+                <div>
 
-          <ContactForm />
+                  <p className="reach-label">
+                    WRITE TO US ABOUT YOUR NEEDS
+                  </p>
 
-        </div>
+                  <h4 className="reach-mail">
 
-      </Col>
+                    <a
+                      href={`mailto:${settings.email || ""}`}
+                      className="contact-link"
+                    >
+                      {settings.email ||
+                        "melodiaeventmanagement@gmail.com"}
+                    </a>
 
-    </Row>
-  </Container>
+                  </h4>
 
-</section>
-   <BranchOffice />
-   <Footer/>
+                </div>
+
+              </div>
+
+
+              {/* ================= SOCIAL ICONS ================= */}
+
+              <div className="reach-socials">
+
+                {/* Instagram */}
+
+                {settings.instagram && (
+                  <a
+                    href={settings.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram />
+                  </a>
+                )}
+
+
+                {/* YouTube */}
+
+                {settings.youtube && (
+                  <a
+                    href={settings.youtube}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="YouTube"
+                  >
+                    <FaYoutube />
+                  </a>
+                )}
+
+
+                {/* Facebook */}
+
+                {settings.facebook && (
+                  <a
+                    href={settings.facebook}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF />
+                  </a>
+                )}
+
+
+                {/* LinkedIn */}
+
+                {settings.linkedin && (
+                  <a
+                    href={settings.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn />
+                  </a>
+                )}
+
+
+                {/* Twitter */}
+
+                {settings.twitter && (
+                  <a
+                    href={settings.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Twitter"
+                  >
+                    <FaTwitter />
+                  </a>
+                )}
+
+              </div>
+
+            </Col>
+
+
+            {/* ================= RIGHT SIDE ================= */}
+
+            <Col lg={6}>
+
+              <div className="reach-form-wrapper">
+
+                <ContactForm />
+
+              </div>
+
+            </Col>
+
+          </Row>
+
+        </Container>
+
+      </section>
+
+
+      {/* ================= BRANCH OFFICE ================= */}
+
+      <BranchOffice />
+
+
+      {/* ================= FOOTER ================= */}
+
+      <Footer />
+
     </>
-
   );
 }
 

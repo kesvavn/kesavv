@@ -1,4 +1,6 @@
-import { FaInstagram, FaYoutube,
+import {
+  FaInstagram,
+  FaYoutube,
   FaFacebookF,
   FaLinkedinIn,
   FaTwitter,
@@ -7,6 +9,7 @@ import { FaInstagram, FaYoutube,
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
+import { useSettings } from "../context/SettingsContext";
 import { Link } from "react-router-dom";
 
 import logo from "../images/MELODIA-LOGO-03-1.webp";
@@ -14,6 +17,8 @@ import logo from "../images/MELODIA-LOGO-03-1.webp";
 import "./Footer.css";
 
 function Footer() {
+  const { settings } = useSettings();
+
   return (
     <footer className="footer">
 
@@ -23,59 +28,82 @@ function Footer() {
 
         <div className="social-icons">
 
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaInstagram />
-          </a>
+          {settings?.instagram && (
+            <a
+              href={settings.instagram}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaInstagram />
+            </a>
+          )}
 
-          <a
-            href="https://www.youtube.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaYoutube />
-          </a>
+          {settings?.youtube && (
+            <a
+              href={settings.youtube}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaYoutube />
+            </a>
+          )}
 
-          <a
-            href="https://www.facebook.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaFacebookF />
-          </a>
+          {settings?.facebook && (
+            <a
+              href={settings.facebook}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaFacebookF />
+            </a>
+          )}
 
-          <a
-            href="https://www.linkedin.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaLinkedinIn />
-          </a>
+          {settings?.linkedin && (
+            <a
+              href={settings.linkedin}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaLinkedinIn />
+            </a>
+          )}
 
-          <a
-            href="https://twitter.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaTwitter />
-          </a>
+          {settings?.twitter && (
+            <a
+              href={settings.twitter}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaTwitter />
+            </a>
+          )}
 
         </div>
 
+
         {/* LOGO */}
-      <div className="footer-logo">
-       <img src={logo} alt="Melodia Logo" />
-       </div>
+
+        <div className="footer-logo">
+
+          <img
+            src={
+              settings?.logo
+                ? `http://localhost:5000/uploads/${settings.logo}`
+                : logo
+            }
+            alt={settings?.companyName || "Company Logo"}
+          />
+
+        </div>
+
 
         {/* DESCRIPTION */}
 
         <div className="footer-description">
 
           <h4>
-            Melodia® Event Management: ISO 9001:2015 Certified Kerala Event Planners
+            {settings?.companyName || "Melodia Event Management"}:
+            {" "}ISO 9001:2015 Certified Kerala Event Planners
           </h4>
 
           <p>
@@ -88,81 +116,89 @@ function Footer() {
 
         </div>
 
+
         {/* FOOTER GRID */}
 
         <div className="footer-grid">
 
+
           {/* QUICK LINKS */}
 
           <div>
+
             <h3>QUICK LINKS</h3>
 
-        <ul>
-      <ul>
+            <ul>
 
-  <li>
-    <Link to="/">Home</Link>
-  </li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
 
-  <li>
-    <Link to="/about">About</Link>
-  </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
 
-  <li>
-    <Link to="/venues">Venues</Link>
-  </li>
+              <li>
+                <Link to="/venues">Venues</Link>
+              </li>
 
-  <li>
-    <Link to="/PhotoGallery">Photo Gallery</Link>
-  </li>
+              <li>
+                <Link to="/PhotoGallery">Photo Gallery</Link>
+              </li>
 
-  <li>
-    <Link to="/VideoGallery">Video Gallery</Link>
-  </li>
+              <li>
+                <Link to="/VideoGallery">Video Gallery</Link>
+              </li>
 
-  <li>
-    <Link to="/shorts-gallery">Shorts Gallery</Link>
-  </li>
+              <li>
+                <Link to="/shorts-gallery">Shorts Gallery</Link>
+              </li>
 
-  <li>
-    <Link to="/wedding-albums">Wedding Albums</Link>
-  </li>
+              <li>
+                <Link to="/wedding-albums">Wedding Albums</Link>
+              </li>
 
-  <li>
-    <Link to="/contact">Contact</Link>
-  </li>
-    
-  <li>
-    <Link to="admin">Admin Panel</Link>
-  </li>
+              <li>
+                <Link to="/contact">Contact</Link>
+              </li>
 
+              <li>
+                <Link to="/admin">Admin Panel</Link>
+              </li>
 
-</ul>
+            </ul>
 
-</ul>
           </div>
+
 
           {/* SERVICES */}
 
           <div>
+
             <h3>SERVICES</h3>
 
             <ul>
+
               <li>Corporate Events</li>
               <li>Wedding Planner</li>
               <li>Music & Entertainment</li>
               <li>Private Parties</li>
               <li>Destination Wedding</li>
               <li>Wedding Photography</li>
+
             </ul>
+
           </div>
+
 
           {/* OTHER LINKS */}
 
           <div>
+
             <h3>OTHER LINKS</h3>
 
             <ul>
+
               <li>Blog</li>
               <li>Testimonials</li>
               <li>Careers</li>
@@ -170,73 +206,112 @@ function Footer() {
               <li>Cancellation and Refund Policy</li>
               <li>Terms of Service</li>
               <li>Sitemap</li>
+
             </ul>
+
           </div>
+
 
           {/* CONTACT INFO */}
 
-         <div>
-  <h3>CONTACT INFO</h3>
+          <div>
 
-  {/* KOCHI */}
+            <h3>CONTACT INFO</h3>
 
-  <div className="contact-item">
-    <FaMapMarkerAlt />
 
-    <a
-      href="https://www.google.com/maps?q=Kakkanad,Kochi,Kerala"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Melodia Event Management, T V Center,
-      Kakkanad, Kochi, Kerala 682037
-    </a>
-  </div>
+            {/* KOCHI */}
 
-  {/* THRISSUR */}
+            <div className="contact-item">
 
-  <div className="contact-item">
-    <FaMapMarkerAlt />
+              <FaMapMarkerAlt />
 
-    <a
-      href="https://www.google.com/maps?q=Kuriachira,Thrissur,Kerala"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Melodia Event Management, Flamon Complex,
-      Main Rd, Kuriachira, Thrissur, Kerala 680006
-    </a>
-  </div>
+              <a
+                href="https://www.google.com/maps?q=Kakkanad,Kochi,Kerala"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Melodia Event Management, T V Center,
+                Kakkanad, Kochi, Kerala 682037
+              </a>
 
-  {/* CALICUT */}
+            </div>
 
-  <div className="contact-item">
-    <FaMapMarkerAlt />
 
-    <a
-      href="https://www.google.com/maps?q=Oorkadavu,Kozhikode,Kerala"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Melodia Event Management, Door No:VP
-      22/152ABC, Oorkadavu, Kozhikode, Kerala
-    </a>
-  </div>
+            {/* THRISSUR */}
 
-</div>
+            <div className="contact-item">
+
+              <FaMapMarkerAlt />
+
+              <a
+                href="https://www.google.com/maps?q=Kuriachira,Thrissur,Kerala"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Melodia Event Management, Flamon Complex,
+                Main Rd, Kuriachira, Thrissur, Kerala 680006
+              </a>
+
+            </div>
+
+
+            {/* CALICUT */}
+
+            <div className="contact-item">
+
+              <FaMapMarkerAlt />
+
+              <a
+                href="https://www.google.com/maps?q=Oorkadavu,Kozhikode,Kerala"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Melodia Event Management, Door No:VP
+                22/152ABC, Oorkadavu, Kozhikode, Kerala
+              </a>
+
+            </div>
+
+          </div>
 
         </div>
+
 
         {/* BOTTOM */}
 
         <div className="footer-bottom">
 
-          <div>
-            <FaPhoneAlt /> +91 859-0010011
-          </div>
+          {/* PHONE */}
 
           <div>
-            <FaEnvelope /> melodiaeventmanagement@gmail.com
+
+            <FaPhoneAlt />
+
+            <a
+              href={`tel:${settings?.phone || "+918590010011"}`}
+            >
+              {settings?.phone || "+91 859-0010011"}
+            </a>
+
+          </div>
+
+
+          {/* EMAIL */}
+
+          <div>
+
+            <FaEnvelope />
+
+            <a
+              href={`mailto:${
+                settings?.email ||
+                "melodiaeventmanagement@gmail.com"
+              }`}
+            >
+              {settings?.email ||
+                "melodiaeventmanagement@gmail.com"}
+            </a>
+
           </div>
 
         </div>

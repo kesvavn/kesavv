@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Request = require("../models/Request");
+const Availability = require("../models/Availability");
 const Pricing = require("../models/Pricing");
 const CancellationPolicy = require("../models/CancellationPolicy");
 const auth = require("../middleware/auth");
@@ -563,6 +564,49 @@ router.put("/confirm/:id", async (req, res) => {
     // ========================================
 
     booking.status = "Confirmed";
+
+    // ========================================
+// MARK DATE AS BOOKED
+// ========================================
+// ========================================
+// CHECK & MARK DATE AS BOOKED
+// ========================================
+
+const existingAvailability = await Availability.findOne({
+  venueId: booking.venueId,
+  date: new Date(booking.functionDate)
+});
+
+// Already blocked/holiday/maintenance
+if (
+  existingAvailability &&
+  ["Blocked", "Holiday", "Maintenance"].includes(
+    existingAvailability.status
+  )
+) {
+  return res.status(400).json({
+    success: false,
+    message: `Venue is ${existingAvailability.status} on this date`
+  });
+}
+
+// Mark date as Booked
+await Availability.findOneAndUpdate(
+  {
+    venueId: booking.venueId,
+    date: new Date(booking.functionDate)
+  },
+  {
+    venueId: booking.venueId,
+    date: new Date(booking.functionDate),
+    status: "Booked",
+    reason: "Booking Confirmed"
+  },
+  {
+    new: true,
+    upsert: true
+  }
+);
 
     // ========================================
     // INVOICE NUMBER

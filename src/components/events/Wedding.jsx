@@ -1,11 +1,60 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col ,Modal} from "react-bootstrap";
 import "./Wedding.css";
 import MyNavbar from "../../Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "../../images/pexels-krishna-studio-5200435_15_185637-162346933677604.webp";
 import Image1 from "../events/wedding-dance-111-1536x1023.webp";
+import BridalMakeup from "../events/adittional/332a513870a26733b22d07c5a3488305.jpg";
+import WeddingDecoration from "../events/adittional/3c4cb59ba463ffce424792d73236c049.jpg"
+import Weddingphoto from "../events/adittional/photography3.jpeg"
+import Weddingcatering from "../events/adittional/oasis-latest.webp"
+
+import MakeupBasic from "../events/adittional/makeupbasic.jpeg";
+import MakeupPremium from "../events/adittional/makuppremium.jpg";
+import MakeupLuxury from "../events/adittional/makeupluxry.jpg";
+
+import DecorationBasic from "../events/adittional/decrotionbasic.jpg";
+import DecorationPremium from "../events/adittional/decrotionluxry.jpg";
+import DecorationLuxury from "../events/adittional/decrotionpremium.jpg";
+
+import PhotographyBasic from "../events/adittional/photographybasic.jpeg";
+import PhotographyPremium from "../events/adittional/photographyluxry.jpeg";
+import PhotographyLuxury from "../events/adittional/photographypremium.jpeg";
+
+import FoodVeg from "../events/adittional/cateringveg.jpg";
+import FoodNonVeg from "../events/adittional/c.jpg";
+
+
 function Wedding() {
-   useEffect(() => {
+const [selectedPackage, setSelectedPackage] = useState(null);
+const packageImages = {
+
+  makeup: {
+    basic: MakeupBasic,
+    premium: MakeupPremium,
+    luxury: MakeupLuxury,
+  },
+
+  decoration: {
+    basic: DecorationBasic,
+    premium: DecorationPremium,
+    luxury: DecorationLuxury,
+  },
+
+  photography: {
+    basic: PhotographyBasic,
+    premium: PhotographyPremium,
+    luxury: PhotographyLuxury,
+  },
+
+
+    food: {
+    veg: FoodVeg,
+    nonveg: FoodNonVeg,
+  }
+};
+
+useEffect(() => {
     window.scrollTo(0, 0);   
   }, []);
 
@@ -104,9 +153,371 @@ This particular event was for Dr. Pfizer, a client of Melodia Events, who is ass
         ></iframe>
       </div>
     </Col>
+
+    
   </Row>
 </Container><br /><br />
-      
+    <Col lg={12} className="additional-packages">
+
+  <h1 className="wedding-heading text-center">
+    Wedding Additional Packages
+  </h1>
+
+  <p className="text-para1 text-center">
+    Choose the perfect package for your special day
+  </p>
+
+  <Row className="g-4 mt-4">
+
+    {/* MAKEUP */}
+
+    <Col lg={4} md={6}>
+
+      <div
+        className="main-package-card"
+        onClick={() => setSelectedPackage("makeup")}
+      >
+
+        <img
+          src={BridalMakeup}
+          alt="Bridal Makeup"
+          className="main-package-image"
+        />
+
+        <div className="main-package-content">
+
+          <h3>Bridal Makeup</h3>
+
+          <p>
+            Professional bridal makeup services for your
+            beautiful wedding look.
+          </p>
+
+          <button
+            type="button"
+            className="view-package-btn"
+          >
+            View Packages
+          </button>
+
+        </div>
+
+      </div>
+
+    </Col>
+
+
+    {/* DECORATION */}
+
+    <Col lg={4} md={6}>
+
+      <div
+        className="main-package-card"
+        onClick={() => setSelectedPackage("decoration")}
+      >
+
+        <img
+          src={WeddingDecoration}
+          alt="Wedding Decoration"
+          className="main-package-image"
+        />
+
+        <div className="main-package-content">
+
+          <h3>Wedding Decoration</h3>
+
+          <p>
+            Elegant decoration designed for your
+            beautiful wedding celebration.
+          </p>
+
+          <button
+            type="button"
+            className="view-package-btn"
+          >
+            View Packages
+          </button>
+
+        </div>
+
+      </div>
+
+    </Col>
+
+
+    {/* PHOTOGRAPHY */}
+
+    <Col lg={4} md={6}>
+
+      <div
+        className="main-package-card"
+        onClick={() => setSelectedPackage("photography")}
+      >
+
+        <img
+          src={Weddingphoto}
+          alt="Wedding Photography"
+          className="main-package-image"
+        />
+
+        <div className="main-package-content">
+
+          <h3>Wedding Photography</h3>
+
+          <p>
+            Capture every beautiful moment of your
+            memorable wedding day.
+          </p>
+
+          <button
+            type="button"
+            className="view-package-btn"
+          >
+            View Packages
+          </button>
+
+        </div>
+
+      </div>
+
+    </Col>
+
+
+
+    {/* FOOD */}
+
+    <Col lg={4} md={6}>
+
+      <div
+        className="main-package-card"
+        onClick={() => setSelectedPackage("food")}
+      >
+
+        <img
+          src={Weddingcatering}
+          alt="Wedding Food"
+          className="main-package-image"
+        />
+
+        <div className="main-package-content">
+
+          <h3>Wedding Catering</h3>
+
+          <p>
+            Delicious traditional and premium food
+            options for your wedding guests.
+          </p>
+
+          <button
+            type="button"
+            className="view-package-btn"
+          >
+            View Packages
+          </button>
+
+        </div>
+
+      </div>
+
+    </Col>
+
+  </Row>
+
+
+
+{/* ================= POPUP ================= */}
+{/* ================= POPUP ================= */}
+
+<Modal
+  show={selectedPackage !== null}
+  onHide={() => setSelectedPackage(null)}
+  centered
+  size="lg"
+>
+
+  <Modal.Header closeButton>
+
+    <Modal.Title>
+
+      {selectedPackage === "makeup" &&
+        "Bridal Makeup Packages"}
+
+      {selectedPackage === "decoration" &&
+        "Wedding Decoration Packages"}
+
+      {selectedPackage === "photography" &&
+        "Wedding Photography Packages"}
+
+      {selectedPackage === "food" &&
+        "Wedding Food Packages"}
+
+    </Modal.Title>
+
+  </Modal.Header>
+
+
+  <Modal.Body>
+
+    {/* ================= FOOD ================= */}
+
+    {selectedPackage === "food" ? (
+
+      <Row className="g-4">
+
+        {/* VEG */}
+
+        <Col lg={6} md={6}>
+
+          <div className="wedding-package-card">
+
+            <img
+              src={packageImages.food.veg}
+              alt="Veg Food"
+              className="package-card-img"
+            />
+
+            <div className="package-card-content">
+
+              <h3>Veg</h3>
+
+              <p>
+                Traditional Kerala vegetarian food
+                and delicious wedding catering options.
+              </p>
+
+            </div>
+
+          </div>
+
+        </Col>
+
+
+        {/* NON VEG */}
+
+        <Col lg={6} md={6}>
+
+          <div className="wedding-package-card">
+
+            <img
+              src={packageImages.food.nonveg}
+              alt="Non Veg Food"
+              className="package-card-img"
+            />
+
+            <div className="package-card-content">
+
+              <h3>Non-Veg</h3>
+
+              <p>
+                Delicious non-vegetarian dishes with
+                traditional wedding specialties.
+              </p>
+
+            </div>
+
+          </div>
+
+        </Col>
+
+      </Row>
+
+    ) : (
+
+      /* ================= BASIC / PREMIUM / LUXURY ================= */
+
+      <Row className="g-4">
+
+        {/* BASIC */}
+
+        <Col lg={4} md={6}>
+
+          <div className="wedding-package-card">
+
+            <img
+              src={packageImages[selectedPackage]?.basic}
+              alt="Basic Package"
+              className="package-card-img"
+            />
+
+            <div className="package-card-content">
+
+              <h3>Basic</h3>
+
+              <p>
+                Essential services with a simple
+                and elegant wedding experience.
+              </p>
+
+            </div>
+
+          </div>
+
+        </Col>
+
+
+        {/* PREMIUM */}
+
+        <Col lg={4} md={6}>
+
+          <div className="wedding-package-card">
+
+            <img
+              src={packageImages[selectedPackage]?.premium}
+              alt="Premium Package"
+              className="package-card-img"
+            />
+
+            <div className="package-card-content">
+
+              <h3>Premium</h3>
+
+              <p>
+                Enhanced services with beautiful
+                arrangements for your special day.
+              </p>
+
+            </div>
+
+          </div>
+
+        </Col>
+
+
+        {/* LUXURY */}
+
+        <Col lg={4} md={6}>
+
+          <div className="wedding-package-card">
+
+            <img
+              src={packageImages[selectedPackage]?.luxury}
+              alt="Luxury Package"
+              className="package-card-img"
+            />
+
+            <div className="package-card-content">
+
+              <h3>Luxury</h3>
+
+              <p>
+                Premium services with customized
+                arrangements and luxury experience.
+              </p>
+
+            </div>
+
+          </div>
+
+        </Col>
+
+      </Row>
+
+    )}
+
+  </Modal.Body>
+
+</Modal>
+</Col>
   
     </>
   );
