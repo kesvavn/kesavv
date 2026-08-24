@@ -256,8 +256,10 @@ height:650px;
 @media (min-width:1025px) and (max-width:1440px){
 
 .hero-bg{
-min-height:90vh;
+min-height:100vh;
 }
+
+
 
 .about-heading{
 font-size:45px;

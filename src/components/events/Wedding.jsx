@@ -326,7 +326,7 @@ This particular event was for Dr. Pfizer, a client of Melodia Events, who is ass
 
 
 {/* ================= POPUP ================= */}
-{/* ================= POPUP ================= */}
+
 
 <Modal
   show={selectedPackage !== null}
