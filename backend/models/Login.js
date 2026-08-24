@@ -63,7 +63,4 @@ timestamps:true,
 );
 
 
-module.exports = mongoose.model(
-"Login",
-loginSchema
-);
+module.exports = mongoose.model("Login",loginSchema);

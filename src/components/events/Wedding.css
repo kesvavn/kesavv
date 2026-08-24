@@ -142,6 +142,10 @@
 /* Large Desktop */
 @media (max-width: 1400px) {
 
+  .wedding-bg {
+    min-height: 90vh;
+  }
+
   .container1 {
     padding: 60px;
   }
